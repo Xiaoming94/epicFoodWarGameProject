@@ -8,6 +8,7 @@ SpaghettiWars/epicFoodWarGameProject.iml
 
 SpaghettiWars/.texlipse
 *.class
+SpaghettiWars/out/
 
 # Mobile Tools for Java (J2ME)
 SpaghettiWars/.mtj.tmp/
