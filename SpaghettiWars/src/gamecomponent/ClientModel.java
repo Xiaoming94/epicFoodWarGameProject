@@ -1,9 +1,17 @@
 package gamecomponent;
 
+import java.util.ArrayList;
+
 public class ClientModel {
 	
+	/*ArrayList<Entity> entities;
+	
 	public ClientModel (){
-		System.out.print("Worked");
+		entities = new ArrayList<Entity>();
 	}
+	
+	public List<Entity> getEntitys(){
+		return entities;
+	}*/
 
 }
