@@ -1,3 +1,6 @@
+/*
+ *		Author: Jimmy Eliason Malmer
+ */
 package gamecomponent;
 
 import org.lwjgl.opengl.GL11;
@@ -11,9 +14,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
+import entities.Entity;
+
 public class View implements ApplicationListener{
     
-	ClientModel model;
+	Model model;
 	LwjglApplication app;
 	
 	OrthographicCamera camera;
@@ -22,10 +27,10 @@ public class View implements ApplicationListener{
 	Rectangle bucket;
 	Texture bucketImage;
 	
-	public View(ClientModel m){
+	public View(Model m){
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-	    cfg.title = "Drop";
+	    cfg.title = "Spaghetti Wars";
 	    cfg.width = 800;
 	    cfg.height = 480;
 		app = new LwjglApplication(this, cfg);
@@ -38,14 +43,6 @@ public class View implements ApplicationListener{
 		camera.setToOrtho(false, 800, 480);
 		
 		batch = new SpriteBatch();
-		
-		bucketImage = new Texture("assets/bucket.png");
-		
-		bucket = new Rectangle();
-		bucket.x = 800 / 2 - 64 / 2;
-		bucket.y = 20;
-		bucket.width = 64;
-		bucket.height = 64;
 	}
 
 	@Override
@@ -64,10 +61,9 @@ public class View implements ApplicationListener{
 	    
 	    batch.setProjectionMatrix(camera.combined);
 	    batch.begin();
-	    batch.draw(bucketImage, bucket.x, bucket.y);
+	    for(Entity e : model.getEntitys())
+	    	batch.draw(e.getSprite().getTexture(), e.getSprite().getX(), e.getSprite().getY());
 	    batch.end();
-	    
-	    bucket.x++;
 	}
 
 	@Override

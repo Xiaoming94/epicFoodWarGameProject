@@ -2,9 +2,9 @@ package gamecomponent;
 
 public class Controller implements Runnable{
 	
-	ClientModel model;
+	Model model;
 	
-	public Controller(ClientModel m){
+	public Controller(Model m){
 		model = m;
 	}
 
