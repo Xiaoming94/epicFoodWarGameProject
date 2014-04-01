@@ -1,5 +1,7 @@
 package entities;
 
+import utilities.Vector;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public abstract class Entity {
