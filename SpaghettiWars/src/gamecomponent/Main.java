@@ -14,8 +14,6 @@ public class Main{
 		Thread ct = new Thread(new Controller(model));
 		ct.start();
 		
-		System.out.print("motherfucker");
-		
 	}
 	
 }
