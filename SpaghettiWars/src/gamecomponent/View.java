@@ -2,31 +2,14 @@ package gamecomponent;
 
 import org.lwjgl.opengl.GL11;
 
-import screens.GameScreen;
-
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Audio;
-import com.badlogic.gdx.Files;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.LifecycleListener;
-import com.badlogic.gdx.Net;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.BaseDrawable;
 
 public class View implements ApplicationListener{
     
