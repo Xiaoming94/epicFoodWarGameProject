@@ -3,7 +3,12 @@
  */
 package gamecomponent;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import org.lwjgl.opengl.GL11;
+
+import utilities.NameTexture;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -11,10 +16,12 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import entities.Entity;
+import entities.Player;
 
 public class View implements ApplicationListener{
     
@@ -43,6 +50,15 @@ public class View implements ApplicationListener{
 		camera.setToOrtho(false, 800, 480);
 		
 		batch = new SpriteBatch();
+		
+		model.setTextureList(loadTextures());
+		
+		//sleep to wait for player to be created by controller
+		try{
+		    Thread.sleep(1500);
+		}catch(InterruptedException e){
+		    System.out.println("got interrupted!");
+		}
 	}
 
 	@Override
@@ -61,6 +77,7 @@ public class View implements ApplicationListener{
 	    
 	    batch.setProjectionMatrix(camera.combined);
 	    batch.begin();
+	    batch.draw(model.getPlayer().getSprite().getTexture(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getX());
 	    for(Entity e : model.getEntitys())
 	    	batch.draw(e.getSprite().getTexture(), e.getSprite().getX(), e.getSprite().getY());
 	    batch.end();
@@ -82,5 +99,13 @@ public class View implements ApplicationListener{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private ArrayList<NameTexture> loadTextures(){
+		ArrayList<NameTexture> l = new ArrayList<NameTexture>();
+		
+		l.add(new NameTexture("assets/bucket.png"));
+		
+		return l;
 	}
 }
