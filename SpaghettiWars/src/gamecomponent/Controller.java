@@ -1,54 +1,84 @@
 package gamecomponent;
 
-
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Player;
 
-public class Controller implements Runnable, InputProcessor{
-	
-	Model model;
+public class Controller implements Runnable, InputProcessor {
 
-	
-	public Controller(Model m){
+	Model model;
+	private boolean up, down, left, right;
+
+	public Controller(Model m) {
 		model = m;
-		 Gdx.input.setInputProcessor(this);
+		Gdx.input.setInputProcessor(this);
 	}
 
 	@Override
 	public void run() {
-		//wait for View to load textures before controller try to create player
-		try{
+		// wait for View to load textures before controller try to create player
+		try {
 			Thread.sleep(1000);
-		}catch(InterruptedException e){
+		} catch (InterruptedException e) {
 			System.out.println("got interrupted!");
 		}
 		model.createPlayer();
-		
+
 		model.getPlayer().setVector(0.5, 1);
-		while(true){
+		while (true) {
 			model.getPlayer().move();
-			
-			try{
+
+			try {
 				Thread.sleep(50);
-			}catch(InterruptedException e){
+			} catch (InterruptedException e) {
 				System.out.println("got interrupted!");
 			}
 		}
-		
+
 	}
 
 	@Override
 	public boolean keyDown(int keycode) {
-		System.out.println("hejsan");
+		System.out.println(keycode);
+
+		switch (keycode) {
+		case (Keys.W):
+			up = true;
+			break;
+		case (Keys.S):
+			down = true;
+			break;
+		case (Keys.A):
+			left = true;
+			break;
+		case (Keys.D):
+			right = true;
+			break;
+		}
+
 		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
+
+		switch (keycode) {
+		case (Keys.W):
+			up = false;
+			break;
+		case (Keys.S):
+			down = false;
+			break;
+		case (Keys.A):
+			left = false;
+			break;
+		case (Keys.D):
+			right = false;
+			break;
+		}
 		return false;
 	}
 
