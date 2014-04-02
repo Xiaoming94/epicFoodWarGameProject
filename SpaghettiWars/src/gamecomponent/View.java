@@ -1,6 +1,14 @@
+/*
+ *		Author: Jimmy Eliason Malmer
+ */
 package gamecomponent;
 
+import java.awt.List;
+import java.util.ArrayList;
+
 import org.lwjgl.opengl.GL11;
+
+import utilities.NameTexture;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
@@ -8,12 +16,16 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
+import entities.Entity;
+import entities.Player;
+
 public class View implements ApplicationListener{
     
-	ClientModel model;
+	Model model;
 	LwjglApplication app;
 	
 	OrthographicCamera camera;
@@ -22,10 +34,10 @@ public class View implements ApplicationListener{
 	Rectangle bucket;
 	Texture bucketImage;
 	
-	public View(ClientModel m){
+	public View(Model m){
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-	    cfg.title = "Drop";
+	    cfg.title = "Spaghetti Wars";
 	    cfg.width = 800;
 	    cfg.height = 480;
 		app = new LwjglApplication(this, cfg);
@@ -39,13 +51,14 @@ public class View implements ApplicationListener{
 		
 		batch = new SpriteBatch();
 		
-		bucketImage = new Texture("assets/bucket.png");
+		model.setTextureList(loadTextures());
 		
-		bucket = new Rectangle();
-		bucket.x = 800 / 2 - 64 / 2;
-		bucket.y = 20;
-		bucket.width = 64;
-		bucket.height = 64;
+		//sleep to wait for player to be created by controller
+		try{
+		    Thread.sleep(1000);
+		}catch(InterruptedException e){
+		    System.out.println("got interrupted!");
+		}
 	}
 
 	@Override
@@ -56,7 +69,6 @@ public class View implements ApplicationListener{
 
 	@Override
 	public void render() {
-		
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 	    Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
 	    
@@ -64,10 +76,10 @@ public class View implements ApplicationListener{
 	    
 	    batch.setProjectionMatrix(camera.combined);
 	    batch.begin();
-	    batch.draw(bucketImage, bucket.x, bucket.y);
+	    batch.draw(model.getPlayer().getSprite().getTexture(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY());
+	    for(Entity e : model.getEntitys())
+	    	batch.draw(e.getSprite().getTexture(), e.getSprite().getX(), e.getSprite().getY());
 	    batch.end();
-	    
-	    bucket.x++;
 	}
 
 	@Override
@@ -86,5 +98,13 @@ public class View implements ApplicationListener{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private ArrayList<NameTexture> loadTextures(){
+		ArrayList<NameTexture> l = new ArrayList<NameTexture>();
+		
+		l.add(new NameTexture("assets/bucket.png"));
+		
+		return l;
 	}
 }

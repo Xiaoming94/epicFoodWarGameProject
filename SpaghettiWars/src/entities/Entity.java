@@ -36,6 +36,9 @@ public abstract class Entity {
 	public void move(){
 		x += vector.getDeltaX();
 		y += vector.getDeltaY();
+		
+		this.sprite.setX((float)x);
+		this.sprite.setY((float)y);
 	}
 	
 	public double getX(){
