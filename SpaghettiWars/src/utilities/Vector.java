@@ -33,16 +33,16 @@ public class Vector {
 	}
 
 //logic should be somewhere else...? what when both are zero?
-//	public void setLengthTo(double length, (rotation, riktning??)){
-//		if(dx == 0){
-//			dy = (dy/Math.abs(dy))*length;
-//		}else if(dy == 0){
-//			dx = (dx/Math.abs(dx))*length;
-//		}else{
-//			dx = (dx/Math.abs(dx))*length/Math.sqrt(2);
-//			dy = (dy/Math.abs(dy))*length/Math.sqrt(2);	
-//		}
-//	}
+	public void setLengthTo(double length){
+		if(dx == 0){
+			dy = (dy/Math.abs(dy))*length;
+		}else if(dy == 0){
+			dx = (dx/Math.abs(dx))*length;
+		}else{
+			dx = (dx/Math.abs(dx))*length/Math.sqrt(2);
+			dy = (dy/Math.abs(dy))*length/Math.sqrt(2);	
+		}
+	}
 	
 	public void setVector(double length, double degree){
 		dx = length * Math.cos(Math.toRadians(degree));
