@@ -12,11 +12,17 @@ public class Controller implements Runnable, InputProcessor {
 
 	Model model;
 	private boolean up, down, left, right;
+	
+	private Direction currentDirection;
 
+	public enum Direction{
+		NORTH,SOUTH,WEST,EAST,NORTHWEST,NORTHEAST,SOUTHWEST,SOUTHEAST,STAY
+	}
 	public Controller(Model m) {
 		model = m;
 		Gdx.input.setInputProcessor(this);
 	}
+	
 
 	@Override
 	public void run() {
@@ -62,7 +68,8 @@ public class Controller implements Runnable, InputProcessor {
 			right = true;
 			break;
 		}
-		
+		getDirection();
+		model.getPlayer().setPlayerDirection(currentDirection);
 		return false;
 	}
 
@@ -83,6 +90,9 @@ public class Controller implements Runnable, InputProcessor {
 			right = false;
 			break;
 		}
+		getDirection();
+		model.getPlayer().setPlayerDirection(currentDirection);
+		
 		return false;
 	}
 
@@ -120,5 +130,34 @@ public class Controller implements Runnable, InputProcessor {
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	public void getDirection(){
+		currentDirection = Direction.STAY;
+
+		if(up && !down){
+			if(left && !right){
+				currentDirection = Direction.NORTHWEST;
+			}else if(right && !left){
+				currentDirection = Direction.NORTHEAST;
+			}else{
+				currentDirection = Direction.NORTH;
+			}
+		}
+		else if(down && !up){
+			if(left && !right){
+				currentDirection = Direction.SOUTHWEST;
+			}else if(right && !left){
+				currentDirection = Direction.SOUTHEAST;
+			}else{
+				currentDirection = Direction.SOUTH;
+			}
+		}else if(right && !left){
+			currentDirection = Direction.EAST;
+		}else if(left && !right){
+			currentDirection = Direction.WEST;
+		}
+		
+		//return currentDirection;
+		
 	}
 }

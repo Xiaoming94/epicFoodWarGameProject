@@ -28,6 +28,11 @@ public class Vector {
 		this.dy = dy;
 	}
 	
+	public void setVector(double dx, double dy){
+		setDeltaX(dx);
+		setDeltaY(dy);
+	}
+	
 	public double getLength(){
 		return Math.sqrt(dx*dx + dy*dy);
 	}
@@ -44,7 +49,7 @@ public class Vector {
 		}
 	}
 	
-	public void setVector(double length, double degree){
+	public void setVectorByDegree(double length, double degree){
 		dx = length * Math.cos(Math.toRadians(degree));
 		dy = length * Math.sin(Math.toRadians(degree));
 	}

@@ -40,7 +40,7 @@ public class Model {
 	}
 	
 	public void createPlayer(){
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 1);
+		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 10);
 	}
 	
 	public void setTextureList(ArrayList<NameTexture> l){
