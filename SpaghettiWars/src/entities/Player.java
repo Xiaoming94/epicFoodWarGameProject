@@ -45,7 +45,7 @@ public class Player extends Entity {
 	
 	public void setSpeed(double speed){
 		this.speed = speed;
-		this.getVector().setLengthTo(speed);
+//		this.getVector().setLengthTo(speed);
 	}
 	
 	public double getSpeed(){
