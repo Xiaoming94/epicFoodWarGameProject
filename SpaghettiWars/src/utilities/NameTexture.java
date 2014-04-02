@@ -10,7 +10,6 @@ public class NameTexture extends Texture {
 		super(internalPath);
 		
 		name = internalPath.substring(7);
-		System.out.print(name);
 	}
 
 	public String getName(){

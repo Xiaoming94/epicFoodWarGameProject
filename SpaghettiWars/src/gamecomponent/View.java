@@ -55,7 +55,7 @@ public class View implements ApplicationListener{
 		
 		//sleep to wait for player to be created by controller
 		try{
-		    Thread.sleep(1500);
+		    Thread.sleep(1000);
 		}catch(InterruptedException e){
 		    System.out.println("got interrupted!");
 		}
@@ -69,7 +69,6 @@ public class View implements ApplicationListener{
 
 	@Override
 	public void render() {
-		
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 	    Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
 	    
@@ -77,7 +76,7 @@ public class View implements ApplicationListener{
 	    
 	    batch.setProjectionMatrix(camera.combined);
 	    batch.begin();
-	    batch.draw(model.getPlayer().getSprite().getTexture(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getX());
+	    batch.draw(model.getPlayer().getSprite().getTexture(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY());
 	    for(Entity e : model.getEntitys())
 	    	batch.draw(e.getSprite().getTexture(), e.getSprite().getX(), e.getSprite().getY());
 	    batch.end();

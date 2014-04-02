@@ -41,14 +41,12 @@ public class Model {
 	
 	public void setTextureList(ArrayList<NameTexture> l){
 		textures = l;
-		System.out.print("set");
 	}
 	
 	private NameTexture getTextureByName(String name){
 		for(NameTexture e : textures)
 			if(e.getName().equals(name))
 				return e;
-		System.out.print("get");
 		return null;
 	}
 
