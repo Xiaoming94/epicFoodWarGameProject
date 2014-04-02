@@ -58,7 +58,7 @@ public class Controller implements Runnable, InputProcessor {
 			right = true;
 			break;
 		}
-
+		
 		return false;
 	}
 
