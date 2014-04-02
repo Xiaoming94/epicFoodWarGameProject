@@ -31,19 +31,23 @@ public class Model {
 		return entities;
 	}
 	
+	public void addEntity(Entity e){
+		entities.add(e);
+	}
+	
 	public Player getPlayer(){
 		return player;
 	}
 	
 	public void createPlayer(){
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("bucket.png")), 1);
+		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 1);
 	}
 	
 	public void setTextureList(ArrayList<NameTexture> l){
 		textures = l;
 	}
 	
-	private NameTexture getTextureByName(String name){
+	public NameTexture getTextureByName(String name){
 		for(NameTexture e : textures)
 			if(e.getName().equals(name))
 				return e;

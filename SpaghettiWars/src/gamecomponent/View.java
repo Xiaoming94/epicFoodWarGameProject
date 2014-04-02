@@ -72,9 +72,13 @@ public class View implements ApplicationListener{
 		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
 	    Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
 	    
+	    camera.position.set(model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY(),0);
+	    
 	    camera.update();
 	    
 	    batch.setProjectionMatrix(camera.combined);
+	    
+	    //batch.enableBlending();
 	    batch.begin();
 	    batch.draw(model.getPlayer().getSprite().getTexture(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY());
 	    for(Entity e : model.getEntitys())
@@ -103,7 +107,8 @@ public class View implements ApplicationListener{
 	private ArrayList<NameTexture> loadTextures(){
 		ArrayList<NameTexture> l = new ArrayList<NameTexture>();
 		
-		l.add(new NameTexture("assets/bucket.png"));
+		l.add(new NameTexture("assets/ful.png"));
+		l.add(new NameTexture("assets/dummylogo.png"));
 		
 		return l;
 	}

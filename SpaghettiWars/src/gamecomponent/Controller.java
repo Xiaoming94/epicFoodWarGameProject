@@ -3,6 +3,7 @@ package gamecomponent;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Player;
+import entities.Projectile;
 
 public class Controller implements Runnable{
 	
@@ -21,6 +22,7 @@ public class Controller implements Runnable{
 			System.out.println("got interrupted!");
 		}
 		model.createPlayer();
+		model.addEntity(new Player("Sir derp", 50, 100, new Sprite(model.getTextureByName("dummylogo.png")), 0));
 		
 		model.getPlayer().setVector(0.5, 1);
 		while(true){
@@ -28,6 +30,7 @@ public class Controller implements Runnable{
 			
 			try{
 				Thread.sleep(50);
+				//TODO synched sleep
 			}catch(InterruptedException e){
 				System.out.println("got interrupted!");
 			}
