@@ -10,6 +10,8 @@ public class Player extends Entity {
 	private boolean isDead = false;
 	
 	private double speed;
+	private PowerUp powerUp = null;
+	
 	
 	public Player(String name, double x, double y, Sprite sprite, int speed){
 		super(x, y, sprite);
@@ -48,6 +50,19 @@ public class Player extends Entity {
 	
 	public double getSpeed(){
 		return speed;
+	}
+	
+	public void collectPowerUp(PowerUp powerUp){
+		if(this.powerUp == null){
+			this.powerUp = powerUp;
+		}else{
+			//somethingsomething...
+		}
+	}
+	
+	public void usePowerUp(){
+		powerUp.applyEffects(this); // or setActive() ? i have no idea what i'm doing...
+		this.powerUp = null;
 	}
 	
 }

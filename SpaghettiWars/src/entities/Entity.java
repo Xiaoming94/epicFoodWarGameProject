@@ -10,6 +10,7 @@ public abstract class Entity {
 	private double y;
 	private Vector vector;
 	private Sprite sprite;
+	//private double speed;
 	
 	public Entity(double x, double y, Sprite sprite){
 		this.x = x;
