@@ -40,8 +40,8 @@ public abstract class Entity {
 		x += vector.getDeltaX();
 		y += vector.getDeltaY();
 		
-		this.sprite.setX((float)x);
-		this.sprite.setY((float)y);
+		this.sprite.setX((float)x-this.sprite.getWidth()/2);
+		this.sprite.setY((float)y-this.sprite.getHeight()/2);
 	}
 	
 	public double getX(){
