@@ -74,6 +74,10 @@ public abstract class Entity {
 	public void setSpeed(double speed){
 		this.speedFactor = speed;
 	}
+	
+	public double getSpeed(){
+		return speedFactor;
+	}
 
 
 }
