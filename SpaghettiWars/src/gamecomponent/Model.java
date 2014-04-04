@@ -129,7 +129,7 @@ public class Model {
 	}
 
 	private void shoot() {
-		// TODO Auto-generated method stub
+		System.out.println("SHOOTING!");
 		
 	}
 
