@@ -69,4 +69,12 @@ public abstract class Entity {
 	public Sprite getSprite(){
 		return sprite;
 	}
+	
+	public void setSpeed(double speed){
+		speedFactor = speed;
+	}
+	
+	public double getSpeed(){
+		return speedFactor;
+	}
 }
