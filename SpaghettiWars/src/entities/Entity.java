@@ -1,5 +1,8 @@
 package entities;
 
+
+
+import utilities.Position;
 import utilities.Vector;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -10,7 +13,7 @@ public abstract class Entity {
 	private double y;
 	private Vector vector;
 	private Sprite sprite;
-	//private double speed;
+	private double speedFactor;
 	
 	public Entity(double x, double y, Sprite sprite){
 		this.x = x;
@@ -37,8 +40,8 @@ public abstract class Entity {
 		x += vector.getDeltaX();
 		y += vector.getDeltaY();
 		
-		this.sprite.setX((float)x);
-		this.sprite.setY((float)y);
+		this.sprite.setX((float)x-this.sprite.getWidth()/2);
+		this.sprite.setY((float)y-this.sprite.getHeight()/2);
 	}
 	
 	public double getX(){
@@ -59,6 +62,13 @@ public abstract class Entity {
 	
 	public Vector getVector(){
 		return vector; 
+	}
+	
+	//author: Louise & Jimmy
+	public void setVector(Position pos){
+		double hyp = Math.sqrt(Math.pow(pos.getX() - this.getX(), 2) + Math.pow(pos.getY() - this.getY(), 2));
+		double factor = speedFactor/hyp;
+		this.vector.setVector((pos.getX() - this.getX()) * factor,(pos.getY() - this.getY()) * factor );
 	}
 	
 	public void setVector(double dx, double dy){
