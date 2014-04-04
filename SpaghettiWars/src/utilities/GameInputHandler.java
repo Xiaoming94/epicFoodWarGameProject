@@ -26,7 +26,7 @@ public class GameInputHandler implements InputProcessor {
 	@Override
 	public boolean keyUp(int keyCode) {
 		gameModel.checkReleasedKey(keyCode);
-		return false;
+		return true;
 	}
 
 	@Override
@@ -42,9 +42,9 @@ public class GameInputHandler implements InputProcessor {
 	}
 
 	@Override
-	public boolean touchDown(int arg0, int arg1, int arg2, int arg3) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		gameModel.mouseButtonPressed(button);
+		return true;
 	}
 
 	@Override
