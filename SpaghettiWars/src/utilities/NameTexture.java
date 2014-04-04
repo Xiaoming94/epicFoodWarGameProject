@@ -7,9 +7,9 @@ public class NameTexture extends Texture {
 	String name;
 	
 	public NameTexture(String internalPath) {
-		super(internalPath);
+		super("assets/" + internalPath);
 		
-		name = internalPath.substring(7);
+		name = internalPath;
 	}
 
 	public String getName(){
