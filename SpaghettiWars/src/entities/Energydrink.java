@@ -21,7 +21,4 @@ public class Energydrink extends PowerUp {
 	public void stopEffects(Entity player){
 		
 	}
-	
-	
-
 }

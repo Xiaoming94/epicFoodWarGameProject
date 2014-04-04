@@ -69,6 +69,4 @@ public abstract class Entity {
 	public Sprite getSprite(){
 		return sprite;
 	}
-
-
 }
