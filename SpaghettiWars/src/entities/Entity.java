@@ -16,25 +16,15 @@ public abstract class Entity {
 	private double speedFactor;
 	
 	public Entity(double x, double y, Sprite sprite){
-		this.x = x;
-		this.y = y;
-		this.sprite = sprite;
-		vector = new Vector(0.0,0.0);
+		this(x, y, new Vector(0,0), sprite);
 	}
 	
 	public Entity(double x, double y, Vector vector, Sprite sprite){
 		this.x = x;
 		this.y = y;
+		this.sprite = sprite;
 		this.vector = vector;
-		this.sprite = sprite;
-	}
-	
-	public Entity(double x, double y, double dx, double dy, Sprite sprite){
-		this.x = x;
-		this.y = y;
-		this.sprite = sprite;
-		vector = new Vector(dx, dy);
-	}
+	}	
 	
 	public void move(){
 		x += vector.getDeltaX();
