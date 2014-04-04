@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import utilities.NameTexture;
 
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -121,32 +122,15 @@ public class Model {
 		}
 	}
 	
-//	public void getDirection(){
-//		currentDirection = Direction.STAY;
-//
-//		if(up && !down){
-//			if(left && !right){
-//				currentDirection = Direction.NORTHWEST;
-//			}else if(right && !left){
-//				currentDirection = Direction.NORTHEAST;
-//			}else{
-//				currentDirection = Direction.NORTH;
-//			}
-//		}
-//		else if(down && !up){
-//			if(left && !right){
-//				currentDirection = Direction.SOUTHWEST;
-//			}else if(right && !left){
-//				currentDirection = Direction.SOUTHEAST;
-//			}else{
-//				currentDirection = Direction.SOUTH;
-//			}
-//		}else if(right && !left){
-//			currentDirection = Direction.EAST;
-//		}else if(left && !right){
-//			currentDirection = Direction.WEST;
-//		}
+	public void mouseButtonPressed(int mouseButton){
+		if (mouseButton == Buttons.LEFT){
+			shoot();
+		}
+	}
+
+	private void shoot() {
+		// TODO Auto-generated method stub
 		
-		//return currentDirection;
+	}
 
 }
