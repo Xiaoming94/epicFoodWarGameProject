@@ -68,7 +68,7 @@ public class Controller implements Runnable, InputProcessor {
 			right = true;
 			break;
 		}
-		getDirection();
+		updateDirection();
 		model.getPlayer().setPlayerDirection(currentDirection);
 		return false;
 	}
@@ -90,7 +90,7 @@ public class Controller implements Runnable, InputProcessor {
 			right = false;
 			break;
 		}
-		getDirection();
+		updateDirection();
 		model.getPlayer().setPlayerDirection(currentDirection);
 		
 		return false;
@@ -131,7 +131,7 @@ public class Controller implements Runnable, InputProcessor {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	public void getDirection(){
+	public void updateDirection(){
 		currentDirection = Direction.STAY;
 
 		if(up && !down){
