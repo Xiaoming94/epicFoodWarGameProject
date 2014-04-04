@@ -3,7 +3,6 @@
  */
 package gamecomponent;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
@@ -16,12 +15,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import entities.Entity;
-import entities.Player;
 
 public class View implements ApplicationListener{
     

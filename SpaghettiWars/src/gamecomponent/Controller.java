@@ -3,12 +3,9 @@ package gamecomponent;
 import utilities.GameInputHandler;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Player;
-import entities.Projectile;
 
 public class Controller implements Runnable {
 
