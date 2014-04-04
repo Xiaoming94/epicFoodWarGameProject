@@ -54,38 +54,38 @@ public class Player extends Entity {
 		return speed;
 	}
 	
-	public void setPlayerDirection(Controller.Direction dir){
-		switch(dir){
-		case NORTH:
-			getVector().setVector(0, 1*speed);
-			
-			break;
-		case NORTHEAST:
-			getVector().setVectorByDegree(1*speed, 45);
-			break;
-		case EAST:
-			getVector().setVector(1*speed, 0);
-			break;
-		case SOUTHEAST:
-			getVector().setVectorByDegree(1*speed, 315);
-			break;
-		case SOUTH:
-			getVector().setVector(0, -1*speed);
-			break;
-		case SOUTHWEST:
-			getVector().setVectorByDegree(1*speed, 225);
-			break;
-		case WEST:
-			getVector().setVector(-1*speed,0);
-			break;
-		case NORTHWEST:
-			getVector().setVectorByDegree(1*speed, 135);
-			break;
-		case STAY:
-			getVector().setVector(0,0);
-			break;
-		}
-	}
+//	public void setPlayerDirection(Controller.Direction dir){
+//		switch(dir){
+//		case NORTH:
+//			getVector().setVector(0, 1*speed);
+//			
+//			break;
+//		case NORTHEAST:
+//			getVector().setVectorByDegree(1*speed, 45);
+//			break;
+//		case EAST:
+//			getVector().setVector(1*speed, 0);
+//			break;
+//		case SOUTHEAST:
+//			getVector().setVectorByDegree(1*speed, 315);
+//			break;
+//		case SOUTH:
+//			getVector().setVector(0, -1*speed);
+//			break;
+//		case SOUTHWEST:
+//			getVector().setVectorByDegree(1*speed, 225);
+//			break;
+//		case WEST:
+//			getVector().setVector(-1*speed,0);
+//			break;
+//		case NORTHWEST:
+//			getVector().setVectorByDegree(1*speed, 135);
+//			break;
+//		case STAY:
+//			getVector().setVector(0,0);
+//			break;
+//		}
+//	}
 	
 	/*public void collectPowerUp(PowerUp powerUp){
 		if(this.powerUp == null){
