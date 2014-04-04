@@ -24,6 +24,7 @@ public abstract class Entity {
 		this.y = y;
 		this.sprite = sprite;
 		this.vector = vector;
+		speedFactor = 1;
 	}	
 	
 	public void move(){
@@ -68,6 +69,10 @@ public abstract class Entity {
 	
 	public Sprite getSprite(){
 		return sprite;
+	}
+	
+	public void setSpeed(double speed){
+		this.speedFactor = speed;
 	}
 
 
