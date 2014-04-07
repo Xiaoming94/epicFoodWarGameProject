@@ -1,0 +1,50 @@
+#ignores for the project
+
+SpaghettiWars/bin/
+SpaghettiWars/.classpath
+SpaghettiWars/.project
+SpaghettiWars/.idea/
+SpaghettiWars/epicFoodWarGameProject.iml
+
+SpaghettiWars/.texlipse
+*.class
+
+# Mobile Tools for Java (J2ME)
+SpaghettiWars/.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/SpaghettiWars/error_hotspot.xml
+SpaghettiWars/hs_err_pid*
+
+*.pydevproject
+SpaghettiWars/.metadata
+SpaghettiWars/.gradle
+SpaghettiWars/tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+SpaghettiWars/.settings/
+SpaghettiWars/.loadpath
+
+# External tool builders
+SpaghettiWars/.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+SpaghettiWars/.cproject
+
+# PDT-specific
+SpaghettiWars/.buildpath
+
+# sbteclipse plugin 
+SpaghettiWars/.target
+
+# TeXlipse plugin
