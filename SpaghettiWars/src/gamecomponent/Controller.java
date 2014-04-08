@@ -35,9 +35,11 @@ public class Controller implements Runnable {
 		} catch (InterruptedException e) {
 			System.out.println("got interrupted!");
 		}
+		
+		model.createMap();
 		model.createPlayer();
 		
-		model.addEntity(new Player("Sir derp", 50, 100, new Sprite(model.getTextureByName("dummylogo.png")), 0));
+		model.addEntity(new Player("Sir derp", 50, 100, new Sprite(model.getTextureHandler().getTextureByName("dummylogo.png")), 0));
 
 		while (true) {
 			model.getPlayer().move();

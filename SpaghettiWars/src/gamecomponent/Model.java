@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import utilities.NameTexture;
 import utilities.Position;
+import utilities.TextureHandler;
 import utilities.Vector;
 
 import com.badlogic.gdx.Input.Buttons;
@@ -16,18 +17,27 @@ import entities.Player;
 
 public class Model {
 	
+	
 	private boolean upKeyPressed,downKeyPressed,leftKeyPressed,rightKeyPressed;
 	ArrayList<Entity> entities;
 	Player player;
 	
-	ArrayList<NameTexture> textures;
+//	ArrayList<NameTexture> textures;
+	private TextureHandler textureHandler;
 	
 	int width, height;
 	
+	private Map map;
+	
 	public Model (){
+		
 		entities = new ArrayList<Entity>();
 		
-		textures = new ArrayList<NameTexture>();
+//		textures = new ArrayList<NameTexture>();
+		textureHandler = new TextureHandler();
+		
+		
+		
 	}
 	
 	public ArrayList<Entity> getEntitys(){
@@ -43,19 +53,20 @@ public class Model {
 	}
 	
 	public void createPlayer(){
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 10);
-	}
-	
-	public void setTextureList(ArrayList<NameTexture> l){
-		textures = l;
-	}
-	
-	public NameTexture getTextureByName(String name){
-		for(NameTexture e : textures)
-			if(e.getName().equals(name))
-				return e;
-		return null;
-	}
+//		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 10);
+		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 10);
+;	}
+//	
+//	public void setTextureList(ArrayList<NameTexture> l){
+//		textures = l;
+//	}
+//	
+//	public NameTexture getTextureByName(String name){
+//		for(NameTexture e : textures)
+//			if(e.getName().equals(name))
+//				return e;
+//		return null;
+//	}
 	
 	public void checkPressedKey (int keyCode){
 		switch (keyCode){
@@ -134,7 +145,8 @@ public class Model {
 	}
 
 	private void shoot(double x, double y) {
-		Meatball mb = new Meatball(player.getX(), player.getY(), new Vector(0,0), new Sprite(this.getTextureByName("Kottbulle.png")));
+//		Meatball mb = new Meatball(player.getX(), player.getY(), new Vector(0,0), new Sprite(this.getTextureByName("Kottbulle.png")));
+		Meatball mb = new Meatball(player.getX(), player.getY(), new Vector(0,0), new Sprite(this.textureHandler.getTextureByName("Kottbulle.png")));
 		mb.setVector(new Position(x,y));
 		this.addEntity(mb);
 		
@@ -144,7 +156,18 @@ public class Model {
 		this.width = width;
 		this.height = height;
 	}
+	
+	public TextureHandler getTextureHandler(){
+		return textureHandler;
+	}
 
+	public void createMap(){
+		map = new Map(textureHandler);
+	}
+	
+	public Map getMap(){
+		return map;
+	}
 	public void mouseMoved(int mouse1, int mouse2) {
 		
 		double playerX =  mouse1-this.width/2;
@@ -158,5 +181,4 @@ public class Model {
 			player.getSprite().setRotation((float) (180-Math.toDegrees(rot)));
 		}
 	}
-
 }
