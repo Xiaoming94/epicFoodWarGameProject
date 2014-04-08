@@ -134,7 +134,7 @@ public class Model {
 	}
 
 	private void shoot(double x, double y) {
-		Meatball mb = new Meatball(player.getX(), player.getY(), new Vector(0,0), new Sprite(this.getTextureByName("ful.png")));
+		Meatball mb = new Meatball(player.getX(), player.getY(), new Vector(0,0), new Sprite(this.getTextureByName("Kottbulle.png")));
 		mb.setVector(new Position(x,y));
 		this.addEntity(mb);
 		

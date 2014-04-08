@@ -107,6 +107,7 @@ public class View implements ApplicationListener{
 		
 		l.add(new NameTexture("ful.png"));
 		l.add(new NameTexture("dummylogo.png"));
+		l.add(new NameTexture("Kottbulle.png"));
 		
 		return l;
 	}
