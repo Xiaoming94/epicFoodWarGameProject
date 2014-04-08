@@ -44,6 +44,7 @@ public class Model {
 	
 	public void createPlayer(){
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 10);
+		player.getSprite().setOriginCenter();
 	}
 	
 	public void setTextureList(ArrayList<NameTexture> l){
@@ -143,6 +144,23 @@ public class Model {
 	public void setViewSize(int width, int height){
 		this.width = width;
 		this.height = height;
+	}
+
+	public void mouseMoved(int mouse1, int mouse2) {
+
+		//Borde gå att lösa bättre möjligvis
+		
+		double playerX = mouse1+this.player.getX()-this.width/2;
+		double playerY =  this.height/2+this.player.getY()-mouse2;
+		
+		double rot = Math.atan(playerX/playerY);
+
+		System.out.println(Math.toDegrees(rot));
+		if(playerY > 0){
+			player.getSprite().setRotation((float) (360-Math.toDegrees(rot)));
+		}else{
+			player.getSprite().setRotation((float) (180-Math.toDegrees(rot)));
+		}
 	}
 
 }
