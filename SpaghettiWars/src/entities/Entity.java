@@ -13,7 +13,7 @@ public abstract class Entity {
 	private double y;
 	private Vector vector;
 	private Sprite sprite;
-	private double speedFactor = 10;
+	private double speedFactor = 50;
 	
 	public Entity(double x, double y, Sprite sprite){
 		this(x, y, new Vector(0,0), sprite);
