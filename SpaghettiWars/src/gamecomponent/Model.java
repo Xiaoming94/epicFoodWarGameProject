@@ -3,12 +3,14 @@ package gamecomponent;
 import java.util.ArrayList;
 
 import utilities.NameTexture;
+import utilities.Vector;
 
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Entity;
+import entities.Meatball;
 import entities.Player;
 
 public class Model {
@@ -122,14 +124,14 @@ public class Model {
 		}
 	}
 	
-	public void mouseButtonPressed(int mouseButton){
+	public void mouseButtonPressed(int x, int y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
-			shoot();
+			shoot(x, y);
 		}
 	}
 
-	private void shoot() {
-		System.out.println("SHOOTING!");
+	private void shoot(int x, int y) {
+		this.addEntity(new Meatball(x, y, new Vector(0,0), new Sprite(this.getTextureByName("ful.png"))));
 		
 	}
 

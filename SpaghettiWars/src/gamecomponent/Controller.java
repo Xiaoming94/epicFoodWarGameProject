@@ -11,7 +11,7 @@ public class Controller implements Runnable {
 
 	Model model;
 	
-	private final GameInputHandler gih = new GameInputHandler(model);
+	private final GameInputHandler gih;
 	
 	/*public enum Direction{
 		NORTH,SOUTH,WEST,EAST,NORTHWEST,NORTHEAST,SOUTHWEST,SOUTHEAST,STAY
@@ -19,6 +19,7 @@ public class Controller implements Runnable {
 	
 	public Controller(Model m) {
 		model = m;
+		gih = new GameInputHandler(model);
 		Gdx.input.setInputProcessor(gih);
 	}
 	

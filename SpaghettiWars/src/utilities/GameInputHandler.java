@@ -43,7 +43,7 @@ public class GameInputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		gameModel.mouseButtonPressed(button);
+		gameModel.mouseButtonPressed(screenX, screenY, button);
 		return true;
 	}
 
