@@ -44,7 +44,6 @@ public class Model {
 	
 	public void createPlayer(){
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 10);
-		player.getSprite().setOriginCenter();
 	}
 	
 	public void setTextureList(ArrayList<NameTexture> l){
