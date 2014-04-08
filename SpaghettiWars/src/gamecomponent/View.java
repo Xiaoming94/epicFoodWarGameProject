@@ -3,12 +3,7 @@
  */
 package gamecomponent;
 
-import java.util.ArrayList;
-
 import org.lwjgl.opengl.GL11;
-
-import utilities.NameTexture;
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
