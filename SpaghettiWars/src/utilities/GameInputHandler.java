@@ -35,7 +35,7 @@ public class GameInputHandler implements InputProcessor {
 
 	@Override
 	public boolean mouseMoved(int mouse1, int mouse2) {
-		// TODO Auto-generated method stub
+		gameModel.mouseMoved(mouse1, mouse2);
 		return false;
 	}
 
@@ -53,7 +53,7 @@ public class GameInputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchDragged(int arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
+		mouseMoved(arg0, arg1);
 		return false;
 	}
 
