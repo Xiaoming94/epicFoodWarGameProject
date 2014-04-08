@@ -15,9 +15,14 @@ public class Map {
 
 	ArrayList <Obstacle> obstacles = new ArrayList <Obstacle>();
 	
+	private Sprite simpleWall;
+	
 	public Map(TextureHandler textureHandler){
 		this.textureHandler = textureHandler;
-		addObstacle(new Wall(50, 300, new Sprite(textureHandler.getTextureByName("wall.png"))));
+		simpleWall = new Sprite(textureHandler.getTextureByName("wall.png"));
+		createNewRoom(0,0);
+		createNewRoom(simpleWall.getHeight() - simpleWall.getWidth(), simpleWall.getHeight() - simpleWall.getWidth());
+
 	}
 	
 	public void addObstacle(Obstacle o){
@@ -26,5 +31,23 @@ public class Map {
 	
 	public ArrayList<Obstacle> getObstacles(){
 		return obstacles;
+	}
+	
+	public void createNewRoom(double x, double y){
+		//Sprite sprite = new Sprite(textureHandler.getTextureByName("wall.png"));
+		Sprite sprite = new Sprite(simpleWall);
+		double x1 = sprite.getHeight()/2.0 - sprite.getWidth()/2 + x;
+		double y1 = 0 + y;
+		double x2 = -sprite.getHeight()/2.0 + sprite.getWidth()/2 +x;
+		double y2 = 0 + y;
+		double x3 = 300 +x;
+		double y3 = -sprite.getHeight()/2.0 + sprite.getWidth()/2 + y;
+		double x4 = 0 + x;
+		double y4 = sprite.getHeight()/2.0 - sprite.getWidth()/2 + y;
+		addObstacle(new Wall(x1, y1, new Sprite(sprite)));
+		addObstacle(new Wall(x2, y2, new Sprite(sprite)));
+		sprite.setRotation(90);
+		addObstacle(new Wall(x3, y3, new Sprite(sprite)));
+		addObstacle(new Wall(x4, y4, new Sprite(sprite)));
 	}
 }

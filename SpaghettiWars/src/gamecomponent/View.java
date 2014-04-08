@@ -75,7 +75,7 @@ public class View implements ApplicationListener{
 	    batch.begin();
 	    
 	    for(Obstacle o: model.getMap().getObstacles())
-	    	batch.draw(o.getSprite().getTexture(), o.getSprite().getX(), o.getSprite().getY());
+	    	batch.draw(o.getSprite(), o.getSprite().getX(), o.getSprite().getY(), o.getSprite().getOriginX(), o.getSprite().getOriginY(), o.getSprite().getWidth(), o.getSprite().getHeight(), 1, 1, o.getSprite().getRotation());
 	    
 	    model.getEntitiesMutex().lock();
 	    for(Entity e : model.getEntitys())
