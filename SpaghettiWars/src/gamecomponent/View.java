@@ -39,6 +39,7 @@ public class View implements ApplicationListener{
 	    cfg.height = 480;
 		app = new LwjglApplication(this, cfg);
 		model = m;
+		model.setViewSize(cfg.width, cfg.height);
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class View implements ApplicationListener{
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
+		model.setViewSize(width, height);
 		
 	}
 
@@ -77,9 +78,9 @@ public class View implements ApplicationListener{
 	    
 	    //batch.enableBlending();
 	    batch.begin();
-	    batch.draw(model.getPlayer().getSprite().getTexture(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY());
 	    for(Entity e : model.getEntitys())
 	    	batch.draw(e.getSprite().getTexture(), e.getSprite().getX(), e.getSprite().getY());
+	    batch.draw(model.getPlayer().getSprite().getTexture(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY());
 	    batch.end();
 	}
 

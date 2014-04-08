@@ -5,22 +5,24 @@ import utilities.GameInputHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import entities.Entity;
 import entities.Player;
 
 public class Controller implements Runnable {
 
 	Model model;
+	View view;
 	
 	private final GameInputHandler gih;
 	
 	/*public enum Direction{
 		NORTH,SOUTH,WEST,EAST,NORTHWEST,NORTHEAST,SOUTHWEST,SOUTHEAST,STAY
 	}*/
-	
-	public Controller(Model m) {
-	
+
+	public Controller(Model m, View view) {
 		model = m;
-		gih = new GameInputHandler(model);
+		this.view = view;
+		gih = new GameInputHandler(model, view);
 		Gdx.input.setInputProcessor(gih);
 	}
 	
@@ -39,6 +41,8 @@ public class Controller implements Runnable {
 
 		while (true) {
 			model.getPlayer().move();
+			for(Entity e : model.getEntitys())
+				e.move();
 
 			try {
 				Thread.sleep(50);

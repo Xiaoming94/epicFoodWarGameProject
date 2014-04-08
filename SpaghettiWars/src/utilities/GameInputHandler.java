@@ -1,14 +1,18 @@
 package utilities;
 
 import com.badlogic.gdx.InputProcessor;
+
 import gamecomponent.Model;
+import gamecomponent.View;
 
 public class GameInputHandler implements InputProcessor {
 	
 	private final Model gameModel;
+	private final View view;
 	
-	public GameInputHandler (Model gameModel){
+	public GameInputHandler(Model gameModel, View view){
 		this.gameModel = gameModel;
+		this.view = view;
 	}
 	
 	@Override
@@ -43,7 +47,7 @@ public class GameInputHandler implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		gameModel.mouseButtonPressed(button);
+		gameModel.mouseButtonPressed(screenX, screenY, button);
 		return true;
 	}
 
