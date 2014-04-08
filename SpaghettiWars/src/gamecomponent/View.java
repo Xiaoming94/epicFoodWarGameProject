@@ -45,7 +45,7 @@ public class View implements ApplicationListener{
 	@Override
 	public void create() {
 		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
+		camera.setToOrtho(false, 1600, 960);
 		
 		batch = new SpriteBatch();
 		
