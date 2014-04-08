@@ -1,6 +1,7 @@
 package entities;
 
 import utilities.Position;
+import utilities.TextureHandler;
 import utilities.Vector;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -21,7 +22,7 @@ public class Player extends Entity {
 		super(x, y, sprite);
 		this.name = name;
 		this.setSpeed(speed);
-		texturehandler = th;
+		textureHandler = th;
 	}
 	
 	public String getName(){
@@ -53,8 +54,9 @@ public class Player extends Entity {
 	}
 	
 	public Projectile shoot(double x, double y){
-		Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(this.getTextureByName("Kottbulle.png")));
+		Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
 		mb.setVector(new Position(x,y));
+		return mb;
 	}
 	
 	

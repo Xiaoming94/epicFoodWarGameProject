@@ -54,7 +54,7 @@ public class Model {
 	
 	public void createPlayer(){
 //		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 10);
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 10);
+		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 10, this.getTextureHandler());
 ;	}
 //	
 //	public void setTextureList(ArrayList<NameTexture> l){

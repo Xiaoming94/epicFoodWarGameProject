@@ -77,7 +77,6 @@ public class View implements ApplicationListener{
 	    
 	    batch.setProjectionMatrix(camera.combined);
 	    
-	    //batch.enableBlending();
 	    batch.begin();
 	    
 	    for(Obstacle o: model.getMap().getObstacles())
@@ -113,6 +112,7 @@ public class View implements ApplicationListener{
 		l.add(new NameTexture("ful.png"));
 		l.add(new NameTexture("dummylogo.png"));
 		l.add(new NameTexture("Kottbulle.png"));
+		l.add(new NameTexture("wall.png"));
 		
 		return l;
 	}

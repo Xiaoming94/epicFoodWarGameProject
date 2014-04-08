@@ -39,7 +39,7 @@ public class Controller implements Runnable {
 		model.createMap();
 		model.createPlayer();
 		
-		model.addEntity(new Player("Sir derp", 50, 100, new Sprite(model.getTextureHandler().getTextureByName("dummylogo.png")), 0));
+		model.addEntity(new Player("Sir derp", 50, 100, new Sprite(model.getTextureHandler().getTextureByName("dummylogo.png")), 0, model.getTextureHandler()));
 
 		while (true) {
 			model.getPlayer().move();

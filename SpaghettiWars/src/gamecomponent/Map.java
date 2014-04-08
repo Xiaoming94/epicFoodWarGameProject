@@ -17,7 +17,7 @@ public class Map {
 	
 	public Map(TextureHandler textureHandler){
 		this.textureHandler = textureHandler;
-		addObstacle(new Wall(50, 300, new Sprite(textureHandler.getTextureByName("ful.png"))));
+		addObstacle(new Wall(50, 300, new Sprite(textureHandler.getTextureByName("wall.png"))));
 	}
 	
 	public void addObstacle(Obstacle o){
