@@ -3,6 +3,7 @@ package gamecomponent;
 import java.util.ArrayList;
 
 import utilities.NameTexture;
+import utilities.Position;
 import utilities.Vector;
 
 import com.badlogic.gdx.Input.Buttons;
@@ -20,6 +21,8 @@ public class Model {
 	Player player;
 	
 	ArrayList<NameTexture> textures;
+	
+	int width, height;
 	
 	public Model (){
 		entities = new ArrayList<Entity>();
@@ -126,13 +129,20 @@ public class Model {
 	
 	public void mouseButtonPressed(int x, int y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
-			shoot(x, y);
+			shoot(x+this.player.getX()-this.width/2, this.height/2+this.player.getY()-y);
 		}
 	}
 
-	private void shoot(int x, int y) {
-		this.addEntity(new Meatball(x, y, new Vector(0,0), new Sprite(this.getTextureByName("ful.png"))));
+	private void shoot(double x, double y) {
+		Meatball mb = new Meatball(player.getX(), player.getY(), new Vector(0,0), new Sprite(this.getTextureByName("ful.png")));
+		mb.setVector(new Position(x,y));
+		this.addEntity(mb);
 		
+	}
+	
+	public void setViewSize(int width, int height){
+		this.width = width;
+		this.height = height;
 	}
 
 }

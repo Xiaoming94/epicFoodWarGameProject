@@ -13,7 +13,7 @@ public abstract class Entity {
 	private double y;
 	private Vector vector;
 	private Sprite sprite;
-	private double speedFactor;
+	private double speedFactor = 10;
 	
 	public Entity(double x, double y, Sprite sprite){
 		this(x, y, new Vector(0,0), sprite);
@@ -24,6 +24,9 @@ public abstract class Entity {
 		this.y = y;
 		this.sprite = sprite;
 		this.vector = vector;
+		
+		this.sprite.setX((float)x-this.sprite.getWidth()/2);
+		this.sprite.setY((float)y-this.sprite.getHeight()/2);
 	}	
 	
 	public void move(){
