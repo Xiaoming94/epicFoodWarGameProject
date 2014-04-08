@@ -80,7 +80,6 @@ public class View implements ApplicationListener{
 	    batch.begin();
 	    for(Entity e : model.getEntitys())
 	    	batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
-	    //batch.draw(model.getPlayer().getSprite(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY());
 	    batch.draw(model.getPlayer().getSprite(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY(), model.getPlayer().getSprite().getOriginX(), model.getPlayer().getSprite().getOriginY(), model.getPlayer().getSprite().getWidth(), model.getPlayer().getSprite().getHeight(), 1, 1, model.getPlayer().getSprite().getRotation());
 	    batch.end();
 	}

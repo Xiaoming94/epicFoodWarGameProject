@@ -44,7 +44,6 @@ public class Model {
 	
 	public void createPlayer(){
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 10);
-		player.getSprite().setOriginCenter();
 	}
 	
 	public void setTextureList(ArrayList<NameTexture> l){
@@ -150,8 +149,8 @@ public class Model {
 
 		//Borde gå att lösa bättre möjligvis
 		
-		double playerX = mouse1+this.player.getX()-this.width/2;
-		double playerY =  this.height/2+this.player.getY()-mouse2;
+		double playerX =  mouse1-this.width/2;
+		double playerY =  this.height/2-mouse2;
 		
 		double rot = Math.atan(playerX/playerY);
 
