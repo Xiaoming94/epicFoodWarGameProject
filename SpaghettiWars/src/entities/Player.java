@@ -1,5 +1,8 @@
 package entities;
 
+import utilities.Position;
+import utilities.Vector;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Player extends Entity {
@@ -9,13 +12,16 @@ public class Player extends Entity {
 	private int fatPoint = 0;
 	private boolean isDead = false;
 	
-	//private PowerUp powerUp = null;
+	private TextureHandler textureHandler;
+	
+	private PowerUp powerUp = null;
 	
 	
-	public Player(String name, double x, double y, Sprite sprite, int speed){
+	public Player(String name, double x, double y, Sprite sprite, int speed, TextureHandler th){
 		super(x, y, sprite);
 		this.name = name;
 		this.setSpeed(speed);
+		texturehandler = th;
 	}
 	
 	public String getName(){
@@ -40,6 +46,15 @@ public class Player extends Entity {
 	
 	public boolean checkIfDead(){
 		return isDead;
+	}
+	
+	public void modifySpeed(double k){
+		this.setSpeed(this.getSpeed()+k);
+	}
+	
+	public Projectile shoot(double x, double y){
+		Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(this.getTextureByName("Kottbulle.png")));
+		mb.setVector(new Position(x,y));
 	}
 	
 	

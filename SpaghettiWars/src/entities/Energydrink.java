@@ -5,20 +5,30 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Energydrink extends PowerUp {
 	
-	private final static int DURATION = 5;
-	private final static Sprite SPRITE = new Sprite(new Texture("asset/bucket.png"));
+	private int DURATION = 100;
+	private static Sprite SPRITE = new Sprite(new Texture("ful.png"));
+	private Player isActiveOn;
 	
 	public Energydrink(double x, double y, Sprite sprite){
-		super(x, y, SPRITE, DURATION);
+		super(x, y, SPRITE);
 	}
 
 	@Override
 	public void applyEffects(Entity player) {
-		// might wanna check that player is a player..
-		((Player)player).setSpeed(10);
+		if(player.getClass() == Player.class){
+			((Player)player).modifySpeed(50);
+			isActiveOn = (Player)player;
+		}
 	}
 	
 	public void stopEffects(Entity player){
-		
+		((Player)player).modifySpeed(-50);
+	}
+	
+	public void update(){
+		if(isActiveOn != null)
+			DURATION--;
+		if(DURATION > 1)
+			stopEffects(isActiveOn);
 	}
 }
