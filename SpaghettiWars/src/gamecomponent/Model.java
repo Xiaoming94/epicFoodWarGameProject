@@ -146,15 +146,12 @@ public class Model {
 	}
 
 	public void mouseMoved(int mouse1, int mouse2) {
-
-		//Borde gå att lösa bättre möjligvis
 		
 		double playerX =  mouse1-this.width/2;
 		double playerY =  this.height/2-mouse2;
 		
 		double rot = Math.atan(playerX/playerY);
 
-		System.out.println(Math.toDegrees(rot));
 		if(playerY > 0){
 			player.getSprite().setRotation((float) (360-Math.toDegrees(rot)));
 		}else{
