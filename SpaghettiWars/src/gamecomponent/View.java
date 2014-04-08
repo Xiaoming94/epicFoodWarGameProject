@@ -50,7 +50,7 @@ public class View implements ApplicationListener{
 		batch = new SpriteBatch();
 		
 //		model.setTextureList(loadTextures());
-		model.getTextureHandler().setTextureList(loadTextures());
+		model.getTextureHandler().loadTextures();
 		
 		//sleep to wait for player to be created by controller
 		try{
@@ -104,16 +104,5 @@ public class View implements ApplicationListener{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	private ArrayList<NameTexture> loadTextures(){
-		ArrayList<NameTexture> l = new ArrayList<NameTexture>();
-		
-		l.add(new NameTexture("ful.png"));
-		l.add(new NameTexture("dummylogo.png"));
-		l.add(new NameTexture("Kottbulle.png"));
-		l.add(new NameTexture("wall.png"));
-		
-		return l;
 	}
 }

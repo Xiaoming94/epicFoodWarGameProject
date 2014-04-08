@@ -1,16 +1,20 @@
+/*
+ * author: Louise
+ * 
+ * modified: Jimmy 8/4 - 14
+ */
+
 package entities;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Energydrink extends PowerUp {
 	
 	private int DURATION = 100;
-	private static Sprite SPRITE = new Sprite(new Texture("ful.png"));
 	private Player isActiveOn;
 	
 	public Energydrink(double x, double y, Sprite sprite){
-		super(x, y, SPRITE);
+		super(x, y, sprite);
 	}
 
 	@Override

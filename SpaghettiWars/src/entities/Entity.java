@@ -1,7 +1,5 @@
 package entities;
 
-
-
 import utilities.Position;
 import utilities.Vector;
 

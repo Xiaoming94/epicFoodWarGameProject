@@ -22,5 +22,13 @@ public class TextureHandler {
 				return e;
 		return null;
 	}
+	
+	public void loadTextures(){
+		
+		textures.add(new NameTexture("ful.png"));
+		textures.add(new NameTexture("dummylogo.png"));
+		textures.add(new NameTexture("Kottbulle.png"));
+		textures.add(new NameTexture("wall.png"));
+	}
 
 }
