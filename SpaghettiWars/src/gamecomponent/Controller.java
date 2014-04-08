@@ -18,7 +18,7 @@ public class Controller implements Runnable {
 	/*public enum Direction{
 		NORTH,SOUTH,WEST,EAST,NORTHWEST,NORTHEAST,SOUTHWEST,SOUTHEAST,STAY
 	}*/
-	
+
 	public Controller(Model m, View view) {
 		model = m;
 		this.view = view;
