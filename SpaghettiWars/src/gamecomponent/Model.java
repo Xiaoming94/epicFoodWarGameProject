@@ -2,7 +2,7 @@ package gamecomponent;
 
 import java.util.ArrayList;
 
-import utilities.NameTexture;
+import sun.awt.Mutex;
 import utilities.Position;
 import utilities.TextureHandler;
 import utilities.Vector;
@@ -19,8 +19,12 @@ public class Model {
 	
 	
 	private boolean upKeyPressed,downKeyPressed,leftKeyPressed,rightKeyPressed;
-	ArrayList<Entity> entities;
-	Player player;
+	private ArrayList<Entity> entities;
+	private ArrayList<Entity> stillEntities;
+	private Player player;
+	
+	private Mutex entitiesMutex;
+	private Mutex stillEntitiesMutex;
 	
 //	ArrayList<NameTexture> textures;
 	private TextureHandler textureHandler;
@@ -32,6 +36,9 @@ public class Model {
 	public Model (){
 		
 		entities = new ArrayList<Entity>();
+		stillEntities = new ArrayList<Entity>();
+		entitiesMutex = new Mutex();
+		stillEntitiesMutex = new Mutex();
 		
 //		textures = new ArrayList<NameTexture>();
 		textureHandler = new TextureHandler();
@@ -44,6 +51,9 @@ public class Model {
 		return entities;
 	}
 	
+	public ArrayList<Entity> getStillEntitys(){
+		return stillEntities;
+	}
 	public void addEntity(Entity e){
 		entities.add(e);
 	}
@@ -52,21 +62,35 @@ public class Model {
 		return player;
 	}
 	
+	public Mutex getEntitiesMutex() {
+		return entitiesMutex;
+	}
+	
+	public Mutex getStillEntitiesMutex(){
+		return stillEntitiesMutex;
+	}
 	public void createPlayer(){
-//		player = new Player("Sir Eatalot", 5, 5, new Sprite(getTextureByName("ful.png")), 10);
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 10, this.getTextureHandler());
-;	}
-//	
-//	public void setTextureList(ArrayList<NameTexture> l){
-//		textures = l;
-//	}
-//	
-//	public NameTexture getTextureByName(String name){
-//		for(NameTexture e : textures)
-//			if(e.getName().equals(name))
-//				return e;
-//		return null;
-//	}
+		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
+	}
+	
+	//Author: Jimmy - wtf function, please help it with its life
+	public void killEntity(Entity e){
+		int i = 0;
+		boolean found = false;
+		for(Entity ent : entities){
+			if(ent.equals(e)){
+				found = true;
+				break;
+			}
+			i++;
+		}
+		getStillEntitiesMutex().lock();
+		if(found){
+			entities.remove(i);
+			stillEntities.add(e);
+		}
+		getStillEntitiesMutex().unlock();
+	}
 	
 	public void checkPressedKey (int keyCode){
 		switch (keyCode){
@@ -140,16 +164,10 @@ public class Model {
 	
 	public void mouseButtonPressed(int x, int y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
-			shoot(x+this.player.getX()-this.width/2, this.height/2+this.player.getY()-y);
+			this.getEntitiesMutex().lock();
+			this.addEntity(player.shoot(x+this.player.getX()-this.width/2, this.height/2+this.player.getY()-y));
+			this.getEntitiesMutex().unlock();
 		}
-	}
-
-	private void shoot(double x, double y) {
-//		Meatball mb = new Meatball(player.getX(), player.getY(), new Vector(0,0), new Sprite(this.getTextureByName("Kottbulle.png")));
-		Meatball mb = new Meatball(player.getX(), player.getY(), new Vector(0,0), new Sprite(this.textureHandler.getTextureByName("Kottbulle.png")));
-		mb.setVector(new Position(x,y));
-		this.addEntity(mb);
-		
 	}
 	
 	public void setViewSize(int width, int height){

@@ -1,5 +1,7 @@
 package gamecomponent;
 
+import java.util.ArrayList;
+
 import utilities.GameInputHandler;
 
 import com.badlogic.gdx.Gdx;
@@ -35,19 +37,31 @@ public class Controller implements Runnable {
 		} catch (InterruptedException e) {
 			System.out.println("got interrupted!");
 		}
+		ArrayList<Entity> bufferList = new ArrayList<Entity>();
 		
 		model.createMap();
 		model.createPlayer();
-		
-		model.addEntity(new Player("Sir derp", 50, 100, new Sprite(model.getTextureHandler().getTextureByName("dummylogo.png")), 0, model.getTextureHandler()));
 
 		while (true) {
 			model.getPlayer().move();
+			
 			for(Entity e : model.getEntitys())
-				e.move();
-
+			{
+				if(e.getSprite().getBoundingRectangle().overlaps(model.getMap().getObstacles().get(0).getSprite().getBoundingRectangle())){
+					e.stop();
+					bufferList.add(e);
+				}
+				else
+					e.move();
+			}
+			
+			model.getEntitiesMutex().lock();
+			for(Entity e : bufferList)
+				model.killEntity(e);
+			model.getEntitiesMutex().unlock();
+			
 			try {
-				Thread.sleep(50);
+				Thread.sleep(10);
 				//TODO synched sleep
 			}catch(InterruptedException e){
 				System.out.println("got interrupted!");
