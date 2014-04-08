@@ -154,7 +154,6 @@ public class Model {
 		
 		double rot = Math.atan(playerX/playerY);
 
-		System.out.println(Math.toDegrees(rot));
 		if(playerY > 0){
 			player.getSprite().setRotation((float) (360-Math.toDegrees(rot)));
 		}else{
