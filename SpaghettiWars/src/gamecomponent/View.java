@@ -19,9 +19,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 import entities.Entity;
+import entities.Obstacle;
 
 public class View implements ApplicationListener{
-    
 	Model model;
 	LwjglApplication app;
 	
@@ -49,7 +49,8 @@ public class View implements ApplicationListener{
 		
 		batch = new SpriteBatch();
 		
-		model.setTextureList(loadTextures());
+//		model.setTextureList(loadTextures());
+		model.getTextureHandler().setTextureList(loadTextures());
 		
 		//sleep to wait for player to be created by controller
 		try{
@@ -78,6 +79,10 @@ public class View implements ApplicationListener{
 	    
 	    //batch.enableBlending();
 	    batch.begin();
+	    
+	    for(Obstacle o: model.getMap().getObstacles())
+	    	batch.draw(o.getSprite().getTexture(), o.getSprite().getX(), o.getSprite().getY());
+	    
 	    for(Entity e : model.getEntitys())
 	    	batch.draw(e.getSprite().getTexture(), e.getSprite().getX(), e.getSprite().getY());
 	    batch.draw(model.getPlayer().getSprite().getTexture(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY());
