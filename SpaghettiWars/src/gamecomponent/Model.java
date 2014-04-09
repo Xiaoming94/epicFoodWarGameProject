@@ -7,6 +7,7 @@ import utilities.TextureHandler;
 
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Entity;
@@ -19,6 +20,7 @@ public class Model {
 	private ArrayList<Entity> entities;
 	private ArrayList<Entity> stillEntities;
 	private Player player;
+	private Texture actionBar, actionBarSelection;
 	
 	private Mutex entitiesMutex;
 	private Mutex stillEntitiesMutex;
@@ -26,7 +28,9 @@ public class Model {
 //	ArrayList<NameTexture> textures;
 	private TextureHandler textureHandler;
 	
-	int width, height;
+	private int width, height;
+	
+	int selectedWeapon = 0;
 	
 	private Map map;
 	
@@ -40,10 +44,26 @@ public class Model {
 //		textures = new ArrayList<NameTexture>();
 		textureHandler = new TextureHandler();
 		
-		
-		
 	}
 	
+	public void createGUI(){
+		actionBar = textureHandler.getTextureByName("actionbar2.png");
+		actionBarSelection = textureHandler.getTextureByName("actionbarselection.png");
+	}
+	
+	
+	public Texture getActionBar() {
+		return actionBar;
+	}
+
+
+
+	public Texture getActionBarSelection() {
+		return actionBarSelection;
+	}
+
+
+
 	public ArrayList<Entity> getEntitys(){
 		return entities;
 	}
@@ -89,6 +109,10 @@ public class Model {
 		getStillEntitiesMutex().unlock();
 	}
 	
+	public int getSelectedWeapon(){
+		return selectedWeapon;
+	}
+	
 	public void checkPressedKey (int keyCode){
 		switch (keyCode){
 		case Keys.W: 
@@ -102,6 +126,17 @@ public class Model {
 			break;
 		case Keys.D:
 			rightKeyPressed = true;
+			break;
+		case Keys.NUM_1:
+		case Keys.NUM_2:
+		case Keys.NUM_3:
+		case Keys.NUM_4:
+		case Keys.NUM_5:
+		case Keys.NUM_6:
+		case Keys.NUM_7:
+		case Keys.NUM_8:
+		case Keys.NUM_9:
+			selectedWeapon = keyCode-8;
 			break;
 		default:
 			return;

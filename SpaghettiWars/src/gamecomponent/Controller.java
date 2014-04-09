@@ -34,6 +34,7 @@ public class Controller implements Runnable {
 		ArrayList<Entity> bufferList = new ArrayList<Entity>();
 		
 		model.createMap();
+		model.createGUI();
 		model.createPlayer();
 		
 		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
