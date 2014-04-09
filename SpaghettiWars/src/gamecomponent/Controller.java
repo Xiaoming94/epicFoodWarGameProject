@@ -7,6 +7,7 @@ import utilities.GameInputHandler;
 import com.badlogic.gdx.Gdx;
 
 import entities.Entity;
+import entities.Projectile;
 
 public class Controller implements Runnable {
 
@@ -53,21 +54,24 @@ public class Controller implements Runnable {
 			playerObstructed.clear();
 			
 			model.getEntitiesMutex().lock();
-			for(Entity e : model.getEntitys())
+			for(Projectile e : model.getProjectiles())
 			{
 				for(Entity o : model.getMap().getObstacles())
 					if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
-						e.stop();
+						e.kill();
 						bufferList.add(e);
 				}
-				else
-					e.move();
+				else{
+					e.update();
+					if(e.isDead())
+						bufferList.add(e);
+				}
 			}
 			model.getEntitiesMutex().unlock();
 			
 			model.getEntitiesMutex().lock();
 			for(Entity e : bufferList)
-				model.killEntity(e);
+				model.killProjectile(e);
 			model.getEntitiesMutex().unlock();
 			
 			try {
