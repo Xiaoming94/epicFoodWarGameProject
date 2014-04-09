@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import utilities.GameInputHandler;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Entity;
-import entities.Player;
 
 public class Controller implements Runnable {
 
@@ -16,10 +14,6 @@ public class Controller implements Runnable {
 	View view;
 	
 	private final GameInputHandler gih;
-	
-	/*public enum Direction{
-		NORTH,SOUTH,WEST,EAST,NORTHWEST,NORTHEAST,SOUTHWEST,SOUTHEAST,STAY
-	}*/
 
 	public Controller(Model m, View view) {
 		model = m;
@@ -58,6 +52,7 @@ public class Controller implements Runnable {
 			
 			playerObstructed.clear();
 			
+			model.getEntitiesMutex().lock();
 			for(Entity e : model.getEntitys())
 			{
 				for(Entity o : model.getMap().getObstacles())
@@ -68,6 +63,7 @@ public class Controller implements Runnable {
 				else
 					e.move();
 			}
+			model.getEntitiesMutex().unlock();
 			
 			model.getEntitiesMutex().lock();
 			for(Entity e : bufferList)
