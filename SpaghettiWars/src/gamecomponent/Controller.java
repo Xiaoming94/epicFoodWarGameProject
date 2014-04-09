@@ -47,8 +47,8 @@ public class Controller implements Runnable {
 			
 			if(playerObstructed.isEmpty())
 				model.getPlayer().move();
-//			else
-//				model.getPlayer().obstructedMove(playerObstructed);
+			else
+				model.getPlayer().obstructedMove(playerObstructed);
 			
 			playerObstructed.clear();
 			

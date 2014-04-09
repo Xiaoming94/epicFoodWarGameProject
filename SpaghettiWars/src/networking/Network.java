@@ -14,10 +14,10 @@ public class Network {
 		Kryo kryo = endPoint.getKryo();
 		kryo.register(RequestConnection.class);
 		kryo.register(EntitySender.class);
-		kryo.register(simpleMessage.class);
+		kryo.register(SimpleMessage.class);
 	}
 	
-	public static class simpleMessage{
+	public static class SimpleMessage{
 		public String text;
 	}
 	

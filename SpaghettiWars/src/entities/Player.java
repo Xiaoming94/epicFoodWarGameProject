@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+
 import utilities.Position;
 import utilities.TextureHandler;
 import utilities.Vector;
@@ -65,6 +67,35 @@ public class Player extends Entity {
 				this.getY() + this.getVector().getDeltaY() + this.getSprite().getWidth()/2 > r.getY() && this.getY() + this.getVector().getDeltaY() - this.getSprite().getWidth()/2 < r.getY() + r.getHeight();
 	}
 	
+	//author: Jimmy, Louise
+	public void obstructedMove(ArrayList <Entity> l){
+		
+		boolean canMoveX = true;
+		boolean canMoveY = true;
+		for(Entity r: l){
+			if(this.getX() + this.getVector().getDeltaX() + this.getSprite().getWidth()/2 > r.getSprite().getBoundingRectangle().getX() && this.getX() + this.getVector().getDeltaX() - this.getSprite().getWidth()/2 < r.getSprite().getBoundingRectangle().getX() + r.getSprite().getBoundingRectangle().getWidth() &&
+					this.getY() + this.getSprite().getWidth()/2 > r.getSprite().getBoundingRectangle().getY() && this.getY() - this.getSprite().getWidth()/2 < r.getSprite().getBoundingRectangle().getY() + r.getSprite().getBoundingRectangle().getHeight()){
+		
+				canMoveX = false;
+				break;
+			}
+		}
+		if(canMoveX){
+			this.setX(this.getX() + this.getVector().getDeltaX());
+			this.getSprite().setX((float)this.getX() - this.getSprite().getWidth()/2);
+		}
+		for(Entity r: l){
+			if(this.getX() + this.getSprite().getWidth()/2 > r.getSprite().getBoundingRectangle().getX() && this.getX() - this.getSprite().getWidth()/2 < r.getSprite().getBoundingRectangle().getX() + r.getSprite().getBoundingRectangle().getWidth() &&
+					this.getY() + this.getVector().getDeltaY() + this.getSprite().getWidth()/2 > r.getSprite().getBoundingRectangle().getY() && this.getY() + this.getVector().getDeltaY() - this.getSprite().getWidth()/2 < r.getSprite().getBoundingRectangle().getY() + r.getSprite().getBoundingRectangle().getHeight()){
+				canMoveY = false;
+				break;
+			}
+		}
+		if(canMoveY){
+			this.setY(this.getY() + this.getVector().getDeltaY());
+			this.getSprite().setY((float)this.getY() - this.getSprite().getHeight()/2);
+		}
+	}
 	
 	/*public void collectPowerUp(PowerUp powerUp){
 		if(this.powerUp == null){
