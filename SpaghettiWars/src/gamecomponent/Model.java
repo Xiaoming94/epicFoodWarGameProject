@@ -12,12 +12,14 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Entity;
 import entities.Player;
+import entities.Projectile;
 
 public class Model {
 	
 	
 	private boolean upKeyPressed,downKeyPressed,leftKeyPressed,rightKeyPressed;
 	private ArrayList<Entity> entities;
+	private ArrayList<Projectile> projectiles;
 	private ArrayList<Entity> stillEntities;
 	private Player player;
 	private Texture actionBar, actionBarSelection;
@@ -38,6 +40,7 @@ public class Model {
 		
 		entities = new ArrayList<Entity>();
 		stillEntities = new ArrayList<Entity>();
+		projectiles = new ArrayList<Projectile>();
 		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
 		
@@ -91,10 +94,10 @@ public class Model {
 	}
 	
 	//Author: Jimmy - wtf function, please help it with its life
-	public void killEntity(Entity e){
+	public void killProjectile(Entity e){
 		int i = 0;
 		boolean found = false;
-		for(Entity ent : entities){
+		for(Entity ent : projectiles){
 			if(ent.equals(e)){
 				found = true;
 				break;
@@ -103,7 +106,7 @@ public class Model {
 		}
 		getStillEntitiesMutex().lock();
 		if(found){
-			entities.remove(i);
+			projectiles.remove(i);
 			stillEntities.add(e);
 		}
 		getStillEntitiesMutex().unlock();
@@ -197,7 +200,7 @@ public class Model {
 	public void mouseButtonPressed(int x, int y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
 			this.getEntitiesMutex().lock();
-			this.addEntity(player.shoot(x+this.player.getX()-this.width/2, this.height/2+this.player.getY()-y));
+			this.addProjectile(player.shoot(x+this.player.getX()-this.width/2, this.height/2+this.player.getY()-y));
 			this.getEntitiesMutex().unlock();
 		}
 	}
@@ -231,5 +234,13 @@ public class Model {
 		}else{
 			player.getSprite().setRotation((float) (180-Math.toDegrees(rot)));
 		}
+	}
+
+	public ArrayList<Projectile> getProjectiles() {
+		return projectiles;
+	}
+
+	public void addProjectile(Projectile p) {
+		this.projectiles.add(p);
 	}
 }
