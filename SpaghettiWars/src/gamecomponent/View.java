@@ -103,7 +103,9 @@ public class View implements ApplicationListener{
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
-
+        for(Obstacle o : model.getMap().getDecorations())
+        	batch.draw(o.getSprite(), o.getSprite().getX(), o.getSprite().getY(), o.getSprite().getOriginX(), o.getSprite().getOriginY(), o.getSprite().getWidth(), o.getSprite().getHeight(), 1, 1, o.getSprite().getRotation());
+        
         for(Obstacle o: model.getMap().getObstacles())
 
             batch.draw(o.getSprite(), o.getSprite().getX(), o.getSprite().getY(), o.getSprite().getOriginX(), o.getSprite().getOriginY(), o.getSprite().getWidth(), o.getSprite().getHeight(), 1, 1, o.getSprite().getRotation());
