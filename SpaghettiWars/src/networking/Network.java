@@ -11,6 +11,12 @@ public class Network {
 	public static void register(EndPoint endPoint){
 		Kryo kryo = endPoint.getKryo();
 		kryo.register(RequestConnection.class);
+		kryo.register(EntitySender.class);
+		kryo.register(simpleMessage.class);
+	}
+	
+	public static class simpleMessage{
+		public String text;
 	}
 	
 	public static class RequestConnection{
