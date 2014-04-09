@@ -5,6 +5,7 @@ import utilities.TextureHandler;
 import utilities.Vector;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Player extends Entity {
 	
@@ -57,6 +58,11 @@ public class Player extends Entity {
 		Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
 		mb.setVector(new Position(x,y));
 		return mb;
+	}
+	
+	public boolean overlaps(Rectangle r){
+		return this.getX() + this.getSprite().getWidth()/2 > r.getX() - r.getWidth()/2 && this.getX() - this.getSprite().getWidth()/2 < r.getX() + r.getWidth()/2 &&
+				this.getY() + this.getSprite().getWidth()/2 > r.getY() - r.getHeight()/2 && this.getY() - this.getSprite().getWidth()/2 < r.getY() + r.getHeight()/2;
 	}
 	
 	

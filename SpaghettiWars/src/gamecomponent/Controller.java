@@ -43,13 +43,24 @@ public class Controller implements Runnable {
 		model.createPlayer();
 
 		while (true) {
-			model.getPlayer().move();
+			boolean playerObstructed = false;
+			for(Entity o : model.getMap().getObstacles())
+				if(model.getPlayer().overlaps(o.getSprite().getBoundingRectangle())){
+					playerObstructed = true;
+					break;
+				}
+			
+			if(!playerObstructed)
+				model.getPlayer().move();
+			
+			playerObstructed = false;
 			
 			for(Entity e : model.getEntitys())
 			{
-				if(e.getSprite().getBoundingRectangle().overlaps(model.getMap().getObstacles().get(0).getSprite().getBoundingRectangle())){
-					e.stop();
-					bufferList.add(e);
+				for(Entity o : model.getMap().getObstacles())
+					if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+						e.stop();
+						bufferList.add(e);
 				}
 				else
 					e.move();

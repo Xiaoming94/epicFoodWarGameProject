@@ -186,6 +186,7 @@ public class Model {
 	public Map getMap(){
 		return map;
 	}
+	
 	public void mouseMoved(int mouse1, int mouse2) {
 		
 		double playerX =  mouse1-this.width/2;
