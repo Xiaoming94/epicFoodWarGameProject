@@ -1,5 +1,7 @@
 package networking;
 
+import utilities.Vector;
+
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Server;
@@ -23,7 +25,22 @@ public class Network {
 		public String name;
 	}
 	
+	//dont use this
 	public static class EntitySender{
 		public Entity entity;
+	}
+	
+	public static class ObstacleSender{
+		public double xPos;
+		public double yPos;
+		public String spriteName;
+		public double rotation;
+	}
+	
+	public static class OtherStuffSender{
+		public double xPos;
+		public double yPos;
+		public String spriteName;
+		public Vector vector;
 	}
 }
