@@ -27,6 +27,8 @@ public class View implements ApplicationListener{
         MENUS,INGAME
     }
 
+    private MenuScreen menuScreen;
+
     private ViewStates viewstate;
 	public View(Model m){
 		
@@ -35,7 +37,7 @@ public class View implements ApplicationListener{
 	    cfg.width = 800;
 	    cfg.height = 480;
 		app = new LwjglApplication(this, cfg);
-        viewstate = ViewStates.INGAME;
+        viewstate = ViewStates.MENUS;
 		model = m;
 		model.setViewSize(cfg.width, cfg.height);
 	}
@@ -58,6 +60,8 @@ public class View implements ApplicationListener{
 		}
 	}
 
+
+
 	@Override
 	public void resize(int width, int height) {
 		model.setViewSize(width, height);
@@ -77,7 +81,17 @@ public class View implements ApplicationListener{
 	}
 
     private void renderMenu() {
+        if (menuScreen == null) {
+            menuScreen = new MenuScreen(this);
+        }
+        if (menuScreen != null){
+            menuScreen.render(1);
+        }
 
+    }
+
+    public void startGame(){
+        viewstate = ViewStates.INGAME;
     }
 
     public void renderGame(){
