@@ -37,8 +37,12 @@ public class Controller implements Runnable {
 		model.createPlayer();
 		
 		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
-
+		long time;
 		while (true) {
+			//measure starttime
+			time = System.currentTimeMillis();
+			
+			
 			playerObstructed.clear();
 			for(Entity o : model.getMap().getObstacles())
 				if(model.getPlayer().overlaps(o.getSprite().getBoundingRectangle())){
@@ -70,13 +74,18 @@ public class Controller implements Runnable {
 				model.killEntity(e);
 			model.getEntitiesMutex().unlock();
 			
+			time = System.currentTimeMillis() - time;
+			
+			System.out.println(time);
+			
+			//very ugly solution, but first round the while loop takes longer than 10 ms
 			try {
-				Thread.sleep(10);
-				//TODO synched sleep
+				Thread.sleep(10 - time);
 			}catch(InterruptedException e){
 				System.out.println("got interrupted!");
+			}catch(IllegalArgumentException e){
+					;
 			}
 		}
-
 	}
 }
