@@ -35,6 +35,7 @@ public abstract class Entity {
 		this.sprite.setY((float)y-this.sprite.getHeight()/2);
 	}
 	
+	
 	public void stop(){
 		vector = new Vector(0,0);
 	}
