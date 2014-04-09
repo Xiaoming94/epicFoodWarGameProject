@@ -61,8 +61,8 @@ public class Player extends Entity {
 	}
 	
 	public boolean overlaps(Rectangle r){
-		return this.getX() + this.getSprite().getWidth()/2 > r.getX() - r.getWidth()/2 && this.getX() - this.getSprite().getWidth()/2 < r.getX() + r.getWidth()/2 &&
-				this.getY() + this.getSprite().getWidth()/2 > r.getY() - r.getHeight()/2 && this.getY() - this.getSprite().getWidth()/2 < r.getY() + r.getHeight()/2;
+		return this.getX() + this.getVector().getDeltaX() + this.getSprite().getWidth()/2 > r.getX() && this.getX() + this.getVector().getDeltaX() - this.getSprite().getWidth()/2 < r.getX() + r.getWidth() &&
+				this.getY() + this.getVector().getDeltaY() + this.getSprite().getWidth()/2 > r.getY() && this.getY() + this.getVector().getDeltaY() - this.getSprite().getWidth()/2 < r.getY() + r.getHeight();
 	}
 	
 	
