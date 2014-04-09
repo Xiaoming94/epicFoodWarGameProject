@@ -9,9 +9,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+//import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
+//import com.badlogic.gdx.math.Rectangle;
 
 import entities.Entity;
 import entities.Obstacle;
@@ -22,10 +22,12 @@ public class View implements ApplicationListener{
 	
 	OrthographicCamera camera;
 	SpriteBatch batch;
-	
-	Rectangle bucket;
-	Texture bucketImage;
-	
+
+    enum ViewStates{
+        MENUS,INGAME
+    }
+
+    private ViewStates viewstate;
 	public View(Model m){
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
@@ -33,6 +35,7 @@ public class View implements ApplicationListener{
 	    cfg.width = 800;
 	    cfg.height = 480;
 		app = new LwjglApplication(this, cfg);
+        viewstate = ViewStates.INGAME;
 		model = m;
 		model.setViewSize(cfg.width, cfg.height);
 	}
@@ -63,33 +66,46 @@ public class View implements ApplicationListener{
 
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-	    Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
-	    
-	    camera.position.set((float)model.getPlayer().getX(), (float)model.getPlayer().getY(),0);
-	    
-	    camera.update();
-	    
-	    batch.setProjectionMatrix(camera.combined);
-	    
-	    batch.begin();
-	    
-	    for(Obstacle o: model.getMap().getObstacles())
-	    	batch.draw(o.getSprite(), o.getSprite().getX(), o.getSprite().getY(), o.getSprite().getOriginX(), o.getSprite().getOriginY(), o.getSprite().getWidth(), o.getSprite().getHeight(), 1, 1, o.getSprite().getRotation());
-	    
-	    model.getEntitiesMutex().lock();
-	    for(Entity e : model.getEntitys())
-	    	batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
-	    model.getEntitiesMutex().unlock();
-	    
-	    model.getStillEntitiesMutex().lock();
-	    for(Entity e : model.getStillEntitys())
-	    	batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
-	    model.getStillEntitiesMutex().unlock();
-	    
-	    batch.draw(model.getPlayer().getSprite(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY(), model.getPlayer().getSprite().getOriginX(), model.getPlayer().getSprite().getOriginY(), model.getPlayer().getSprite().getWidth(), model.getPlayer().getSprite().getHeight(), 1, 1, model.getPlayer().getSprite().getRotation());
-	    batch.end();
+        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+        Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        if(viewstate == ViewStates.MENUS){
+            renderMenu();
+        }
+		if (viewstate == ViewStates.INGAME){
+            renderGame();
+        }
 	}
+
+    private void renderMenu() {
+
+    }
+
+    public void renderGame(){
+
+        camera.position.set((float)model.getPlayer().getX(), (float)model.getPlayer().getY(),0);
+
+        camera.update();
+
+        batch.setProjectionMatrix(camera.combined);
+
+        batch.begin();
+
+        for(Obstacle o: model.getMap().getObstacles())
+            batch.draw(o.getSprite(), o.getSprite().getX(), o.getSprite().getY(), o.getSprite().getOriginX(), o.getSprite().getOriginY(), o.getSprite().getWidth(), o.getSprite().getHeight(), 1, 1, o.getSprite().getRotation());
+
+        model.getEntitiesMutex().lock();
+        for(Entity e : model.getEntitys())
+            batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
+        model.getEntitiesMutex().unlock();
+
+        model.getStillEntitiesMutex().lock();
+        for(Entity e : model.getStillEntitys())
+            batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
+        model.getStillEntitiesMutex().unlock();
+
+        batch.draw(model.getPlayer().getSprite(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY(), model.getPlayer().getSprite().getOriginX(), model.getPlayer().getSprite().getOriginY(), model.getPlayer().getSprite().getWidth(), model.getPlayer().getSprite().getHeight(), 1, 1, model.getPlayer().getSprite().getRotation());
+        batch.end();
+    }
 
 	@Override
 	public void pause() {
