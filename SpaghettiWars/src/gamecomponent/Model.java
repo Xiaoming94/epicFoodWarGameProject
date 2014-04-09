@@ -3,16 +3,13 @@ package gamecomponent;
 import java.util.ArrayList;
 
 import sun.awt.Mutex;
-import utilities.Position;
 import utilities.TextureHandler;
-import utilities.Vector;
 
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Entity;
-import entities.Meatball;
 import entities.Player;
 
 public class Model {

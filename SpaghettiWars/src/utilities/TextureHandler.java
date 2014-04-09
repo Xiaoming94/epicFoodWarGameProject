@@ -29,6 +29,7 @@ public class TextureHandler {
 		textures.add(new NameTexture("dummylogo.png"));
 		textures.add(new NameTexture("Kottbulle.png"));
 		textures.add(new NameTexture("wall.png"));
+		textures.add(new NameTexture("uglyfloor.png"));
 	}
 
 }

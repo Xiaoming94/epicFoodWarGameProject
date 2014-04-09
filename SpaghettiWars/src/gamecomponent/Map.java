@@ -14,6 +14,7 @@ public class Map {
 	private TextureHandler textureHandler;
 
 	ArrayList <Obstacle> obstacles = new ArrayList <Obstacle>();
+	ArrayList <Obstacle> decorations = new ArrayList <Obstacle>();
 	
 	private Sprite simpleWall;
 	
@@ -29,8 +30,16 @@ public class Map {
 		obstacles.add(o);
 	}
 	
+	public void addDecoration(Obstacle o){
+		decorations.add(o);
+	}
+	
 	public ArrayList<Obstacle> getObstacles(){
 		return obstacles;
+	}
+	
+	public ArrayList<Obstacle> getDecorations(){
+		return decorations;
 	}
 	
 	public void createNewRoom(double x, double y){
@@ -40,10 +49,11 @@ public class Map {
 		double y1 = 0 + y;
 		double x2 = -sprite.getHeight()/2.0 + sprite.getWidth()/2 +x;
 		double y2 = 0 + y;
-		double x3 = 300 +x;
+		double x3 = 300 + x;
 		double y3 = -sprite.getHeight()/2.0 + sprite.getWidth()/2 + y;
 		double x4 = 0 + x;
 		double y4 = sprite.getHeight()/2.0 - sprite.getWidth()/2 + y;
+		addDecoration(new Wall(x2 + sprite.getHeight()/2 - sprite.getWidth()/2, y2, new Sprite(textureHandler.getTextureByName("uglyfloor.png"))));
 		addObstacle(new Wall(x1, y1, new Sprite(sprite)));
 		addObstacle(new Wall(x2, y2, new Sprite(sprite)));
 		sprite.setRotation(90);
