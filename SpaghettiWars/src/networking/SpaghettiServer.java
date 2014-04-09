@@ -9,6 +9,7 @@ import utilities.NameTexture;
 import networking.Network.EntitySender;
 import networking.Network.ObstacleSender;
 import networking.Network.RequestConnection;
+import networking.Network.SimpleMessage;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -36,8 +37,18 @@ public class SpaghettiServer {
 					System.out.println("Connection request recieved from: " + ((RequestConnection)object).name);
 					clientsConnected.add(connection);
 					
+					SimpleMessage msg = new SimpleMessage();
+					msg.text = "Server: message received, response sent by TCP";
+					connection.sendTCP(msg);
+					msg.text = "Server: message received, response sent by UDP(attempt 1/2)";
+					connection.sendUDP(msg);
+					msg.text = "Server: message received, response sent by UDP(attempt 2/2)";
+					connection.sendUDP(msg);
+					
 				}else if(object instanceof ObstacleSender){
 					
+				}else if(object instanceof SimpleMessage){
+					System.out.println(((SimpleMessage)object).text);
 				}
 			}
 		});

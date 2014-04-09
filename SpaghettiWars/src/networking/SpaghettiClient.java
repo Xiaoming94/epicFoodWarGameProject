@@ -3,7 +3,7 @@ package networking;
 import java.io.IOException;
 
 import networking.Network.RequestConnection;
-import networking.Network.simpleMessage;
+import networking.Network.SimpleMessage;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -31,8 +31,8 @@ public class SpaghettiClient {
 		
 		client.addListener(new Listener(){
 			public void received(Connection connection, Object object){
-				if(object instanceof simpleMessage){
-					System.out.println(((simpleMessage)object).text);
+				if(object instanceof SimpleMessage){
+					System.out.println(((SimpleMessage)object).text);
 				}
 			}
 		});
