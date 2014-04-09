@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -24,7 +26,10 @@ public class MenuScreen implements Screen{
     Stage stage;
     SpriteBatch batch;
 
-    public MenuScreen(){
+    View parent;
+
+    public MenuScreen(View parent){
+        this.parent = parent;
         create();
     }
 
@@ -55,11 +60,27 @@ public class MenuScreen implements Screen{
 
         skin.add("default", textButtonStyle);
 
-        final TextButton textButton = new TextButton("PLAY",textButtonStyle);
-        textButton.setPosition(200,200);
+        Button button;
+
+        Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
+        buttonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);
+        buttonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
+        buttonStyle.checked = skin.newDrawable("white", Color.BLUE);
+        buttonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
+
+        button = new Button(buttonStyle);
+
+        button.setPosition(200,400);
+
+        final TextButton textButton = new TextButton("START",textButtonStyle);
+        textButton.setPosition(100,150);
+        //textButton.add
         stage.addActor(textButton);
         stage.addActor(textButton);
         stage.addActor(textButton);
+        stage.addActor(button);
+        stage.addActor(button);
+        stage.addActor(button);
     }
 
     @Override

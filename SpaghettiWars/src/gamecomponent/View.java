@@ -82,12 +82,16 @@ public class View implements ApplicationListener{
 
     private void renderMenu() {
         if (menuScreen == null) {
-            menuScreen = new MenuScreen();
+            menuScreen = new MenuScreen(this);
         }
         if (menuScreen != null){
             menuScreen.render(1);
         }
 
+    }
+
+    public void startGame(){
+        viewstate = ViewStates.INGAME;
     }
 
     public void renderGame(){
