@@ -8,6 +8,6 @@ import utilities.Vector;
 public class Meatball extends Projectile {
 	
 	public Meatball(double x, double y, Vector vector, Sprite sprite){
-		super(x, y, vector, sprite, 1, 10);
+		super(x, y, vector, sprite, 1, 300);
 	}
 }
