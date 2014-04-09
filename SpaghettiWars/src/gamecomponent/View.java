@@ -27,6 +27,8 @@ public class View implements ApplicationListener{
         MENUS,INGAME
     }
 
+    private MenuScreen menuScreen;
+
     private ViewStates viewstate;
 	public View(Model m){
 		
@@ -77,6 +79,9 @@ public class View implements ApplicationListener{
 	}
 
     private void renderMenu() {
+        if (menuScreen == null){
+            //do something in the future
+        }
 
     }
 
