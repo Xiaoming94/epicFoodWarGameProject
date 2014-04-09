@@ -66,5 +66,11 @@ public class SpaghettiServer {
 		}
 	}
 	
-	
+	public void messageAllClients(String msg){
+		SimpleMessage text = new SimpleMessage();
+		text.text = msg;
+		for(int i = 0; i < clientsConnected.size(); i++){
+			clientsConnected.get(i).sendTCP(text);
+		}
+	}
 }
