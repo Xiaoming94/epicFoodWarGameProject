@@ -50,13 +50,13 @@ public class GameInputHandler implements InputProcessor {
 		gameModel.mouseButtonPressed(screenX, screenY, button);
 		return true;
 	}
-
+	
 	@Override
 	public boolean touchDragged(int arg0, int arg1, int arg2) {
 		mouseMoved(arg0, arg1);
 		return false;
 	}
-
+	
 	@Override
 	public boolean touchUp(int arg0, int arg1, int arg2, int arg3) {
 		// TODO Auto-generated method stub
