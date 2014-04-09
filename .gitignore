@@ -4,7 +4,7 @@ SpaghettiWars/bin/
 SpaghettiWars/.classpath
 SpaghettiWars/.project
 SpaghettiWars/.idea/
-SpaghettiWars/epicFoodWarGameProject.iml
+*.iml
 
 SpaghettiWars/.texlipse
 *.class
