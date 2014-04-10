@@ -27,12 +27,12 @@ public class Main{
 //		}
 	
 //		try {
-//			new SpaghettiClient(54555, 54777, 5000, "127.0.0.1", "Säljägarn");
+//			new SpaghettiClient(54555, 54777, 5000, "192.168.1.224", "Säljägarn");
 //		} catch (IOException e) {
-			// TODO Auto-generated catch block
+//			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		//129.16.189.35 54555 54556
+//		//129.16.189.35 54555 54556
 	}
 	
 }
