@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import entities.Obstacle;
 import entities.Wall;
 
-public class Map {
+public class GameMap {
 	
 	private TextureHandler textureHandler;
 
@@ -18,7 +18,7 @@ public class Map {
 	
 	private Sprite simpleWall;
 	
-	public Map(TextureHandler textureHandler){
+	public GameMap(TextureHandler textureHandler){
 		this.textureHandler = textureHandler;
 		simpleWall = new Sprite(textureHandler.getTextureByName("wall.png"));
 		createNewRoom(0,0);

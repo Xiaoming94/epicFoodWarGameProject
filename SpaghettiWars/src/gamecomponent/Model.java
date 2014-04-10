@@ -34,7 +34,7 @@ public class Model {
 	
 	int selectedWeapon = 0;
 	
-	private Map map;
+	private GameMap map;
 	
 	public Model (){
 		
@@ -216,10 +216,10 @@ public class Model {
 	}
 
 	public void createMap(){
-		map = new Map(textureHandler);
+		map = new GameMap(textureHandler);
 	}
 	
-	public Map getMap(){
+	public GameMap getMap(){
 		return map;
 	}
 	
