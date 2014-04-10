@@ -1,12 +1,11 @@
 package networking;
 
-import gamecomponent.Map;
+import gamecomponent.GameMap;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 import utilities.NameTexture;
-import networking.Network.EntitySender;
 import networking.Network.ObstacleSender;
 import networking.Network.RequestConnection;
 import networking.Network.SimpleMessage;
@@ -55,7 +54,7 @@ public class SpaghettiServer {
 	}
 	
 	//prototyp
-	public void sendMap(Map map){
+	public void sendMap(GameMap map){
 		for(int i = 0; i < map.getObstacles().size(); i++){
 			ObstacleSender obs = new ObstacleSender();
 			obs.yPos = map.getObstacles().get(i).getY();
