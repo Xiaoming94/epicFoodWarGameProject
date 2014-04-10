@@ -80,7 +80,7 @@ public class Controller implements Runnable {
 			
 			time = System.currentTimeMillis() - time;
 			
-			System.out.println(time);
+			
 			
 			//very ugly solution, but first round the while loop takes longer than 10 ms
 			try {
