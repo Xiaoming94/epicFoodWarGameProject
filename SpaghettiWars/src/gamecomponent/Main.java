@@ -26,13 +26,13 @@ public class Main{
 //			e.printStackTrace();
 //		}
 	
-		try {
-			new SpaghettiClient(54555, 54777, 5000, "46.239.119.78", "Säljägarn");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//46.239.119.78 54555 54777
+//		try {
+//			new SpaghettiClient(54555, 54777, 5000, "46.239.119.78", "Säljägarn");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		//46.239.119.78 54555 54777
 	}
 	
 }

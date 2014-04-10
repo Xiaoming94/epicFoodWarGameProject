@@ -1,5 +1,6 @@
 package networking;
 
+
 import utilities.Vector;
 
 import com.esotericsoftware.kryo.Kryo;
@@ -42,5 +43,10 @@ public class Network {
 		public double yPos;
 		public double rotation;
 		public Vector vector;
+		public int speed;
+	}
+	
+	public static class RequestDisconnection{
+		public String name;
 	}
 }
