@@ -37,7 +37,7 @@ public class View implements ApplicationListener{
 	    cfg.width = 800;
 	    cfg.height = 480;
 		app = new LwjglApplication(this, cfg);
-        viewstate = ViewStates.INGAME;
+        viewstate = ViewStates.MENUS;
 		model = m;
 		model.setViewSize(cfg.width, cfg.height);
 	}
@@ -58,6 +58,8 @@ public class View implements ApplicationListener{
 		}catch(InterruptedException e){
 		    System.out.println("got interrupted!");
 		}
+		
+		//System.out.println("ENTERS CREATE IN VIEW");
 	}
 
 
@@ -78,6 +80,7 @@ public class View implements ApplicationListener{
 		if (viewstate == ViewStates.INGAME){
             renderGame();
         }
+		
 	}
 
     private void renderMenu() {
@@ -95,6 +98,8 @@ public class View implements ApplicationListener{
     }
 
     public void renderGame(){
+    	
+    
 
         camera.position.set((float)model.getPlayer().getX(), (float)model.getPlayer().getY(),0);
 

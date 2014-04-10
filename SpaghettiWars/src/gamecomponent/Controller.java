@@ -3,11 +3,11 @@ package gamecomponent;
 import java.util.ArrayList;
 
 import utilities.GameInputHandler;
+import utilities.Position;
 
 import com.badlogic.gdx.Gdx;
 
 import entities.Entity;
-
 import entities.Projectile;
 
 public class Controller implements Runnable {
@@ -27,6 +27,8 @@ public class Controller implements Runnable {
 
 	@Override
 	public void run() {
+		
+		
 		// wait for View to load textures before controller try to create player
 		try {
 			Thread.sleep(1000);
@@ -42,6 +44,8 @@ public class Controller implements Runnable {
 		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 		long time;
 		while (true) {
+			
+			
 			//measure starttime
 			time = System.currentTimeMillis();
 			
@@ -85,26 +89,40 @@ public class Controller implements Runnable {
 				if(e instanceof entities.Pizza){
 					for(Entity o: model.getMap().getObstacles()){
 						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
-							
-							//if collision with wall or with thing at target position kill the pizza
-							float targetX = (float)((entities.Pizza)e).getTargetPosition().getX();
-							float targetY = (float)((entities.Pizza)e).getTargetPosition().getY();
-							System.out.println("pizza target, x: " + targetX);
-							System.out.println("pizza target, y: " + targetY);
-							double leftXOfObstacle = o.getX();
-							double rightXOfObstacle = o.getX() + o.getSprite().getWidth();
+					
 							
 							if(o instanceof entities.Wall){
 								e.kill();
 								bufferList.add(e);
 							}
-									
+					
 						
 						}else{
+							
 							e.update();
 							if(e.isDead()){
 								bufferList.add(e);
 							}
+							
+							//chaos follows in comments below. ignore until later or never.
+							
+//							//check if we've landed on something... or something like that
+//							double obstacleLeftEdge = o.getX();
+//							double obstacleRightEdge = o.getX() + o.getSprite().getBoundingRectangle().getWidth();
+//							double obstacleTopEdge = o.getY() + o.getSprite().getBoundingRectangle().getHeight();
+//							double obstacleBottomEdge = o.getY();
+//							Position aim = ((entities.Pizza)e).getTargetPosition();
+//							
+//							//if true, we've hit something
+//							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
+//									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
+//								
+//								//if we've hit a player, make fat!
+//								if(o instanceof entities.Player){
+//									//make fatter;
+//								}
+//							}
+							
 						}
 					}
 					

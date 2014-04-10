@@ -8,14 +8,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 //import java.awt.*;
 
@@ -72,17 +70,17 @@ public class MenuScreen implements Screen{
 
         final TextButton textButton = new TextButton("START",textButtonStyle);
         textButton.setPosition(100,150);
-        textButton.addListener(new EventListener() {
-            @Override
-            public boolean handle(Event event) {
-                parent.startGame();
-                return false;
-            }
-        });
         //textButton.add
         stage.addActor(textButton);
         stage.addActor(textButton);
         stage.addActor(textButton);
+
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.startGame();
+            }
+        });
 
     }
 

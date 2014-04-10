@@ -25,11 +25,13 @@ public class GameMap {
 		createNewRoom(0,0);
 		createNewRoom(simpleWall.getHeight() - simpleWall.getWidth(), simpleWall.getHeight() - simpleWall.getWidth());
 		
+		
+		//test furniture
 		Sprite greenThing = new Sprite(textureHandler.getTextureByName("greenfurniture.png"));
 		addObstacle(new Furniture(0, -700, greenThing));
-		System.out.println(obstacles.get(obstacles.size()-1).getX());
-		System.out.println(obstacles.get(obstacles.size()-1).getX() + obstacles.get(obstacles.size()-1).getSprite().getWidth());
-		System.out.println(obstacles.get(obstacles.size()-1).getY());
+//		System.out.println(obstacles.get(obstacles.size()-1).getX());
+//		System.out.println(obstacles.get(obstacles.size()-1).getX() + obstacles.get(obstacles.size()-1).getSprite().getBoundingRectangle().getWidth());
+//		System.out.println(obstacles.get(obstacles.size()-1).getY());
 	}
 	
 	public void addObstacle(Obstacle o){
