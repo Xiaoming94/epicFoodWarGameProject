@@ -18,11 +18,13 @@ public class MainView extends Game {
 	public void create() {
 		ms = new MenuScreen(this);
 		gs = new GameScreen(model,this);
+		showMenu();
+	}
+	public void showMenu(){
 		this.setScreen(ms);
-
 	}
 	public void startGame(){
-		
+		this.setScreen(gs);
 	}
 
 }
