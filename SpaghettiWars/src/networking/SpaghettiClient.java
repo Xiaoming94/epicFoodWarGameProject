@@ -2,6 +2,8 @@ package networking;
 
 import java.io.IOException;
 
+import utilities.Vector;
+import networking.Network.PlayerSender;
 import networking.Network.RequestConnection;
 import networking.Network.SimpleMessage;
 
@@ -36,5 +38,14 @@ public class SpaghettiClient {
 				}
 			}
 		});
+	}
+	
+	public void sendPlayerPosition(int xPos, int yPos, Vector vector, double rotation){
+		PlayerSender playerSender = new PlayerSender();
+		playerSender.xPos = xPos;
+		playerSender.yPos = yPos;
+		playerSender.vector = vector;
+		playerSender.rotation = rotation;
+		client.sendUDP(playerSender);
 	}
 }

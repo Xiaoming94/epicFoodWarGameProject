@@ -37,10 +37,10 @@ public class Network {
 		public double rotation;
 	}
 	
-	public static class OtherStuffSender{
+	public static class PlayerSender{
 		public double xPos;
 		public double yPos;
-		public String spriteName;
+		public double rotation;
 		public Vector vector;
 	}
 }
