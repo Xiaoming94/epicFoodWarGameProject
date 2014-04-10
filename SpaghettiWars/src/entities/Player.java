@@ -19,7 +19,7 @@ public class Player extends Entity {
 	private TextureHandler textureHandler;
 	
 	private PowerUp powerUp = null;
-	
+	private String selectedWeapon = "meatball";
 	
 	public Player(String name, double x, double y, Sprite sprite, int speed, TextureHandler th){
 		super(x, y, sprite);
@@ -57,9 +57,19 @@ public class Player extends Entity {
 	}
 	
 	public Projectile shoot(double x, double y){
-		Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
-		mb.setVector(new Position(x,y));
-		return mb;
+
+		if(selectedWeapon == "pizza"){
+			Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")));
+			p.setVector(new Position(x,y));
+			return p;
+		}else{
+			Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
+			mb.setVector(new Position(x,y));
+			return mb;
+		}
+//		Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
+//		mb.setVector(new Position(x,y));
+//		return mb;
 	}
 	
 	public boolean overlaps(Rectangle r){
@@ -94,6 +104,18 @@ public class Player extends Entity {
 		if(canMoveY){
 			this.setY(this.getY() + this.getVector().getDeltaY());
 			this.getSprite().setY((float)this.getY() - this.getSprite().getHeight()/2);
+		}
+	}
+	
+
+	public void changeWeapon(int i){
+		switch(i+1){
+		case 2: 
+			selectedWeapon = "pizza";
+			break;
+		default:
+			selectedWeapon = "meatball";
+			break;
 		}
 	}
 	
