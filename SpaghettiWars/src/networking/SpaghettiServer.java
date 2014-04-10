@@ -4,9 +4,12 @@ import gamecomponent.GameMap;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import utilities.NameTexture;
 import networking.Network.ObstacleSender;
+import networking.Network.PlayerSender;
 import networking.Network.RequestConnection;
 import networking.Network.SimpleMessage;
 
@@ -18,15 +21,17 @@ public class SpaghettiServer {
 	
 	private Server server;
 	private ArrayList<Connection> clientsConnected;
+	private Map playerMap;
 	
 	public SpaghettiServer(int TCPPort, int UDPPort) throws IOException{
 		server = new Server();
 		server.start();
 		Network.register(server);
 		
+		playerMap = new HashMap();
 		
 		server.bind(TCPPort, UDPPort);
-		clientsConnected = new ArrayList();
+		clientsConnected = new ArrayList<Connection>();
 		
 		server.addListener(new Listener(){
 			public void received(Connection connection, Object object){
@@ -48,6 +53,8 @@ public class SpaghettiServer {
 					
 				}else if(object instanceof SimpleMessage){
 					System.out.println(((SimpleMessage)object).text);
+				}else if(object instanceof PlayerSender){
+					
 				}
 			}
 		});
@@ -61,7 +68,6 @@ public class SpaghettiServer {
 			obs.xPos = map.getObstacles().get(i).getX();
 			obs.spriteName = ((NameTexture)map.getObstacles().get(i).getSprite().getTexture()).getName();
 			obs.rotation = map.getObstacles().get(i).getSprite().getRotation();
-			
 		}
 	}
 	
