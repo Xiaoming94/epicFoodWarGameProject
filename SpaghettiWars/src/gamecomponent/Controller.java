@@ -35,6 +35,7 @@ public class Controller implements Runnable {
 		ArrayList<Entity> bufferList = new ArrayList<Entity>();
 		
 		model.createMap();
+		model.createGUI();
 		model.createPlayer();
 		
 		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
@@ -80,7 +81,7 @@ public class Controller implements Runnable {
 			
 			time = System.currentTimeMillis() - time;
 			
-			
+
 			
 			//very ugly solution, but first round the while loop takes longer than 10 ms
 			try {
