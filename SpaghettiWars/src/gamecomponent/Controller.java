@@ -7,6 +7,7 @@ import utilities.GameInputHandler;
 import com.badlogic.gdx.Gdx;
 
 import entities.Entity;
+
 import entities.Projectile;
 
 public class Controller implements Runnable {
@@ -59,19 +60,75 @@ public class Controller implements Runnable {
 			playerObstructed.clear();
 			
 			model.getEntitiesMutex().lock();
-			for(Projectile e : model.getProjectiles())
-			{
-				for(Entity o : model.getMap().getObstacles())
-					if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
-						e.kill();
-						bufferList.add(e);
+			
+			
+			//Lalalalalalala, testing stuff. original code below in comments.
+			for(Projectile e: model.getProjectiles()){
+				
+				//if meatball, impact whenever it hits something
+				if(e instanceof entities.Meatball){
+					for(Entity o: model.getMap().getObstacles()){
+						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+							e.kill();
+							bufferList.add(e);
+						}else{
+							e.update();
+							if(e.isDead()){
+								bufferList.add(e);
+							}
+						}
+					}
 				}
-				else{
-					e.update();
-					if(e.isDead())
-						bufferList.add(e);
+				
+				//stuff that pizza should do:
+				//if pizza, impact with walls always and with other things when they've been targeted
+				if(e instanceof entities.Pizza){
+					for(Entity o: model.getMap().getObstacles()){
+						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+							
+							//if collision with wall or with thing at target position kill the pizza
+							float targetX = (float)((entities.Pizza)e).getTargetPosition().getX();
+							float targetY = (float)((entities.Pizza)e).getTargetPosition().getY();
+							System.out.println("pizza target, x: " + targetX);
+							System.out.println("pizza target, y: " + targetY);
+							double leftXOfObstacle = o.getX();
+							double rightXOfObstacle = o.getX() + o.getSprite().getWidth();
+							
+							if(o instanceof entities.Wall){
+								e.kill();
+								bufferList.add(e);
+							}
+									
+						
+						}else{
+							e.update();
+							if(e.isDead()){
+								bufferList.add(e);
+							}
+						}
+					}
+					
 				}
 			}
+			
+			
+			//this is what was here before I messed with it...
+			
+//			for(Projectile e : model.getProjectiles())
+//			{
+//				for(Entity o : model.getMap().getObstacles())
+//					if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+//						e.kill();
+//						bufferList.add(e);
+//				}
+//				else{
+//					e.update();
+//					if(e.isDead())
+//						bufferList.add(e);
+//				}
+//			}
+			
+			
 			model.getEntitiesMutex().unlock();
 			
 			model.getEntitiesMutex().lock();

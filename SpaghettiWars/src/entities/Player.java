@@ -59,7 +59,7 @@ public class Player extends Entity {
 	public Projectile shoot(double x, double y){
 
 		if(selectedWeapon == "pizza"){
-			Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")));
+			Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")), new Position(x,y));
 			p.setVector(new Position(x,y));
 			return p;
 		}else{

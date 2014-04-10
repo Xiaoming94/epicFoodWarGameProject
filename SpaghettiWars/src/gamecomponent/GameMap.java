@@ -6,6 +6,7 @@ import utilities.TextureHandler;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import entities.Furniture;
 import entities.Obstacle;
 import entities.Wall;
 
@@ -23,7 +24,12 @@ public class GameMap {
 		simpleWall = new Sprite(textureHandler.getTextureByName("wall.png"));
 		createNewRoom(0,0);
 		createNewRoom(simpleWall.getHeight() - simpleWall.getWidth(), simpleWall.getHeight() - simpleWall.getWidth());
-
+		
+		Sprite greenThing = new Sprite(textureHandler.getTextureByName("greenfurniture.png"));
+		addObstacle(new Furniture(0, -700, greenThing));
+		System.out.println(obstacles.get(obstacles.size()-1).getX());
+		System.out.println(obstacles.get(obstacles.size()-1).getX() + obstacles.get(obstacles.size()-1).getSprite().getWidth());
+		System.out.println(obstacles.get(obstacles.size()-1).getY());
 	}
 	
 	public void addObstacle(Obstacle o){
