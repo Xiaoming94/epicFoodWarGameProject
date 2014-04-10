@@ -123,6 +123,7 @@ public class View implements ApplicationListener{
         batch.draw(model.getPlayer().getSprite(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY(), model.getPlayer().getSprite().getOriginX(), model.getPlayer().getSprite().getOriginY(), model.getPlayer().getSprite().getWidth(), model.getPlayer().getSprite().getHeight(), 1, 1, model.getPlayer().getSprite().getRotation());
         batch.draw(model.getActionBar(), camera.position.x-180, camera.position.y-camera.viewportHeight/2);
         batch.draw(model.getActionBarSelection(), camera.position.x-180+40*model.getSelectedWeapon(), camera.position.y-camera.viewportHeight/2);
+        
         batch.end();
     }
 

@@ -146,6 +146,7 @@ public class Model {
 		}
 		
 		updatePlayerMovingDirection();
+		player.changeWeapon(selectedWeapon); //NY
 		
 	}
 	
