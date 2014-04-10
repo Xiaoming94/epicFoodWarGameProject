@@ -1,1 +1,3 @@
 Now (if you want to) you could work in diffrent IDEs without fucking up the project
+
+Fixing some view stuff
