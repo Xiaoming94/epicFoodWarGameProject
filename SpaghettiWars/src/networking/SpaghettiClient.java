@@ -51,23 +51,23 @@ public class SpaghettiClient {
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
 
-					if (playerMap.containsKey(connection.getID())) {
-						((Player) playerMap.get(connection.getID()))
+					if (playerMap.containsKey(playerSender.ID)) {
+						((Player) playerMap.get(playerSender.ID))
 								.setX(playerSender.xPos);
-						((Player) playerMap.get(connection.getID()))
+						((Player) playerMap.get(playerSender.ID))
 								.setY(playerSender.yPos);
-						((Player) playerMap.get(connection.getID()))
+						((Player) playerMap.get(playerSender.ID))
 								.setSpeed(playerSender.speed);
-						((Player) playerMap.get(connection.getID())).setVector(
+						((Player) playerMap.get(playerSender.ID)).setVector(
 								playerSender.vector.getDeltaX(),
 								playerSender.vector.getDeltaY());
 						// ((Player)
-						// playerMap.get(connection.getID())).setRotation(playerSender.rotation);
+						// playerMap.get(playerSender.ID)).setRotation(playerSender.rotation);
 					} else {
 						// playerMap.add()
 						playerMap.put(
-								connection.getID(),
-								new Player("player" + connection.getID(),
+								playerSender.ID,
+								new Player("player" + playerSender.ID,
 										playerSender.xPos, playerSender.yPos,
 										(new Sprite(model.getTextureHandler()
 												.getTextureByName("ful.png"))),

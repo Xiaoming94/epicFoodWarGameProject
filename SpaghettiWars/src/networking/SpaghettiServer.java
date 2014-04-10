@@ -133,16 +133,22 @@ public class SpaghettiServer {
 					playerSender.speed = (int) playerMap.get(key).getSpeed();
 					//FIX that speed is a double in entity and a int in player
 					playerSender.vector = playerMap.get(key).getVector();
-//					playerSender.rotation = playerMap.get(key).getRotation(); NO getRotation so far
+					playerSender.ID = Integer.parseInt(playerMap.get(key).getName());
+//					playerSender.rotation = playerMap.get(key).getRotation(); NO getRotation so far?!
 					clientsConnected.get(i).sendUDP(playerSender);
 					
-					//DONT FORGET TO SEND THE HOST PLAYER TOO! :)
+					//DONT FORGET TO SEND THE HOST PLAYER TOO! :) done
 				}
 			}
 			playerSender.xPos = model.getPlayer().getX();
 			playerSender.yPos = model.getPlayer().getY();
 			playerSender.speed = (int) model.getPlayer().getSpeed();
 			playerSender.vector = model.getPlayer().getVector();
+			int id = 91287;
+			while(playerMap.containsKey(id)){
+				id++;
+			}
+			playerSender.ID = id;
 			clientsConnected.get(i).sendUDP(playerSender);
 		}
 	}
