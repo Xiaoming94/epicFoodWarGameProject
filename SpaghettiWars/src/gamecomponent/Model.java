@@ -16,6 +16,11 @@ import entities.Player;
 import entities.PowerUp;
 import entities.Projectile;
 
+/**
+ * This class is for the Model of this Game (working title) SpaghettiWars
+ * @author Jimmy Eliasson Malmer
+ * Model class holds the data which the View uses to paint the graphics of the game using LibGDX
+ */
 public class Model {
 	
 	
@@ -39,7 +44,11 @@ public class Model {
 	int selectedWeapon = 0;
 	
 	private GameMap map;
-	
+
+    /**
+     * The first Constructor of the Model Object
+     * Constucts the Model and initiates the components of the Model
+     */
 	public Model (){
 		
 		entities = new ArrayList<Entity>();
@@ -53,23 +62,37 @@ public class Model {
 		textureHandler = new TextureHandler();
 		
 	}
-	
+
+    /**
+     * Method for creating basic gui elements
+     */
 	public void createGUI(){
 		actionBar = textureHandler.getTextureByName("actionbar2.png");
 		actionBarSelection = textureHandler.getTextureByName("actionbarselection.png");
 	}
-	
+
+    /**
+     * Getter Accessor for the action bar
+     * @return actionBar - the game Action bar
+     */
 	
 	public Texture getActionBar() {
 		return actionBar;
 	}
 
-
+    /**
+     * Getter Accessor for the action bar selection
+     * @return actionBarSelection - the game Action bar selection
+     */
 
 	public Texture getActionBarSelection() {
 		return actionBarSelection;
 	}
 
+    /**
+     *
+     * @return
+     */
 	public ArrayList<Player> getOtherPlayers() {
 		return otherPlayers;
 	}
@@ -105,7 +128,7 @@ public class Model {
 		//testing powerup energydrink
 		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
 		
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler(), testPowerUp);
+		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
 	}
 	
 	public void addPlayer(String name, int x, int y, String s, int speed){
