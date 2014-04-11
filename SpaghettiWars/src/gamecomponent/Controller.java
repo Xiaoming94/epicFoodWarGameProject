@@ -138,17 +138,17 @@ public class Controller implements Runnable {
 							double obstacleBottomEdge = o.getY();
 							Position aim = ((entities.Pizza)e).getTargetPosition();
 							
-							//if true, we've hit something
-							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
-									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
-								
-								//if we've hit a player, make fat!
-								if(o.getClass() == entities.Wall.class){
-									//make fatter;
-									System.out.println("make wall fat");
-									o.getSprite().setSize(o.getSprite().getWidth()*5, o.getSprite().getHeight()*5);
-								}
-							}
+//							//if true, we've hit something
+//							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
+//									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
+//								
+//								//if we've hit a player, make fat!
+//								if(o.getClass() == entities.Wall.class){
+//									//make fatter;
+//									System.out.println("make wall fat");
+//									o.getSprite().setSize(o.getSprite().getWidth()*5, o.getSprite().getHeight()*5);
+//								}
+//							}
 							
 						}
 					}
