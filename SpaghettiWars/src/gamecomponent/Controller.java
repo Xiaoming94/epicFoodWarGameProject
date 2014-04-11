@@ -45,7 +45,7 @@ public class Controller implements Runnable {
 		model.createGUI();
 		model.createPlayer();
 		
-		model.addPlayer("Sir Eatalot", 15, 15, "ful.png", 2);
+		model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
 		
 		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 		long time;
@@ -159,6 +159,14 @@ public class Controller implements Runnable {
 			
 			
 			model.getEntitiesMutex().unlock();
+			
+			for(Player p : model.getOtherPlayers()){
+				if(p.isDead()){
+					p.setVector(0, 0);
+				}
+				else
+					p.move();
+			}
 			
 			model.getEntitiesMutex().lock();
 			for(Entity e : killProjectileList)

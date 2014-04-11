@@ -13,7 +13,7 @@ public class Player extends Entity {
 	
 	private String name;
 	
-	private int fatPoint = 0;
+	private double fatPoints = 0;
 	private boolean isDead = false;
 	
 	private static TextureHandler textureHandler;
@@ -21,10 +21,15 @@ public class Player extends Entity {
 	private PowerUp powerUp = null;
 	private String selectedWeapon = "meatball";
 	
+	private float spriteHeight, spriteWidth;
+	
 	public Player(String name, double x, double y, Sprite sprite, int speed){
 		super(x, y, sprite);
 		this.name = name;
 		this.setSpeed(speed);
+		
+		spriteWidth = this.getSprite().getWidth();
+		spriteHeight = this.getSprite().getHeight();
 	}
 	
 	public Player(String name, double x, double y, Sprite sprite, int speed, TextureHandler th){
@@ -36,28 +41,45 @@ public class Player extends Entity {
 		return name;
 	}
 	
-	public int getFatPoint(){
-		return fatPoint;
+	public double getFatPoint(){
+		return fatPoints;
 	}
 	
 	public void gainWeight(int damage){
-		fatPoint += damage;
+		fatPoints += damage;
+		weightChanged();
 	}
 	
 	public void looseWeight(int damage){
-		fatPoint -= damage;
+		fatPoints -= damage;
+		weightChanged();
 	}
 	
 	public void setWeight(int weight){
-		fatPoint = weight;
+		fatPoints = weight;
+		weightChanged();
 	}
 	
-	public boolean checkIfDead(){
+	private void weightChanged(){
+		this.getSprite().setSize(spriteWidth*(float)getScale(), spriteHeight*(float)getScale());
+		
+		this.setSpeed(2*(1.0/this.getFatPoint()));
+		this.updateVector();
+		
+		if(this.getFatPoint() > 99)
+			isDead = true;
+	}
+	
+	public boolean isDead(){
 		return isDead;
 	}
 	
 	public void modifySpeed(double k){
 		this.setSpeed(this.getSpeed()+k);
+	}
+	
+	public double getScale(){
+		return (fatPoints + 100) / 100;
 	}
 	
 	public Projectile shoot(double x, double y){

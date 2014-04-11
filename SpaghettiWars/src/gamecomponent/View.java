@@ -136,7 +136,7 @@ public class View implements ApplicationListener{
         model.getStillEntitiesMutex().unlock();
         
         for(Entity e : model.getOtherPlayers())
-            batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
+            batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY(), e.getSprite().getOriginX(), e.getSprite().getOriginY(), e.getSprite().getWidth(), e.getSprite().getHeight(), 1, 1, e.getSprite().getRotation());
 
         batch.draw(model.getPlayer().getSprite(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY(), model.getPlayer().getSprite().getOriginX(), model.getPlayer().getSprite().getOriginY(), model.getPlayer().getSprite().getWidth(), model.getPlayer().getSprite().getHeight(), 1, 1, model.getPlayer().getSprite().getRotation());
         batch.draw(model.getActionBar(), camera.position.x-180, camera.position.y-camera.viewportHeight/2);

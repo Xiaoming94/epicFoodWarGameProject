@@ -104,7 +104,11 @@ public class Model {
 	}
 	
 	public void addPlayer(String name, int x, int y, String s, int speed){
-		this.addPlayer(new Player(name , x, y, new Sprite(this.getTextureHandler().getTextureByName(s)), speed));
+		//test
+		Player test = new Player(name , x, y, new Sprite(this.getTextureHandler().getTextureByName(s)), speed);
+		test.setVector(1, 0);;
+		this.addPlayer(test);
+		
 	}
 	
 	//Author: Jimmy - wtf function, please help it with its life

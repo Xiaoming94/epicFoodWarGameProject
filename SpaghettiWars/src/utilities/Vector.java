@@ -58,4 +58,8 @@ public class Vector {
 		dx = length*dx;
 		dy = length*dy;
 	}
+	
+	public double getDegree(){
+		return Math.atan(Math.toRadians(dy/dx));
+	}
 }
