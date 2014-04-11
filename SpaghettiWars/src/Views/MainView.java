@@ -16,14 +16,18 @@ public class MainView extends Game {
 
 	@Override
 	public void create() {
-		ms = new MenuScreen(this);
-		gs = new GameScreen(model,this);
 		showMenu();
 	}
 	public void showMenu(){
+		if(ms == null){
+			ms = new MenuScreen(this);
+		}
 		this.setScreen(ms);
 	}
 	public void startGame(){
+		if (gs == null){
+			gs = new GameScreen(model, this);
+		}
 		this.setScreen(gs);
 	}
 
