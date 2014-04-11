@@ -46,7 +46,7 @@ public class Model {
 
 	private int width, height;
 
-	int selectedWeapon = 0;
+	private int selectedWeapon = 0;
 
 	private GameMap map;
 

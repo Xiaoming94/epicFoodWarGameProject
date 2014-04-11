@@ -7,22 +7,24 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public abstract class Projectile extends Entity{
 	
 	private final int damage;
-	private double RANGE;
+	private double range;
 	private boolean dead;
 	
 	public Projectile(double x, double y, Vector vector, Sprite sprite, int damage, double range){
 		super(x, y, vector, sprite);
 		this.damage = damage;
-		this.RANGE = range;
+		this.range = range;
 		this.dead = false;
 	}
+
+    public void setRange(double range){ this.range = range; }
 	
 	public int getDamage(){
 		return damage;
 	}
 	
 	public double getRange(){
-		return RANGE;
+		return range;
 	}
 	
 	public boolean isDead(){
@@ -34,9 +36,9 @@ public abstract class Projectile extends Entity{
 	}
 	
 	public void update(){
-		this.RANGE--;
+		this.range--;
 		
-		if(RANGE < 1)
+		if(range < 1)
 			this.dead = true;
 		
 		this.move();

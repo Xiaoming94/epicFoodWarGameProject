@@ -117,11 +117,7 @@ public class Controller implements Runnable {
 								e.kill();
 								killProjectileList.add(e);
 							}
-//							if(o instanceof entities.Wall){
-//								e.kill();
-//								bufferList.add(e);
-//							}
-					
+
 						
 						}else{
 							
@@ -156,23 +152,6 @@ public class Controller implements Runnable {
 					
 				}
 			}
-			
-			
-			//this is what was here before I messed with it...
-			
-//			for(Projectile e : model.getProjectiles())
-//			{
-//				for(Entity o : model.getMap().getObstacles())
-//					if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
-//						e.kill();
-//						bufferList.add(e);
-//				}
-//				else{
-//					e.update();
-//					if(e.isDead())
-//						bufferList.add(e);
-//				}
-//			}
 			
 			
 			model.getEntitiesMutex().unlock();
