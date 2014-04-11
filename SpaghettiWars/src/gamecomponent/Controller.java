@@ -20,7 +20,7 @@ public class Controller implements Runnable {
 	public Controller(Model m, View view) {
 		model = m;
 		this.view = view;
-		gih = new GameInputHandler(model, view);
+		gih = new GameInputHandler(model);
 		Gdx.input.setInputProcessor(gih);
 	}
 	
