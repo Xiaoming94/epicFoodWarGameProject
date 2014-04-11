@@ -44,10 +44,14 @@ public class Controller implements Runnable {
 		ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 		ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 		
+		
+		ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
+		
+		
+		
 		model.createMap();
 		model.createGUI();
 		model.createPlayer();
-		
 
 //		model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
 		
@@ -55,14 +59,13 @@ public class Controller implements Runnable {
 		long time;
 		while (true) {
 			
+			//measure starttime
+			time = System.currentTimeMillis();
 			
 			
 			if(model.getPlayer() != null && model.getPlayer().isAffectedByPowerUp()){
 				model.getPlayer().getPowerUp().update(); //testing powerup
 			}
-			
-			//measure starttime
-			time = System.currentTimeMillis();
 			
 			
 			playerObstructed.clear();
@@ -139,17 +142,17 @@ public class Controller implements Runnable {
 							double obstacleBottomEdge = o.getY();
 							Position aim = ((entities.Pizza)e).getTargetPosition();
 							
-							//if true, we've hit something
-							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
-									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
-								
-								//if we've hit a player, make fat!
-								if(o.getClass() == entities.Wall.class){
-									//make fatter;
-									System.out.println("make wall fat");
-									o.getSprite().setSize(o.getSprite().getWidth()*5, o.getSprite().getHeight()*5);
-								}
-							}
+//							//if true, we've hit something
+//							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
+//									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
+//								
+//								//if we've hit a player, make fat!
+//								if(o.getClass() == entities.Wall.class){
+//									//make fatter;
+//									System.out.println("make wall fat");
+//									o.getSprite().setSize(o.getSprite().getWidth()*5, o.getSprite().getHeight()*5);
+//								}
+//							}
 							
 						}
 					}
@@ -158,6 +161,34 @@ public class Controller implements Runnable {
 			}
 			
 			
+			//this is what was here before I messed with it...
+			
+//			for(Projectile e : model.getProjectiles())
+//			{
+//				for(Entity o : model.getMap().getObstacles())
+//					if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+//						e.kill();
+//						bufferList.add(e);
+//				}
+//				else{
+//					e.update();
+//					if(e.isDead())
+//						bufferList.add(e);
+//				}
+//			}
+			
+			
+			
+//			
+//			for(Player p : model.getOtherPlayers()){
+//				if(p.isDead()){
+//					p.setVector(0, 0);
+//					killPlayerList.add(p);
+//					double deathSize = p.getScale();
+//					//System.out.println("deathsize:" + deathSize);
+//					//model.getStillEntitys().add(p);
+//					//model.getOtherPlayers().remove(p);
+
 			model.getEntitiesMutex().unlock();
 			
 			Iterator<Integer> iterator = model.getOtherPlayers().keySet().iterator();
@@ -165,10 +196,18 @@ public class Controller implements Runnable {
 				int key = iterator.next();
 				if(model.getOtherPlayers().get(key).isDead()){
 					model.getOtherPlayers().get(key).setVector(0, 0);
+					killPlayerList.add(model.getOtherPlayers().get(key));
+
 				}
 				else
 					model.getOtherPlayers().get(key).move();
 			}
+		
+			for(Entity e: killPlayerList){
+				model.killPlayer(e);
+			}
+			
+
 			
 			model.getEntitiesMutex().lock();
 			for(Entity e : killProjectileList)

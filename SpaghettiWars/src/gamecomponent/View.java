@@ -135,7 +135,9 @@ public class View implements ApplicationListener{
 
         model.getStillEntitiesMutex().lock();
         for(Entity e : model.getStillEntitys())
-            batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
+          //  batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
+        	//changed this to make dead player still be fat
+        	batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY(), e.getSprite().getOriginX(), e.getSprite().getOriginY(), e.getSprite().getWidth(), e.getSprite().getHeight(), 1, 1, e.getSprite().getRotation());
         model.getStillEntitiesMutex().unlock();
         
 
