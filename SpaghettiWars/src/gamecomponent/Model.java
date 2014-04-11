@@ -3,6 +3,7 @@ package gamecomponent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import networking.SpaghettiClient;
@@ -188,6 +189,31 @@ public class Model {
 		}
 		getStillEntitiesMutex().unlock();
 	}
+
+	
+	public void killPlayer(Entity e){
+		int i = 0;
+		boolean found = false;
+		Iterator<Integer> iterator = otherPlayers.keySet().iterator();
+		while(iterator.hasNext()){
+			int key = iterator.next();
+			if(otherPlayers.get(key).equals(e)){
+				found = true;
+				break;
+			}
+			i++;
+		}
+		getStillEntitiesMutex().lock();
+		if(found){
+			otherPlayers.remove(i);
+			stillEntities.add(e);
+			//System.out.println("why not still fat? " + ((Player)e).getScale());
+			//e.getSprite().setSize(((float)e.getSprite().getWidth())*(float)((Player)e).getScale(), ((float)e.getSprite().getHeight())*(float)((Player)e).getScale());
+		}
+		getStillEntitiesMutex().unlock();
+	}
+	
+
 
 	public int getSelectedWeapon(){
 		return selectedWeapon;
