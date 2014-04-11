@@ -1,7 +1,12 @@
 package gamecomponent;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
+import networking.SpaghettiClient;
+import networking.SpaghettiServer;
 import sun.awt.Mutex;
 import utilities.TextureHandler;
 
@@ -21,7 +26,7 @@ public class Model {
 	private ArrayList<Entity> entities;
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Entity> stillEntities;
-	private ArrayList<Player> otherPlayers;
+	private Map<Integer, Player> otherPlayers;
 
 	private Player player;
 	private Texture actionBar, actionBarSelection;
@@ -43,13 +48,35 @@ public class Model {
 		entities = new ArrayList<Entity>();
 		stillEntities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
-		otherPlayers = new ArrayList<Player>();
+		otherPlayers = new HashMap<Integer, Player>();
 		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
 		
 //		textures = new ArrayList<NameTexture>();
 		textureHandler = new TextureHandler();
 		
+	}
+	
+	//kind of temporary implementation
+	public void createServer(){
+		try {
+			SpaghettiServer server = new SpaghettiServer(54555, 54777, this, otherPlayers);
+			server.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	//kind of temporary implementation
+	public void createClient(){
+		try {
+			SpaghettiClient client = new SpaghettiClient(54555, 54777, 5000, "IPADRESSGOESHERE", "MYNAME", this, otherPlayers);
+			client.start();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void createGUI(){
@@ -68,13 +95,13 @@ public class Model {
 		return actionBarSelection;
 	}
 
-	public ArrayList<Player> getOtherPlayers() {
+	public Map<Integer, Player> getOtherPlayers() {
 		return otherPlayers;
 	}
 	
-	public void addPlayer(Player p){
-		otherPlayers.add(p);
-	}
+//	public void addPlayer(Player p){
+//		otherPlayers.add(p);
+//	}
 
 	public ArrayList<Entity> getEntitys(){
 		return entities;
@@ -103,9 +130,9 @@ public class Model {
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
 	}
 	
-	public void addPlayer(String name, int x, int y, String s, int speed){
-		this.addPlayer(new Player(name , x, y, new Sprite(this.getTextureHandler().getTextureByName(s)), speed));
-	}
+//	public void addPlayer(String name, int x, int y, String s, int speed){
+//		this.addPlayer(new Player(name , x, y, new Sprite(this.getTextureHandler().getTextureByName(s)), speed));
+//	}
 	
 	//Author: Jimmy - wtf function, please help it with its life
 	public void killProjectile(Entity e){

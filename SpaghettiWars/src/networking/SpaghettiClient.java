@@ -29,7 +29,7 @@ public class SpaghettiClient implements Runnable{
 	// method will block, if it times out or connection otherwise fails, an
 	// exeption is thrown.
 	public SpaghettiClient(int TCPPort, int UDPPort, int connectionTimeBlock,
-			String IPAddress, String clientName, Model mod) throws IOException {
+			String IPAddress, String clientName, Model mod, Map<Integer, Player> otherPlayerMap) throws IOException {
 		client = new Client();
 		client.start();
 
@@ -37,7 +37,7 @@ public class SpaghettiClient implements Runnable{
 
 		model = mod;
 
-		playerMap = new HashMap<Integer, Player>();
+		playerMap = otherPlayerMap;
 
 		client.connect(connectionTimeBlock, IPAddress, TCPPort, UDPPort);
 
