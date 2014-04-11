@@ -21,6 +21,8 @@ public class Model {
 	private ArrayList<Entity> entities;
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Entity> stillEntities;
+	private ArrayList<Player> otherPlayers;
+
 	private Player player;
 	private Texture actionBar, actionBarSelection;
 	
@@ -41,6 +43,7 @@ public class Model {
 		entities = new ArrayList<Entity>();
 		stillEntities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
+		otherPlayers = new ArrayList<Player>();
 		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
 		
@@ -65,7 +68,13 @@ public class Model {
 		return actionBarSelection;
 	}
 
-
+	public ArrayList<Player> getOtherPlayers() {
+		return otherPlayers;
+	}
+	
+	public void addPlayer(Player p){
+		otherPlayers.add(p);
+	}
 
 	public ArrayList<Entity> getEntitys(){
 		return entities;
@@ -89,8 +98,13 @@ public class Model {
 	public Mutex getStillEntitiesMutex(){
 		return stillEntitiesMutex;
 	}
+	
 	public void createPlayer(){
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
+	}
+	
+	public void addPlayer(String name, int x, int y, String s, int speed){
+		this.addPlayer(new Player(name , x, y, new Sprite(this.getTextureHandler().getTextureByName(s)), speed));
 	}
 	
 	//Author: Jimmy - wtf function, please help it with its life
@@ -108,6 +122,23 @@ public class Model {
 		if(found){
 			projectiles.remove(i);
 			stillEntities.add(e);
+		}
+		getStillEntitiesMutex().unlock();
+	}
+	
+	public void removeProjectile(Entity e){
+		int i = 0;
+		boolean found = false;
+		for(Entity ent : projectiles){
+			if(ent.equals(e)){
+				found = true;
+				break;
+			}
+			i++;
+		}
+		getStillEntitiesMutex().lock();
+		if(found){
+			projectiles.remove(i);
 		}
 		getStillEntitiesMutex().unlock();
 	}
