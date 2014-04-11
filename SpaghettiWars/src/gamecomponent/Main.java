@@ -15,8 +15,8 @@ public class Main{
 		Model model = new Model();
 		View view = new View(model);
 		Thread ct = new Thread(new Controller(model, view));
-		//model.createServer();
 		ct.start();
+		model.createClient();
 		
 	}
 		

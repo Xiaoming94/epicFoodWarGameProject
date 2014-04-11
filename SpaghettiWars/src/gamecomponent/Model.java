@@ -82,7 +82,7 @@ public class Model {
 	//kind of temporary implementation
 	public void createClient(){
 		try {
-			SpaghettiClient client = new SpaghettiClient(54555, 54777, 5000, "IPADRESSGOESHERE", "MYNAME", this, otherPlayers);
+			SpaghettiClient client = new SpaghettiClient(54555, 54777, 5000, "46.239.119.78", "Jocke", this, otherPlayers);
 			client.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
