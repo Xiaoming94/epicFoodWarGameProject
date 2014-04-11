@@ -4,6 +4,9 @@
 package gamecomponent;
 
 import org.lwjgl.opengl.GL11;
+
+import utilities.GameInputHandler;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -13,12 +16,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 //import com.badlogic.gdx.math.Rectangle;
 
+
 import entities.Entity;
 import entities.Obstacle;
 
 public class View implements ApplicationListener{
 	Model model;
 	LwjglApplication app;
+	GameInputHandler gih;
 	
 	OrthographicCamera camera;
 	SpriteBatch batch;
@@ -40,6 +45,10 @@ public class View implements ApplicationListener{
         viewstate = ViewStates.INGAME;
 		model = m;
 		model.setViewSize(cfg.width, cfg.height);
+	}
+	
+	public void reciveInputHandler(GameInputHandler gih){
+		this.gih = gih;
 	}
 
 	@Override
@@ -94,6 +103,7 @@ public class View implements ApplicationListener{
     }
 
     public void startGame(){
+    	Gdx.input.setInputProcessor(gih);
         viewstate = ViewStates.INGAME;
     }
 
@@ -124,6 +134,9 @@ public class View implements ApplicationListener{
         for(Entity e : model.getStillEntitys())
             batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
         model.getStillEntitiesMutex().unlock();
+        
+        for(Entity e : model.getOtherPlayers())
+            batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
 
         batch.draw(model.getPlayer().getSprite(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY(), model.getPlayer().getSprite().getOriginX(), model.getPlayer().getSprite().getOriginY(), model.getPlayer().getSprite().getWidth(), model.getPlayer().getSprite().getHeight(), 1, 1, model.getPlayer().getSprite().getRotation());
         batch.draw(model.getActionBar(), camera.position.x-180, camera.position.y-camera.viewportHeight/2);

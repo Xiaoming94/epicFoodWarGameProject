@@ -6,8 +6,10 @@ import utilities.GameInputHandler;
 import utilities.Position;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Entity;
+import entities.Player;
 import entities.Projectile;
 
 public class Controller implements Runnable {
@@ -20,8 +22,9 @@ public class Controller implements Runnable {
 	public Controller(Model m, View view) {
 		model = m;
 		this.view = view;
-		gih = new GameInputHandler(model, view);
+		gih = new GameInputHandler(model);
 		Gdx.input.setInputProcessor(gih);
+		view.reciveInputHandler(gih);
 	}
 	
 
@@ -35,11 +38,14 @@ public class Controller implements Runnable {
 		} catch (InterruptedException e) {
 			System.out.println("got interrupted!");
 		}
-		ArrayList<Entity> bufferList = new ArrayList<Entity>();
+		ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
+		ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 		
 		model.createMap();
 		model.createGUI();
 		model.createPlayer();
+		
+		model.addPlayer("Sir Eatalot", 15, 15, "ful.png", 2);
 		
 		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 		long time;
@@ -79,12 +85,19 @@ public class Controller implements Runnable {
 					for(Entity o: model.getMap().getObstacles()){
 						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
 							e.kill();
-							bufferList.add(e);
+							killProjectileList.add(e);
 						}else{
 							e.update();
 							if(e.isDead()){
-								bufferList.add(e);
+								killProjectileList.add(e);
 							}
+						}
+					}
+					
+					for(Player p : model.getOtherPlayers()){
+						if(p.overlaps(e.getSprite().getBoundingRectangle())){
+							eatProjectileList.add(e);
+							p.gainWeight(e.getDamage());
 						}
 					}
 				}
@@ -94,10 +107,13 @@ public class Controller implements Runnable {
 				if(e instanceof entities.Pizza){
 					for(Entity o: model.getMap().getObstacles()){
 						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+
 					
-							if(o.getClass() == entities.Wall.class){
+							
+							if(o instanceof entities.Wall){
+
 								e.kill();
-								bufferList.add(e);
+								killProjectileList.add(e);
 							}
 //							if(o instanceof entities.Wall){
 //								e.kill();
@@ -109,7 +125,7 @@ public class Controller implements Runnable {
 							
 							e.update();
 							if(e.isDead()){
-								bufferList.add(e);
+								killProjectileList.add(e);
 							}
 							
 							//chaos follows in comments below. ignore until later or never.
@@ -160,21 +176,21 @@ public class Controller implements Runnable {
 			model.getEntitiesMutex().unlock();
 			
 			model.getEntitiesMutex().lock();
-			for(Entity e : bufferList)
+			for(Entity e : killProjectileList)
 				model.killProjectile(e);
 			model.getEntitiesMutex().unlock();
 			
+			for(Entity e : eatProjectileList)
+				model.removeProjectile(e);
+			
 			time = System.currentTimeMillis() - time;
-			
 
-			
-			//very ugly solution, but first round the while loop takes longer than 10 ms
 			try {
 				Thread.sleep(10 - time);
 			}catch(InterruptedException e){
 				System.out.println("got interrupted!");
 			}catch(IllegalArgumentException e){
-					;
+				;
 			}
 		}
 	}

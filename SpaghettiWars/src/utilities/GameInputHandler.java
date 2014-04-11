@@ -8,11 +8,9 @@ import gamecomponent.View;
 public class GameInputHandler implements InputProcessor {
 	
 	private final Model gameModel;
-	private final View view;
 	
-	public GameInputHandler(Model gameModel, View view){
+	public GameInputHandler(Model gameModel){
 		this.gameModel = gameModel;
-		this.view = view;
 	}
 	
 	@Override
