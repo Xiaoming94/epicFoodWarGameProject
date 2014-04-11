@@ -15,7 +15,7 @@ public class Pizza extends Projectile{
 
         Position myPosition = new Position(x,y);
 
-        double maxRange = 500;
+        double maxRange = 300;
         double distanceToMouse = targetPos.distanceTo(myPosition);
         double travelDistance;
 
