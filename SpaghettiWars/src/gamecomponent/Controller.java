@@ -1,8 +1,10 @@
 package gamecomponent;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
+import entities.Pizza;
 import utilities.GameInputHandler;
 import utilities.Position;
 
@@ -124,6 +126,8 @@ public class Controller implements Runnable {
 							e.update();
 							if(e.isDead()){
 								killProjectileList.add(e);
+                                Pizza tmp = (Pizza) e;
+                                explodePizza(tmp);
 							}
 							
 							//chaos follows in comments below. ignore until later or never.
@@ -185,4 +189,19 @@ public class Controller implements Runnable {
 			}
 		}
 	}
+
+    private void explodePizza(Pizza collidingPizza) {
+
+        if (model.getPlayer().overlaps(collidingPizza)){
+            model.getPlayer().gainWeight(collidingPizza.getDamage());
+        }else{
+            Collection<Player> otherPlayers = model.getOtherPlayers().values();
+            for(Player p : otherPlayers){
+                if (p.overlaps(collidingPizza)){
+                    p.gainWeight(collidingPizza.getDamage());
+                }
+            }
+        }
+
+    }
 }

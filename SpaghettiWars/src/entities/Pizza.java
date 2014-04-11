@@ -8,6 +8,8 @@ import utilities.Vector;
 public class Pizza extends Projectile{
 	
 	private Position targetPos;
+
+    private final double explosionRadius = 150;
 	
 	public Pizza(double x, double y, Vector v, Sprite sprite, Position targetPos){
 
@@ -29,6 +31,10 @@ public class Pizza extends Projectile{
 
         this.targetPos = targetPos;
 
+    }
+
+    public double getExplosionRadius(){
+        return explosionRadius;
     }
 	
 	public Position getTargetPosition(){

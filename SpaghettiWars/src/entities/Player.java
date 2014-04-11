@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Circle;
 import utilities.Position;
 import utilities.TextureHandler;
 import utilities.Vector;
@@ -99,6 +100,17 @@ public class Player extends Entity {
 		return this.getX() + this.getVector().getDeltaX() + this.getSprite().getWidth()/2 > r.getX() && this.getX() + this.getVector().getDeltaX() - this.getSprite().getWidth()/2 < r.getX() + r.getWidth() &&
 				this.getY() + this.getVector().getDeltaY() + this.getSprite().getWidth()/2 > r.getY() && this.getY() + this.getVector().getDeltaY() - this.getSprite().getWidth()/2 < r.getY() + r.getHeight();
 	}
+    public boolean overlaps(Projectile p){
+        if (p instanceof Pizza){
+            Pizza tmp = (Pizza) p;
+            Position pizzaPos = new Position(tmp.getX(),tmp.getY());
+            Position playerPos = new Position(this.getX(),this.getY());
+            return pizzaPos.distanceTo(playerPos) < tmp.getExplosionRadius() + this.getSprite().getBoundingRectangle().getWidth()/2;
+        }
+        else {
+            return false;
+        }
+    }
 	
 	//author: Jimmy, Louise
 	public void obstructedMove(ArrayList <Entity> l){
