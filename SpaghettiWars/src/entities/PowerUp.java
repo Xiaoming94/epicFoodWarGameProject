@@ -18,4 +18,5 @@ public abstract class PowerUp extends Entity{
 	
 	public abstract void stopEffects(Entity player);
 
+	public abstract void update(); //new
 }

@@ -10,8 +10,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import entities.Energydrink;
 import entities.Entity;
 import entities.Player;
+import entities.PowerUp;
 import entities.Projectile;
 
 public class Model {
@@ -90,7 +92,10 @@ public class Model {
 		return stillEntitiesMutex;
 	}
 	public void createPlayer(){
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
+		//testing powerup energydrink
+		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
+		
+		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler(), testPowerUp);
 	}
 	
 	//Author: Jimmy - wtf function, please help it with its life
@@ -140,6 +145,9 @@ public class Model {
 		case Keys.NUM_8:
 		case Keys.NUM_9:
 			selectedWeapon = keyCode-8;
+			break;
+		case Keys.SPACE:
+			player.usePowerUp();
 			break;
 		default:
 			return;

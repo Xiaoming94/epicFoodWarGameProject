@@ -37,7 +37,7 @@ public class View implements ApplicationListener{
 	    cfg.width = 800;
 	    cfg.height = 480;
 		app = new LwjglApplication(this, cfg);
-        viewstate = ViewStates.MENUS;
+        viewstate = ViewStates.INGAME;
 		model = m;
 		model.setViewSize(cfg.width, cfg.height);
 	}
