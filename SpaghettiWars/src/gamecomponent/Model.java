@@ -21,9 +21,14 @@ import entities.Player;
 import entities.PowerUp;
 import entities.Projectile;
 
+/**
+ * This class is for the Model of this Game (working title) SpaghettiWars
+ * @author Jimmy Eliasson Malmer
+ * Model class holds the data which the View uses to paint the graphics of the game using LibGDX
+ */
 public class Model {
-	
-	
+
+
 	private boolean upKeyPressed,downKeyPressed,leftKeyPressed,rightKeyPressed;
 	private ArrayList<Entity> entities;
 	private ArrayList<Projectile> projectiles;
@@ -32,31 +37,35 @@ public class Model {
 
 	private Player player;
 	private Texture actionBar, actionBarSelection;
-	
+
 	private Mutex entitiesMutex;
 	private Mutex stillEntitiesMutex;
-	
+
 //	ArrayList<NameTexture> textures;
 	private TextureHandler textureHandler;
-	
+
 	private int width, height;
-	
+
 	int selectedWeapon = 0;
-	
+
 	private GameMap map;
-	
+
+    /**
+     * The first Constructor of the Model Object
+     * Constucts the Model and initiates the components of the Model
+     */
 	public Model (){
-		
+
 		entities = new ArrayList<Entity>();
 		stillEntities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
 		otherPlayers = new HashMap<Integer, Player>();
 		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
-		
+
 //		textures = new ArrayList<NameTexture>();
 		textureHandler = new TextureHandler();
-		
+
 	}
 	
 	//kind of temporary implementation
@@ -81,22 +90,35 @@ public class Model {
 		}
 	}
 	
+
+    /**
+     * Method for creating basic gui elements
+     */
+
 	public void createGUI(){
 		actionBar = textureHandler.getTextureByName("actionbar2.png");
 		actionBarSelection = textureHandler.getTextureByName("actionbarselection.png");
 	}
-	
-	
+
+    /**
+     * Getter Accessor for the action bar
+     * @return actionBar - the game Action bar
+     */
+
 	public Texture getActionBar() {
 		return actionBar;
 	}
 
-
+    /**
+     * Getter Accessor for the action bar selection
+     * @return actionBarSelection - the game Action bar selection
+     */
 
 	public Texture getActionBarSelection() {
 		return actionBarSelection;
 	}
 
+<<<<<<< HEAD
 	public Map<Integer, Player> getOtherPlayers() {
 		return otherPlayers;
 	}
@@ -104,33 +126,47 @@ public class Model {
 //	public void addPlayer(Player p){
 //		otherPlayers.add(p);
 //	}
+=======
+    /**
+     *
+     * @return
+     */
+	public ArrayList<Player> getOtherPlayers() {
+		return otherPlayers;
+	}
+
+	public void addPlayer(Player p){
+		otherPlayers.add(p);
+	}
+>>>>>>> 13e96c633b034fb7af1d8b5522dcf23b803eaaaa
 
 	public ArrayList<Entity> getEntitys(){
 		return entities;
 	}
-	
+
 	public ArrayList<Entity> getStillEntitys(){
 		return stillEntities;
 	}
 	public void addEntity(Entity e){
 		entities.add(e);
 	}
-	
+
 	public Player getPlayer(){
 		return player;
 	}
-	
+
 	public Mutex getEntitiesMutex() {
 		return entitiesMutex;
 	}
-	
+
 	public Mutex getStillEntitiesMutex(){
 		return stillEntitiesMutex;
 	}
-	
+
 	public void createPlayer(){
 		//testing powerup energydrink
 		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
+<<<<<<< HEAD
 		
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
 	}
@@ -144,6 +180,21 @@ public class Model {
 //		
 //	}
 	
+=======
+
+		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
+		player.setPowerUp(testPowerUp);
+	}
+
+	public void addPlayer(String name, int x, int y, String s, int speed){
+		//test
+		Player test = new Player(name , x, y, new Sprite(this.getTextureHandler().getTextureByName(s)), speed);
+		test.setVector(1, 0);;
+		this.addPlayer(test);
+
+	}
+
+>>>>>>> 13e96c633b034fb7af1d8b5522dcf23b803eaaaa
 	//Author: Jimmy - wtf function, please help it with its life
 	public void killProjectile(Entity e){
 		int i = 0;
@@ -162,7 +213,7 @@ public class Model {
 		}
 		getStillEntitiesMutex().unlock();
 	}
-	
+
 	public void removeProjectile(Entity e){
 		int i = 0;
 		boolean found = false;
@@ -179,14 +230,14 @@ public class Model {
 		}
 		getStillEntitiesMutex().unlock();
 	}
-	
+
 	public int getSelectedWeapon(){
 		return selectedWeapon;
 	}
-	
+
 	public void checkPressedKey (int keyCode){
 		switch (keyCode){
-		case Keys.W: 
+		case Keys.W:
 			upKeyPressed = true;
 			break;
 		case Keys.A:
@@ -215,15 +266,15 @@ public class Model {
 		default:
 			return;
 		}
-		
+
 		updatePlayerMovingDirection();
 		player.changeWeapon(selectedWeapon); //NY
-		
+
 	}
-	
+
 	public void checkReleasedKey (int keyCode){
 		switch (keyCode){
-		case Keys.W: 
+		case Keys.W:
 			upKeyPressed = false;
 			break;
 		case Keys.A:
@@ -238,7 +289,7 @@ public class Model {
 		default:
 			return;
 		}
-		
+
 		updatePlayerMovingDirection();
 	}
 
@@ -268,7 +319,7 @@ public class Model {
 			player.setVector(0, 0);
 		}
 	}
-	
+
 	public void mouseButtonPressed(int x, int y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
 			this.getEntitiesMutex().lock();
@@ -276,12 +327,12 @@ public class Model {
 			this.getEntitiesMutex().unlock();
 		}
 	}
-	
+
 	public void setViewSize(int width, int height){
 		this.width = width;
 		this.height = height;
 	}
-	
+
 	public TextureHandler getTextureHandler(){
 		return textureHandler;
 	}
@@ -289,16 +340,16 @@ public class Model {
 	public void createMap(){
 		map = new GameMap(textureHandler);
 	}
-	
+
 	public GameMap getMap(){
 		return map;
 	}
-	
+
 	public void mouseMoved(int mouse1, int mouse2) {
-		
+
 		double playerX =  mouse1-this.width/2;
 		double playerY =  this.height/2-mouse2;
-		
+
 		double rot = Math.atan(playerX/playerY);
 
 		if(playerY > 0){
