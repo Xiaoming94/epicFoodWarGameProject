@@ -34,7 +34,7 @@ public class SpaghettiServer implements Runnable{
 
 	
 	//TODO FIX MUTEX
-	public SpaghettiServer(int TCPPort, int UDPPort, Model mod)
+	public SpaghettiServer(int TCPPort, int UDPPort, Model mod, Map<Integer, Player> otherPlayerMap)
 			throws IOException {
 
 		server = new Server();
@@ -43,7 +43,7 @@ public class SpaghettiServer implements Runnable{
 
 		this.model = mod;
 
-		playerMap = new HashMap<Integer, Player>();
+		this.playerMap = otherPlayerMap;
 
 		server.bind(TCPPort, UDPPort);
 		clientsConnected = new ArrayList<Connection>();

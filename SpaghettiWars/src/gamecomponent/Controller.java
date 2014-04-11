@@ -1,6 +1,7 @@
 package gamecomponent;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import utilities.GameInputHandler;
 import utilities.Position;
@@ -50,7 +51,8 @@ public class Controller implements Runnable {
 		model.createGUI();
 		model.createPlayer();
 		
-		model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
+
+//		model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
 		
 		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 		long time;
@@ -99,12 +101,12 @@ public class Controller implements Runnable {
 						}
 					}
 					
-					for(Player p : model.getOtherPlayers()){
-						if(p.overlaps(e.getSprite().getBoundingRectangle())){
-							eatProjectileList.add(e);
-							p.gainWeight(e.getDamage());
-						}
-					}
+//					for(Player p : model.getOtherPlayers()){
+//						if(p.overlaps(e.getSprite().getBoundingRectangle())){
+//							eatProjectileList.add(e);
+//							p.gainWeight(e.getDamage());
+//						}
+//					}
 				}
 				
 				//stuff that pizza should do:
@@ -120,11 +122,7 @@ public class Controller implements Runnable {
 								e.kill();
 								killProjectileList.add(e);
 							}
-//							if(o instanceof entities.Wall){
-//								e.kill();
-//								bufferList.add(e);
-//							}
-					
+
 						
 						}else{
 							
@@ -179,28 +177,33 @@ public class Controller implements Runnable {
 			
 			
 			
+//			
+//			for(Player p : model.getOtherPlayers()){
+//				if(p.isDead()){
+//					p.setVector(0, 0);
+//					killPlayerList.add(p);
+//					double deathSize = p.getScale();
+//					//System.out.println("deathsize:" + deathSize);
+//					//model.getStillEntitys().add(p);
+//					//model.getOtherPlayers().remove(p);
+
+			model.getEntitiesMutex().unlock();
 			
-			for(Player p : model.getOtherPlayers()){
-				if(p.isDead()){
-					p.setVector(0, 0);
-					killPlayerList.add(p);
-					double deathSize = p.getScale();
-					//System.out.println("deathsize:" + deathSize);
-					//model.getStillEntitys().add(p);
-					//model.getOtherPlayers().remove(p);
+			Iterator<Integer> iterator = model.getOtherPlayers().keySet().iterator();
+			while(iterator.hasNext()){
+				int key = iterator.next();
+				if(model.getOtherPlayers().get(key).isDead()){
+					model.getOtherPlayers().get(key).setVector(0, 0);
+					killPlayerList.add(model.getOtherPlayers().get(key));
+
 				}
 				else
-					p.move();
+					model.getOtherPlayers().get(key).move();
 			}
 		
 			for(Entity e: killPlayerList){
 				model.killPlayer(e);
 			}
-			
-			
-			
-			
-			model.getEntitiesMutex().unlock();
 			
 
 			
