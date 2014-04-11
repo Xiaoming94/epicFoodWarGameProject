@@ -48,7 +48,7 @@ public class View implements ApplicationListener{
 	}
 	
 	public void reciveInputHandler(GameInputHandler gih){
-			this.gih = gih;
+		this.gih = gih;
 	}
 
 	@Override
