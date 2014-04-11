@@ -16,15 +16,21 @@ public class Player extends Entity {
 	private int fatPoint = 0;
 	private boolean isDead = false;
 	
-	private TextureHandler textureHandler;
+	private static TextureHandler textureHandler;
 	
 	private PowerUp powerUp = null;
 	private String selectedWeapon = "meatball";
 	
-	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
+
+	public Player(String name, double x, double y, Sprite sprite, double speed){
+
 		super(x, y, sprite);
 		this.name = name;
 		this.setSpeed(speed);
+	}
+	
+	public Player(String name, double x, double y, Sprite sprite, int speed, TextureHandler th){
+		this(name, x, y, sprite, speed);
 		textureHandler = th;
 	}
 	
@@ -67,9 +73,6 @@ public class Player extends Entity {
 			mb.setVector(new Position(x,y));
 			return mb;
 		}
-//		Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
-//		mb.setVector(new Position(x,y));
-//		return mb;
 	}
 	
 	public boolean overlaps(Rectangle r){
