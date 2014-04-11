@@ -23,6 +23,8 @@ public class Player extends Entity {
 	private boolean affectedByPowerUp = false;
 	private float spriteHeight, spriteWidth;
 	
+	private double speedMod;
+	
 	public Player(String name, double x, double y, Sprite sprite, double speed){
 		super(x, y, sprite);
 		this.name = name;
@@ -30,6 +32,7 @@ public class Player extends Entity {
 		
 		spriteWidth = this.getSprite().getWidth();
 		spriteHeight = this.getSprite().getHeight();
+		speedMod = 0;
 	}
 
 	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
@@ -62,8 +65,12 @@ public class Player extends Entity {
 	
 	private void weightChanged(){
 		this.getSprite().setSize(spriteWidth*(float)getScale(), spriteHeight*(float)getScale());
+		this.getSprite().setOriginCenter();
 		
-		this.setSpeed(2*(1.0/this.getFatPoint()));
+		this.getSprite().setX((float)this.getX()-this.getSprite().getWidth()/2);
+		this.getSprite().setY((float)this.getY()-this.getSprite().getHeight()/2);
+		
+		this.setSpeed(1+2*(1.0/(this.getFatPoint()+1)));
 		this.updateVector();
 		
 		if(this.getFatPoint() > 99)
@@ -76,7 +83,14 @@ public class Player extends Entity {
 		return isDead;
 	}
 	
+	@Override
+	public void setSpeed(double speed){
+		super.setSpeed(speed+speedMod);
+		
+	}
+	
 	public void modifySpeed(double k){
+		speedMod += k;
 		this.setSpeed(this.getSpeed()+k);
 	}
 	

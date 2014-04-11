@@ -245,6 +245,7 @@ public class Model {
 			break;
 		case Keys.SPACE:
 			player.usePowerUp();
+			player.gainWeight(5);
 			break;
 		default:
 			return;

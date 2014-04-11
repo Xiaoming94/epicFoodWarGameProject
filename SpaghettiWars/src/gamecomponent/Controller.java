@@ -50,7 +50,6 @@ public class Controller implements Runnable {
 		model.createMap();
 		model.createGUI();
 		model.createPlayer();
-		
 
 //		model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
 		
@@ -58,14 +57,13 @@ public class Controller implements Runnable {
 		long time;
 		while (true) {
 			
+			//measure starttime
+			time = System.currentTimeMillis();
 			
 			
 			if(model.getPlayer() != null && model.getPlayer().isAffectedByPowerUp()){
 				model.getPlayer().getPowerUp().update(); //testing powerup
 			}
-			
-			//measure starttime
-			time = System.currentTimeMillis();
 			
 			
 			playerObstructed.clear();
