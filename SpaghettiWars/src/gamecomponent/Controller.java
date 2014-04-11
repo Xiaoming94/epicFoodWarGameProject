@@ -52,6 +52,11 @@ public class Controller implements Runnable {
 		while (true) {
 			
 			
+			
+			if(model.getPlayer() != null && model.getPlayer().isAffectedByPowerUp()){
+				model.getPlayer().getPowerUp().update(); //testing powerup
+			}
+			
 			//measure starttime
 			time = System.currentTimeMillis();
 			
@@ -102,10 +107,18 @@ public class Controller implements Runnable {
 				if(e instanceof entities.Pizza){
 					for(Entity o: model.getMap().getObstacles()){
 						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+
+					
+							
 							if(o instanceof entities.Wall){
+
 								e.kill();
 								killProjectileList.add(e);
 							}
+//							if(o instanceof entities.Wall){
+//								e.kill();
+//								bufferList.add(e);
+//							}
 					
 						
 						}else{
@@ -117,22 +130,24 @@ public class Controller implements Runnable {
 							
 							//chaos follows in comments below. ignore until later or never.
 							
-//							//check if we've landed on something... or something like that
-//							double obstacleLeftEdge = o.getX();
-//							double obstacleRightEdge = o.getX() + o.getSprite().getBoundingRectangle().getWidth();
-//							double obstacleTopEdge = o.getY() + o.getSprite().getBoundingRectangle().getHeight();
-//							double obstacleBottomEdge = o.getY();
-//							Position aim = ((entities.Pizza)e).getTargetPosition();
-//							
-//							//if true, we've hit something
-//							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
-//									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
-//								
-//								//if we've hit a player, make fat!
-//								if(o instanceof entities.Player){
-//									//make fatter;
-//								}
-//							}
+							//check if we've landed on something... or something like that
+							double obstacleLeftEdge = o.getX();
+							double obstacleRightEdge = o.getX() + o.getSprite().getBoundingRectangle().getWidth();
+							double obstacleTopEdge = o.getY() + o.getSprite().getBoundingRectangle().getHeight();
+							double obstacleBottomEdge = o.getY();
+							Position aim = ((entities.Pizza)e).getTargetPosition();
+							
+							//if true, we've hit something
+							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
+									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
+								
+								//if we've hit a player, make fat!
+								if(o.getClass() == entities.Wall.class){
+									//make fatter;
+									System.out.println("make wall fat");
+									o.getSprite().setSize(o.getSprite().getWidth()*5, o.getSprite().getHeight()*5);
+								}
+							}
 							
 						}
 					}

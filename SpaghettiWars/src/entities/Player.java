@@ -20,19 +20,39 @@ public class Player extends Entity {
 	
 	private PowerUp powerUp = null;
 	private String selectedWeapon = "meatball";
-	
+	private boolean affectedByPowerUp = false;
 	private float spriteHeight, spriteWidth;
 	
-	public Player(String name, double x, double y, Sprite sprite, int speed){
+	public Player(String name, double x, double y, Sprite sprite, double speed){
 		super(x, y, sprite);
 		this.name = name;
 		this.setSpeed(speed);
 		
 		spriteWidth = this.getSprite().getWidth();
 		spriteHeight = this.getSprite().getHeight();
+
+	//made this to test powerup...
+	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th, PowerUp pu){
+		super(x, y, sprite);
+		this.name = name;
+		this.setSpeed(speed);
+		textureHandler = th;
+		
+		powerUp = pu;
+		//powerUp = new Energydrink(x, y, new Sprite(textureHandler.getTextureByName("extremelyuglyenergydrink.png")));
 	}
 	
-	public Player(String name, double x, double y, Sprite sprite, int speed, TextureHandler th){
+	
+
+	public Player(String name, double x, double y, Sprite sprite, double speed){
+
+
+		super(x, y, sprite);
+		this.name = name;
+		this.setSpeed(speed);
+	}
+	
+	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
 		this(name, x, y, sprite, speed);
 		textureHandler = th;
 	}
@@ -148,11 +168,30 @@ public class Player extends Entity {
 		}else{
 			//somethingsomething...
 		}
-	}
+	}*/
 	
 	public void usePowerUp(){
-		powerUp.applyEffects(this); // or setActive() ? i have no idea what i'm doing...
-		this.powerUp = null;
-	}*/
+		if(powerUp != null){
+			powerUp.applyEffects(this); // or setActive() ? i have no idea what i'm doing...
+			//this.powerUp = null;
+			affectedByPowerUp = true;
+		}
+	}
+	
+	public PowerUp getPowerUp(){
+		return powerUp;
+	}
+	
+	public void setPowerUp(PowerUp pu){
+		powerUp = pu;
+	}
+	
+	public boolean isAffectedByPowerUp(){
+		return affectedByPowerUp;
+	}
+	
+	public void setAffectedByPower(boolean b){
+		affectedByPowerUp = b;
+	}
 	
 }
