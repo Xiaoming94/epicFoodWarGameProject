@@ -8,12 +8,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 //import java.awt.*;
 
@@ -68,19 +68,20 @@ public class MenuScreen implements Screen{
         buttonStyle.checked = skin.newDrawable("white", Color.BLUE);
         buttonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
 
-        button = new Button(buttonStyle);
-
-        button.setPosition(200,400);
-
         final TextButton textButton = new TextButton("START",textButtonStyle);
         textButton.setPosition(100,150);
         //textButton.add
         stage.addActor(textButton);
         stage.addActor(textButton);
         stage.addActor(textButton);
-        stage.addActor(button);
-        stage.addActor(button);
-        stage.addActor(button);
+
+        textButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                parent.startGame();
+            }
+        });
+
     }
 
     @Override

@@ -32,6 +32,8 @@ public class TextureHandler {
 		textures.add(new NameTexture("uglyfloor.png"));
 		textures.add(new NameTexture("actionbar2.png"));
 		textures.add(new NameTexture("actionbarselection.png"));
+		textures.add(new NameTexture("pizza.png"));
+		textures.add(new NameTexture("greenfurniture.png"));
 	}
 	
 	

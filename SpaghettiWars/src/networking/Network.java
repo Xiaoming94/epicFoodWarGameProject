@@ -1,5 +1,6 @@
 package networking;
 
+
 import utilities.Vector;
 
 import com.esotericsoftware.kryo.Kryo;
@@ -15,6 +16,9 @@ public class Network {
 		kryo.register(RequestConnection.class);
 		kryo.register(EntitySender.class);
 		kryo.register(SimpleMessage.class);
+		kryo.register(ObstacleSender.class);
+		kryo.register(PlayerSender.class);
+		kryo.register(RequestDisconnection.class);
 	}
 	
 	public static class SimpleMessage{
@@ -37,10 +41,16 @@ public class Network {
 		public double rotation;
 	}
 	
-	public static class OtherStuffSender{
+	public static class PlayerSender{
 		public double xPos;
 		public double yPos;
-		public String spriteName;
+		public double rotation;
 		public Vector vector;
+		public int speed;
+		public int ID;
+	}
+	
+	public static class RequestDisconnection{
+		public String name;
 	}
 }
