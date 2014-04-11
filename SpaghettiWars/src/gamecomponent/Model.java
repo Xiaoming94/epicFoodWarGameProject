@@ -46,7 +46,7 @@ public class Model {
 
 	private int width, height;
 
-	int selectedWeapon = 0;
+	private int selectedWeapon = 0;
 
 	private GameMap map;
 
@@ -310,7 +310,7 @@ public class Model {
 
 		double rot = Math.atan(playerX/playerY);
 
-		if(playerY > 0){
+		if(playerY >= 0){
 			player.getSprite().setRotation((float) (360-Math.toDegrees(rot)));
 		}else{
 			player.getSprite().setRotation((float) (180-Math.toDegrees(rot)));
