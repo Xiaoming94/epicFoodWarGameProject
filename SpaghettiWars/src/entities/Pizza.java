@@ -9,7 +9,7 @@ public class Pizza extends Projectile{
 	
 	private Position targetPos;
 
-    private final double explosionRadius = 150;
+    private final double explosionRadius = 50;
 	
 	public Pizza(double x, double y, Vector v, Sprite sprite, Position targetPos){
 

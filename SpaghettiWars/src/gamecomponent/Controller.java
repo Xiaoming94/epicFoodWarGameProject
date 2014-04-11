@@ -83,9 +83,8 @@ public class Controller implements Runnable {
 			
 			model.getEntitiesMutex().lock();
 			
-			
 			//Lalalalalalala, testing stuff. original code below in comments.
-			for(Projectile e: model.getProjectiles()){
+			for(Projectile e : model.getProjectiles()){
 				
 				//if meatball, impact whenever it hits something
 				if(e instanceof entities.Meatball){
@@ -112,15 +111,13 @@ public class Controller implements Runnable {
 				//stuff that pizza should do:
 				//if pizza, impact with walls always and with other things when they've been targeted
 				if(e instanceof entities.Pizza){
-					for(Entity o: model.getMap().getObstacles()){
+					for(Entity o : model.getMap().getObstacles()){
 						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
-
-					
-							
 							if(o instanceof entities.Wall){
-
 								e.kill();
 								killProjectileList.add(e);
+								explodePizza((Pizza)e);
+								break;
 							}
 
 						
@@ -129,18 +126,18 @@ public class Controller implements Runnable {
 							e.update();
 							if(e.isDead()){
 								killProjectileList.add(e);
-                                Pizza tmp = (Pizza) e;
-                                explodePizza(tmp);
+                                explodePizza((Pizza)e);
+                                break;
 							}
 							
 							//chaos follows in comments below. ignore until later or never.
 							
 							//check if we've landed on something... or something like that
-							double obstacleLeftEdge = o.getX();
+							/*double obstacleLeftEdge = o.getX();
 							double obstacleRightEdge = o.getX() + o.getSprite().getBoundingRectangle().getWidth();
 							double obstacleTopEdge = o.getY() + o.getSprite().getBoundingRectangle().getHeight();
 							double obstacleBottomEdge = o.getY();
-							Position aim = ((entities.Pizza)e).getTargetPosition();
+							Position aim = ((entities.Pizza)e).getTargetPosition();*/
 							
 //							//if true, we've hit something
 //							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
@@ -230,7 +227,7 @@ public class Controller implements Runnable {
 	}
 
     private void explodePizza(Pizza collidingPizza) {
-
+    	System.out.println("derp");
         if (model.getPlayer().overlaps(collidingPizza)){
             model.getPlayer().gainWeight(collidingPizza.getDamage());
         }else{

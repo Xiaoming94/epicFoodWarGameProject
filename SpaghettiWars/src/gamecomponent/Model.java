@@ -305,10 +305,10 @@ public class Model {
 		}
 	}
 
-	public void mouseButtonPressed(int x, int y, int mouseButton){
+	public void mouseButtonPressed(double x, double y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
 			this.getEntitiesMutex().lock();
-			this.addProjectile(player.shoot((startWidth/width)*(x+this.player.getX()-this.width/2), (startHeight/height)*(this.height/2+this.player.getY()-y)));
+			this.addProjectile(player.shoot((startWidth/width)*(x-this.width/2)+this.player.getX(), (startHeight/height)*(this.height/2-y)+this.player.getY()));
 			this.getEntitiesMutex().unlock();
 		}
 	}
