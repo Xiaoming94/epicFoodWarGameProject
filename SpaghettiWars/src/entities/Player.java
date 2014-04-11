@@ -30,26 +30,6 @@ public class Player extends Entity {
 		
 		spriteWidth = this.getSprite().getWidth();
 		spriteHeight = this.getSprite().getHeight();
-
-	//made this to test powerup...
-	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th, PowerUp pu){
-		super(x, y, sprite);
-		this.name = name;
-		this.setSpeed(speed);
-		textureHandler = th;
-		
-		powerUp = pu;
-		//powerUp = new Energydrink(x, y, new Sprite(textureHandler.getTextureByName("extremelyuglyenergydrink.png")));
-	}
-	
-	
-
-	public Player(String name, double x, double y, Sprite sprite, double speed){
-
-
-		super(x, y, sprite);
-		this.name = name;
-		this.setSpeed(speed);
 	}
 	
 	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){

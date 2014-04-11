@@ -105,7 +105,8 @@ public class Model {
 		//testing powerup energydrink
 		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
 		
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler(), testPowerUp);
+		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
+		player.setPowerUp(testPowerUp);
 	}
 	
 	public void addPlayer(String name, int x, int y, String s, int speed){
