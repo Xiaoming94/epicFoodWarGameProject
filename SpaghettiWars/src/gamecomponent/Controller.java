@@ -41,6 +41,11 @@ public class Controller implements Runnable {
 		ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 		ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 		
+		
+		ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
+		
+		
+		
 		model.createMap();
 		model.createGUI();
 		model.createPlayer();
@@ -173,15 +178,31 @@ public class Controller implements Runnable {
 //			}
 			
 			
-			model.getEntitiesMutex().unlock();
+			
 			
 			for(Player p : model.getOtherPlayers()){
 				if(p.isDead()){
 					p.setVector(0, 0);
+					killPlayerList.add(p);
+					double deathSize = p.getScale();
+					//System.out.println("deathsize:" + deathSize);
+					//model.getStillEntitys().add(p);
+					//model.getOtherPlayers().remove(p);
 				}
 				else
 					p.move();
 			}
+		
+			for(Entity e: killPlayerList){
+				model.killPlayer(e);
+			}
+			
+			
+			
+			
+			model.getEntitiesMutex().unlock();
+			
+
 			
 			model.getEntitiesMutex().lock();
 			for(Entity e : killProjectileList)

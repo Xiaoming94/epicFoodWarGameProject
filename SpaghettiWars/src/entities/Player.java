@@ -68,6 +68,8 @@ public class Player extends Entity {
 		
 		if(this.getFatPoint() > 99)
 			isDead = true;
+		//System.out.println(getScale());
+		
 	}
 	
 	public boolean isDead(){
