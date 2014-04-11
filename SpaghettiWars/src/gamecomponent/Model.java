@@ -118,27 +118,9 @@ public class Model {
 		return actionBarSelection;
 	}
 
-<<<<<<< HEAD
 	public Map<Integer, Player> getOtherPlayers() {
 		return otherPlayers;
 	}
-	
-//	public void addPlayer(Player p){
-//		otherPlayers.add(p);
-//	}
-=======
-    /**
-     *
-     * @return
-     */
-	public ArrayList<Player> getOtherPlayers() {
-		return otherPlayers;
-	}
-
-	public void addPlayer(Player p){
-		otherPlayers.add(p);
-	}
->>>>>>> 13e96c633b034fb7af1d8b5522dcf23b803eaaaa
 
 	public ArrayList<Entity> getEntitys(){
 		return entities;
@@ -166,35 +148,10 @@ public class Model {
 	public void createPlayer(){
 		//testing powerup energydrink
 		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
-<<<<<<< HEAD
-		
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
-	}
-	
-
-//	public void addPlayer(String name, int x, int y, String s, int speed){
-//		//test
-//		Player test = new Player(name , x, y, new Sprite(this.getTextureHandler().getTextureByName(s)), speed);
-//		test.setVector(1, 0);;
-//		this.addPlayer(test);
-//		
-//	}
-	
-=======
-
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
 		player.setPowerUp(testPowerUp);
 	}
-
-	public void addPlayer(String name, int x, int y, String s, int speed){
-		//test
-		Player test = new Player(name , x, y, new Sprite(this.getTextureHandler().getTextureByName(s)), speed);
-		test.setVector(1, 0);;
-		this.addPlayer(test);
-
-	}
-
->>>>>>> 13e96c633b034fb7af1d8b5522dcf23b803eaaaa
+	
 	//Author: Jimmy - wtf function, please help it with its life
 	public void killProjectile(Entity e){
 		int i = 0;
