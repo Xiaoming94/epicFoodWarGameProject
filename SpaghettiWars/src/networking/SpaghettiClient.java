@@ -91,7 +91,7 @@ public class SpaghettiClient implements Runnable{
 		client.sendUDP(playerSender);
 	}
 	
-	public Map getPlayerMap(){
+	public Map<Integer, Player> getPlayerMap(){
 		return playerMap;
 	}
 
