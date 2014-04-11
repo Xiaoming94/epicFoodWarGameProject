@@ -23,13 +23,17 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
-public class SpaghettiServer {
+public class SpaghettiServer implements Runnable{
 
 	private Server server;
 	private ArrayList<Connection> clientsConnected;
 	private Map<Integer, Player> playerMap;
 	private Model model;
+	private boolean running = false;
+	private Thread thread;
 
+	
+	//TODO FIX MUTEX
 	public SpaghettiServer(int TCPPort, int UDPPort, Model mod)
 			throws IOException {
 
@@ -150,6 +154,36 @@ public class SpaghettiServer {
 			}
 			playerSender.ID = id;
 			clientsConnected.get(i).sendUDP(playerSender);
+		}
+	}
+
+	@Override
+	public void run() {
+		long lastTime = System.nanoTime();
+		final double ns = 1000000000 / 20.0;
+		double delta = 0;
+		while(running){
+			long now = System.nanoTime();
+			delta += (now-lastTime) / ns;
+			while(delta >= 1){
+				sendPlayersToAll();
+			}
+		}
+	}
+	
+	public synchronized void start(){
+		running = true;
+		thread = new Thread(this, "ServerThread");
+		thread.start();
+	}
+	
+	public synchronized void stop(){
+		running = false;
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

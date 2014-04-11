@@ -21,7 +21,7 @@ public class Player extends Entity {
 	private PowerUp powerUp = null;
 	private String selectedWeapon = "meatball";
 	
-	public Player(String name, double x, double y, Sprite sprite, int speed, TextureHandler th){
+	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
 		super(x, y, sprite);
 		this.name = name;
 		this.setSpeed(speed);
