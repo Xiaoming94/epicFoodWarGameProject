@@ -3,6 +3,7 @@ package gamecomponent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import networking.SpaghettiClient;
@@ -44,7 +45,8 @@ public class Model {
 //	ArrayList<NameTexture> textures;
 	private TextureHandler textureHandler;
 
-	private int width, height;
+	private double width, height;
+	private double startWidth, startHeight;
 
 	private int selectedWeapon = 0;
 
@@ -188,6 +190,31 @@ public class Model {
 		getStillEntitiesMutex().unlock();
 	}
 
+	
+	public void killPlayer(Entity e){
+		int i = 0;
+		boolean found = false;
+		Iterator<Integer> iterator = otherPlayers.keySet().iterator();
+		while(iterator.hasNext()){
+			int key = iterator.next();
+			if(otherPlayers.get(key).equals(e)){
+				found = true;
+				break;
+			}
+			i++;
+		}
+		getStillEntitiesMutex().lock();
+		if(found){
+			otherPlayers.remove(i);
+			stillEntities.add(e);
+			//System.out.println("why not still fat? " + ((Player)e).getScale());
+			//e.getSprite().setSize(((float)e.getSprite().getWidth())*(float)((Player)e).getScale(), ((float)e.getSprite().getHeight())*(float)((Player)e).getScale());
+		}
+		getStillEntitiesMutex().unlock();
+	}
+	
+
+
 	public int getSelectedWeapon(){
 		return selectedWeapon;
 	}
@@ -219,6 +246,7 @@ public class Model {
 			break;
 		case Keys.SPACE:
 			player.usePowerUp();
+			player.gainWeight(5);
 			break;
 		default:
 			return;
@@ -277,14 +305,18 @@ public class Model {
 		}
 	}
 
-	public void mouseButtonPressed(int x, int y, int mouseButton){
+	public void mouseButtonPressed(double x, double y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
 			this.getEntitiesMutex().lock();
-			this.addProjectile(player.shoot(x+this.player.getX()-this.width/2, this.height/2+this.player.getY()-y));
+			this.addProjectile(player.shoot((startWidth/width)*(x-this.width/2)+this.player.getX(), (startHeight/height)*(this.height/2-y)+this.player.getY()));
 			this.getEntitiesMutex().unlock();
 		}
 	}
 
+	public void setStartViewSize(int width, int height){
+		this.startHeight = height;
+		this.startWidth = width;
+	}
 	public void setViewSize(int width, int height){
 		this.width = width;
 		this.height = height;

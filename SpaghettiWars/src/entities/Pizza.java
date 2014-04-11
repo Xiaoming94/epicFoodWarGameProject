@@ -8,24 +8,34 @@ import utilities.Vector;
 public class Pizza extends Projectile{
 	
 	private Position targetPos;
+
+    private final double explosionRadius = 50;
 	
 	public Pizza(double x, double y, Vector v, Sprite sprite, Position targetPos){
 
         super(x, y, v, sprite, 5, targetPos.distanceTo(new Position(x,y)));
 
         Position myPosition = new Position(x,y);
-        double targetDistance = 500; //Maximum range of pizza
 
-        if (targetPos.distanceTo(myPosition) < targetDistance){
-            targetDistance = targetPos.distanceTo(myPosition);
+        double maxRange = 300;
+        double distanceToMouse = targetPos.distanceTo(myPosition);
+        double travelDistance;
+
+        if ( maxRange > distanceToMouse){
+            travelDistance = distanceToMouse;
+        }else{
+            travelDistance = maxRange;
         }
 
-        super.setRange(targetDistance);
+        super.setRange(travelDistance);
 
         this.targetPos = targetPos;
 
+    }
 
-	}
+    public double getExplosionRadius(){
+        return explosionRadius;
+    }
 	
 	public Position getTargetPosition(){
 		return targetPos;

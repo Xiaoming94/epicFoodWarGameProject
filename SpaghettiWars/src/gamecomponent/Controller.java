@@ -1,8 +1,10 @@
 package gamecomponent;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
+import entities.Pizza;
 import utilities.GameInputHandler;
 import utilities.Position;
 
@@ -42,10 +44,14 @@ public class Controller implements Runnable {
 		ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 		ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 		
+		
+		ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
+		
+		
+		
 		model.createMap();
 		model.createGUI();
 		model.createPlayer();
-		
 
 //		model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
 		
@@ -53,14 +59,13 @@ public class Controller implements Runnable {
 		long time;
 		while (true) {
 			
+			//measure starttime
+			time = System.currentTimeMillis();
 			
 			
 			if(model.getPlayer() != null && model.getPlayer().isAffectedByPowerUp()){
 				model.getPlayer().getPowerUp().update(); //testing powerup
 			}
-			
-			//measure starttime
-			time = System.currentTimeMillis();
 			
 			
 			playerObstructed.clear();
@@ -78,9 +83,8 @@ public class Controller implements Runnable {
 			
 			model.getEntitiesMutex().lock();
 			
-			
 			//Lalalalalalala, testing stuff. original code below in comments.
-			for(Projectile e: model.getProjectiles()){
+			for(Projectile e : model.getProjectiles()){
 				
 				//if meatball, impact whenever it hits something
 				if(e instanceof entities.Meatball){
@@ -107,15 +111,13 @@ public class Controller implements Runnable {
 				//stuff that pizza should do:
 				//if pizza, impact with walls always and with other things when they've been targeted
 				if(e instanceof entities.Pizza){
-					for(Entity o: model.getMap().getObstacles()){
+					for(Entity o : model.getMap().getObstacles()){
 						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
-
-					
-							
 							if(o instanceof entities.Wall){
-
 								e.kill();
 								killProjectileList.add(e);
+								explodePizza((Pizza)e);
+								break;
 							}
 
 						
@@ -124,28 +126,30 @@ public class Controller implements Runnable {
 							e.update();
 							if(e.isDead()){
 								killProjectileList.add(e);
+                                explodePizza((Pizza)e);
+                                break;
 							}
 							
 							//chaos follows in comments below. ignore until later or never.
 							
 							//check if we've landed on something... or something like that
-							double obstacleLeftEdge = o.getX();
+							/*double obstacleLeftEdge = o.getX();
 							double obstacleRightEdge = o.getX() + o.getSprite().getBoundingRectangle().getWidth();
 							double obstacleTopEdge = o.getY() + o.getSprite().getBoundingRectangle().getHeight();
 							double obstacleBottomEdge = o.getY();
-							Position aim = ((entities.Pizza)e).getTargetPosition();
+							Position aim = ((entities.Pizza)e).getTargetPosition();*/
 							
-							//if true, we've hit something
-							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
-									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
-								
-								//if we've hit a player, make fat!
-								if(o.getClass() == entities.Wall.class){
-									//make fatter;
-									System.out.println("make wall fat");
-									o.getSprite().setSize(o.getSprite().getWidth()*5, o.getSprite().getHeight()*5);
-								}
-							}
+//							//if true, we've hit something
+//							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
+//									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
+//								
+//								//if we've hit a player, make fat!
+//								if(o.getClass() == entities.Wall.class){
+//									//make fatter;
+//									System.out.println("make wall fat");
+//									o.getSprite().setSize(o.getSprite().getWidth()*5, o.getSprite().getHeight()*5);
+//								}
+//							}
 							
 						}
 					}
@@ -154,6 +158,34 @@ public class Controller implements Runnable {
 			}
 			
 			
+			//this is what was here before I messed with it...
+			
+//			for(Projectile e : model.getProjectiles())
+//			{
+//				for(Entity o : model.getMap().getObstacles())
+//					if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+//						e.kill();
+//						bufferList.add(e);
+//				}
+//				else{
+//					e.update();
+//					if(e.isDead())
+//						bufferList.add(e);
+//				}
+//			}
+			
+			
+			
+//			
+//			for(Player p : model.getOtherPlayers()){
+//				if(p.isDead()){
+//					p.setVector(0, 0);
+//					killPlayerList.add(p);
+//					double deathSize = p.getScale();
+//					//System.out.println("deathsize:" + deathSize);
+//					//model.getStillEntitys().add(p);
+//					//model.getOtherPlayers().remove(p);
+
 			model.getEntitiesMutex().unlock();
 			
 			Iterator<Integer> iterator = model.getOtherPlayers().keySet().iterator();
@@ -161,10 +193,18 @@ public class Controller implements Runnable {
 				int key = iterator.next();
 				if(model.getOtherPlayers().get(key).isDead()){
 					model.getOtherPlayers().get(key).setVector(0, 0);
+					killPlayerList.add(model.getOtherPlayers().get(key));
+
 				}
 				else
 					model.getOtherPlayers().get(key).move();
 			}
+		
+			for(Entity e: killPlayerList){
+				model.killPlayer(e);
+			}
+			
+
 			
 			model.getEntitiesMutex().lock();
 			for(Entity e : killProjectileList)
@@ -185,4 +225,19 @@ public class Controller implements Runnable {
 			}
 		}
 	}
+
+    private void explodePizza(Pizza collidingPizza) {
+    	System.out.println("derp");
+        if (model.getPlayer().overlaps(collidingPizza)){
+            model.getPlayer().gainWeight(collidingPizza.getDamage());
+        }else{
+            Collection<Player> otherPlayers = model.getOtherPlayers().values();
+            for(Player p : otherPlayers){
+                if (p.overlaps(collidingPizza)){
+                    p.gainWeight(collidingPizza.getDamage());
+                }
+            }
+        }
+
+    }
 }
