@@ -1,6 +1,7 @@
 package gamecomponent;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import utilities.GameInputHandler;
 import utilities.Position;
@@ -45,12 +46,18 @@ public class Controller implements Runnable {
 		model.createGUI();
 		model.createPlayer();
 		
-//		model.addPlayer("Sir Eatalot", 15, 15, "ful.png", 2);
+
+//		model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
 		
 		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 		long time;
 		while (true) {
 			
+			
+			
+			if(model.getPlayer() != null && model.getPlayer().isAffectedByPowerUp()){
+				model.getPlayer().getPowerUp().update(); //testing powerup
+			}
 			
 			//measure starttime
 			time = System.currentTimeMillis();
@@ -102,10 +109,18 @@ public class Controller implements Runnable {
 				if(e instanceof entities.Pizza){
 					for(Entity o: model.getMap().getObstacles()){
 						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+
+					
+							
 							if(o instanceof entities.Wall){
+
 								e.kill();
 								killProjectileList.add(e);
 							}
+//							if(o instanceof entities.Wall){
+//								e.kill();
+//								bufferList.add(e);
+//							}
 					
 						
 						}else{
@@ -117,22 +132,24 @@ public class Controller implements Runnable {
 							
 							//chaos follows in comments below. ignore until later or never.
 							
-//							//check if we've landed on something... or something like that
-//							double obstacleLeftEdge = o.getX();
-//							double obstacleRightEdge = o.getX() + o.getSprite().getBoundingRectangle().getWidth();
-//							double obstacleTopEdge = o.getY() + o.getSprite().getBoundingRectangle().getHeight();
-//							double obstacleBottomEdge = o.getY();
-//							Position aim = ((entities.Pizza)e).getTargetPosition();
-//							
-//							//if true, we've hit something
-//							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
-//									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
-//								
-//								//if we've hit a player, make fat!
-//								if(o instanceof entities.Player){
-//									//make fatter;
-//								}
-//							}
+							//check if we've landed on something... or something like that
+							double obstacleLeftEdge = o.getX();
+							double obstacleRightEdge = o.getX() + o.getSprite().getBoundingRectangle().getWidth();
+							double obstacleTopEdge = o.getY() + o.getSprite().getBoundingRectangle().getHeight();
+							double obstacleBottomEdge = o.getY();
+							Position aim = ((entities.Pizza)e).getTargetPosition();
+							
+							//if true, we've hit something
+							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
+									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
+								
+								//if we've hit a player, make fat!
+								if(o.getClass() == entities.Wall.class){
+									//make fatter;
+									System.out.println("make wall fat");
+									o.getSprite().setSize(o.getSprite().getWidth()*5, o.getSprite().getHeight()*5);
+								}
+							}
 							
 						}
 					}
@@ -159,6 +176,16 @@ public class Controller implements Runnable {
 			
 			
 			model.getEntitiesMutex().unlock();
+			
+			Iterator<Integer> iterator = model.getOtherPlayers().keySet().iterator();
+			while(iterator.hasNext()){
+				int key = iterator.next();
+				if(model.getOtherPlayers().get(key).isDead()){
+					model.getOtherPlayers().get(key).setVector(0, 0);
+				}
+				else
+					model.getOtherPlayers().get(key).move();
+			}
 			
 			model.getEntitiesMutex().lock();
 			for(Entity e : killProjectileList)

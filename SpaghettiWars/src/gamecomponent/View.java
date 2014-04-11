@@ -138,11 +138,13 @@ public class View implements ApplicationListener{
             batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
         model.getStillEntitiesMutex().unlock();
         
+
         Iterator<Integer> iterator = model.getOtherPlayers().keySet().iterator();
         while(iterator.hasNext()){
         	Integer key = iterator.next();
         	batch.draw(model.getOtherPlayers().get(key).getSprite(), model.getOtherPlayers().get(key).getSprite().getX(), model.getOtherPlayers().get(key).getSprite().getY());
         }
+
 
         batch.draw(model.getPlayer().getSprite(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY(), model.getPlayer().getSprite().getOriginX(), model.getPlayer().getSprite().getOriginY(), model.getPlayer().getSprite().getWidth(), model.getPlayer().getSprite().getHeight(), 1, 1, model.getPlayer().getSprite().getRotation());
         batch.draw(model.getActionBar(), camera.position.x-180, camera.position.y-camera.viewportHeight/2);
