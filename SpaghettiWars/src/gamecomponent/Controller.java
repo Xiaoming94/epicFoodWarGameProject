@@ -22,6 +22,7 @@ public class Controller implements Runnable {
 		this.view = view;
 		gih = new GameInputHandler(model);
 		Gdx.input.setInputProcessor(gih);
+		view.reciveInputHandler(gih);
 	}
 	
 
