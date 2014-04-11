@@ -29,7 +29,7 @@ public class Player extends Entity {
 		this.setSpeed(speed);
 	}
 	
-	public Player(String name, double x, double y, Sprite sprite, int speed, TextureHandler th){
+	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
 		this(name, x, y, sprite, speed);
 		textureHandler = th;
 	}

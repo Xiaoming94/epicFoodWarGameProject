@@ -92,8 +92,7 @@ public class SpaghettiServer implements Runnable{
 										playerSender.xPos, playerSender.yPos,
 										(new Sprite(model.getTextureHandler()
 												.getTextureByName("ful.png"))),
-										playerSender.speed, model
-												.getTextureHandler()));
+										playerSender.speed));
 					}
 				} else if (object instanceof RequestDisconnection) {
 					playerMap.remove(connection.getID());
