@@ -80,6 +80,10 @@ public abstract class Entity {
 		speedFactor = speed;
 	}
 	
+	public void updateVector(){
+		this.getVector().setVectorByDegree(speedFactor, this.getVector().getDegree());
+	}
+	
 	public double getSpeed(){
 		return speedFactor;
 	}

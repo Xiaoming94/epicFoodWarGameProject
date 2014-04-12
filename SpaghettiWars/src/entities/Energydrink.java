@@ -10,8 +10,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Energydrink extends PowerUp {
 	
-	private int DURATION = 100;
+	private int DURATION = 500;
 	private Player isActiveOn;
+	private boolean used = false;
 	
 	public Energydrink(double x, double y, Sprite sprite){
 		super(x, y, sprite);
@@ -19,20 +20,24 @@ public class Energydrink extends PowerUp {
 
 	@Override
 	public void applyEffects(Entity player) {
-		if(player.getClass() == Player.class){
-			((Player)player).modifySpeed(50);
+		if(player.getClass() == Player.class && !used){
+			used = true;
+			((Player)player).modifySpeed(2);
 			isActiveOn = (Player)player;
 		}
 	}
 	
 	public void stopEffects(Entity player){
-		((Player)player).modifySpeed(-50);
+		((Player)player).modifySpeed(-2);
+		((Player)player).setAffectedByPower(false);
+		((Player)player).setPowerUp(null);
 	}
 	
 	public void update(){
 		if(isActiveOn != null)
 			DURATION--;
-		if(DURATION > 1)
+		//if(DURATION > 1)
+		if(DURATION < 1)
 			stopEffects(isActiveOn);
 	}
 }

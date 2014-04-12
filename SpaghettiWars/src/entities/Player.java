@@ -2,6 +2,7 @@ package entities;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.math.Circle;
 import utilities.Position;
 import utilities.TextureHandler;
 import utilities.Vector;
@@ -13,18 +14,30 @@ public class Player extends Entity {
 	
 	private String name;
 	
-	private int fatPoint = 0;
+	private double fatPoints = 0;
 	private boolean isDead = false;
 	
-	private TextureHandler textureHandler;
+	private static TextureHandler textureHandler;
 	
 	private PowerUp powerUp = null;
 	private String selectedWeapon = "meatball";
+	private boolean affectedByPowerUp = false;
+	private float spriteHeight, spriteWidth;
 	
-	public Player(String name, double x, double y, Sprite sprite, int speed, TextureHandler th){
+	private double speedMod;
+	
+	public Player(String name, double x, double y, Sprite sprite, double speed){
 		super(x, y, sprite);
 		this.name = name;
 		this.setSpeed(speed);
+		
+		spriteWidth = this.getSprite().getWidth();
+		spriteHeight = this.getSprite().getHeight();
+		speedMod = 0;
+	}
+
+	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
+		this(name, x, y, sprite, speed);
 		textureHandler = th;
 	}
 	
@@ -32,28 +45,58 @@ public class Player extends Entity {
 		return name;
 	}
 	
-	public int getFatPoint(){
-		return fatPoint;
+	public double getFatPoint(){
+		return fatPoints;
 	}
 	
 	public void gainWeight(int damage){
-		fatPoint += damage;
+		fatPoints += damage;
+		weightChanged();
 	}
 	
 	public void looseWeight(int damage){
-		fatPoint -= damage;
+		fatPoints -= damage;
+		weightChanged();
 	}
 	
 	public void setWeight(int weight){
-		fatPoint = weight;
+		fatPoints = weight;
+		weightChanged();
 	}
 	
-	public boolean checkIfDead(){
+	private void weightChanged(){
+		this.getSprite().setSize(spriteWidth*(float)getScale(), spriteHeight*(float)getScale());
+		this.getSprite().setOriginCenter();
+		
+		this.getSprite().setX((float)this.getX()-this.getSprite().getWidth()/2);
+		this.getSprite().setY((float)this.getY()-this.getSprite().getHeight()/2);
+		
+		this.setSpeed(1+2*(1.0/(this.getFatPoint()+1)));
+		this.updateVector();
+		
+		if(this.getFatPoint() > 99)
+			isDead = true;
+		//System.out.println(getScale());
+		
+	}
+	
+	public boolean isDead(){
 		return isDead;
 	}
 	
+	@Override
+	public void setSpeed(double speed){
+		super.setSpeed(speed+speedMod);
+		
+	}
+	
 	public void modifySpeed(double k){
+		speedMod += k;
 		this.setSpeed(this.getSpeed()+k);
+	}
+	
+	public double getScale(){
+		return (fatPoints + 100) / 100;
 	}
 	
 	public Projectile shoot(double x, double y){
@@ -67,15 +110,23 @@ public class Player extends Entity {
 			mb.setVector(new Position(x,y));
 			return mb;
 		}
-//		Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
-//		mb.setVector(new Position(x,y));
-//		return mb;
 	}
 	
 	public boolean overlaps(Rectangle r){
 		return this.getX() + this.getVector().getDeltaX() + this.getSprite().getWidth()/2 > r.getX() && this.getX() + this.getVector().getDeltaX() - this.getSprite().getWidth()/2 < r.getX() + r.getWidth() &&
 				this.getY() + this.getVector().getDeltaY() + this.getSprite().getWidth()/2 > r.getY() && this.getY() + this.getVector().getDeltaY() - this.getSprite().getWidth()/2 < r.getY() + r.getHeight();
 	}
+    public boolean overlaps(Projectile p){
+        if (p instanceof Pizza){
+            Pizza tmp = (Pizza) p;
+            Position pizzaPos = new Position(tmp.getX(),tmp.getY());
+            Position playerPos = new Position(this.getX(),this.getY());
+            return pizzaPos.distanceTo(playerPos) < tmp.getExplosionRadius() + this.getSprite().getBoundingRectangle().getWidth()/2;
+        }
+        else {
+            return false;
+        }
+    }
 	
 	//author: Jimmy, Louise
 	public void obstructedMove(ArrayList <Entity> l){
@@ -125,11 +176,30 @@ public class Player extends Entity {
 		}else{
 			//somethingsomething...
 		}
-	}
+	}*/
 	
 	public void usePowerUp(){
-		powerUp.applyEffects(this); // or setActive() ? i have no idea what i'm doing...
-		this.powerUp = null;
-	}*/
+		if(powerUp != null){
+			powerUp.applyEffects(this); // or setActive() ? i have no idea what i'm doing...
+			//this.powerUp = null;
+			affectedByPowerUp = true;
+		}
+	}
+	
+	public PowerUp getPowerUp(){
+		return powerUp;
+	}
+	
+	public void setPowerUp(PowerUp pu){
+		powerUp = pu;
+	}
+	
+	public boolean isAffectedByPowerUp(){
+		return affectedByPowerUp;
+	}
+	
+	public void setAffectedByPower(boolean b){
+		affectedByPowerUp = b;
+	}
 	
 }

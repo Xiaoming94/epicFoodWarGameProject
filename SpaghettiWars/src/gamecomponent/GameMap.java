@@ -28,6 +28,7 @@ public class GameMap {
 		
 		//test furniture
 		Sprite greenThing = new Sprite(textureHandler.getTextureByName("greenfurniture.png"));
+		greenThing.setSize(200,100);
 		addObstacle(new Furniture(0, -700, greenThing));
 //		System.out.println(obstacles.get(obstacles.size()-1).getX());
 //		System.out.println(obstacles.get(obstacles.size()-1).getX() + obstacles.get(obstacles.size()-1).getSprite().getBoundingRectangle().getWidth());

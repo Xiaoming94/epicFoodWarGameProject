@@ -46,7 +46,7 @@ public class Network {
 		public double yPos;
 		public double rotation;
 		public Vector vector;
-		public int speed;
+		public double speed;
 		public int ID;
 	}
 	
