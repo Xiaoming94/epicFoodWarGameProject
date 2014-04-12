@@ -26,7 +26,7 @@ public class Main{
 //	
 //		try {
 //			new SpaghettiClient(54555, 54777, 5000, "46.239.119.78", "Säljägarn", model);
-		} catch (IOException e) {
+//		} catch (IOException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}

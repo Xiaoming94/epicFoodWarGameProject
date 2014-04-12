@@ -227,7 +227,6 @@ public class Controller implements Runnable {
 	}
 
     private void explodePizza(Pizza collidingPizza) {
-    	System.out.println("derp");
         if (model.getPlayer().overlaps(collidingPizza)){
             model.getPlayer().gainWeight(collidingPizza.getDamage());
         }else{
