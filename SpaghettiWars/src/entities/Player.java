@@ -71,28 +71,24 @@ public class Player extends Entity {
 		this.getSprite().setX((float)this.getX()-this.getSprite().getWidth()/2);
 		this.getSprite().setY((float)this.getY()-this.getSprite().getHeight()/2);
 		
-		this.setSpeed(1+2*(1.0/(this.getFatPoint()+1)));
+		this.setSpeed(1+2*(1/(this.getFatPoint()+1)));
 		this.updateVector();
 		
 		if(this.getFatPoint() > 99)
 			isDead = true;
-		//System.out.println(getScale());
-		
 	}
 	
 	public boolean isDead(){
 		return isDead;
 	}
 	
-	@Override
-	public void setSpeed(double speed){
-		super.setSpeed(speed+speedMod);
-		
-	}
-	
 	public void modifySpeed(double k){
 		speedMod += k;
-		this.setSpeed(this.getSpeed()+k);
+	}
+	
+	@Override
+	public double getSpeed(){
+		return super.getSpeed() + speedMod;
 	}
 	
 	public double getScale(){
