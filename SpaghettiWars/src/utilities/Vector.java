@@ -39,13 +39,15 @@ public class Vector {
 
 //logic should be somewhere else...? what when both are zero?
 	public void setLengthTo(double length){
-		if(dx == 0){
-			dy = (dy/Math.abs(dy))*length;
-		}else if(dy == 0){
-			dx = (dx/Math.abs(dx))*length;
-		}else{
-			dx = (dx/Math.abs(dx))*length/Math.sqrt(2);
-			dy = (dy/Math.abs(dy))*length/Math.sqrt(2);	
+		if(dx != 0 || dy != 0){
+			if(dx == 0){
+				dy = (dy/Math.abs(dy))*length;
+			}else if(dy == 0){
+				dx = (dx/Math.abs(dx))*length;
+			}else{
+				dx = (dx/Math.abs(dx))*length/Math.sqrt(2);
+				dy = (dy/Math.abs(dy))*length/Math.sqrt(2);	
+			}
 		}
 	}
 	
@@ -57,9 +59,5 @@ public class Vector {
 	public void multiplyLengthBy(double length){
 		dx = length*dx;
 		dy = length*dy;
-	}
-	
-	public double getDegree(){
-		return Math.atan(Math.toRadians(dy/dx));
 	}
 }
