@@ -48,6 +48,7 @@ public class SpaghettiClient implements Runnable{
 
 		client.addListener(new Listener() {
 			public void received(Connection connection, Object object) {
+				System.out.println("Something received");
 				if (object instanceof SimpleMessage) {
 					System.out.println(((SimpleMessage) object).text);
 				} else if (object instanceof PlayerSender) {
@@ -66,7 +67,6 @@ public class SpaghettiClient implements Runnable{
 						// ((Player)
 						// playerMap.get(playerSender.ID)).setRotation(playerSender.rotation);
 					} else {
-						// playerMap.add()
 						playerMap.put(
 								playerSender.ID,
 								new Player("player" + playerSender.ID,
@@ -97,6 +97,14 @@ public class SpaghettiClient implements Runnable{
 
 	@Override
 	public void run() {
+		
+		//wait for controller to create player before we send it
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		long lastTime = System.nanoTime();
 		final double ns = 1000000000 / 20.0;
 		double delta = 0;
@@ -104,7 +112,8 @@ public class SpaghettiClient implements Runnable{
 			long now = System.nanoTime();
 			delta += (now-lastTime) / ns;
 			while(delta >= 1){
-				sendPlayerPosition(model.getPlayer().getX(), model.getPlayer().getY(), model.getPlayer().getVector(), model.getPlayer().getSprite().getRotation(), model.getPlayer().getSpeed());				
+				sendPlayerPosition(model.getPlayer().getX(), model.getPlayer().getY(), model.getPlayer().getVector(), model.getPlayer().getSprite().getRotation(), model.getPlayer().getSpeed());	
+				System.out.println("just sent player stuff");
 			}
 		}
 	}
@@ -123,5 +132,9 @@ public class SpaghettiClient implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void disconnect(){
+		
 	}
 }
