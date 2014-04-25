@@ -1,11 +1,9 @@
 package gamecomponent.views;
 
-import java.beans.PropertyChangeSupport;
-
 /**
  * Created by xiaoming on 21/04/14.
  */
-public class MenuScreen implements GameScreen {
+public class MenuScreen implements IGameScreen {
 
 
 
@@ -16,6 +14,16 @@ public class MenuScreen implements GameScreen {
 
     @Override
     public void setToCorrectInputProcessor() {
+
+    }
+
+    @Override
+    public void kill() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
 
     }
 }

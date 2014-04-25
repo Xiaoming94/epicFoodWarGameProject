@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import entities.Entity;
 import entities.Obstacle;
-import gamecomponent.MenuScreen;
 import gamecomponent.Model;
 import org.lwjgl.opengl.GL11;
 import utilities.GameInputHandler;
@@ -29,13 +28,11 @@ public class MainView implements ApplicationListener{
 	OrthographicCamera camera;
 	SpriteBatch batch;
 
-    enum ViewStates{
+    /*enum ViewStates{
         MENUS,INGAME
-    }
+    }*/
 
-    private MenuScreen menuScreen;
-
-    private ViewStates viewstate;
+    private IGameScreen screen;
 	public MainView(Model m){
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
@@ -43,7 +40,7 @@ public class MainView implements ApplicationListener{
 	    cfg.width = 800;
 	    cfg.height = 480;
 		app = new LwjglApplication(this, cfg);
-        viewstate = ViewStates.INGAME;
+        //viewstate = ViewStates.INGAME;
 		model = m;
 		model.setStartViewSize(cfg.width, cfg.height);
 		model.setViewSize(cfg.width, cfg.height);
@@ -85,28 +82,13 @@ public class MainView implements ApplicationListener{
 	public void render() {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
-        if(viewstate == ViewStates.MENUS){
-            renderMenu();
-        }
-		if (viewstate == ViewStates.INGAME){
-            renderGame();
-        }
-		
+
+		screen.render();
 	}
 
-    private void renderMenu() {
-        if (menuScreen == null) {
-            menuScreen = new MenuScreen(this);
-        }
-        if (menuScreen != null){
-            menuScreen.render(1);
-        }
-
-    }
 
     public void startGame(){
-    	Gdx.input.setInputProcessor(gih);
-        viewstate = ViewStates.INGAME;
+    	this.setScreen();
     }
 
     public void renderGame(){
@@ -171,4 +153,13 @@ public class MainView implements ApplicationListener{
 		// TODO Auto-generated method stub
 		
 	}
+
+    public void setScreen(IGameScreen screen){
+        this.killCurrentScreen();
+        this.screen = screen;
+    }
+
+    private void killCurrentScreen() {
+        this.screen.kill();
+    }
 }
