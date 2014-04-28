@@ -3,7 +3,6 @@ package utilities;
 import com.badlogic.gdx.InputProcessor;
 
 import gamecomponent.Model;
-import gamecomponent.View;
 
 public class GameInputHandler implements InputProcessor {
 	
