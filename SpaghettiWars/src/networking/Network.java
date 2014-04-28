@@ -45,7 +45,10 @@ public class Network {
 		public double xPos;
 		public double yPos;
 		public double rotation;
-		public Vector vector;
+		
+		//public Vector vector;
+		public double vectorDX;
+		public double vectorDY;
 		public double speed;
 		public int ID;
 	}

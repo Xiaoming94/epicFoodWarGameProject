@@ -51,6 +51,7 @@ public class SpaghettiServer implements Runnable{
 		server.addListener(new Listener() {
 			public void received(Connection connection, Object object) {
 				// RECIEVE handling here
+				System.out.println("something received");
 
 				if (object instanceof RequestConnection) {
 					System.out.println("Connection request recieved from: "
@@ -71,7 +72,7 @@ public class SpaghettiServer implements Runnable{
 					System.out.println(((SimpleMessage) object).text);
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
-
+					
 					if (playerMap.containsKey(connection.getID())) {
 						((Player) playerMap.get(connection.getID()))
 								.setX(playerSender.xPos);
@@ -80,15 +81,15 @@ public class SpaghettiServer implements Runnable{
 						((Player) playerMap.get(connection.getID()))
 								.setSpeed(playerSender.speed);
 						((Player) playerMap.get(connection.getID())).setVector(
-								playerSender.vector.getDeltaX(),
-								playerSender.vector.getDeltaY());
+								playerSender.vectorDX,
+								playerSender.vectorDY);
 						// ((Player)
 						// playerMap.get(connection.getID())).setRotation(playerSender.rotation);
 					} else {
 						// playerMap.add()
 						playerMap.put(
 								connection.getID(),
-								new Player("player" + connection.getID(),
+								new Player("" + connection.getID(),
 										playerSender.xPos, playerSender.yPos,
 										(new Sprite(model.getTextureHandler()
 												.getTextureByName("ful.png"))),
@@ -135,7 +136,8 @@ public class SpaghettiServer implements Runnable{
 					playerSender.yPos = playerMap.get(key).getY();
 					playerSender.speed = (int) playerMap.get(key).getSpeed();
 					//FIX that speed is a double in entity and a int in player
-					playerSender.vector = playerMap.get(key).getVector();
+					playerSender.vectorDX = playerMap.get(key).getVector().getDeltaX();
+					playerSender.vectorDY = playerMap.get(key).getVector().getDeltaY();
 					playerSender.ID = Integer.parseInt(playerMap.get(key).getName());
 //					playerSender.rotation = playerMap.get(key).getRotation(); NO getRotation so far?!
 					clientsConnected.get(i).sendUDP(playerSender);
@@ -146,7 +148,8 @@ public class SpaghettiServer implements Runnable{
 			playerSender.xPos = model.getPlayer().getX();
 			playerSender.yPos = model.getPlayer().getY();
 			playerSender.speed = (int) model.getPlayer().getSpeed();
-			playerSender.vector = model.getPlayer().getVector();
+			playerSender.vectorDX = model.getPlayer().getVector().getDeltaX();
+			playerSender.vectorDY = model.getPlayer().getVector().getDeltaY();
 			int id = 91287;
 			while(playerMap.containsKey(id)){
 				id++;
