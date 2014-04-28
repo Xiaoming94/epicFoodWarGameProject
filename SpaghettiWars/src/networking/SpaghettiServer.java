@@ -51,7 +51,7 @@ public class SpaghettiServer implements Runnable{
 		server.addListener(new Listener() {
 			public void received(Connection connection, Object object) {
 				// RECIEVE handling here
-				System.out.println("something received");
+				
 
 				if (object instanceof RequestConnection) {
 					System.out.println("Connection request recieved from: "

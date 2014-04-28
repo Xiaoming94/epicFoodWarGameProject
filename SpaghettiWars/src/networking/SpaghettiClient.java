@@ -48,7 +48,7 @@ public class SpaghettiClient implements Runnable{
 
 		client.addListener(new Listener() {
 			public void received(Connection connection, Object object) {
-				System.out.println("Something received");
+				
 				if (object instanceof SimpleMessage) {
 					System.out.println(((SimpleMessage) object).text);
 				} else if (object instanceof PlayerSender) {
