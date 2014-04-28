@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import entities.Pizza;
+import gamecomponent.views.*;
+import gamecomponent.views.MenuScreen;
 import utilities.GameInputHandler;
 import utilities.Position;
 
@@ -18,20 +20,16 @@ import entities.Projectile;
 public class Controller implements Runnable {
 
 	Model model;
-	View view;
-	
-	private final GameInputHandler gih;
+	MainView view;
 
-	public Controller(Model m, View view) {
-		model = m;
-		this.view = view;
-		gih = new GameInputHandler(model);
-		Gdx.input.setInputProcessor(gih);
-		view.reciveInputHandler(gih);
-	}
-	
+	public Controller(Model m, MainView view) {
+        model = m;
+        this.view = view;
 
-	@Override
+    }
+
+
+    @Override
 	public void run() {
 		
 		
@@ -238,5 +236,9 @@ public class Controller implements Runnable {
             }
         }
 
+    }
+
+    public void startGame() {
+        view.setScreen(new GameScreen(model));
     }
 }
