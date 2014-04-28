@@ -24,11 +24,6 @@ public class MainView implements ApplicationListener{
 	Model model;
 	LwjglApplication app;
 
-
-    /*enum ViewStates{
-        MENUS,INGAME
-    }*/
-
     private IGameScreen screen;
 	public MainView(Model m){
 		

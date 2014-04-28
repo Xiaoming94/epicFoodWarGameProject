@@ -75,20 +75,30 @@ public class MenuScreen implements IGameScreen {
         buttonStyle.checked = skin.newDrawable("white", Color.BLUE);
         buttonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
 
-        final TextButton textButton = new TextButton("START",textButtonStyle);
-        textButton.setPosition(100,150);
-        //textButton.add
-        stage.addActor(textButton);
-        stage.addActor(textButton);
-        stage.addActor(textButton);
+        final TextButton startGameButton = new TextButton("START",textButtonStyle);
+        startGameButton.setPosition(100, 150);
 
-        textButton.addListener(new ChangeListener() {
+
+
+        //textButton.add
+        stage.addActor(startGameButton);
+        stage.addActor(startGameButton);
+        stage.addActor(startGameButton);
+
+        startGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.startGame();
             }
         });
 
+        TextButton hostGameButton = new TextButton("Host Game",textButtonStyle);
+
+        hostGameButton.setPosition(210,150 );
+
+        stage.addActor(hostGameButton);
+        stage.addActor(hostGameButton);
+        stage.addActor(hostGameButton);
 
     }
 
