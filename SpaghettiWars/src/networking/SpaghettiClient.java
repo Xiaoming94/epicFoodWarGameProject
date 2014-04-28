@@ -64,8 +64,7 @@ public class SpaghettiClient implements Runnable{
 						((Player) playerMap.get(playerSender.ID)).setVector(
 								playerSender.vectorDX,
 								playerSender.vectorDY);
-						// ((Player)
-						// playerMap.get(playerSender.ID)).setRotation(playerSender.rotation);
+						 ((Player)playerMap.get(playerSender.ID)).setRotation(playerSender.rotation);
 					} else {
 						playerMap.put(
 								playerSender.ID,

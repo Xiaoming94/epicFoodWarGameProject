@@ -89,6 +89,7 @@ public class MenuScreen implements IGameScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.startGame();
+                model.createClient();
             }
         });
 
@@ -99,6 +100,15 @@ public class MenuScreen implements IGameScreen {
         stage.addActor(hostGameButton);
         stage.addActor(hostGameButton);
         stage.addActor(hostGameButton);
+        
+        hostGameButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				parent.startGame();
+				model.createServer();
+			}
+        	
+        });
 
     }
 

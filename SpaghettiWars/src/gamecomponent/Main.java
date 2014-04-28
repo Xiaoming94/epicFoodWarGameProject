@@ -27,7 +27,7 @@ public class Main{
 			e.printStackTrace();
 		}
 		//model.createServer();
-		model.createClient();
+		//model.createClient();
 
 	}
 

@@ -80,6 +80,10 @@ public abstract class Entity {
 		speedFactor = speed;
 	}
 	
+	public void setRotation(double rotation){
+		sprite.setRotation((float) rotation);
+	}
+	
 	public void updateVector(){
 		this.getVector().setLengthTo(this.getSpeed());
 	}

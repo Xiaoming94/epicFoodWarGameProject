@@ -83,8 +83,7 @@ public class SpaghettiServer implements Runnable{
 						((Player) playerMap.get(connection.getID())).setVector(
 								playerSender.vectorDX,
 								playerSender.vectorDY);
-						// ((Player)
-						// playerMap.get(connection.getID())).setRotation(playerSender.rotation);
+						 ((Player) playerMap.get(connection.getID())).setRotation(playerSender.rotation);
 					} else {
 						// playerMap.add()
 						playerMap.put(
@@ -139,7 +138,7 @@ public class SpaghettiServer implements Runnable{
 					playerSender.vectorDX = playerMap.get(key).getVector().getDeltaX();
 					playerSender.vectorDY = playerMap.get(key).getVector().getDeltaY();
 					playerSender.ID = Integer.parseInt(playerMap.get(key).getName());
-//					playerSender.rotation = playerMap.get(key).getRotation(); NO getRotation so far?!
+					playerSender.rotation = playerMap.get(key).getSprite().getRotation();
 					clientsConnected.get(i).sendUDP(playerSender);
 					
 					//DONT FORGET TO SEND THE HOST PLAYER TOO! :) done
@@ -150,6 +149,7 @@ public class SpaghettiServer implements Runnable{
 			playerSender.speed = (int) model.getPlayer().getSpeed();
 			playerSender.vectorDX = model.getPlayer().getVector().getDeltaX();
 			playerSender.vectorDY = model.getPlayer().getVector().getDeltaY();
+			playerSender.rotation = model.getPlayer().getSprite().getRotation();
 			int id = 91287;
 			while(playerMap.containsKey(id)){
 				id++;

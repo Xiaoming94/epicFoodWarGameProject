@@ -75,7 +75,7 @@ public class GameScreen implements IGameScreen{
         Iterator<Integer> iterator = model.getOtherPlayers().keySet().iterator();
         while(iterator.hasNext()){
             Integer key = iterator.next();
-            batch.draw(model.getOtherPlayers().get(key).getSprite(), model.getOtherPlayers().get(key).getSprite().getX(), model.getOtherPlayers().get(key).getSprite().getY());
+            batch.draw(model.getOtherPlayers().get(key).getSprite(), model.getOtherPlayers().get(key).getSprite().getX(), model.getOtherPlayers().get(key).getSprite().getY(), model.getOtherPlayers().get(key).getSprite().getOriginX(), model.getOtherPlayers().get(key).getSprite().getOriginY(), model.getOtherPlayers().get(key).getSprite().getWidth(), model.getOtherPlayers().get(key).getSprite().getHeight(), 1, 1, model.getOtherPlayers().get(key).getSprite().getRotation());
         }
 
 
