@@ -1,5 +1,5 @@
 /*
- *		Author: Jimmy Eliason Malmer
+h *		Author: Jimmy Eliason Malmer
  */
 package gamecomponent.views;
 
