@@ -1,24 +1,27 @@
 package gamecomponent.views;
 
 /**
- * Created by xiaoming on 21/04/14.
- *
- * Interface for creating a new screen in the game.
- * Very simple
- * Each gamescreen is logically a singleton
- * <p>use this class whenever you need too create a new view for this game</p>
+ * Created by xiaoming on 28/04/14.
  */
-public interface GameScreen {
+public class GameScreen implements IGameScreen{
 
-    /**
-     * Method for rendering the current screen
-     * Used in Main view to render things.
-     */
-    public void render();
+    @Override
+    public void render() {
 
-    /**
-     * sets the input handler of LibGDX to the one that belongs to this view
-     * Handy method basically, Will be called when the view is switched.
-     */
-    public void setToCorrectInputProcessor();
+    }
+
+    @Override
+    public void setToCorrectInputProcessor() {
+
+    }
+
+    @Override
+    public void kill() {
+
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+    }
 }
