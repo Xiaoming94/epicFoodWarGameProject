@@ -75,7 +75,7 @@ public class MenuScreen implements IGameScreen {
         buttonStyle.checked = skin.newDrawable("white", Color.BLUE);
         buttonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
 
-        final TextButton startGameButton = new TextButton("START",textButtonStyle);
+        final TextButton startGameButton = new TextButton("join game",textButtonStyle);
         startGameButton.setPosition(100, 150);
 
 

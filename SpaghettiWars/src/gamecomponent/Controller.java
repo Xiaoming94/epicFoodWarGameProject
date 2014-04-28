@@ -61,9 +61,9 @@ public class Controller implements Runnable {
 			time = System.currentTimeMillis();
 			
 			
-			if(model.getPlayer() != null && model.getPlayer().isAffectedByPowerUp()){
-				model.getPlayer().getPowerUp().update(); //testing powerup
-			}
+			//if(model.getPlayer() != null && model.getPlayer().isAffectedByPowerUp()){
+			//	model.getPlayer().getPowerUp().update(); //testing powerup
+			//}
 			
 			
 			playerObstructed.clear();

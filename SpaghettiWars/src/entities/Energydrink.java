@@ -29,14 +29,13 @@ public class Energydrink extends PowerUp {
 	
 	public void stopEffects(Entity player){
 		((Player)player).modifySpeed(-2);
-		((Player)player).setAffectedByPower(false);
-		((Player)player).setPowerUp(null);
+		((Player)player).removePowerUpEffect(this);
 	}
 	
 	public void update(){
 		if(isActiveOn != null)
 			DURATION--;
-		//if(DURATION > 1)
+		
 		if(DURATION < 1)
 			stopEffects(isActiveOn);
 	}

@@ -37,7 +37,7 @@ public class Model {
 	private Map<Integer, Player> otherPlayers;
 
 	private Player player;
-	private Texture actionBar, actionBarSelection;
+	private Texture actionBar, actionBarSelection, powerUpBar;
 
 	private Mutex entitiesMutex;
 	private Mutex stillEntitiesMutex;
@@ -100,6 +100,7 @@ public class Model {
 	public void createGUI(){
 		actionBar = textureHandler.getTextureByName("actionbar2.png");
 		actionBarSelection = textureHandler.getTextureByName("actionbarselection.png");
+		powerUpBar = textureHandler.getTextureByName("powerupholder.png");
 	}
 
     /**
@@ -109,6 +110,10 @@ public class Model {
 
 	public Texture getActionBar() {
 		return actionBar;
+	}
+	
+	public Texture getPowerUpBar() {
+		return powerUpBar;
 	}
 
     /**

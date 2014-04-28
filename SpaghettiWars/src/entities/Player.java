@@ -23,6 +23,7 @@ public class Player extends Entity {
 	private String selectedWeapon = "meatball";
 	private boolean affectedByPowerUp = false;
 	private float spriteHeight, spriteWidth;
+	private ArrayList<PowerUp> activePowerUps, activePowerUpsTrashBin;
 	
 	private double speedMod;
 	
@@ -30,6 +31,9 @@ public class Player extends Entity {
 		super(x, y, sprite);
 		this.name = name;
 		this.setSpeed(speed);
+		
+		activePowerUps = new ArrayList<PowerUp>();
+		activePowerUpsTrashBin = new ArrayList<PowerUp>();
 		
 		spriteWidth = this.getSprite().getWidth();
 		spriteHeight = this.getSprite().getHeight();
@@ -76,6 +80,21 @@ public class Player extends Entity {
 		
 		if(this.getFatPoint() > 99)
 			isDead = true;
+	}
+	
+	@Override
+	public void move() {
+		super.move();
+		
+		for(PowerUp pu : activePowerUps)
+			pu.update();
+		
+		for(PowerUp pu : activePowerUpsTrashBin)
+			activePowerUps.remove(pu);
+	}
+	
+	public void removePowerUpEffect(PowerUp pu){
+		activePowerUpsTrashBin.add(pu);
 	}
 	
 	public boolean isDead(){
@@ -176,8 +195,9 @@ public class Player extends Entity {
 	
 	public void usePowerUp(){
 		if(powerUp != null){
+			this.activePowerUps.add(powerUp);
 			powerUp.applyEffects(this); // or setActive() ? i have no idea what i'm doing...
-			//this.powerUp = null;
+			this.powerUp = null;
 			affectedByPowerUp = true;
 		}
 	}
@@ -189,13 +209,4 @@ public class Player extends Entity {
 	public void setPowerUp(PowerUp pu){
 		powerUp = pu;
 	}
-	
-	public boolean isAffectedByPowerUp(){
-		return affectedByPowerUp;
-	}
-	
-	public void setAffectedByPower(boolean b){
-		affectedByPowerUp = b;
-	}
-	
 }
