@@ -161,15 +161,16 @@ public class SpaghettiServer implements Runnable{
 
 	@Override
 	public void run() {
-		long lastTime = System.nanoTime();
-		final double ns = 1000000000 / 20.0;
-		double delta = 0;
+		
 		while(running){
-			long now = System.nanoTime();
-			delta += (now-lastTime) / ns;
-			while(delta >= 1){
-				sendPlayersToAll();
-			}
+				
+			sendPlayersToAll();
+				
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+					System.out.println("Server got interuppted");
+				}
 		}
 	}
 	
