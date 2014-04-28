@@ -95,7 +95,7 @@ public class MenuScreen implements IGameScreen {
 
         TextButton hostGameButton = new TextButton("Host Game",textButtonStyle);
 
-        hostGameButton.setPosition(210,150 );
+        hostGameButton.setPosition(300,150 );
 
         stage.addActor(hostGameButton);
         stage.addActor(hostGameButton);
