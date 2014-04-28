@@ -48,7 +48,7 @@ public class SpaghettiClient implements Runnable{
 
 		client.addListener(new Listener() {
 			public void received(Connection connection, Object object) {
-				System.out.println("Something received");
+				
 				if (object instanceof SimpleMessage) {
 					System.out.println(((SimpleMessage) object).text);
 				} else if (object instanceof PlayerSender) {
@@ -62,8 +62,8 @@ public class SpaghettiClient implements Runnable{
 						((Player) playerMap.get(playerSender.ID))
 								.setSpeed(playerSender.speed);
 						((Player) playerMap.get(playerSender.ID)).setVector(
-								playerSender.vector.getDeltaX(),
-								playerSender.vector.getDeltaY());
+								playerSender.vectorDX,
+								playerSender.vectorDY);
 						// ((Player)
 						// playerMap.get(playerSender.ID)).setRotation(playerSender.rotation);
 					} else {
@@ -85,9 +85,11 @@ public class SpaghettiClient implements Runnable{
 		PlayerSender playerSender = new PlayerSender();
 		playerSender.xPos = xPos;
 		playerSender.yPos = yPos;
-		playerSender.vector = vector;
+		playerSender.vectorDX = vector.getDeltaX();
+		playerSender.vectorDY = vector.getDeltaY();
 		playerSender.rotation = rotation;
 		playerSender.speed = speed;
+		
 		client.sendUDP(playerSender);
 	}
 	
@@ -112,8 +114,7 @@ public class SpaghettiClient implements Runnable{
 			long now = System.nanoTime();
 			delta += (now-lastTime) / ns;
 			while(delta >= 1){
-				sendPlayerPosition(model.getPlayer().getX(), model.getPlayer().getY(), model.getPlayer().getVector(), model.getPlayer().getSprite().getRotation(), model.getPlayer().getSpeed());	
-				System.out.println("just sent player stuff");
+				sendPlayerPosition(model.getPlayer().getX(), model.getPlayer().getY(), model.getPlayer().getVector(), model.getPlayer().getSprite().getRotation(), model.getPlayer().getSpeed());
 			}
 		}
 	}

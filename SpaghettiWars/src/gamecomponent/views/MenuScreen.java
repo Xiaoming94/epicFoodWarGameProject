@@ -1,42 +1,49 @@
-package gamecomponent;
+package gamecomponent.views;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-
-//import java.awt.*;
+import gamecomponent.Controller;
+import gamecomponent.Model;
 
 /**
- * Created by xiaoming on 09/04/14.
+ * Created by xiaoming on 21/04/14.
  */
-public class MenuScreen implements Screen{
+public class MenuScreen implements IGameScreen {
 
-    Skin skin;
-    Stage stage;
-    SpriteBatch batch;
+    private Skin skin;
+    private Stage stage;
+    private SpriteBatch batch;
 
-    View parent;
+    private MainView parent;
 
-    public MenuScreen(View parent){
+    private Model model;
+
+    public MenuScreen(){
+        this(null,null);
+    }
+    public MenuScreen(Model model, MainView parent){
+        this.model = model;
         this.parent = parent;
+
         create();
     }
 
     private void create() {
+
         batch = new SpriteBatch();
         stage = new Stage();
-        Gdx.input.setInputProcessor(stage);
 
         skin = new Skin();
 
@@ -68,60 +75,61 @@ public class MenuScreen implements Screen{
         buttonStyle.checked = skin.newDrawable("white", Color.BLUE);
         buttonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
 
-        final TextButton textButton = new TextButton("START",textButtonStyle);
-        textButton.setPosition(100,150);
-        //textButton.add
-        stage.addActor(textButton);
-        stage.addActor(textButton);
-        stage.addActor(textButton);
+        final TextButton startGameButton = new TextButton("START",textButtonStyle);
+        startGameButton.setPosition(100, 150);
 
-        textButton.addListener(new ChangeListener() {
+
+
+        //textButton.add
+        stage.addActor(startGameButton);
+        stage.addActor(startGameButton);
+        stage.addActor(startGameButton);
+
+        startGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 parent.startGame();
             }
         });
 
+        TextButton hostGameButton = new TextButton("Host Game",textButtonStyle);
+
+        hostGameButton.setPosition(210,150 );
+
+        stage.addActor(hostGameButton);
+        stage.addActor(hostGameButton);
+        stage.addActor(hostGameButton);
+
     }
 
     @Override
-    public void render (float delta) {
+    public void render() {
+
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         Table.drawDebug(stage);
+
     }
 
     @Override
-    public void resize (int width, int height) {
-        //Do Something
+    public void setToCorrectInputProcessor() {
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
-    public void dispose () {
+    public void kill() {
+
         stage.dispose();
         skin.dispose();
-    }
-
-    @Override
-    public void show() {
 
     }
 
     @Override
-    public void hide() {
+    public void resize(int width, int height) {
+
+        model.setViewSize(width, height);
 
     }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
 }
