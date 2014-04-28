@@ -40,34 +40,36 @@ public class Controller implements Runnable {
 		ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 		ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 		ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
-
+		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
+		
 		model.createMap();
 		model.createGUI();
 		model.createPlayer();
 
 		// model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
 
-		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
-		
-		
+
 		
 		long time;
 		while (true) {
 
-			// measure starttime
+			// measure starttime for loop
 			time = System.currentTimeMillis();
 
 			
 			
-			//handle player movement
+			//handle player movement 
 			playerObstructed.clear();
+			//check if player is obstructed by obstacle
 			for (Entity o : model.getMap().getObstacles())
 				if (model.getPlayer().overlaps(
 						o.getSprite().getBoundingRectangle())) {
 					playerObstructed.add(o);
 				}
+			//if not obstructed by any obstacles, move normally
 			if (playerObstructed.isEmpty())
 				model.getPlayer().move();
+			//if player is obstructed, use obstructedMove method
 			else
 				model.getPlayer().obstructedMove(playerObstructed);
 
@@ -83,10 +85,13 @@ public class Controller implements Runnable {
 				//meatball
 				if (e instanceof entities.Meatball) {
 					for (Entity o : model.getMap().getObstacles()) {
+						//if projectile e has hit obstacle o, put it on deathlist
 						if (e.getSprite().getBoundingRectangle()
 								.overlaps(o.getSprite().getBoundingRectangle())) {
 							e.kill();
 							killProjectileList.add(e);
+						//if not, check if it's reached its maximum range, 
+						//if so, put it on deathlist
 						} else {
 							e.update();
 							if (e.isDead()) {
@@ -99,8 +104,10 @@ public class Controller implements Runnable {
 				//pizza
 				if (e instanceof entities.Pizza) {
 					for (Entity o : model.getMap().getObstacles()) {
+						//check if projectile e has hit an obstacle
 						if (e.getSprite().getBoundingRectangle()
 								.overlaps(o.getSprite().getBoundingRectangle())) {
+							//if e has hit a wall, put it on death list and explode it
 							if (o instanceof entities.Wall) {
 								e.kill();
 								killProjectileList.add(e);
@@ -108,6 +115,8 @@ public class Controller implements Runnable {
 								break;
 							}
 						} else {
+						//if target destination has been reached,
+						//the pizza is to be killed and explode
 							e.update();
 							if (e.isDead()) {
 								killProjectileList.add(e);
@@ -139,12 +148,12 @@ public class Controller implements Runnable {
 			}
 
 			
-			//killing projectiles
+			//killing projectiles on deathlist
 			model.getEntitiesMutex().lock();
 			for (Entity e : killProjectileList)
 				model.killProjectile(e);
 			model.getEntitiesMutex().unlock();
-
+			//removing projectiles that have been eaten from projectile list
 			for (Entity e : eatProjectileList)
 				model.removeProjectile(e);
 			
@@ -165,11 +174,13 @@ public class Controller implements Runnable {
 	
 	//method for making pizza victims fat
 	private void explodePizza(Pizza collidingPizza) {
+		//check if the player has hit himself with exploding pizza, if so make fat
 		if (model.getPlayer().overlaps(collidingPizza)) {
 			model.getPlayer().gainWeight(collidingPizza.getDamage());
 		}
-
+		
 		Collection<Player> otherPlayers = model.getOtherPlayers().values();
+		//check if other players have been hit by exploding pizza
 		for (Player p : otherPlayers) {
 			if (p.overlaps(collidingPizza)) {
 				p.gainWeight(collidingPizza.getDamage());
