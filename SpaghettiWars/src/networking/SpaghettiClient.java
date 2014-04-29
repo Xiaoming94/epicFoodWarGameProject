@@ -83,6 +83,7 @@ public class SpaghettiClient implements Runnable{
 										playerSender.speed));
 					}
 				}else if(object instanceof ProjectileSender){
+					System.out.println("recieved begin");
 					ProjectileSender projectileSender = (ProjectileSender)object;
 					
 					Projectile p;
@@ -94,6 +95,7 @@ public class SpaghettiClient implements Runnable{
 						p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
 					}
 					model.addProjectile(p);
+					System.out.println("recieved done");
 				}
 			}
 		});
