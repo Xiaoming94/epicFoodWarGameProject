@@ -10,4 +10,8 @@ public class Meatball extends Projectile {
 	public Meatball(double x, double y, Vector vector, Sprite sprite){
 		super(x, y, vector, sprite, 5, 300);
 	}
+	
+	public Meatball(double x, double y, Vector vector, Sprite sprite, int clientID, int objectID){
+		super(x,y,vector,sprite,5,300, clientID, objectID);
+	}
 }

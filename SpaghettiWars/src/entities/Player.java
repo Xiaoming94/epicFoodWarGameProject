@@ -29,6 +29,21 @@ public class Player extends Entity {
 	
 	public Player(String name, double x, double y, Sprite sprite, double speed){
 		super(x, y, sprite);
+		createPlayer(name, speed);
+	}
+
+	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
+		this(name, x, y, sprite, speed);
+		textureHandler = th;
+	}
+	
+	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th, int clientID, int objectID){
+		super(x,y, new Vector(0,0), sprite, clientID, objectID);
+		textureHandler = th;
+		createPlayer(name, speed);
+	}
+	
+	private void createPlayer(String name, double speed){
 		this.name = name;
 		this.setSpeed(speed);
 		
@@ -40,11 +55,6 @@ public class Player extends Entity {
 		speedMod = 0;
 		fatPoints = 0;
 		isDead = false;
-	}
-
-	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
-		this(name, x, y, sprite, speed);
-		textureHandler = th;
 	}
 	
 	public String getName(){
