@@ -40,7 +40,6 @@ public class Player extends Entity {
 		speedMod = 0;
 		fatPoints = 0;
 		isDead = false;
-		System.out.println("derp");
 	}
 
 	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){

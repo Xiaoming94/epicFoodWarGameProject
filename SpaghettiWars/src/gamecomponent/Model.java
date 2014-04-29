@@ -211,7 +211,6 @@ public class Model {
 			key = iterator.next();
 		}
 		getStillEntitiesMutex().lock();
-		System.out.println(found);
 		if(found){
 			otherPlayers.remove(toBeRemoved);
 			stillEntities.add(e);
