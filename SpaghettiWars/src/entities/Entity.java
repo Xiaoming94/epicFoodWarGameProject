@@ -13,6 +13,9 @@ public abstract class Entity {
 	private Sprite sprite;
 	private double speedFactor = 2;
 	
+	private int clientID;
+	private int objectID;
+	
 	public Entity(double x, double y, Sprite sprite){
 		this(x, y, new Vector(0,0), sprite);
 	}
@@ -90,5 +93,21 @@ public abstract class Entity {
 	
 	public double getSpeed(){
 		return speedFactor;
+	}
+
+	public int getClientID() {
+		return clientID;
+	}
+
+	public void setClientID(int clientID) {
+		this.clientID = clientID;
+	}
+
+	public int getObjectID() {
+		return objectID;
+	}
+
+	public void setObjectID(int objectID) {
+		this.objectID = objectID;
 	}
 }

@@ -151,6 +151,12 @@ public class Controller implements Runnable {
 			for (Entity e : killPlayerList) {
 				model.killPlayer(e);
 			}
+			
+			//kill self and respawn if dead
+			if(model.getPlayer().isDead()){
+				model.getStillEntitys().add(model.getPlayer());
+				model.createPlayer();
+			}
 
 			
 			//killing projectiles on deathlist

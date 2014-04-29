@@ -111,15 +111,10 @@ public class SpaghettiServer implements Runnable {
 										.getTextureByName("pizza.png")),
 								new Position(projectileSender.targetPosX,
 										projectileSender.targetPosY));
-						p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
+						p.setVector(new Position(projectileSender.targetPosX, projectileSender.targetPosY));
 					} else {
-						p = new Meatball(projectileSender.xPos,
-								projectileSender.yPos, new Vector(
-										0,0), new Sprite(
-										model.getTextureHandler()
-												.getTextureByName(
-														"Kottbulle.png")));
-						p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
+						p = new Meatball(projectileSender.xPos, projectileSender.yPos, new Vector(projectileSender.vectorDX, projectileSender.vectorDY), new Sprite(model.getTextureHandler().getTextureByName("Kottbulle.png")));
+						//p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
 					}
 					model.addProjectile(p);
 					forwardClientObject(p, connection.getID());

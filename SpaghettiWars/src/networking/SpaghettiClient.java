@@ -83,19 +83,17 @@ public class SpaghettiClient implements Runnable{
 										playerSender.speed));
 					}
 				}else if(object instanceof ProjectileSender){
-					System.out.println("recieved begin");
 					ProjectileSender projectileSender = (ProjectileSender)object;
 					
 					Projectile p;
 					if(projectileSender.projectileTypeNumber == 2){
 						p = new Pizza(projectileSender.xPos, projectileSender.yPos, new Vector(0,0), new Sprite(model.getTextureHandler().getTextureByName("pizza.png")), new Position(projectileSender.targetPosX, projectileSender.targetPosY));
-						p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
+						p.setVector(new Position(projectileSender.targetPosX, projectileSender.targetPosY));
 					}else{
-						p = new Meatball(projectileSender.xPos, projectileSender.yPos, new Vector(0,0), new Sprite(model.getTextureHandler().getTextureByName("kottbulle.png")));
-						p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
+						p = new Meatball(projectileSender.xPos, projectileSender.yPos, new Vector(projectileSender.vectorDX, projectileSender.vectorDY), new Sprite(model.getTextureHandler().getTextureByName("Kottbulle.png")));
+						//p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
 					}
 					model.addProjectile(p);
-					System.out.println("recieved done");
 				}
 			}
 		});
