@@ -117,10 +117,12 @@ public class Player extends Entity {
 	public Projectile shoot(double x, double y){
 
 		if(selectedWeapon == "pizza"){
-			Pizza p = new Pizza(this.getX(), this.getY(), new Vector(x,y), new Sprite(textureHandler.getTextureByName("pizza.png")), new Position(x,y));
+			Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")), new Position(x,y));
+			p.setVector(new Position(x,y));
 			return p;
 		}else{
-			Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(x,y), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
+			Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
+			mb.setVector(new Position(x,y));
 			return mb;
 		}
 	}
