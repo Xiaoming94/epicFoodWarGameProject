@@ -16,8 +16,7 @@ public abstract class Entity {
 	private static int thisClientID;
 	private static int objectIDgenerator = 0;
 
-	private int clientID;
-	private int objectID;
+	private int ID;
 	
 	public Entity(double x, double y, Sprite sprite){
 		this(x, y, new Vector(0,0), sprite);
@@ -104,12 +103,8 @@ public abstract class Entity {
 		return speedFactor;
 	}
 
-	public int getClientID() {
-		return clientID;
-	}
-
-	public int getObjectID() {
-		return objectID;
+	public int getID() {
+		return ID;
 	}
 	
 	public static void setThisClientID(int thisClientID){

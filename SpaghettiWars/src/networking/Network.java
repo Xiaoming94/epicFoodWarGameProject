@@ -20,6 +20,7 @@ public class Network {
 		kryo.register(PlayerSender.class);
 		kryo.register(ProjectileSender.class);
 		kryo.register(RequestDisconnection.class);
+		kryo.register(IDgiver.class);
 	}
 	
 	public static class SimpleMessage{
@@ -62,6 +63,11 @@ public class Network {
 		public int projectileTypeNumber;
 		public double targetPosX;
 		public double targetPosY;
+		public int ID;
+	}
+	
+	public static class IDgiver{
+		public int ID;
 	}
 	
 	public static class RequestDisconnection{
