@@ -29,7 +29,6 @@ import entities.Projectile;
  */
 public class Model {
 
-
 	private boolean upKeyPressed,downKeyPressed,leftKeyPressed,rightKeyPressed;
 	private ArrayList<Entity> entities;
 	private ArrayList<Projectile> projectiles;
@@ -199,23 +198,23 @@ public class Model {
 
 	
 	public void killPlayer(Entity e){
-		int i = 0;
 		boolean found = false;
 		Iterator<Integer> iterator = otherPlayers.keySet().iterator();
+		int toBeRemoved = 0;
 		while(iterator.hasNext()){
 			int key = iterator.next();
 			if(otherPlayers.get(key).equals(e)){
 				found = true;
+				toBeRemoved = key;
 				break;
 			}
-			i++;
+			key = iterator.next();
 		}
 		getStillEntitiesMutex().lock();
+		System.out.println(found);
 		if(found){
-			otherPlayers.remove(i);
+			otherPlayers.remove(toBeRemoved);
 			stillEntities.add(e);
-			//System.out.println("why not still fat? " + ((Player)e).getScale());
-			//e.getSprite().setSize(((float)e.getSprite().getWidth())*(float)((Player)e).getScale(), ((float)e.getSprite().getHeight())*(float)((Player)e).getScale());
 		}
 		getStillEntitiesMutex().unlock();
 	}
@@ -291,7 +290,7 @@ public class Model {
 			}else if(rightKeyPressed && !leftKeyPressed){
 				player.getVector().setVectorByDegree(player.getSpeed(), 45);
 			}else{
-				player.setVector(0, 1*player.getSpeed());
+				player.setVector(0, player.getSpeed());
 			}
 		}
 		else if(downKeyPressed && !upKeyPressed){

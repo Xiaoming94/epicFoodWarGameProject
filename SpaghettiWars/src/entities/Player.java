@@ -14,8 +14,8 @@ public class Player extends Entity {
 	
 	private String name;
 	
-	private double fatPoints = 0;
-	private boolean isDead = false;
+	private double fatPoints;
+	private boolean isDead;
 	
 	private static TextureHandler textureHandler;
 	
@@ -38,6 +38,9 @@ public class Player extends Entity {
 		spriteWidth = this.getSprite().getWidth();
 		spriteHeight = this.getSprite().getHeight();
 		speedMod = 0;
+		fatPoints = 0;
+		isDead = false;
+		System.out.println("derp");
 	}
 
 	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){

@@ -60,6 +60,11 @@ public class Controller implements Runnable {
 			
 			//handle player movement 
 			playerObstructed.clear();
+			
+			killProjectileList.clear();
+			eatProjectileList.clear();
+			killPlayerList.clear();
+			
 			//check if player is obstructed by obstacle
 			for (Entity o : model.getMap().getObstacles())
 				if (model.getPlayer().overlaps(
