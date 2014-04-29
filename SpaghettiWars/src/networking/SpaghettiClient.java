@@ -87,9 +87,11 @@ public class SpaghettiClient implements Runnable{
 					
 					Projectile p;
 					if(projectileSender.projectileTypeNumber == 2){
-						p = new Pizza(projectileSender.xPos, projectileSender.yPos, new Vector(projectileSender.vectorDX, projectileSender.vectorDY), new Sprite(model.getTextureHandler().getTextureByName("pizza.png")), new Position(projectileSender.targetPosX, projectileSender.targetPosY));
+						p = new Pizza(projectileSender.xPos, projectileSender.yPos, new Vector(0,0), new Sprite(model.getTextureHandler().getTextureByName("pizza.png")), new Position(projectileSender.targetPosX, projectileSender.targetPosY));
+						p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
 					}else{
-						p = new Meatball(projectileSender.xPos, projectileSender.yPos, new Vector(projectileSender.vectorDX, projectileSender.vectorDY), new Sprite(model.getTextureHandler().getTextureByName("kottbulle.png")));
+						p = new Meatball(projectileSender.xPos, projectileSender.yPos, new Vector(0,0), new Sprite(model.getTextureHandler().getTextureByName("kottbulle.png")));
+						p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
 					}
 					model.addProjectile(p);
 				}
