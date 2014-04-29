@@ -18,6 +18,7 @@ public class Network {
 		kryo.register(SimpleMessage.class);
 		kryo.register(ObstacleSender.class);
 		kryo.register(PlayerSender.class);
+		kryo.register(ProjectileSender.class);
 		kryo.register(RequestDisconnection.class);
 	}
 	
