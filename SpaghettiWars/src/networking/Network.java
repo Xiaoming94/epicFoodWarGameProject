@@ -53,6 +53,16 @@ public class Network {
 		public int ID;
 	}
 	
+	public static class ProjectileSender{
+		public double xPos;
+		public double yPos;
+		public double vectorDX;
+		public double vectorDY;
+		public int projectileTypeNumber;
+		public double targetPosX;
+		public double targetPosY;
+	}
+	
 	public static class RequestDisconnection{
 		public String name;
 	}

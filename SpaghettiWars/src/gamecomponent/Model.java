@@ -34,6 +34,7 @@ public class Model {
 	private ArrayList<Entity> entities;
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Entity> stillEntities;
+	private ArrayList<Projectile> unsentProjectiles;
 	private Map<Integer, Player> otherPlayers;
 
 	private Player player;
@@ -62,6 +63,7 @@ public class Model {
 		stillEntities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
 		otherPlayers = new HashMap<Integer, Player>();
+		unsentProjectiles = new ArrayList<Projectile>();
 		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
 
@@ -73,7 +75,7 @@ public class Model {
 	//kind of temporary implementation
 	public void createServer(){
 		try {
-			SpaghettiServer server = new SpaghettiServer(54555, 54777, this, otherPlayers);
+			SpaghettiServer server = new SpaghettiServer(54555, 54777, this, otherPlayers, unsentProjectiles);
 			server.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -84,7 +86,7 @@ public class Model {
 	//kind of temporary implementation
 	public void createClient(){
 		try {
-			SpaghettiClient client = new SpaghettiClient(54555, 54777, 5000, "localhost", "Jocke", this, otherPlayers);
+			SpaghettiClient client = new SpaghettiClient(54555, 54777, 5000, "localhost", "Jocke", this, otherPlayers, unsentProjectiles);
 			client.start();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -311,9 +313,11 @@ public class Model {
 
 	public void mouseButtonPressed(double x, double y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
+			Projectile p = player.shoot((startWidth/width)*(x-this.width/2)+this.player.getX(), (startHeight/height)*(this.height/2-y)+this.player.getY());
 			this.getEntitiesMutex().lock();
-			this.addProjectile(player.shoot((startWidth/width)*(x-this.width/2)+this.player.getX(), (startHeight/height)*(this.height/2-y)+this.player.getY()));
+			this.addProjectile(p);
 			this.getEntitiesMutex().unlock();
+			this.unsentProjectiles.add(p);
 		}
 	}
 
