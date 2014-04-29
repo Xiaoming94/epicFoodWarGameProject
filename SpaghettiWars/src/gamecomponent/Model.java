@@ -1,10 +1,7 @@
 package gamecomponent;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 import networking.SpaghettiClient;
 import networking.SpaghettiServer;
@@ -80,30 +77,6 @@ public class Model {
 	}
 	
 	//kind of temporary implementation
-	public void createServer(){
-		try {
-			SpaghettiServer server = new SpaghettiServer(54555, 54777, this, otherPlayers, unsentProjectiles);
-			server.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	//kind of temporary implementation
-	public void createClient(){
-		createClient("localhost");
-	}
-
-    public void createClient(String iP){
-        try {
-            SpaghettiClient client = new SpaghettiClient(54555, 54777, 5000, iP, "Jocke", this, otherPlayers, unsentProjectiles);
-            client.start();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 	
 
     /**
@@ -184,6 +157,10 @@ public class Model {
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 2, this.getTextureHandler());
 		player.setPowerUp(testPowerUp);
 	}
+
+    public ArrayList getUnsentProjectiles(){
+        return this.unsentProjectiles;
+    }
 	
 	//Author: Jimmy - wtf function, please help it with its life
 	public void killProjectile(Entity e){
