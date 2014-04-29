@@ -16,8 +16,7 @@ public abstract class Entity {
 	private static int thisClientID;
 	private static int objectIDgenerator = 0;
 
-	private int clientID;
-	private int objectID;
+	private int ID;
 	
 	public Entity(double x, double y, Sprite sprite){
 		this(x, y, new Vector(0,0), sprite);
@@ -32,8 +31,8 @@ public abstract class Entity {
 		this.sprite.setX((float)x-this.sprite.getWidth()/2);
 		this.sprite.setY((float)y-this.sprite.getHeight()/2);
 		
-		clientID = thisClientID;
-		objectID = ++objectIDgenerator;
+		//creates id on the form xxxx:yyyyyy where the x's are the client ID and the y's are the object ID
+		ID = thisClientID*1000000 + (++objectIDgenerator);
 	}	
 	
 	public Entity(double x, double y, Vector vector, Sprite sprite, int clientID, int objectID){
@@ -45,8 +44,7 @@ public abstract class Entity {
 		this.sprite.setX((float)x-this.sprite.getWidth()/2);
 		this.sprite.setY((float)y-this.sprite.getHeight()/2);
 		
-		this.clientID = clientID;
-		this.objectID = objectID;
+		ID = clientID*1000000 + objectID;
 	}
 	
 	public void move(){
@@ -114,12 +112,8 @@ public abstract class Entity {
 		return speedFactor;
 	}
 
-	public int getClientID() {
-		return clientID;
-	}
-
-	public int getObjectID() {
-		return objectID;
+	public int getID() {
+		return ID;
 	}
 	
 	public static void setThisClientID(int thisClientID){

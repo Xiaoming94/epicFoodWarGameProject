@@ -51,7 +51,8 @@ public class Network {
 		public double vectorDX;
 		public double vectorDY;
 		public double speed;
-		public int ID;
+		public int clientID;
+		public int objectID;
 	}
 	
 	public static class ProjectileSender{
@@ -62,6 +63,8 @@ public class Network {
 		public int projectileTypeNumber;
 		public double targetPosX;
 		public double targetPosY;
+		public int clientID;
+		public int objectID;
 	}
 	
 	public static class RequestDisconnection{
