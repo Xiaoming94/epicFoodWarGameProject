@@ -36,8 +36,7 @@ public abstract class Entity {
 		this.sprite.setX((float)x-this.sprite.getWidth()/2);
 		this.sprite.setY((float)y-this.sprite.getHeight()/2);
 		
-		this.clientID = clientID;
-		this.objectID = objectID;
+		ID = clientID*1000000 + objectID;
 	}
 	
 	public void move(){
