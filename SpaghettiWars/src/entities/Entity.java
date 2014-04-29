@@ -23,16 +23,7 @@ public abstract class Entity {
 	}
 	
 	public Entity(double x, double y, Vector vector, Sprite sprite){
-		this.x = x;
-		this.y = y;
-		this.sprite = sprite;
-		this.vector = vector;
-		
-		this.sprite.setX((float)x-this.sprite.getWidth()/2);
-		this.sprite.setY((float)y-this.sprite.getHeight()/2);
-		
-		//creates id on the form xxxx:yyyyyy where the x's are the client ID and the y's are the object ID
-		ID = thisClientID*1000000 + (++objectIDgenerator);
+		this(x,y,vector, sprite, thisClientID, ++objectIDgenerator);
 	}	
 	
 	public Entity(double x, double y, Vector vector, Sprite sprite, int clientID, int objectID){

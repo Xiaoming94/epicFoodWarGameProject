@@ -11,11 +11,21 @@ public class Pizza extends Projectile{
 
     private final double explosionRadius = 50;
 	
+    
 	public Pizza(double x, double y, Vector v, Sprite sprite, Position targetPos){
 
         super(x, y, v, sprite, 5, targetPos.distanceTo(new Position(x,y)));
+        createPizza(x,y,targetPos);
 
-        Position myPosition = new Position(x,y);
+    }
+	
+	public Pizza(double x, double y, Vector v, Sprite sprite, Position targetPos, int clientID, int objectID){
+		super(x,y,v,sprite, 5, targetPos.distanceTo(new Position(x,y)), clientID, objectID);
+		createPizza(x,y,targetPos);
+	}	
+	
+	private void createPizza(double x, double y, Position targetPos){
+		Position myPosition = new Position(x,y);
 
         double maxRange = 300;
         double distanceToMouse = targetPos.distanceTo(myPosition);
@@ -30,9 +40,9 @@ public class Pizza extends Projectile{
         super.setRange(travelDistance);
 
         this.targetPos = targetPos;
-
-    }
-
+	}
+	
+	
     public double getExplosionRadius(){
         return explosionRadius;
     }
