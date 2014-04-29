@@ -1,6 +1,7 @@
 package gamecomponent.views;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import gamecomponent.Controller;
 import gamecomponent.Model;
+import utilities.IPInputDialog;
 
 /**
  * Created by xiaoming on 21/04/14.
@@ -86,8 +88,10 @@ public class MenuScreen implements IGameScreen {
         startGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+
+                Gdx.input.getTextInput(new IPInputDialog(model),"Input Host IP","Localhost");
                 parent.startGame();
-                model.createClient();
+
             }
         });
 

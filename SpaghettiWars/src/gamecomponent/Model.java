@@ -92,14 +92,18 @@ public class Model {
 	}
 	//kind of temporary implementation
 	public void createClient(){
-		try {
-			SpaghettiClient client = new SpaghettiClient(54555, 54777, 5000, "localhost", "Jocke", this, otherPlayers, unsentProjectiles);
-			client.start();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		createClient("localhost");
 	}
+
+    public void createClient(String iP){
+        try {
+            SpaghettiClient client = new SpaghettiClient(54555, 54777, 5000, iP, "Jocke", this, otherPlayers, unsentProjectiles);
+            client.start();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 	
 
     /**
