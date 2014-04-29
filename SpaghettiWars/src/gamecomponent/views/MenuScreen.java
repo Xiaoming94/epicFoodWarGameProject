@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import gamecomponent.Controller;
 import gamecomponent.Model;
+import networking.NetworkUtils;
 import utilities.IPInputDialog;
 
 /**
@@ -105,7 +106,7 @@ public class MenuScreen implements IGameScreen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				parent.startGame();
-				model.createServer();
+                NetworkUtils.createServer(model);
 			}
         	
         });
