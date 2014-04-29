@@ -23,16 +23,14 @@ public class Controller implements Runnable {
 	MainView view;
 
 	public Controller(Model m, MainView view) {
-        model = m;
-        this.view = view;
+		model = m;
+		this.view = view;
 
-    }
+	}
 
-
-    @Override
+	@Override
 	public void run() {
-		
-		
+
 		// wait for View to load textures before controller try to create player
 		try {
 			Thread.sleep(1000);
@@ -41,204 +39,159 @@ public class Controller implements Runnable {
 		}
 		ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 		ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
-		
-		
 		ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
-		
-		
+		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 		
 		model.createMap();
 		model.createGUI();
 		model.createPlayer();
 
-//		model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
+		// model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
+
+
 		
-		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 		long time;
 		while (true) {
-			
-			//measure starttime
+
+			// measure starttime for loop
 			time = System.currentTimeMillis();
+
 			
 			
-			//if(model.getPlayer() != null && model.getPlayer().isAffectedByPowerUp()){
-			//	model.getPlayer().getPowerUp().update(); //testing powerup
-			//}
-			
-			
+			//handle player movement 
 			playerObstructed.clear();
-			for(Entity o : model.getMap().getObstacles())
-				if(model.getPlayer().overlaps(o.getSprite().getBoundingRectangle())){
+			//check if player is obstructed by obstacle
+			for (Entity o : model.getMap().getObstacles())
+				if (model.getPlayer().overlaps(
+						o.getSprite().getBoundingRectangle())) {
 					playerObstructed.add(o);
 				}
-			
-			if(playerObstructed.isEmpty())
+			//if not obstructed by any obstacles, move normally
+			if (playerObstructed.isEmpty())
 				model.getPlayer().move();
+			//if player is obstructed, use obstructedMove method
 			else
 				model.getPlayer().obstructedMove(playerObstructed);
-			
+
 			playerObstructed.clear();
-			
+
 			model.getEntitiesMutex().lock();
 			
-			//Lalalalalalala, testing stuff. original code below in comments.
-			for(Projectile e : model.getProjectiles()){
-				
-				//if meatball, impact whenever it hits something
-				if(e instanceof entities.Meatball){
-					for(Entity o: model.getMap().getObstacles()){
-						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
+			
+			
+			// for loop checks projectiles, and what they have hit
+			for (Projectile e : model.getProjectiles()) {
+
+				//meatball
+				if (e instanceof entities.Meatball) {
+					for (Entity o : model.getMap().getObstacles()) {
+						//if projectile e has hit obstacle o, put it on deathlist
+						if (e.getSprite().getBoundingRectangle()
+								.overlaps(o.getSprite().getBoundingRectangle())) {
 							e.kill();
 							killProjectileList.add(e);
-						}else{
+						//if not, check if it's reached its maximum range, 
+						//if so, put it on deathlist
+						} else {
 							e.update();
-							if(e.isDead()){
+							if (e.isDead()) {
 								killProjectileList.add(e);
 							}
 						}
 					}
-					
-//					for(Player p : model.getOtherPlayers()){
-//						if(p.overlaps(e.getSprite().getBoundingRectangle())){
-//							eatProjectileList.add(e);
-//							p.gainWeight(e.getDamage());
-//						}
-//					}
 				}
-				
-				//stuff that pizza should do:
-				//if pizza, impact with walls always and with other things when they've been targeted
-				if(e instanceof entities.Pizza){
-					for(Entity o : model.getMap().getObstacles()){
-						if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
-							if(o instanceof entities.Wall){
+
+				//pizza
+				if (e instanceof entities.Pizza) {
+					for (Entity o : model.getMap().getObstacles()) {
+						//check if projectile e has hit an obstacle
+						if (e.getSprite().getBoundingRectangle()
+								.overlaps(o.getSprite().getBoundingRectangle())) {
+							//if e has hit a wall, put it on death list and explode it
+							if (o instanceof entities.Wall) {
 								e.kill();
 								killProjectileList.add(e);
-								explodePizza((Pizza)e);
+								explodePizza((Pizza) e);
 								break;
 							}
-
-						
-						}else{
-							
+						} else {
+						//if target destination has been reached,
+						//the pizza is to be killed and explode
 							e.update();
-							if(e.isDead()){
+							if (e.isDead()) {
 								killProjectileList.add(e);
-                                explodePizza((Pizza)e);
-                                break;
+								explodePizza((Pizza) e);
+								break;
 							}
-							
-							//chaos follows in comments below. ignore until later or never.
-							
-							//check if we've landed on something... or something like that
-							/*double obstacleLeftEdge = o.getX();
-							double obstacleRightEdge = o.getX() + o.getSprite().getBoundingRectangle().getWidth();
-							double obstacleTopEdge = o.getY() + o.getSprite().getBoundingRectangle().getHeight();
-							double obstacleBottomEdge = o.getY();
-							Position aim = ((entities.Pizza)e).getTargetPosition();*/
-							
-//							//if true, we've hit something
-//							if(e.isDead() && aim.getX() > obstacleLeftEdge && aim.getX() < obstacleRightEdge 
-//									&& aim.getY() < obstacleTopEdge && aim.getY() > obstacleBottomEdge){
-//								
-//								//if we've hit a player, make fat!
-//								if(o.getClass() == entities.Wall.class){
-//									//make fatter;
-//									System.out.println("make wall fat");
-//									o.getSprite().setSize(o.getSprite().getWidth()*5, o.getSprite().getHeight()*5);
-//								}
-//							}
-							
 						}
 					}
-					
 				}
 			}
-			
-			
-			//this is what was here before I messed with it...
-			
-//			for(Projectile e : model.getProjectiles())
-//			{
-//				for(Entity o : model.getMap().getObstacles())
-//					if(e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())){
-//						e.kill();
-//						bufferList.add(e);
-//				}
-//				else{
-//					e.update();
-//					if(e.isDead())
-//						bufferList.add(e);
-//				}
-//			}
-			
-			
-			
-//			
-//			for(Player p : model.getOtherPlayers()){
-//				if(p.isDead()){
-//					p.setVector(0, 0);
-//					killPlayerList.add(p);
-//					double deathSize = p.getScale();
-//					//System.out.println("deathsize:" + deathSize);
-//					//model.getStillEntitys().add(p);
-//					//model.getOtherPlayers().remove(p);
 
 			model.getEntitiesMutex().unlock();
+
 			
-			Iterator<Integer> iterator = model.getOtherPlayers().keySet().iterator();
-			while(iterator.hasNext()){
+			//killing players
+			Iterator<Integer> iterator = model.getOtherPlayers().keySet()
+					.iterator();
+			while (iterator.hasNext()) {
 				int key = iterator.next();
-				if(model.getOtherPlayers().get(key).isDead()){
+				if (model.getOtherPlayers().get(key).isDead()) {
 					model.getOtherPlayers().get(key).setVector(0, 0);
 					killPlayerList.add(model.getOtherPlayers().get(key));
 
-				}
-				else
+				} else
 					model.getOtherPlayers().get(key).move();
 			}
-		
-			for(Entity e: killPlayerList){
+			for (Entity e : killPlayerList) {
 				model.killPlayer(e);
 			}
-			
 
 			
+			//killing projectiles on deathlist
 			model.getEntitiesMutex().lock();
-			for(Entity e : killProjectileList)
+			for (Entity e : killProjectileList)
 				model.killProjectile(e);
 			model.getEntitiesMutex().unlock();
-			
-			for(Entity e : eatProjectileList)
+			//removing projectiles that have been eaten from projectile list
+			for (Entity e : eatProjectileList)
 				model.removeProjectile(e);
 			
-			time = System.currentTimeMillis() - time;
+			
+			
 
+			time = System.currentTimeMillis() - time;
 			try {
 				Thread.sleep(10 - time);
-			}catch(InterruptedException e){
+			} catch (InterruptedException e) {
 				System.out.println("got interrupted!");
-			}catch(IllegalArgumentException e){
+			} catch (IllegalArgumentException e) {
 				;
 			}
 		}
 	}
 
-    private void explodePizza(Pizza collidingPizza) {
-        if (model.getPlayer().overlaps(collidingPizza)){
-            model.getPlayer().gainWeight(collidingPizza.getDamage());
-        }else{
-            Collection<Player> otherPlayers = model.getOtherPlayers().values();
-            for(Player p : otherPlayers){
-                if (p.overlaps(collidingPizza)){
-                    p.gainWeight(collidingPizza.getDamage());
-                }
-            }
-        }
+	
+	//method for making pizza victims fat
+	private void explodePizza(Pizza collidingPizza) {
+		//check if the player has hit himself with exploding pizza, if so make fat
+		if (model.getPlayer().overlaps(collidingPizza)) {
+			model.getPlayer().gainWeight(collidingPizza.getDamage());
+		}
+		
+		Collection<Player> otherPlayers = model.getOtherPlayers().values();
+		//check if other players have been hit by exploding pizza
+		for (Player p : otherPlayers) {
+			if (p.overlaps(collidingPizza)) {
+				p.gainWeight(collidingPizza.getDamage());
+			}
+		}
+	}
+	
+	
+	
 
-    }
-
-    public void startGame() {
-        view.setScreen(new GameScreen(model));
-    }
+	public void startGame() {
+		view.setScreen(new GameScreen(model));
+	}
 }

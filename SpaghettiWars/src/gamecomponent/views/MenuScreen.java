@@ -82,8 +82,6 @@ public class MenuScreen implements IGameScreen {
 
         //textButton.add
         stage.addActor(startGameButton);
-        stage.addActor(startGameButton);
-        stage.addActor(startGameButton);
 
         startGameButton.addListener(new ChangeListener() {
             @Override
@@ -98,14 +96,26 @@ public class MenuScreen implements IGameScreen {
         hostGameButton.setPosition(300,150 );
 
         stage.addActor(hostGameButton);
-        stage.addActor(hostGameButton);
-        stage.addActor(hostGameButton);
         
         hostGameButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				parent.startGame();
 				model.createServer();
+			}
+        	
+        });
+        
+        TextButton exitButton = new TextButton("Exit",textButtonStyle);
+
+        exitButton.setPosition(500,150 );
+
+        stage.addActor(exitButton);
+        
+        exitButton.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				System.exit(1);
 			}
         	
         });
