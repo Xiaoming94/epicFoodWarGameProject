@@ -196,14 +196,18 @@ public class Model {
 			}
 			i++;
 		}
-		getStillEntitiesMutex().lock();
-		getProjectilesMutex().lock();//ny
+		
+		
 		if(found){
+			getProjectilesMutex().lock();//ny
 			projectiles.remove(i);
+			getProjectilesMutex().unlock();//ny
+			getStillEntitiesMutex().lock();
 			stillEntities.add(e);
+			getStillEntitiesMutex().unlock();
 		}
-		getStillEntitiesMutex().unlock();
-		getProjectilesMutex().unlock();//ny
+		
+		
 	}
 
 	public void removeProjectile(Entity e){
@@ -216,13 +220,15 @@ public class Model {
 			}
 			i++;
 		}
-		getStillEntitiesMutex().lock();
-		getProjectilesMutex().lock(); //ny
+		
+		
 		if(found){
+			getProjectilesMutex().lock(); //ny
 			projectiles.remove(i);
+			getProjectilesMutex().unlock(); //ny
 		}
-		getStillEntitiesMutex().unlock();
-		getProjectilesMutex().unlock(); //ny
+		
+		
 	}
 
 	
