@@ -41,6 +41,10 @@ public class Model {
 
 	private Mutex entitiesMutex;
 	private Mutex stillEntitiesMutex;
+	
+	private Mutex projectilesMutex;
+	private Mutex unsentProjectilesMutex;
+	private Mutex otherPlayersMutex;
 
 //	ArrayList<NameTexture> textures;
 	private TextureHandler textureHandler;
@@ -65,6 +69,10 @@ public class Model {
 		unsentProjectiles = new ArrayList<Projectile>();
 		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
+		
+		projectilesMutex = new Mutex();
+		unsentProjectilesMutex = new Mutex();
+		otherPlayersMutex = new Mutex();
 
 //		textures = new ArrayList<NameTexture>();
 		textureHandler = new TextureHandler();
@@ -152,6 +160,19 @@ public class Model {
 	public Mutex getStillEntitiesMutex(){
 		return stillEntitiesMutex;
 	}
+	
+	
+	public Mutex getProjectilesMutex(){
+		return projectilesMutex;
+	}
+	
+	public Mutex getUnsentProjectilesMutex(){
+		return unsentProjectilesMutex;
+	}
+	
+	public Mutex getOtherPlayersMutex(){
+		return otherPlayersMutex;
+	}
 
 	public void createPlayer(){
 		//testing powerup energydrink
@@ -172,11 +193,13 @@ public class Model {
 			i++;
 		}
 		getStillEntitiesMutex().lock();
+		getProjectilesMutex().lock();//ny
 		if(found){
 			projectiles.remove(i);
 			stillEntities.add(e);
 		}
 		getStillEntitiesMutex().unlock();
+		getProjectilesMutex().unlock();//ny
 	}
 
 	public void removeProjectile(Entity e){
@@ -190,10 +213,12 @@ public class Model {
 			i++;
 		}
 		getStillEntitiesMutex().lock();
+		getProjectilesMutex().lock(); //ny
 		if(found){
 			projectiles.remove(i);
 		}
 		getStillEntitiesMutex().unlock();
+		getProjectilesMutex().unlock(); //ny
 	}
 
 	
@@ -211,12 +236,14 @@ public class Model {
 			key = iterator.next();
 		}
 		getStillEntitiesMutex().lock();
+		getOtherPlayersMutex().lock(); //ny
 		System.out.println(found);
 		if(found){
 			otherPlayers.remove(toBeRemoved);
 			stillEntities.add(e);
 		}
 		getStillEntitiesMutex().unlock();
+		getOtherPlayersMutex().unlock();
 	}
 	
 
@@ -316,7 +343,9 @@ public class Model {
 			this.getEntitiesMutex().lock();
 			this.addProjectile(p);
 			this.getEntitiesMutex().unlock();
+			getUnsentProjectilesMutex().lock(); //ny
 			this.unsentProjectiles.add(p);
+			getUnsentProjectilesMutex().unlock(); //ny
 		}
 	}
 
@@ -363,6 +392,8 @@ public class Model {
 	}
 
 	public void addProjectile(Projectile p) {
+		getProjectilesMutex().lock();//ny
 		this.projectiles.add(p);
+		getProjectilesMutex().unlock();//ny
 	}
 }
