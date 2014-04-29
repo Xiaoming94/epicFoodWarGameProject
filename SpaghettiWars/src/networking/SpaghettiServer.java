@@ -118,7 +118,7 @@ public class SpaghettiServer implements Runnable {
 										0,0), new Sprite(
 										model.getTextureHandler()
 												.getTextureByName(
-														"kottbulle.png")));
+														"Kottbulle.png")));
 						p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
 					}
 					model.addProjectile(p);
