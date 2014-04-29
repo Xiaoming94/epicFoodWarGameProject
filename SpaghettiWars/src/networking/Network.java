@@ -20,6 +20,7 @@ public class Network {
 		kryo.register(PlayerSender.class);
 		kryo.register(ProjectileSender.class);
 		kryo.register(RequestDisconnection.class);
+		kryo.register(IDgiver.class);
 	}
 	
 	public static class SimpleMessage{
@@ -51,8 +52,7 @@ public class Network {
 		public double vectorDX;
 		public double vectorDY;
 		public double speed;
-		public int clientID;
-		public int objectID;
+		public int ID;
 	}
 	
 	public static class ProjectileSender{
@@ -63,8 +63,11 @@ public class Network {
 		public int projectileTypeNumber;
 		public double targetPosX;
 		public double targetPosY;
-		public int clientID;
-		public int objectID;
+		public int ID;
+	}
+	
+	public static class IDgiver{
+		public int ID;
 	}
 	
 	public static class RequestDisconnection{
