@@ -1,6 +1,9 @@
 package utilities;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Input;
+
 import gamecomponent.Model;
 import networking.NetworkUtils;
 
@@ -9,6 +12,7 @@ import networking.NetworkUtils;
  */
 public class IPInputDialog implements Input.TextInputListener {
     private final Model m;
+    
 
     public IPInputDialog(Model m){
         this.m = m;
@@ -16,7 +20,12 @@ public class IPInputDialog implements Input.TextInputListener {
 
     @Override
     public void input(String s) {
-        NetworkUtils.createClient(s,m);
+        try {
+			m.setNetworkObject(NetworkUtils.createClient(s,m));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     @Override
