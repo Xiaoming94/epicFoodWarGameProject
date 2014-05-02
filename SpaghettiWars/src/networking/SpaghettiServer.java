@@ -5,6 +5,7 @@ import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
+import gamecomponent.Controller;
 import gamecomponent.GameMap;
 import gamecomponent.Model;
 
@@ -31,7 +32,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
-public class SpaghettiServer implements Runnable {
+public class SpaghettiServer implements Runnable, SpaghettiFace {
 
 	private Server server;
 	private Map<Integer, Connection> clientsConnected;
@@ -52,6 +53,8 @@ public class SpaghettiServer implements Runnable {
 		Network.register(server);
 
 		this.model = mod;
+		
+		Thread ct = new Thread(new Controller(model));
 
 		this.playerMap = otherPlayerMap;
 		this.unsentProjectiles = unsentProjectiles;
@@ -133,16 +136,19 @@ public class SpaghettiServer implements Runnable {
 														"Kottbulle.png")));
 					}
 					model.addProjectile(p);
-					forwardClientObject(p, p.getID() / 1000000);
+					forwardClientObjectUDP(p, p.getID() / 1000000);
 				} else if (object instanceof RequestDisconnection) {
-					playerMap.remove(connection.getID());
-					clientsConnected.remove(connection);
+					System.out.println("disconnectionpackage received");
+					RequestDisconnection request = (RequestDisconnection)object;
+					forwardClientObjectTCP(request, request.playerID);
+					playerMap.remove(request.playerID);
+					clientsConnected.remove(request.clientID);
 				}
 			}
 		});
 	}
 
-	// prototyp..
+	// not in use, or ever tested
 	public void sendMap(GameMap map) {
 		for (int i = 0; i < map.getObstacles().size(); i++) {
 			ObstacleSender obs = new ObstacleSender();
@@ -236,12 +242,22 @@ public class SpaghettiServer implements Runnable {
 		unsentProjectiles.clear();
 	}
 
-	private void forwardClientObject(Object object, int clientID) {
+	private void forwardClientObjectUDP(Object object, int clientID) {
 		Iterator<Integer> iterator = clientsConnected.keySet().iterator();
 		while (iterator.hasNext()) {
 			int key = iterator.next();
 			if (clientID != key / 1000000) {
 				clientsConnected.get(key).sendUDP(object);
+			}
+		}
+	}
+	
+	private void forwardClientObjectTCP(Object object, int clientID){
+		Iterator<Integer> iterator = clientsConnected.keySet().iterator();
+		while (iterator.hasNext()) {
+			int key = iterator.next();
+			if (clientID != key / 1000000) {
+				clientsConnected.get(key).sendTCP(object);
 			}
 		}
 	}
@@ -278,6 +294,17 @@ public class SpaghettiServer implements Runnable {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	
+	public void disconnect(){
+		stop();
+		Iterator<Integer> connectionIterator = clientsConnected.keySet().iterator();
+		while(connectionIterator.hasNext()){
+			Integer connectionKey = connectionIterator.next();
+			RequestDisconnection request = new RequestDisconnection();
+			request.clientID = 0;
+			clientsConnected.get(connectionKey).sendTCP(request);
 		}
 	}
 }

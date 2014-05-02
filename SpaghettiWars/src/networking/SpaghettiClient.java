@@ -12,6 +12,7 @@ import networking.Network.IDgiver;
 import networking.Network.PlayerSender;
 import networking.Network.ProjectileSender;
 import networking.Network.RequestConnection;
+import networking.Network.RequestDisconnection;
 import networking.Network.SimpleMessage;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -24,9 +25,10 @@ import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
+import gamecomponent.Controller;
 import gamecomponent.Model;
 
-public class SpaghettiClient implements Runnable{
+public class SpaghettiClient implements Runnable, SpaghettiFace {
 	private Client client;
 	private String clientName;
 	private Map<Integer, Player> playerMap;
@@ -39,7 +41,9 @@ public class SpaghettiClient implements Runnable{
 	// method will block, if it times out or connection otherwise fails, an
 	// exeption is thrown.
 	public SpaghettiClient(int TCPPort, int UDPPort, int connectionTimeBlock,
-			String IPAddress, String clientName, Model mod, Map<Integer, Player> otherPlayerMap, ArrayList<Projectile> unsentProjectiles) throws IOException {
+			String IPAddress, String clientName, Model mod,
+			Map<Integer, Player> otherPlayerMap,
+			ArrayList<Projectile> unsentProjectiles) throws IOException {
 		client = new Client();
 		client.start();
 
@@ -59,12 +63,14 @@ public class SpaghettiClient implements Runnable{
 
 		client.addListener(new Listener() {
 			public void received(Connection connection, Object object) {
-				
+
 				if (object instanceof SimpleMessage) {
 					System.out.println(((SimpleMessage) object).text);
-				} else if (object instanceof IDgiver){
-					IDgiver idgiver = (IDgiver)object;
+				} else if (object instanceof IDgiver) {
+					IDgiver idgiver = (IDgiver) object;
 					Entity.setThisClientID(idgiver.ID);
+					Thread ct = new Thread(new Controller(model));
+					ct.start();
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
 
@@ -76,34 +82,55 @@ public class SpaghettiClient implements Runnable{
 						((Player) playerMap.get(playerSender.ID))
 								.setSpeed(playerSender.speed);
 						((Player) playerMap.get(playerSender.ID)).setVector(
-								playerSender.vectorDX,
-								playerSender.vectorDY);
-						 ((Player)playerMap.get(playerSender.ID)).setRotation(playerSender.rotation);
-						 ((Player)playerMap.get(playerSender.ID)).setWeight(playerSender.fatPoints);
+								playerSender.vectorDX, playerSender.vectorDY);
+						((Player) playerMap.get(playerSender.ID))
+								.setRotation(playerSender.rotation);
+						((Player) playerMap.get(playerSender.ID))
+								.setWeight(playerSender.fatPoints);
 					} else {
-						playerMap.put(
-								playerSender.ID,
-								new Player("Sir Derp",
-										playerSender.xPos, playerSender.yPos,
-										(new Sprite(model.getTextureHandler()
-												.getTextureByName("ful.png"))),
-										playerSender.speed));
+						playerMap.put(playerSender.ID, new Player("Sir Derp",
+								playerSender.xPos, playerSender.yPos,
+								(new Sprite(model.getTextureHandler()
+										.getTextureByName("ful.png"))),
+								playerSender.speed));
 					}
-				}else if(object instanceof ProjectileSender){
-					ProjectileSender projectileSender = (ProjectileSender)object;
-					
+				} else if (object instanceof ProjectileSender) {
+					ProjectileSender projectileSender = (ProjectileSender) object;
+
 					Projectile p;
-					if(projectileSender.projectileTypeNumber == 2){
-						p = new Pizza(projectileSender.xPos, projectileSender.yPos, new Vector(0,0), new Sprite(model.getTextureHandler().getTextureByName("pizza.png")), new Position(projectileSender.targetPosX, projectileSender.targetPosY));
-						p.setVector(new Position(projectileSender.targetPosX, projectileSender.targetPosY));
-					}else{
-						p = new Meatball(projectileSender.xPos, projectileSender.yPos, new Vector(projectileSender.vectorDX, projectileSender.vectorDY), new Sprite(model.getTextureHandler().getTextureByName("Kottbulle.png")));
-						//p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
+					if (projectileSender.projectileTypeNumber == 2) {
+						p = new Pizza(projectileSender.xPos,
+								projectileSender.yPos, new Vector(0, 0),
+								new Sprite(model.getTextureHandler()
+										.getTextureByName("pizza.png")),
+								new Position(projectileSender.targetPosX,
+										projectileSender.targetPosY));
+						p.setVector(new Position(projectileSender.targetPosX,
+								projectileSender.targetPosY));
+					} else {
+						p = new Meatball(projectileSender.xPos,
+								projectileSender.yPos, new Vector(
+										projectileSender.vectorDX,
+										projectileSender.vectorDY), new Sprite(
+										model.getTextureHandler()
+												.getTextureByName(
+														"Kottbulle.png")));
+						// p.setVector(new Position(projectileSender.vectorDX,
+						// projectileSender.vectorDY));
 					}
 					model.addProjectile(p);
-				}else if(object instanceof FatSender){
-					FatSender fatSender = (FatSender)object;
+				} else if (object instanceof FatSender) {
+					FatSender fatSender = (FatSender) object;
 					model.getPlayer().setWeight(fatSender.fatPoints);
+				} else if (object instanceof RequestDisconnection) {
+					System.out.println("disconnectionpackage received");
+					RequestDisconnection request = (RequestDisconnection) object;
+					if (request.clientID == 0) {
+						stop();
+						playerMap.clear();
+					} else {
+						playerMap.remove(request.playerID);
+					}
 				}
 			}
 		});
@@ -118,43 +145,46 @@ public class SpaghettiClient implements Runnable{
 		playerSender.vectorDY = vector.getDeltaY();
 		playerSender.rotation = rotation;
 		playerSender.speed = speed;
-		
+		playerSender.ID = model.getPlayer().getID();
+
 		client.sendUDP(playerSender);
 	}
-	
-	public void sendProjectiles(){
-		for(Projectile p : unsentProjectiles){
+
+	public void sendProjectiles() {
+		for (Projectile p : unsentProjectiles) {
 			ProjectileSender projectileSender = new ProjectileSender();
 			projectileSender.xPos = p.getX();
 			projectileSender.yPos = p.getY();
 			projectileSender.vectorDX = p.getVector().getDeltaX();
 			projectileSender.vectorDY = p.getVector().getDeltaY();
-			if(p instanceof Pizza){
+			if (p instanceof Pizza) {
 				projectileSender.projectileTypeNumber = 2;
-				projectileSender.targetPosX = ((Pizza)p).getTargetPosition().getX();
-				projectileSender.targetPosY = ((Pizza)p).getTargetPosition().getY();
-			}else{
+				projectileSender.targetPosX = ((Pizza) p).getTargetPosition()
+						.getX();
+				projectileSender.targetPosY = ((Pizza) p).getTargetPosition()
+						.getY();
+			} else {
 				projectileSender.projectileTypeNumber = 1;
 			}
 			client.sendUDP(projectileSender);
 		}
 		unsentProjectiles.clear();
 	}
-	
-	public Map<Integer, Player> getPlayerMap(){
+
+	public Map<Integer, Player> getPlayerMap() {
 		return playerMap;
 	}
 
 	@Override
 	public void run() {
-		
-		
-		
-		while(running){
-		
-			sendPlayerPosition(model.getPlayer().getX(), model.getPlayer().getY(), model.getPlayer().getVector(), model.getPlayer().getSprite().getRotation(), model.getPlayer().getSpeed());
+
+		while (running) {
+
+			sendPlayerPosition(model.getPlayer().getX(), model.getPlayer()
+					.getY(), model.getPlayer().getVector(), model.getPlayer()
+					.getSprite().getRotation(), model.getPlayer().getSpeed());
 			sendProjectiles();
-			
+
 			try {
 				Thread.sleep(50);
 			} catch (InterruptedException e) {
@@ -162,14 +192,14 @@ public class SpaghettiClient implements Runnable{
 			}
 		}
 	}
-	
-	public synchronized void start(){
+
+	public synchronized void start() {
 		running = true;
 		thread = new Thread(this, "ClientThread");
 		thread.start();
 	}
-	
-	public synchronized void stop(){
+
+	public synchronized void stop() {
 		running = false;
 		try {
 			thread.join();
@@ -178,8 +208,12 @@ public class SpaghettiClient implements Runnable{
 			e.printStackTrace();
 		}
 	}
-	
-	public void disconnect(){
-		
+
+	public void disconnect() {
+		stop();
+		RequestDisconnection request = new RequestDisconnection();
+		request.playerID = model.getPlayer().getID();
+		request.clientID = Entity.getThisClientID();
+		client.sendTCP(request);
 	}
 }
