@@ -105,7 +105,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								new Sprite(model.getTextureHandler()
 										.getTextureByName("pizza.png")),
 								new Position(projectileSender.targetPosX,
-										projectileSender.targetPosY));
+										projectileSender.targetPosY), projectileSender.ID/1000000, projectileSender.ID%100000);
 						p.setVector(new Position(projectileSender.targetPosX,
 								projectileSender.targetPosY));
 					} else {
@@ -115,7 +115,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 										projectileSender.vectorDY), new Sprite(
 										model.getTextureHandler()
 												.getTextureByName(
-														"Kottbulle.png")));
+														"Kottbulle.png")), projectileSender.ID/1000000, projectileSender.ID%100000);
 						// p.setVector(new Position(projectileSender.vectorDX,
 						// projectileSender.vectorDY));
 					}
@@ -164,6 +164,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 			projectileSender.yPos = p.getY();
 			projectileSender.vectorDX = p.getVector().getDeltaX();
 			projectileSender.vectorDY = p.getVector().getDeltaY();
+			projectileSender.ID = p.getID();
 			if (p instanceof Pizza) {
 				projectileSender.projectileTypeNumber = 2;
 				projectileSender.targetPosX = ((Pizza) p).getTargetPosition()
