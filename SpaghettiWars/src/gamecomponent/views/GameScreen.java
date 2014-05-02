@@ -3,11 +3,14 @@ package gamecomponent.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import entities.Entity;
 import entities.Obstacle;
 import gamecomponent.Controller;
 import gamecomponent.Model;
+
 import org.lwjgl.opengl.GL11;
+
 import utilities.GameInputHandler;
 
 import java.util.Iterator;
@@ -31,6 +34,12 @@ public class GameScreen implements IGameScreen{
     }
 
     private void create() {
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1600, 960);
 
@@ -44,7 +53,7 @@ public class GameScreen implements IGameScreen{
     public void render() {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL11.GL_COLOR_BUFFER_BIT);
-
+        
         camera.position.set((float)model.getPlayer().getX(), (float)model.getPlayer().getY(),0);
 
         camera.update();

@@ -55,6 +55,7 @@ public class Model {
 	private SpaghettiFace networkObject;
 
 	private GameMap map;
+	private boolean gameActive;
 
     /**
      * The first Constructor of the Model Object
@@ -396,5 +397,13 @@ public class Model {
 	
 	public void setNetworkObject(SpaghettiFace networkObject){
 		this.networkObject = networkObject;
+	}
+
+	public void setGameActive(boolean b) {
+		this.gameActive = b;
+	}
+	
+	public boolean isGameActive(){
+		return this.gameActive;
 	}
 }
