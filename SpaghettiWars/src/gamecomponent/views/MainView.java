@@ -88,6 +88,7 @@ public class MainView implements ApplicationListener{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		model.getNetworkObject().disconnect();
+
 	}
 
     public void setScreen(IGameScreen screen){
