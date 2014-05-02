@@ -139,7 +139,6 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					model.addProjectile(p);
 					forwardClientObjectUDP(p, p.getID() / 1000000);
 				} else if (object instanceof RequestDisconnection) {
-					System.out.println("disconnectionpackage received");
 					RequestDisconnection request = (RequestDisconnection)object;
 					forwardClientObjectTCP(request, request.playerID);
 					playerMap.remove(request.playerID);
@@ -203,6 +202,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					fatSender.fatPoints = playerMap.get(playerKey).getFatPoint();
 					clientsConnected.get(connectionKey).sendUDP(fatSender);
 				}
+				
 			}
 			playerSender.xPos = model.getPlayer().getX();
 			playerSender.yPos = model.getPlayer().getY();
