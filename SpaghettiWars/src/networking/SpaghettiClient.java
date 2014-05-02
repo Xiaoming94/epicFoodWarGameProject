@@ -7,6 +7,7 @@ import java.util.Map;
 
 import utilities.Position;
 import utilities.Vector;
+import networking.Network.FatSender;
 import networking.Network.IDgiver;
 import networking.Network.PlayerSender;
 import networking.Network.ProjectileSender;
@@ -78,6 +79,7 @@ public class SpaghettiClient implements Runnable{
 								playerSender.vectorDX,
 								playerSender.vectorDY);
 						 ((Player)playerMap.get(playerSender.ID)).setRotation(playerSender.rotation);
+						 ((Player)playerMap.get(playerSender.ID)).setWeight(playerSender.fatPoints);
 					} else {
 						playerMap.put(
 								playerSender.ID,
@@ -99,6 +101,9 @@ public class SpaghettiClient implements Runnable{
 						//p.setVector(new Position(projectileSender.vectorDX, projectileSender.vectorDY));
 					}
 					model.addProjectile(p);
+				}else if(object instanceof FatSender){
+					FatSender fatSender = (FatSender)object;
+					model.getPlayer().setWeight(fatSender.fatPoints);
 				}
 			}
 		});

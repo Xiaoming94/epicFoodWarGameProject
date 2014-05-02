@@ -17,6 +17,7 @@ import java.util.Map;
 import utilities.NameTexture;
 import utilities.Position;
 import utilities.Vector;
+import networking.Network.FatSender;
 import networking.Network.IDgiver;
 import networking.Network.ObstacleSender;
 import networking.Network.PlayerSender;
@@ -65,13 +66,13 @@ public class SpaghettiServer implements Runnable {
 				if (object instanceof RequestConnection) {
 					System.out.println("Connection request recieved from: "
 							+ ((RequestConnection) object).name);
-					
+
 					clientCounter++;
 					clientsConnected.put(clientCounter, connection);
-					 
+
 					IDgiver idgiver = new IDgiver();
 					idgiver.ID = clientCounter;
-					
+
 					connection.sendTCP(idgiver);
 
 					SimpleMessage msg = new SimpleMessage();
@@ -86,7 +87,7 @@ public class SpaghettiServer implements Runnable {
 
 				} else if (object instanceof SimpleMessage) {
 					System.out.println(((SimpleMessage) object).text);
-					
+
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
 
@@ -103,12 +104,11 @@ public class SpaghettiServer implements Runnable {
 								.setRotation(playerSender.rotation);
 					} else {
 						// playerMap.add()
-						playerMap.put(playerSender.ID,
-								new Player("sir derp",
-										playerSender.xPos, playerSender.yPos,
-										(new Sprite(model.getTextureHandler()
-												.getTextureByName("ful.png"))),
-										playerSender.speed));
+						playerMap.put(playerSender.ID, new Player("sir derp",
+								playerSender.xPos, playerSender.yPos,
+								(new Sprite(model.getTextureHandler()
+										.getTextureByName("ful.png"))),
+								playerSender.speed));
 					}
 				} else if (object instanceof ProjectileSender) {
 					ProjectileSender projectileSender = (ProjectileSender) object;
@@ -133,7 +133,7 @@ public class SpaghettiServer implements Runnable {
 														"Kottbulle.png")));
 					}
 					model.addProjectile(p);
-					forwardClientObject(p, p.getID()/1000000);
+					forwardClientObject(p, p.getID() / 1000000);
 				} else if (object instanceof RequestDisconnection) {
 					playerMap.remove(connection.getID());
 					clientsConnected.remove(connection);
@@ -164,30 +164,38 @@ public class SpaghettiServer implements Runnable {
 
 	public void sendPlayersToAll() {
 		PlayerSender playerSender = new PlayerSender();
-			Iterator<Integer> connectionIterator = clientsConnected.keySet().iterator();
-			while(connectionIterator.hasNext()){
-				
+		Iterator<Integer> connectionIterator = clientsConnected.keySet()
+				.iterator();
+		while (connectionIterator.hasNext()) {
+
 			Integer connectionKey = connectionIterator.next();
 			Iterator<Integer> playerIterator = playerMap.keySet().iterator();
 			while (playerIterator.hasNext()) {
 
 				Integer playerKey = playerIterator.next();
 
-				if (playerKey/1000000 != connectionKey/1000000) {
+				if (playerKey / 1000000 != connectionKey / 1000000) {
 					playerSender.xPos = playerMap.get(playerKey).getX();
 					playerSender.yPos = playerMap.get(playerKey).getY();
-					playerSender.speed = (int) playerMap.get(playerKey).getSpeed();
+					playerSender.speed = (int) playerMap.get(playerKey)
+							.getSpeed();
 					// FIX that speed is a double in entity and a int in player
-					playerSender.vectorDX = playerMap.get(playerKey).getVector()
-							.getDeltaX();
-					playerSender.vectorDY = playerMap.get(playerKey).getVector()
-							.getDeltaY();
+					playerSender.vectorDX = playerMap.get(playerKey)
+							.getVector().getDeltaX();
+					playerSender.vectorDY = playerMap.get(playerKey)
+							.getVector().getDeltaY();
 					playerSender.ID = playerMap.get(playerKey).getID();
-					playerSender.rotation = playerMap.get(playerKey).getSprite()
-							.getRotation();
+					playerSender.rotation = playerMap.get(playerKey)
+							.getSprite().getRotation();
+					playerSender.fatPoints = playerMap.get(playerKey)
+							.getFatPoint();
 					clientsConnected.get(connectionKey).sendUDP(playerSender);
 
 					// DONT FORGET TO SEND THE HOST PLAYER TOO! :) done
+				} else {
+					FatSender fatSender = new FatSender();
+					fatSender.fatPoints = playerMap.get(playerKey).getFatPoint();
+					clientsConnected.get(connectionKey).sendUDP(fatSender);
 				}
 			}
 			playerSender.xPos = model.getPlayer().getX();
@@ -196,7 +204,8 @@ public class SpaghettiServer implements Runnable {
 			playerSender.vectorDX = model.getPlayer().getVector().getDeltaX();
 			playerSender.vectorDY = model.getPlayer().getVector().getDeltaY();
 			playerSender.rotation = model.getPlayer().getSprite().getRotation();
-			
+			playerSender.fatPoints = model.getPlayer().getFatPoint();
+
 			playerSender.ID = model.getPlayer().getID();
 			clientsConnected.get(connectionKey).sendUDP(playerSender);
 		}
@@ -218,18 +227,20 @@ public class SpaghettiServer implements Runnable {
 			} else {
 				projectileSender.projectileTypeNumber = 1;
 			}
-			Iterator<Integer> connectionIterator = clientsConnected.keySet().iterator();
-			while(connectionIterator.hasNext())
-				clientsConnected.get(connectionIterator.next()).sendUDP(projectileSender);
+			Iterator<Integer> connectionIterator = clientsConnected.keySet()
+					.iterator();
+			while (connectionIterator.hasNext())
+				clientsConnected.get(connectionIterator.next()).sendUDP(
+						projectileSender);
 		}
 		unsentProjectiles.clear();
 	}
 
 	private void forwardClientObject(Object object, int clientID) {
 		Iterator<Integer> iterator = clientsConnected.keySet().iterator();
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			int key = iterator.next();
-			if (clientID != key/1000000) {
+			if (clientID != key / 1000000) {
 				clientsConnected.get(key).sendUDP(object);
 			}
 		}

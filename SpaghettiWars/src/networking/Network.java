@@ -21,6 +21,7 @@ public class Network {
 		kryo.register(ProjectileSender.class);
 		kryo.register(RequestDisconnection.class);
 		kryo.register(IDgiver.class);
+		kryo.register(FatSender.class);
 	}
 	
 	public static class SimpleMessage{
@@ -53,6 +54,7 @@ public class Network {
 		public double vectorDY;
 		public double speed;
 		public int ID;
+		public double fatPoints;
 	}
 	
 	public static class ProjectileSender{
@@ -72,5 +74,9 @@ public class Network {
 	
 	public static class RequestDisconnection{
 		public String name;
+	}
+	
+	public static class FatSender{
+		public double fatPoints;
 	}
 }
