@@ -272,6 +272,8 @@ public class Model {
 		case Keys.SPACE:
 			player.usePowerUp();
 			break;
+		case Keys.ESCAPE:
+			break;
 		default:
 			return;
 		}

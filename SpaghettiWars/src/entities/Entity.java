@@ -109,6 +109,7 @@ public abstract class Entity {
 	
 	public static void setThisClientID(int thisClientID){
 		Entity.thisClientID = thisClientID;
+		System.out.println("this client id: " + thisClientID);
 	}
 	
 	public static int getThisClientID(){

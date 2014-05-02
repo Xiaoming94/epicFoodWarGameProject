@@ -124,7 +124,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 								new Sprite(model.getTextureHandler()
 										.getTextureByName("pizza.png")),
 								new Position(projectileSender.targetPosX,
-										projectileSender.targetPosY));
+										projectileSender.targetPosY), projectileSender.ID/1000000, projectileSender.ID%100000);
 						p.setVector(new Position(projectileSender.targetPosX,
 								projectileSender.targetPosY));
 					} else {
@@ -134,10 +134,10 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 										projectileSender.vectorDY), new Sprite(
 										model.getTextureHandler()
 												.getTextureByName(
-														"Kottbulle.png")));
+														"Kottbulle.png")), projectileSender.ID/1000000, projectileSender.ID%100000);
 					}
 					model.addProjectile(p);
-					forwardClientObjectUDP(p, p.getID() / 1000000);
+					forwardClientObjectUDP(object, p.getID());
 				} else if (object instanceof RequestDisconnection) {
 					RequestDisconnection request = (RequestDisconnection)object;
 					forwardClientObjectTCP(request, request.playerID);
@@ -246,7 +246,10 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		Iterator<Integer> iterator = clientsConnected.keySet().iterator();
 		while (iterator.hasNext()) {
 			int key = iterator.next();
-			if (clientID != key / 1000000) {
+			System.out.println(" " + clientsConnected.size());
+			System.out.println("clientID: " + clientID + "  key: " + key);
+			if (clientID / 1000000 != key) {
+				System.out.println("inside");
 				clientsConnected.get(key).sendUDP(object);
 			}
 		}
@@ -256,7 +259,9 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		Iterator<Integer> iterator = clientsConnected.keySet().iterator();
 		while (iterator.hasNext()) {
 			int key = iterator.next();
-			if (clientID != key / 1000000) {
+			System.out.println("key: " + key);
+			System.out.println("clientID: " + clientID);
+			if (clientID / 1000000 != key) {
 				clientsConnected.get(key).sendTCP(object);
 			}
 		}
