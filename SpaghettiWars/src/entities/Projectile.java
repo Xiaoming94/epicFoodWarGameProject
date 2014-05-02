@@ -24,7 +24,9 @@ public abstract class Projectile extends Entity{
 		this.dead = false;
 	}
 
-    public void setRange(double range){ this.range = range; }
+    public void setRange(double range){ 
+    	this.range = range; 
+    }
 	
 	public int getDamage(){
 		return damage;
