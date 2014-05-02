@@ -23,17 +23,13 @@ public class Controller implements Runnable {
 
 	public Controller(Model m) {
 		model = m;
+		
+		System.out.println("controller skapas");
 	}
 
 	@Override
 	public void run() {
-
-		// wait for View to load textures before controller try to create player
-		try {
-			Thread.sleep(1500);
-		} catch (InterruptedException e) {
-			System.out.println("got interrupted!");
-		}
+		
 		ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 		ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 		ArrayList<Entity> killPlayerList = new ArrayList<Entity>();

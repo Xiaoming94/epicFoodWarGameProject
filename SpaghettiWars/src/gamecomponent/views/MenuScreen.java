@@ -97,8 +97,6 @@ public class MenuScreen implements IGameScreen {
             public void changed(ChangeEvent event, Actor actor) {
             	
                 Gdx.input.getTextInput(new IPInputDialog(model),"Input Host IP","Localhost");
-                
-                parent.startGame();
             }
         });
 
@@ -111,13 +109,13 @@ public class MenuScreen implements IGameScreen {
         hostGameButton.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				parent.startGame();
                 try {
 					model.setNetworkObject(NetworkUtils.createServer(model));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+                parent.startGame();
 			}
         	
         });
@@ -140,6 +138,9 @@ public class MenuScreen implements IGameScreen {
 
     @Override
     public void render() {
+    	
+    	if(model.isGameActive())
+    		parent.startGame();
 
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

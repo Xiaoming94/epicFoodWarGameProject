@@ -55,6 +55,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		this.model = mod;
 		
 		Thread ct = new Thread(new Controller(model));
+		ct.start();
 
 		this.playerMap = otherPlayerMap;
 		this.unsentProjectiles = unsentProjectiles;
@@ -178,8 +179,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			while (playerIterator.hasNext()) {
 
 				Integer playerKey = playerIterator.next();
-
-				if (playerKey / 1000000 != connectionKey / 1000000) {
+				if (playerKey / 1000000 != connectionKey) {
 					playerSender.xPos = playerMap.get(playerKey).getX();
 					playerSender.yPos = playerMap.get(playerKey).getY();
 					playerSender.speed = (int) playerMap.get(playerKey)

@@ -71,6 +71,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					Entity.setThisClientID(idgiver.ID);
 					Thread ct = new Thread(new Controller(model));
 					ct.start();
+					model.setGameActive(true);
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
 
@@ -133,6 +134,13 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				}
 			}
 		});
+		
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void sendPlayerPosition(double xPos, double yPos, Vector vector,
