@@ -256,6 +256,8 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		Iterator<Integer> iterator = clientsConnected.keySet().iterator();
 		while (iterator.hasNext()) {
 			int key = iterator.next();
+			System.out.println("key: " + key);
+			System.out.println("clientID: " + clientID);
 			if (clientID != key / 1000000) {
 				clientsConnected.get(key).sendTCP(object);
 			}

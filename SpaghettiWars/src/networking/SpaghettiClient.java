@@ -123,7 +123,6 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					FatSender fatSender = (FatSender) object;
 					model.getPlayer().setWeight(fatSender.fatPoints);
 				} else if (object instanceof RequestDisconnection) {
-					System.out.println("disconnectionpackage received");
 					RequestDisconnection request = (RequestDisconnection) object;
 					if (request.clientID == 0) {
 						stop();
