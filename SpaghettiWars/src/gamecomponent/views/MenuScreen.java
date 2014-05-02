@@ -36,6 +36,8 @@ public class MenuScreen implements IGameScreen {
     private MainView parent;
 
     private Model model;
+    
+    TextButton joinGameButton;
 
     public MenuScreen(){
         this(null,null);
@@ -82,21 +84,21 @@ public class MenuScreen implements IGameScreen {
         buttonStyle.checked = skin.newDrawable("white", Color.BLUE);
         buttonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
 
-        final TextButton startGameButton = new TextButton("join game",textButtonStyle);
-        startGameButton.setPosition(100, 150);
+        joinGameButton = new TextButton("join game",textButtonStyle);
+        joinGameButton.setPosition(100, 150);
 
 
 
         //textButton.add
-        stage.addActor(startGameButton);
+        stage.addActor(joinGameButton);
 
-        startGameButton.addListener(new ChangeListener() {
+        joinGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
             	
                 Gdx.input.getTextInput(new IPInputDialog(model),"Input Host IP","Localhost");
+                
                 parent.startGame();
-
             }
         });
 
@@ -162,7 +164,7 @@ public class MenuScreen implements IGameScreen {
 
     @Override
     public void resize(int width, int height) {
-
+    	this.stage.getViewport().update(width, height, true);
         model.setViewSize(width, height);
 
     }

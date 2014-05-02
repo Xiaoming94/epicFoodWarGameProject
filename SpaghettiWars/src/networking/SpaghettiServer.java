@@ -5,6 +5,7 @@ import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
+import gamecomponent.Controller;
 import gamecomponent.GameMap;
 import gamecomponent.Model;
 
@@ -52,6 +53,8 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		Network.register(server);
 
 		this.model = mod;
+		
+		Thread ct = new Thread(new Controller(model));
 
 		this.playerMap = otherPlayerMap;
 		this.unsentProjectiles = unsentProjectiles;

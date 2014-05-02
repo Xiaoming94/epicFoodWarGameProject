@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.badlogic.gdx.Input;
 
 import gamecomponent.Model;
+import gamecomponent.views.MainView;
 import networking.NetworkUtils;
 
 /**

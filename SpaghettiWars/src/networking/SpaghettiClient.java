@@ -25,6 +25,7 @@ import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
+import gamecomponent.Controller;
 import gamecomponent.Model;
 
 public class SpaghettiClient implements Runnable, SpaghettiFace {
@@ -68,6 +69,8 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				} else if (object instanceof IDgiver) {
 					IDgiver idgiver = (IDgiver) object;
 					Entity.setThisClientID(idgiver.ID);
+					Thread ct = new Thread(new Controller(model));
+					ct.start();
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
 
