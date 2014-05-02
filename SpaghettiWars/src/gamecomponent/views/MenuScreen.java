@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
 import gamecomponent.Controller;
 import gamecomponent.Model;
 import networking.NetworkUtils;
@@ -32,6 +34,8 @@ public class MenuScreen implements IGameScreen {
     private MainView parent;
 
     private Model model;
+    
+    TextButton startGameButton;
 
     public MenuScreen(){
         this(null,null);
@@ -78,7 +82,7 @@ public class MenuScreen implements IGameScreen {
         buttonStyle.checked = skin.newDrawable("white", Color.BLUE);
         buttonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
 
-        final TextButton startGameButton = new TextButton("join game",textButtonStyle);
+        startGameButton = new TextButton("join game",textButtonStyle);
         startGameButton.setPosition(100, 150);
 
 
@@ -91,8 +95,6 @@ public class MenuScreen implements IGameScreen {
             public void changed(ChangeEvent event, Actor actor) {
 
                 Gdx.input.getTextInput(new IPInputDialog(model),"Input Host IP","Localhost");
-                parent.startGame();
-
             }
         });
 
@@ -153,7 +155,7 @@ public class MenuScreen implements IGameScreen {
 
     @Override
     public void resize(int width, int height) {
-
+    	this.stage.getViewport().update(width, height, true);
         model.setViewSize(width, height);
 
     }

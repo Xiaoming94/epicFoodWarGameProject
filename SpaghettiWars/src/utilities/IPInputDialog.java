@@ -1,7 +1,9 @@
 package utilities;
 
 import com.badlogic.gdx.Input;
+
 import gamecomponent.Model;
+import gamecomponent.views.MainView;
 import networking.NetworkUtils;
 
 /**
@@ -17,6 +19,7 @@ public class IPInputDialog implements Input.TextInputListener {
     @Override
     public void input(String s) {
         NetworkUtils.createClient(s,m);
+        
     }
 
     @Override
