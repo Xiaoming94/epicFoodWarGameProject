@@ -71,6 +71,7 @@ public class Controller implements Runnable {
 						o.getSprite().getBoundingRectangle())) {
 					playerObstructed.add(o);
 				}
+			
 			//if not obstructed by any obstacles, move normally
 			if (playerObstructed.isEmpty())
 				model.getPlayer().move();
@@ -95,6 +96,9 @@ public class Controller implements Runnable {
 								.overlaps(o.getSprite().getBoundingRectangle())) {
 							e.kill();
 							killProjectileList.add(e);
+					
+
+					
 						//if not, check if it's reached its maximum range, 
 						//if so, put it on deathlist
 						} else {
@@ -104,6 +108,20 @@ public class Controller implements Runnable {
 							}
 						}
 					}
+					
+					
+//					//Collision detection for meatballs won't work if meatball
+//					//hits the thrower
+//					Collection <Player> opponents = model.getOtherPlayers().values();
+//					for(Player opp: opponents){
+//						if(e.getSprite().getBoundingRectangle().overlaps(opp.getSprite().getBoundingRectangle())){
+//							e.kill();
+//							killProjectileList.add(e);
+//							opp.gainWeight(e.getDamage());
+//						}
+//					}
+//					//end of meatball detection
+					
 				}
 
 				//pizza
