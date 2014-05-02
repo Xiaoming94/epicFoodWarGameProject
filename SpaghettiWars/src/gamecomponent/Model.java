@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 import networking.SpaghettiClient;
+import networking.SpaghettiFace;
 import networking.SpaghettiServer;
 import sun.awt.Mutex;
 import utilities.TextureHandler;
@@ -50,6 +51,8 @@ public class Model {
 	private double startWidth, startHeight;
 
 	private int selectedWeapon = 0;
+	
+	private SpaghettiFace networkObject;
 
 	private GameMap map;
 
@@ -385,5 +388,13 @@ public class Model {
 		getProjectilesMutex().lock();//ny
 		this.projectiles.add(p);
 		getProjectilesMutex().unlock();//ny
+	}
+	
+	public SpaghettiFace getNetworkObject(){
+		return networkObject;
+	}
+	
+	public void setNetworkObject(SpaghettiFace networkObject){
+		this.networkObject = networkObject;
 	}
 }

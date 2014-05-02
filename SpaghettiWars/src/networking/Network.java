@@ -73,7 +73,8 @@ public class Network {
 	}
 	
 	public static class RequestDisconnection{
-		public String name;
+		public int playerID;
+		public int clientID;
 	}
 	
 	public static class FatSender{

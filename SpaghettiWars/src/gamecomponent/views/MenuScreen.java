@@ -1,5 +1,7 @@
 package gamecomponent.views;
 
+import java.io.IOException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -15,11 +17,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import gamecomponent.Controller;
 import gamecomponent.Model;
 import networking.NetworkUtils;
+import networking.SpaghettiFace;
 import utilities.IPInputDialog;
 
 /**
@@ -93,7 +95,7 @@ public class MenuScreen implements IGameScreen {
         startGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-
+            	
                 Gdx.input.getTextInput(new IPInputDialog(model),"Input Host IP","Localhost");
             }
         });
@@ -108,7 +110,12 @@ public class MenuScreen implements IGameScreen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 				parent.startGame();
-                NetworkUtils.createServer(model);
+                try {
+					model.setNetworkObject(NetworkUtils.createServer(model));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
         	
         });

@@ -110,4 +110,8 @@ public abstract class Entity {
 	public static void setThisClientID(int thisClientID){
 		Entity.thisClientID = thisClientID;
 	}
+	
+	public static int getThisClientID(){
+		return Entity.thisClientID;
+	}
 }
