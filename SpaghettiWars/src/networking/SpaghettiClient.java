@@ -7,6 +7,7 @@ import java.util.Map;
 
 import utilities.Position;
 import utilities.Vector;
+import networking.Network.IDgiver;
 import networking.Network.PlayerSender;
 import networking.Network.ProjectileSender;
 import networking.Network.RequestConnection;
@@ -17,6 +18,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import entities.Entity;
 import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
@@ -59,6 +61,9 @@ public class SpaghettiClient implements Runnable{
 				
 				if (object instanceof SimpleMessage) {
 					System.out.println(((SimpleMessage) object).text);
+				} else if (object instanceof IDgiver){
+					IDgiver idgiver = (IDgiver)object;
+					Entity.setThisClientID(idgiver.ID);
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
 
@@ -76,7 +81,7 @@ public class SpaghettiClient implements Runnable{
 					} else {
 						playerMap.put(
 								playerSender.ID,
-								new Player("player" + playerSender.ID,
+								new Player("Sir Derp",
 										playerSender.xPos, playerSender.yPos,
 										(new Sprite(model.getTextureHandler()
 												.getTextureByName("ful.png"))),

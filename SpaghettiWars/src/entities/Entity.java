@@ -13,14 +13,20 @@ public abstract class Entity {
 	private Sprite sprite;
 	private double speedFactor = 2;
 	
-	private int clientID;
-	private int objectID;
+	private static int thisClientID;
+	private static int objectIDgenerator = 0;
+
+	private int ID;
 	
 	public Entity(double x, double y, Sprite sprite){
 		this(x, y, new Vector(0,0), sprite);
 	}
 	
 	public Entity(double x, double y, Vector vector, Sprite sprite){
+		this(x,y,vector, sprite, thisClientID, ++objectIDgenerator);
+	}	
+	
+	public Entity(double x, double y, Vector vector, Sprite sprite, int clientID, int objectID){
 		this.x = x;
 		this.y = y;
 		this.sprite = sprite;
@@ -28,7 +34,9 @@ public abstract class Entity {
 		
 		this.sprite.setX((float)x-this.sprite.getWidth()/2);
 		this.sprite.setY((float)y-this.sprite.getHeight()/2);
-	}	
+		
+		ID = clientID*1000000 + objectID;
+	}
 	
 	public void move(){
 		x += vector.getDeltaX();
@@ -95,19 +103,11 @@ public abstract class Entity {
 		return speedFactor;
 	}
 
-	public int getClientID() {
-		return clientID;
+	public int getID() {
+		return ID;
 	}
-
-	public void setClientID(int clientID) {
-		this.clientID = clientID;
-	}
-
-	public int getObjectID() {
-		return objectID;
-	}
-
-	public void setObjectID(int objectID) {
-		this.objectID = objectID;
+	
+	public static void setThisClientID(int thisClientID){
+		Entity.thisClientID = thisClientID;
 	}
 }

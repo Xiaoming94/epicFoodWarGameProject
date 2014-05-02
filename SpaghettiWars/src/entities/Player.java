@@ -27,8 +27,25 @@ public class Player extends Entity {
 	
 	private double speedMod;
 	
+	private int shootCooldown = 0;
+	
 	public Player(String name, double x, double y, Sprite sprite, double speed){
 		super(x, y, sprite);
+		createPlayer(name, speed);
+	}
+
+	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
+		this(name, x, y, sprite, speed);
+		textureHandler = th;
+	}
+	
+	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th, int clientID, int objectID){
+		super(x,y, new Vector(0,0), sprite, clientID, objectID);
+		textureHandler = th;
+		createPlayer(name, speed);
+	}
+	
+	private void createPlayer(String name, double speed){
 		this.name = name;
 		this.setSpeed(speed);
 		
@@ -40,11 +57,6 @@ public class Player extends Entity {
 		speedMod = 0;
 		fatPoints = 0;
 		isDead = false;
-	}
-
-	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th){
-		this(name, x, y, sprite, speed);
-		textureHandler = th;
 	}
 	
 	public String getName(){
@@ -93,6 +105,9 @@ public class Player extends Entity {
 		
 		for(PowerUp pu : activePowerUpsTrashBin)
 			activePowerUps.remove(pu);
+		
+		if(shootCooldown > 0)
+			shootCooldown--;
 	}
 	
 	public void removePowerUpEffect(PowerUp pu){
@@ -118,15 +133,20 @@ public class Player extends Entity {
 	
 	public Projectile shoot(double x, double y){
 
-		if(selectedWeapon == "pizza"){
-			Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")), new Position(x,y));
-			p.setVector(new Position(x,y));
-			return p;
-		}else{
-			Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
-			mb.setVector(new Position(x,y));
-			return mb;
+		if(shootCooldown < 1){
+			if(selectedWeapon == "pizza"){
+				Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")), new Position(x,y));
+				p.setVector(new Position(x,y));
+				shootCooldown = 50;
+				return p;
+			}else{
+				Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
+				mb.setVector(new Position(x,y));
+				shootCooldown = 25;
+				return mb;
+			}
 		}
+		return null;
 	}
 	
 	public boolean overlaps(Rectangle r){

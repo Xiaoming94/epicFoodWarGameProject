@@ -16,6 +16,13 @@ public abstract class Projectile extends Entity{
 		this.range = range;
 		this.dead = false;
 	}
+	
+	public Projectile(double x, double y, Vector vector, Sprite sprite, int damage, double range, int clientID, int objectID){
+		super(x,y,vector,sprite, clientID, objectID);
+		this.damage = damage;
+		this.range = range;
+		this.dead = false;
+	}
 
     public void setRange(double range){ this.range = range; }
 	
