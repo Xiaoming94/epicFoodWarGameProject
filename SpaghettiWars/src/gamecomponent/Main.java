@@ -16,7 +16,7 @@ public class Main{
 	public static void main(String[] args){
 		Model model = new Model();
 		MainView view = new MainView(model);
-		Thread ct = new Thread(new Controller(model, view));
+		Thread ct = new Thread(new Controller(model));
 		ct.start();
 
 	}

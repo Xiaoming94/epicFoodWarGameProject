@@ -20,12 +20,9 @@ import entities.Projectile;
 public class Controller implements Runnable {
 
 	Model model;
-	MainView view;
 
-	public Controller(Model m, MainView view) {
+	public Controller(Model m) {
 		model = m;
-		this.view = view;
-
 	}
 
 	@Override
@@ -215,12 +212,5 @@ public class Controller implements Runnable {
 				p.gainWeight(collidingPizza.getDamage());
 			}
 		}
-	}
-	
-	
-	
-
-	public void startGame() {
-		view.setScreen(new GameScreen(model));
 	}
 }
