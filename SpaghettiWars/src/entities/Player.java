@@ -77,7 +77,7 @@ public class Player extends Entity {
 	
 	public void setWeight(int weight){
 		fatPoints = weight;
-		weightChanged();
+		weightChanged();	
 	}
 	
 	private void weightChanged(){
