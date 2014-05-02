@@ -21,6 +21,7 @@ public class IPInputDialog implements Input.TextInputListener {
 
     @Override
     public void input(String s) {
+    	System.out.println("sending request");
         try {
 			m.setNetworkObject(NetworkUtils.createClient(s,m));
 		} catch (IOException e) {
