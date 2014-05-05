@@ -21,7 +21,6 @@ public class Player extends Entity {
 	
 	private PowerUp powerUp = null;
 	private String selectedWeapon = "meatball";
-	private boolean affectedByPowerUp = false;
 	private float spriteHeight, spriteWidth;
 	private ArrayList<PowerUp> activePowerUps, activePowerUpsTrashBin;
 	
@@ -39,9 +38,8 @@ public class Player extends Entity {
 		textureHandler = th;
 	}
 	
-	public Player(String name, double x, double y, Sprite sprite, double speed, TextureHandler th, int clientID, int objectID){
+	public Player(String name, double x, double y, Sprite sprite, double speed, int clientID, int objectID){
 		super(x,y, new Vector(0,0), sprite, clientID, objectID);
-		textureHandler = th;
 		createPlayer(name, speed);
 	}
 	
@@ -89,7 +87,7 @@ public class Player extends Entity {
 		this.getSprite().setX((float)this.getX()-this.getSprite().getWidth()/2);
 		this.getSprite().setY((float)this.getY()-this.getSprite().getHeight()/2);
 		
-		this.setSpeed(1+2*(1/(this.getFatPoint()+1)));
+		this.setSpeed(3-(this.getFatPoint()/50));
 		this.updateVector();
 		
 		if(this.getFatPoint() > 99)
@@ -220,7 +218,6 @@ public class Player extends Entity {
 			this.activePowerUps.add(powerUp);
 			powerUp.applyEffects(this); // or setActive() ? i have no idea what i'm doing...
 			this.powerUp = null;
-			affectedByPowerUp = true;
 		}
 	}
 	

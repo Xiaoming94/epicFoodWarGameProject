@@ -120,7 +120,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 								playerSender.xPos, playerSender.yPos,
 								(new Sprite(model.getTextureHandler()
 										.getTextureByName("ful.png"))),
-								playerSender.speed));
+								playerSender.speed, playerSender.ID/1000000, playerSender.ID%1000000));
 					}
 				} else if (object instanceof ProjectileSender) {
 					ProjectileSender projectileSender = (ProjectileSender) object;
