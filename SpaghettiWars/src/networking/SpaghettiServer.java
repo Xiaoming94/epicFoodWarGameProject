@@ -5,9 +5,10 @@ import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
-import gamecomponent.Controller;
 import gamecomponent.GameMap;
 import gamecomponent.Model;
+import gamecomponent.controllerstuff.Controller;
+import gamecomponent.controllerstuff.ControllerUtilServer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 
 		this.model = mod;
 		
-		Thread ct = new Thread(new Controller(model));
+		Thread ct = new Thread(new Controller(model, new ControllerUtilServer()));
 		ct.start();
 
 		this.playerMap = otherPlayerMap;

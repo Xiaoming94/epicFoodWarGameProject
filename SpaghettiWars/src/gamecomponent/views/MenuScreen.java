@@ -18,8 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-import gamecomponent.Controller;
 import gamecomponent.Model;
+import gamecomponent.controllerstuff.Controller;
 import networking.NetworkUtils;
 import networking.SpaghettiFace;
 import utilities.IPInputDialog;

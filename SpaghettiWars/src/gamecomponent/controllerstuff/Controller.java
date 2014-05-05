@@ -1,12 +1,12 @@
-package gamecomponent;
+package gamecomponent.controllerstuff;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import entities.Pizza;
+import gamecomponent.Model;
 import gamecomponent.views.*;
-import gamecomponent.views.MenuScreen;
 import utilities.GameInputHandler;
 import utilities.Position;
 
@@ -20,15 +20,19 @@ import entities.Projectile;
 public class Controller implements Runnable {
 
 	Model model;
+	IControllerUtil utilobject;
 
-	public Controller(Model m) {
+	public Controller(Model m, IControllerUtil uo) {
 		model = m;
+		utilobject = uo;
 		
 		System.out.println("controller skapas");
 	}
 
 	@Override
 	public void run() {
+		
+		System.out.println("controller starts");
 		
 		ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 		ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
@@ -179,7 +183,7 @@ public class Controller implements Runnable {
 			for (Entity e : eatProjectileList)
 				model.removeProjectile(e);
 			
-			
+			this.utilobject.run();
 			
 
 			time = System.currentTimeMillis() - time;
