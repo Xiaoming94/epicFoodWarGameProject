@@ -26,6 +26,8 @@ public class Controller implements Runnable {
 		model = m;
 		utilobject = uo;
 		
+		utilobject.addModel(model);//ny
+		
 		System.out.println("controller skapas");
 	}
 
@@ -104,20 +106,12 @@ public class Controller implements Runnable {
 						}
 					}
 					
+					utilobject.run();
 					
-//					//Collision detection for meatballs won't work if meatball
-//					//hits the thrower
-//					Collection <Player> opponents = model.getOtherPlayers().values();
-//					for(Player opp: opponents){
-//						if(e.getSprite().getBoundingRectangle().overlaps(opp.getSprite().getBoundingRectangle())){
-//							e.kill();
-//							killProjectileList.add(e);
-//							opp.gainWeight(e.getDamage());
-//						}
-//					}
-//					//end of meatball detection
 					
 				}
+				
+				
 
 				//pizza
 				if (e instanceof entities.Pizza) {
