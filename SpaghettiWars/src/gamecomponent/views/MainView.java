@@ -4,21 +4,9 @@ h *		Author: Jimmy Eliason Malmer
 package gamecomponent.views;
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import entities.Entity;
-import entities.Obstacle;
 import gamecomponent.Model;
-import org.lwjgl.opengl.GL11;
-import utilities.GameInputHandler;
-
-import java.util.Iterator;
-
-//import com.badlogic.gdx.graphics.Texture;
-//import com.badlogic.gdx.math.Rectangle;
 
 public class MainView implements ApplicationListener{
 	Model model;
@@ -32,7 +20,6 @@ public class MainView implements ApplicationListener{
 	    cfg.width = 800;
 	    cfg.height = 480;
 		app = new LwjglApplication(this, cfg);
-        //viewstate = ViewStates.INGAME;
 		model = m;
 		model.setStartViewSize(cfg.width, cfg.height);
 		model.setViewSize(cfg.width, cfg.height);
@@ -42,7 +29,6 @@ public class MainView implements ApplicationListener{
 	public void create() {
         createMenuScreen();
 		
-//		model.setTextureList(loadTextures());
 		model.getTextureHandler().loadTextures();
 
 		//sleep to wait for player to be created by controller
