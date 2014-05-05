@@ -56,6 +56,8 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 
 		this.model = mod;
 		
+		Entity.setThisClientID(1);
+		
 		Thread ct = new Thread(new Controller(model, new ControllerUtilServer()));
 		ct.start();
 

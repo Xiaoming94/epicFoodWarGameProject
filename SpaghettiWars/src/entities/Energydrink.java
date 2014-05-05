@@ -20,6 +20,7 @@ public class Energydrink extends PowerUp {
 
 	@Override
 	public void applyEffects(Entity player) {
+		System.out.println("powerup activated");
 		if(player.getClass() == Player.class && !used){
 			used = true;
 			((Player)player).modifySpeed(2);
