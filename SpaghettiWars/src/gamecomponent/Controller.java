@@ -102,7 +102,7 @@ public class Controller implements Runnable {
 						}
 					}
 					
-//					
+					
 //					//Collision detection for meatballs won't work if meatball
 //					//hits the thrower
 //					//what the fuck is going on with IDs?
@@ -111,10 +111,12 @@ public class Controller implements Runnable {
 //						System.out.println("model player ID: " + model.getPlayer().getID());
 //						System.out.println("meatball ID: " + e.getID());
 //						System.out.println("player ID: " + opp.getID());
+//						System.out.println(opponents.size());
 //						if(e.getSprite().getBoundingRectangle().overlaps(opp.getSprite().getBoundingRectangle()) && e.getID()/1000 != opp.getID()/1000){
 //							e.kill();
 //							killProjectileList.add(e);
 //							opp.gainWeight(e.getDamage());
+//							
 //						}
 //					}
 //					if(model.getPlayer().getSprite().getBoundingRectangle().overlaps(e.getSprite().getBoundingRectangle()) && e.getID()/1000!= model.getPlayer().getID()/1000){
@@ -122,7 +124,7 @@ public class Controller implements Runnable {
 //						killProjectileList.add(e);
 //						model.getPlayer().gainWeight(e.getDamage());
 //					}
-//					//end of meatball detection
+					//end of meatball detection
 					
 				}
 
