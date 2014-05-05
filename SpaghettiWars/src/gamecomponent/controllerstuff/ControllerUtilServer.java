@@ -36,7 +36,7 @@ public class ControllerUtilServer implements IControllerUtil {
 			}
 			if(model.getPlayer().getSprite().getBoundingRectangle().overlaps(p.getSprite().getBoundingRectangle()) && p.getID()/1000000!= model.getPlayer().getID()/1000000){
 				p.kill();
-				//killProjectileList.add(p);
+				//killProjectileList.add(p); //TODO: fix this
 				model.getPlayer().gainWeight(p.getDamage());
 			}
 			//end of meatball detection
