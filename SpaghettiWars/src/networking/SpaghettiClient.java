@@ -2,7 +2,6 @@ package networking;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 import utilities.Position;
@@ -25,12 +24,12 @@ import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
-import gamecomponent.Controller;
 import gamecomponent.Model;
+import gamecomponent.controllerstuff.Controller;
+import gamecomponent.controllerstuff.ControllerUtilClient;
 
 public class SpaghettiClient implements Runnable, SpaghettiFace {
 	private Client client;
-	private String clientName;
 	private Map<Integer, Player> playerMap;
 	private ArrayList<Projectile> unsentProjectiles;
 	private Model model;
@@ -57,7 +56,6 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		client.connect(connectionTimeBlock, IPAddress, TCPPort, UDPPort);
 
 		RequestConnection request = new RequestConnection();
-		this.clientName = clientName;
 		request.name = clientName;
 		client.sendTCP(request);
 
@@ -69,7 +67,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				} else if (object instanceof IDgiver) {
 					IDgiver idgiver = (IDgiver) object;
 					Entity.setThisClientID(idgiver.ID);
-					Thread ct = new Thread(new Controller(model));
+					Thread ct = new Thread(new Controller(model, new ControllerUtilClient()));
 					ct.start();
 					model.setGameActive(true);
 				} else if (object instanceof PlayerSender) {

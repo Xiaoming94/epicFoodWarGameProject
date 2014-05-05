@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import entities.Entity;
 import entities.Obstacle;
-import gamecomponent.Controller;
 import gamecomponent.Model;
+import gamecomponent.controllerstuff.Controller;
 
 import org.lwjgl.opengl.GL11;
 
