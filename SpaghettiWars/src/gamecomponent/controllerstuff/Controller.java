@@ -45,8 +45,6 @@ public class Controller implements Runnable {
 		model.createGUI();
 		model.createPlayer();
 
-		// model.addPlayer("Sir Eatalot", 100, -600, "ful.png", 2);
-
 
 		
 		long time;
