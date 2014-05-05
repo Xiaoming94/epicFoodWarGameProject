@@ -191,7 +191,6 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					playerSender.yPos = playerMap.get(playerKey).getY();
 					playerSender.speed = (int) playerMap.get(playerKey)
 							.getSpeed();
-					// FIX that speed is a double in entity and a int in player
 					playerSender.vectorDX = playerMap.get(playerKey)
 							.getVector().getDeltaX();
 					playerSender.vectorDY = playerMap.get(playerKey)
@@ -203,7 +202,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 							.getFatPoint();
 					clientsConnected.get(connectionKey).sendUDP(playerSender);
 
-					// DONT FORGET TO SEND THE HOST PLAYER TOO! :) done
+					
 				} else {
 					FatSender fatSender = new FatSender();
 					fatSender.fatPoints = playerMap.get(playerKey).getFatPoint();
