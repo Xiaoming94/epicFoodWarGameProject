@@ -15,15 +15,14 @@ public class NetworkUtils {
 
 	public static SpaghettiFace createClient(String iP, Model model) throws IOException {
 		SpaghettiClient client = new SpaghettiClient(54555, 54777, 5000, iP,
-				"Jocke", model, model.getOtherPlayers(),
-				model.getUnsentProjectiles());
+				"Jocke", model, model.getOtherPlayers());
 		client.start();
 		return client;
 	}
 
 	public static SpaghettiFace createServer(Model model) throws IOException {
 		SpaghettiServer server = new SpaghettiServer(54555, 54777, model,
-				model.getOtherPlayers(), model.getUnsentProjectiles());
+				model.getOtherPlayers());
 		server.start();
 		return server;
 
