@@ -1,4 +1,4 @@
-package gamecomponent.controllerstuff;
+package gamecomponent.controllerparts;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,12 +6,6 @@ import java.util.Iterator;
 
 import entities.Pizza;
 import gamecomponent.Model;
-import gamecomponent.views.*;
-import utilities.GameInputHandler;
-import utilities.Position;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import entities.Entity;
 import entities.Player;

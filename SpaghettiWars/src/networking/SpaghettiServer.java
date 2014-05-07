@@ -7,11 +7,10 @@ import entities.Player;
 import entities.Projectile;
 import gamecomponent.GameMap;
 import gamecomponent.Model;
-import gamecomponent.controllerstuff.Controller;
-import gamecomponent.controllerstuff.ControllerUtilServer;
+import gamecomponent.controllerparts.Controller;
+import gamecomponent.controllerparts.ControllerUtilServer;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;

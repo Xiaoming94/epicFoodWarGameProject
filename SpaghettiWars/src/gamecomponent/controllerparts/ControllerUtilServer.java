@@ -1,4 +1,4 @@
-package gamecomponent.controllerstuff;
+package gamecomponent.controllerparts;
 
 import java.util.Collection;
 

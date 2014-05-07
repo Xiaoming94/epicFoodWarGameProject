@@ -6,7 +6,7 @@ import utilities.TextureHandler;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import entities.Furniture;
+//import entities.Furniture;
 import entities.Obstacle;
 import entities.Wall;
 

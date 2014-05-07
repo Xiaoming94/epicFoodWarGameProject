@@ -1,7 +1,6 @@
 package networking;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
 
 import utilities.Position;
@@ -26,8 +25,8 @@ import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
 import gamecomponent.Model;
-import gamecomponent.controllerstuff.Controller;
-import gamecomponent.controllerstuff.ControllerUtilClient;
+import gamecomponent.controllerparts.Controller;
+import gamecomponent.controllerparts.ControllerUtilClient;
 
 public class SpaghettiClient implements Runnable, SpaghettiFace {
 	private Client client;
