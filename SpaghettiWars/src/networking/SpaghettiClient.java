@@ -31,7 +31,6 @@ import gamecomponent.controllerstuff.ControllerUtilClient;
 public class SpaghettiClient implements Runnable, SpaghettiFace {
 	private Client client;
 	private Map<Integer, Player> playerMap;
-	private ArrayList<Projectile> unsentProjectiles;
 	private Model model;
 	private boolean running = false;
 	private Thread thread;
@@ -41,8 +40,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 	// exeption is thrown.
 	public SpaghettiClient(int TCPPort, int UDPPort, int connectionTimeBlock,
 			String IPAddress, String clientName, Model mod,
-			Map<Integer, Player> otherPlayerMap,
-			ArrayList<Projectile> unsentProjectiles) throws IOException {
+			Map<Integer, Player> otherPlayerMap) throws IOException {
 		client = new Client();
 		client.start();
 
@@ -51,7 +49,6 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		model = mod;
 
 		playerMap = otherPlayerMap;
-		this.unsentProjectiles = unsentProjectiles;
 
 		client.connect(connectionTimeBlock, IPAddress, TCPPort, UDPPort);
 
@@ -67,7 +64,8 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				} else if (object instanceof IDgiver) {
 					IDgiver idgiver = (IDgiver) object;
 					Entity.setThisClientID(idgiver.ID);
-					Thread ct = new Thread(new Controller(model, new ControllerUtilClient()));
+					Thread ct = new Thread(new Controller(model,
+							new ControllerUtilClient()));
 					ct.start();
 					model.setGameActive(true);
 				} else if (object instanceof PlayerSender) {
@@ -103,7 +101,9 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								new Sprite(model.getTextureHandler()
 										.getTextureByName("pizza.png")),
 								new Position(projectileSender.targetPosX,
-										projectileSender.targetPosY), projectileSender.ID/1000000, projectileSender.ID%100000);
+										projectileSender.targetPosY),
+								projectileSender.ID / 1000000,
+								projectileSender.ID % 100000);
 						p.setVector(new Position(projectileSender.targetPosX,
 								projectileSender.targetPosY));
 					} else {
@@ -113,14 +113,18 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 										projectileSender.vectorDY), new Sprite(
 										model.getTextureHandler()
 												.getTextureByName(
-														"Kottbulle.png")), projectileSender.ID/1000000, projectileSender.ID%100000);
+														"Kottbulle.png")),
+								projectileSender.ID / 1000000,
+								projectileSender.ID % 100000);
 						// p.setVector(new Position(projectileSender.vectorDX,
 						// projectileSender.vectorDY));
 					}
 					model.addProjectile(p);
 				} else if (object instanceof FatSender) {
 					FatSender fatSender = (FatSender) object;
-					model.getPlayer().setWeight(fatSender.fatPoints);
+					if (fatSender.ID == model.getPlayer().getID()) {
+						model.getPlayer().setWeight(fatSender.fatPoints);
+					}
 				} else if (object instanceof RequestDisconnection) {
 					RequestDisconnection request = (RequestDisconnection) object;
 					if (request.clientID == 0) {
@@ -132,7 +136,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				}
 			}
 		});
-		
+
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -155,26 +159,23 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		client.sendUDP(playerSender);
 	}
 
-	public void sendProjectiles() {
-		for (Projectile p : unsentProjectiles) {
-			ProjectileSender projectileSender = new ProjectileSender();
-			projectileSender.xPos = p.getX();
-			projectileSender.yPos = p.getY();
-			projectileSender.vectorDX = p.getVector().getDeltaX();
-			projectileSender.vectorDY = p.getVector().getDeltaY();
-			projectileSender.ID = p.getID();
-			if (p instanceof Pizza) {
-				projectileSender.projectileTypeNumber = 2;
-				projectileSender.targetPosX = ((Pizza) p).getTargetPosition()
-						.getX();
-				projectileSender.targetPosY = ((Pizza) p).getTargetPosition()
-						.getY();
-			} else {
-				projectileSender.projectileTypeNumber = 1;
-			}
-			client.sendUDP(projectileSender);
+	public void sendProjectile(Projectile p) {
+		ProjectileSender projectileSender = new ProjectileSender();
+		projectileSender.xPos = p.getX();
+		projectileSender.yPos = p.getY();
+		projectileSender.vectorDX = p.getVector().getDeltaX();
+		projectileSender.vectorDY = p.getVector().getDeltaY();
+		projectileSender.ID = p.getID();
+		if (p instanceof Pizza) {
+			projectileSender.projectileTypeNumber = 2;
+			projectileSender.targetPosX = ((Pizza) p).getTargetPosition()
+					.getX();
+			projectileSender.targetPosY = ((Pizza) p).getTargetPosition()
+					.getY();
+		} else {
+			projectileSender.projectileTypeNumber = 1;
 		}
-		unsentProjectiles.clear();
+		client.sendUDP(projectileSender);
 	}
 
 	public Map<Integer, Player> getPlayerMap() {
@@ -189,7 +190,6 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 			sendPlayerPosition(model.getPlayer().getX(), model.getPlayer()
 					.getY(), model.getPlayer().getVector(), model.getPlayer()
 					.getSprite().getRotation(), model.getPlayer().getSpeed());
-			sendProjectiles();
 
 			try {
 				Thread.sleep(50);

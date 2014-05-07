@@ -40,22 +40,20 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 	private Map<Integer, Integer> polling;
 	private Integer clientCounter = 1;
 	private Map<Integer, Player> playerMap;
-	private ArrayList<Projectile> unsentProjectiles;
 	private Model model;
 	private boolean running = false;
 	private Thread thread;
 
 	// TODO FIX MUTEX
 	public SpaghettiServer(int TCPPort, int UDPPort, Model mod,
-			Map<Integer, Player> otherPlayerMap,
-			ArrayList<Projectile> unsentProjectiles) throws IOException {
+			Map<Integer, Player> otherPlayerMap) throws IOException {
 
 		server = new Server();
 		server.start();
 		Network.register(server);
 
 		this.model = mod;
-		
+
 		Entity.setThisClientID(1);
 		ControllerUtilServer cus = new ControllerUtilServer();
 		Controller con = new Controller(model, cus);
@@ -64,7 +62,6 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		ct.start();
 
 		this.playerMap = otherPlayerMap;
-		this.unsentProjectiles = unsentProjectiles;
 
 		server.bind(TCPPort, UDPPort);
 		clientsConnected = new HashMap<Integer, Connection>();
@@ -80,7 +77,9 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 
 					clientCounter++;
 					clientsConnected.put(clientCounter, connection);
-					polling.put(clientCounter, (int) (System.currentTimeMillis() % Integer.MAX_VALUE));
+					polling.put(
+							clientCounter,
+							(int) (System.currentTimeMillis() % Integer.MAX_VALUE));
 
 					IDgiver idgiver = new IDgiver();
 					idgiver.ID = clientCounter;
@@ -103,8 +102,10 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
 
-					polling.put(playerSender.ID/1000000, (int) (System.currentTimeMillis() % Integer.MAX_VALUE));
-					
+					polling.put(
+							playerSender.ID / 1000000,
+							(int) (System.currentTimeMillis() % Integer.MAX_VALUE));
+
 					if (playerMap.containsKey(playerSender.ID)) {
 						((Player) playerMap.get(playerSender.ID))
 								.setX(playerSender.xPos);
@@ -128,13 +129,16 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					ProjectileSender projectileSender = (ProjectileSender) object;
 
 					Projectile p;
+					model.getProjectilesMutex().lock();
 					if (projectileSender.projectileTypeNumber == 2) {
 						p = new Pizza(projectileSender.xPos,
 								projectileSender.yPos, new Vector(0, 0),
 								new Sprite(model.getTextureHandler()
 										.getTextureByName("pizza.png")),
 								new Position(projectileSender.targetPosX,
-										projectileSender.targetPosY), projectileSender.ID/1000000, projectileSender.ID%100000);
+										projectileSender.targetPosY),
+								projectileSender.ID / 1000000,
+								projectileSender.ID % 100000);
 						p.setVector(new Position(projectileSender.targetPosX,
 								projectileSender.targetPosY));
 					} else {
@@ -144,12 +148,15 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 										projectileSender.vectorDY), new Sprite(
 										model.getTextureHandler()
 												.getTextureByName(
-														"Kottbulle.png")), projectileSender.ID/1000000, projectileSender.ID%100000);
+														"Kottbulle.png")),
+								projectileSender.ID / 1000000,
+								projectileSender.ID % 100000);
 					}
+					model.getProjectilesMutex().unlock();
 					model.addProjectile(p);
 					forwardClientObjectUDP(object, p.getID());
 				} else if (object instanceof RequestDisconnection) {
-					RequestDisconnection request = (RequestDisconnection)object;
+					RequestDisconnection request = (RequestDisconnection) object;
 					forwardClientObjectTCP(request, request.playerID);
 					playerMap.remove(request.playerID);
 					clientsConnected.remove(request.clientID);
@@ -188,14 +195,13 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			Integer connectionKey = connectionIterator.next();
 			Iterator<Integer> playerIterator = playerMap.keySet().iterator();
 			while (playerIterator.hasNext()) {
-				
+
 				Integer playerKey = playerIterator.next();
 				if (playerKey / 1000000 != connectionKey) {
 					playerSender.xPos = playerMap.get(playerKey).getX();
 					playerSender.yPos = playerMap.get(playerKey).getY();
 					playerSender.speed = (int) playerMap.get(playerKey)
 							.getSpeed();
-					// FIX that speed is a double in entity and a int in player
 					playerSender.vectorDX = playerMap.get(playerKey)
 							.getVector().getDeltaX();
 					playerSender.vectorDY = playerMap.get(playerKey)
@@ -207,13 +213,14 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 							.getFatPoint();
 					clientsConnected.get(connectionKey).sendUDP(playerSender);
 
-					// DONT FORGET TO SEND THE HOST PLAYER TOO! :) done
 				} else {
 					FatSender fatSender = new FatSender();
-					fatSender.fatPoints = playerMap.get(playerKey).getFatPoint();
+					fatSender.fatPoints = playerMap.get(playerKey)
+							.getFatPoint();
+					fatSender.ID = playerMap.get(playerKey).getID();
 					clientsConnected.get(connectionKey).sendUDP(fatSender);
 				}
-				
+
 			}
 			playerSender.xPos = model.getPlayer().getX();
 			playerSender.yPos = model.getPlayer().getY();
@@ -228,29 +235,27 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		}
 	}
 
-	public void sendProjectiles() {
-		for (Projectile p : unsentProjectiles) {
-			ProjectileSender projectileSender = new ProjectileSender();
-			projectileSender.xPos = p.getX();
-			projectileSender.yPos = p.getY();
-			projectileSender.vectorDX = p.getVector().getDeltaX();
-			projectileSender.vectorDY = p.getVector().getDeltaY();
-			if (p instanceof Pizza) {
-				projectileSender.projectileTypeNumber = 2;
-				projectileSender.targetPosX = ((Pizza) p).getTargetPosition()
-						.getX();
-				projectileSender.targetPosY = ((Pizza) p).getTargetPosition()
-						.getY();
-			} else {
-				projectileSender.projectileTypeNumber = 1;
-			}
-			Iterator<Integer> connectionIterator = clientsConnected.keySet()
-					.iterator();
-			while (connectionIterator.hasNext())
-				clientsConnected.get(connectionIterator.next()).sendUDP(
-						projectileSender);
+	public void sendProjectile(Projectile p) {
+		ProjectileSender projectileSender = new ProjectileSender();
+		projectileSender.xPos = p.getX();
+		projectileSender.yPos = p.getY();
+		projectileSender.vectorDX = p.getVector().getDeltaX();
+		projectileSender.vectorDY = p.getVector().getDeltaY();
+		if (p instanceof Pizza) {
+			projectileSender.projectileTypeNumber = 2;
+			projectileSender.targetPosX = ((Pizza) p).getTargetPosition()
+					.getX();
+			projectileSender.targetPosY = ((Pizza) p).getTargetPosition()
+					.getY();
+		} else {
+			projectileSender.projectileTypeNumber = 1;
 		}
-		unsentProjectiles.clear();
+		Iterator<Integer> connectionIterator = clientsConnected.keySet()
+				.iterator();
+		while (connectionIterator.hasNext())
+			clientsConnected.get(connectionIterator.next()).sendUDP(
+					projectileSender);
+
 	}
 
 	private void forwardClientObjectUDP(Object object, int clientID) {
@@ -265,8 +270,8 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			}
 		}
 	}
-	
-	private void forwardClientObjectTCP(Object object, int clientID){
+
+	private void forwardClientObjectTCP(Object object, int clientID) {
 		Iterator<Integer> iterator = clientsConnected.keySet().iterator();
 		while (iterator.hasNext()) {
 			int key = iterator.next();
@@ -277,25 +282,25 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			}
 		}
 	}
-	
-	public void checkClientPolling(){
+
+	public void checkClientPolling() {
 		Iterator<Integer> iterator = polling.keySet().iterator();
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			int key = iterator.next();
-			if(polling.get(key) < (int)(System.currentTimeMillis()% Integer.MAX_VALUE) - 5000){
+			if (polling.get(key) < (int) (System.currentTimeMillis() % Integer.MAX_VALUE) - 5000) {
 				System.out.println("client " + key + " disconnected");
 				removeClient(key);
 			}
 		}
 	}
-	
-	private void removeClient(int key){
+
+	private void removeClient(int key) {
 		clientsConnected.remove(key);
 		polling.remove(key);
 		Iterator<Integer> iterator = playerMap.keySet().iterator();
-		while(iterator.hasNext()){
+		while (iterator.hasNext()) {
 			int playerKey = iterator.next();
-			if(key == playerKey/1000000){
+			if (key == playerKey / 1000000) {
 				playerMap.remove(playerKey);
 			}
 		}
@@ -307,10 +312,8 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		while (running) {
 
 			sendPlayersToAll();
-			sendProjectiles();
 
 			checkClientPolling();
-			
 
 			try {
 				Thread.sleep(50);
@@ -335,15 +338,17 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			e.printStackTrace();
 		}
 	}
-	
-	public void disconnect(){
+
+	public void disconnect() {
 		stop();
-		Iterator<Integer> connectionIterator = clientsConnected.keySet().iterator();
-		while(connectionIterator.hasNext()){
+		Iterator<Integer> connectionIterator = clientsConnected.keySet()
+				.iterator();
+		while (connectionIterator.hasNext()) {
 			Integer connectionKey = connectionIterator.next();
 			RequestDisconnection request = new RequestDisconnection();
 			request.clientID = 0;
 			clientsConnected.get(connectionKey).sendTCP(request);
 		}
 	}
+
 }

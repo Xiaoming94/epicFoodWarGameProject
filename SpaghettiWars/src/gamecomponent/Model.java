@@ -31,7 +31,6 @@ public class Model {
 	private ArrayList<Entity> entities;
 	private ArrayList<Projectile> projectiles;
 	private ArrayList<Entity> stillEntities;
-	private ArrayList<Projectile> unsentProjectiles;
 	private Map<Integer, Player> otherPlayers;
 
 	private Player player;
@@ -41,7 +40,6 @@ public class Model {
 	private Mutex stillEntitiesMutex;
 	
 	private Mutex projectilesMutex;
-	private Mutex unsentProjectilesMutex;
 	private Mutex otherPlayersMutex;
 
 //	ArrayList<NameTexture> textures;
@@ -67,12 +65,10 @@ public class Model {
 		stillEntities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
 		otherPlayers = new HashMap<Integer, Player>();
-		unsentProjectiles = new ArrayList<Projectile>();
 		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
 		
 		projectilesMutex = new Mutex();
-		unsentProjectilesMutex = new Mutex();
 		otherPlayersMutex = new Mutex();
 
 //		textures = new ArrayList<NameTexture>();
@@ -147,10 +143,6 @@ public class Model {
 		return projectilesMutex;
 	}
 	
-	public Mutex getUnsentProjectilesMutex(){
-		return unsentProjectilesMutex;
-	}
-	
 	public Mutex getOtherPlayersMutex(){
 		return otherPlayersMutex;
 	}
@@ -161,10 +153,6 @@ public class Model {
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 3, this.getTextureHandler());
 		player.setPowerUp(testPowerUp);
 	}
-
-    public ArrayList getUnsentProjectiles(){
-        return this.unsentProjectiles;
-    }
 	
 	//Author: Jimmy - wtf function, please help it with its life
 	public void killProjectile(Entity e){
@@ -338,9 +326,8 @@ public class Model {
 				this.getEntitiesMutex().lock();
 				this.addProjectile(p);
 				this.getEntitiesMutex().unlock();
-				getUnsentProjectilesMutex().lock(); //ny
-				this.unsentProjectiles.add(p);
-				getUnsentProjectilesMutex().unlock(); //ny
+				
+				this.getNetworkObject().sendProjectile(p);
 			}
 		}
 	}
