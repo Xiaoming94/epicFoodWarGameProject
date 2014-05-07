@@ -21,25 +21,25 @@ public class Controller implements Runnable {
 
 	Model model;
 	IControllerUtil utilobject;
+	
+	private ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
+	private ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
+	private ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
+	private ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
+
+	public ArrayList<Entity> getKillProjectileList() {
+		return killProjectileList;
+	}
 
 	public Controller(Model m, IControllerUtil uo) {
 		model = m;
 		utilobject = uo;
 		
 		utilobject.addModel(model);//ny
-		
-		System.out.println("controller skapas");
 	}
 
 	@Override
 	public void run() {
-		
-		System.out.println("controller starts");
-		
-		ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
-		ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
-		ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
-		ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 		
 		model.createMap();
 		model.createGUI();
