@@ -30,6 +30,10 @@ public class Controller implements Runnable {
 	public ArrayList<Entity> getKillProjectileList() {
 		return killProjectileList;
 	}
+	
+	public ArrayList<Entity> getEatProjectileList(){
+		return eatProjectileList;
+	}
 
 	public Controller(Model m, IControllerUtil uo) {
 		model = m;

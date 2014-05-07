@@ -190,6 +190,7 @@ public class Model {
 		
 		
 		if(found){
+			this.networkObject.killProjectile(projectiles.get(i));
 			getProjectilesMutex().lock(); //ny
 			projectiles.remove(i);
 			getProjectilesMutex().unlock(); //ny

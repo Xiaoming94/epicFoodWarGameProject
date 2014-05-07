@@ -22,6 +22,7 @@ public class Network {
 		kryo.register(RequestDisconnection.class);
 		kryo.register(IDgiver.class);
 		kryo.register(FatSender.class);
+		kryo.register(ProjectileRemover.class);
 	}
 	
 	public static class SimpleMessage{
@@ -80,5 +81,9 @@ public class Network {
 	public static class FatSender{
 		public double fatPoints;
 		public int ID;
+	}
+	
+	public static class ProjectileRemover{
+		public int projectileID;
 	}
 }

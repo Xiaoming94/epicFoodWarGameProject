@@ -9,6 +9,7 @@ import utilities.Vector;
 import networking.Network.FatSender;
 import networking.Network.IDgiver;
 import networking.Network.PlayerSender;
+import networking.Network.ProjectileRemover;
 import networking.Network.ProjectileSender;
 import networking.Network.RequestConnection;
 import networking.Network.RequestDisconnection;
@@ -133,6 +134,22 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					} else {
 						playerMap.remove(request.playerID);
 					}
+				}else if(object instanceof ProjectileRemover){
+					System.out.println("client receives eating message");
+					int i = 0;
+					boolean found = false;
+					ProjectileRemover pr = (ProjectileRemover) object;
+					for(Projectile p: model.getProjectiles()){
+						if(p.getID() == pr.projectileID){
+							found = true;
+							break;
+						}
+						i++;
+		
+					}
+					if(found){
+						model.getProjectiles().remove(i);
+					}
 				}
 			}
 		});
@@ -221,5 +238,11 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		request.playerID = model.getPlayer().getID();
 		request.clientID = Entity.getThisClientID();
 		client.sendTCP(request);
+	}
+
+	@Override
+	public void killProjectile(Projectile p) {
+		// TODO Auto-generated method stub
+		
 	}
 }

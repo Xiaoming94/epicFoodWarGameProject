@@ -23,6 +23,7 @@ import networking.Network.FatSender;
 import networking.Network.IDgiver;
 import networking.Network.ObstacleSender;
 import networking.Network.PlayerSender;
+import networking.Network.ProjectileRemover;
 import networking.Network.ProjectileSender;
 import networking.Network.RequestConnection;
 import networking.Network.RequestDisconnection;
@@ -349,6 +350,18 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			request.clientID = 0;
 			clientsConnected.get(connectionKey).sendTCP(request);
 		}
+	}
+
+	@Override
+	public void killProjectile(Projectile p) {
+		ProjectileRemover projectileRemover = new ProjectileRemover();
+		projectileRemover.projectileID = p.getID();
+		Iterator<Integer> connectionIterator = clientsConnected.keySet()
+				.iterator();
+		while (connectionIterator.hasNext())
+			clientsConnected.get(connectionIterator.next()).sendUDP(
+					projectileRemover);
+		
 	}
 
 }
