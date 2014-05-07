@@ -103,7 +103,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								new Position(projectileSender.targetPosX,
 										projectileSender.targetPosY),
 								projectileSender.ID / 1000000,
-								projectileSender.ID % 100000);
+								projectileSender.ID % 1000000);
 						p.setVector(new Position(projectileSender.targetPosX,
 								projectileSender.targetPosY));
 					} else {
@@ -115,7 +115,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 												.getTextureByName(
 														"Kottbulle.png")),
 								projectileSender.ID / 1000000,
-								projectileSender.ID % 100000);
+								projectileSender.ID % 1000000);
 						// p.setVector(new Position(projectileSender.vectorDX,
 						// projectileSender.vectorDY));
 					}

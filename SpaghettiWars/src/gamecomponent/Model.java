@@ -175,8 +175,6 @@ public class Model {
 			stillEntities.add(e);
 			getStillEntitiesMutex().unlock();
 		}
-		
-		
 	}
 
 	public void removeProjectile(Entity e){
