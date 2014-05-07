@@ -2,6 +2,7 @@ package gamecomponent;
 
 import java.util.ArrayList;
 
+import sun.awt.Mutex;
 import utilities.TextureHandler;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -14,8 +15,11 @@ public class GameMap {
 	
 	private TextureHandler textureHandler;
 
-	ArrayList <Obstacle> obstacles = new ArrayList <Obstacle>();
-	ArrayList <Obstacle> decorations = new ArrayList <Obstacle>();
+	private ArrayList <Obstacle> obstacles = new ArrayList <Obstacle>();
+	private ArrayList <Obstacle> decorations = new ArrayList <Obstacle>();
+	
+	private Mutex obstacleMutex;
+	private Mutex decorationMutex;
 	
 	private Sprite simpleWall;
 	
@@ -30,6 +34,9 @@ public class GameMap {
 		Sprite greenThing = new Sprite(textureHandler.getTextureByName("greenfurniture.png"));
 		greenThing.setSize(200,100);
 		addObstacle(new Furniture(0, -700, greenThing));
+		
+		obstacleMutex = new Mutex();
+		decorationMutex = new Mutex();
 //		System.out.println(obstacles.get(obstacles.size()-1).getX());
 //		System.out.println(obstacles.get(obstacles.size()-1).getX() + obstacles.get(obstacles.size()-1).getSprite().getBoundingRectangle().getWidth());
 //		System.out.println(obstacles.get(obstacles.size()-1).getY());
@@ -68,5 +75,13 @@ public class GameMap {
 		sprite.setRotation(90);
 		addObstacle(new Wall(x3, y3, new Sprite(sprite)));
 		addObstacle(new Wall(x4, y4, new Sprite(sprite)));
+	}
+	
+	public Mutex getObstacleMutex(){
+		return obstacleMutex;
+	}
+	
+	public Mutex getDecorationMutex(){
+		return decorationMutex;
 	}
 }
