@@ -2,6 +2,7 @@ package gamecomponent.controllerstuff;
 
 import java.util.Collection;
 
+import entities.Meatball;
 import entities.Player;
 import entities.Projectile;
 import gamecomponent.Model;
@@ -28,7 +29,7 @@ public class ControllerUtilServer implements IControllerUtil {
 			//what the fuck is going on with IDs?
 			Collection<Player> opponents = model.getOtherPlayers().values();
 			for(Player opp: opponents){
-				if(p.getSprite().getBoundingRectangle().overlaps(opp.getSprite().getBoundingRectangle()) && p.getID()/1000000 != opp.getID()/1000000){
+				if(p.getSprite().getBoundingRectangle().overlaps(opp.getSprite().getBoundingRectangle()) && p.getID()/1000000 != opp.getID()/1000000 && p instanceof Meatball){
 					p.kill();
 					
 					parent.getEatProjectileList().add(p);
@@ -44,8 +45,6 @@ public class ControllerUtilServer implements IControllerUtil {
 			//end of meatball detection
 		
 		}
-		
-		
 	}
 
 	public void addModel(Model m){
