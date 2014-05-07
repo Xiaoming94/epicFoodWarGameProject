@@ -242,6 +242,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		projectileSender.yPos = p.getY();
 		projectileSender.vectorDX = p.getVector().getDeltaX();
 		projectileSender.vectorDY = p.getVector().getDeltaY();
+		projectileSender.ID = p.getID();
 		if (p instanceof Pizza) {
 			projectileSender.projectileTypeNumber = 2;
 			projectileSender.targetPosX = ((Pizza) p).getTargetPosition()
