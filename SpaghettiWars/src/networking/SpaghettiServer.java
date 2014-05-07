@@ -55,9 +55,10 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		this.model = mod;
 
 		Entity.setThisClientID(1);
-
-		Thread ct = new Thread(
-				new Controller(model, new ControllerUtilServer()));
+		ControllerUtilServer cus = new ControllerUtilServer();
+		Controller con = new Controller(model, cus);
+		cus.setParent(con);
+		Thread ct = new Thread(con);
 		ct.start();
 
 		this.playerMap = otherPlayerMap;
@@ -216,6 +217,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					FatSender fatSender = new FatSender();
 					fatSender.fatPoints = playerMap.get(playerKey)
 							.getFatPoint();
+					fatSender.ID = playerMap.get(playerKey).getID();
 					clientsConnected.get(connectionKey).sendUDP(fatSender);
 				}
 

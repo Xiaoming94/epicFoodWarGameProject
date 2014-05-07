@@ -79,5 +79,6 @@ public class Network {
 	
 	public static class FatSender{
 		public double fatPoints;
+		public int ID;
 	}
 }
