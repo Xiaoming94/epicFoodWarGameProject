@@ -205,14 +205,14 @@ public class Model {
 		boolean found = false;
 		Iterator<Integer> iterator = otherPlayers.keySet().iterator();
 		int toBeRemoved = 0;
+		int key;
 		while(iterator.hasNext()){
-			int key = iterator.next();
+			key = iterator.next();
 			if(otherPlayers.get(key).equals(e)){
 				found = true;
 				toBeRemoved = key;
 				break;
 			}
-			key = iterator.next();
 		}
 		
 		if(found){
