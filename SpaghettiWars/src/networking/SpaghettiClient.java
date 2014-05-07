@@ -153,6 +153,8 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 						i++;
 		
 					}
+					System.out.println(found);
+					System.out.println(pr.projectileID);
 					if(found){
 						model.getProjectiles().remove(i);
 					}
