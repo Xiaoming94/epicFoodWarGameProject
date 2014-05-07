@@ -216,6 +216,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					FatSender fatSender = new FatSender();
 					fatSender.fatPoints = playerMap.get(playerKey)
 							.getFatPoint();
+					fatSender.ID = playerMap.get(playerKey).getID();
 					clientsConnected.get(connectionKey).sendUDP(fatSender);
 				}
 

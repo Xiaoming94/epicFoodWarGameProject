@@ -64,7 +64,8 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				} else if (object instanceof IDgiver) {
 					IDgiver idgiver = (IDgiver) object;
 					Entity.setThisClientID(idgiver.ID);
-					Thread ct = new Thread(new Controller(model, new ControllerUtilClient()));
+					Thread ct = new Thread(new Controller(model,
+							new ControllerUtilClient()));
 					ct.start();
 					model.setGameActive(true);
 				} else if (object instanceof PlayerSender) {
@@ -100,7 +101,9 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								new Sprite(model.getTextureHandler()
 										.getTextureByName("pizza.png")),
 								new Position(projectileSender.targetPosX,
-										projectileSender.targetPosY), projectileSender.ID/1000000, projectileSender.ID%100000);
+										projectileSender.targetPosY),
+								projectileSender.ID / 1000000,
+								projectileSender.ID % 100000);
 						p.setVector(new Position(projectileSender.targetPosX,
 								projectileSender.targetPosY));
 					} else {
@@ -110,14 +113,18 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 										projectileSender.vectorDY), new Sprite(
 										model.getTextureHandler()
 												.getTextureByName(
-														"Kottbulle.png")), projectileSender.ID/1000000, projectileSender.ID%100000);
+														"Kottbulle.png")),
+								projectileSender.ID / 1000000,
+								projectileSender.ID % 100000);
 						// p.setVector(new Position(projectileSender.vectorDX,
 						// projectileSender.vectorDY));
 					}
 					model.addProjectile(p);
 				} else if (object instanceof FatSender) {
 					FatSender fatSender = (FatSender) object;
-					model.getPlayer().setWeight(fatSender.fatPoints);
+					if (fatSender.ID == model.getPlayer().getID()) {
+						model.getPlayer().setWeight(fatSender.fatPoints);
+					}
 				} else if (object instanceof RequestDisconnection) {
 					RequestDisconnection request = (RequestDisconnection) object;
 					if (request.clientID == 0) {
@@ -129,7 +136,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				}
 			}
 		});
-		
+
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -151,8 +158,8 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 
 		client.sendUDP(playerSender);
 	}
-	
-	public void sendProjectile(Projectile p){
+
+	public void sendProjectile(Projectile p) {
 		ProjectileSender projectileSender = new ProjectileSender();
 		projectileSender.xPos = p.getX();
 		projectileSender.yPos = p.getY();
