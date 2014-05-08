@@ -56,6 +56,7 @@ public class Player extends Entity {
 		speedMod = 0;
 		fatPoints = 0;
 		isDead = false;
+		System.out.println("creating player");
 	}
 	
 	public String getName(){
@@ -111,6 +112,10 @@ public class Player extends Entity {
 	
 	public void removePowerUpEffect(PowerUp pu){
 		activePowerUpsTrashBin.add(pu);
+	}
+	
+	public void kill(){
+		isDead = true;
 	}
 	
 	public boolean isDead(){
