@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-import entities.Pizza;
+import entities.*;
 import gamecomponent.Model;
-
-import entities.Entity;
-import entities.Player;
-import entities.Projectile;
 
 public class Controller implements Runnable {
 
@@ -76,9 +72,9 @@ public class Controller implements Runnable {
 
 			playerObstructed.clear();
 
+
+
 			model.getEntitiesMutex().lock();
-			
-			
 			
 			// for loop checks projectiles, and what they have hit
 			for (Projectile e : model.getProjectiles()) {
@@ -140,7 +136,16 @@ public class Controller implements Runnable {
 
 			model.getEntitiesMutex().unlock();
 
-			
+            model.getPickUpsMutex().lock();
+
+            for (PowerUp o : model.getPickUps()){
+                if (model.getPlayer().overlaps(o.getSprite().getBoundingRectangle())){
+                    model.getPlayer().setPowerUp(o);
+                    model.getPickUps().remove(o);
+                }
+            }
+
+            model.getPickUpsMutex().unlock();
 			//killing players
 			Iterator<Integer> iterator = model.getOtherPlayers().keySet()
 					.iterator();
@@ -186,6 +191,7 @@ public class Controller implements Runnable {
 				;
 			}
 		}
+
 	}
 
 	
