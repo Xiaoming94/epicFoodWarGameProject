@@ -32,7 +32,7 @@ public class Model {
 	private final ArrayList<Projectile> projectiles;
 	private final ArrayList<Entity> stillEntities;
 	private final Map<Integer, Player> otherPlayers;
-    private final List <PowerUp> pickUps;
+    private final List<PowerUp> pickUps;
 
 	private Player player;
 	private Texture actionBar, actionBarSelection, powerUpBar;
@@ -240,6 +240,25 @@ public class Model {
 			getStillEntitiesMutex().lock();
 			stillEntities.add(e);
 			getStillEntitiesMutex().unlock();
+		}
+	}
+	
+	public void removePickUp(Entity e){
+		int i = 0;
+		boolean found = false;
+		for(Entity ent : pickUps){
+			if(ent.equals(e)){
+				found = true;
+				break;
+			}
+			i++;
+		}
+		
+		
+		if(found){
+			getPickUpsMutex().lock();
+			pickUps.remove(i);
+			getPickUpsMutex().unlock();//ny
 		}
 	}
 	

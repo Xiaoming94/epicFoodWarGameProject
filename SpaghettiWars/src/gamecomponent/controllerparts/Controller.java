@@ -15,6 +15,7 @@ public class Controller implements Runnable {
 	private ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 	private ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 	private ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
+	private ArrayList<Entity> removePickUpsList = new ArrayList<Entity>();
 	private ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 
 	public ArrayList<Entity> getKillProjectileList() {
@@ -141,11 +142,16 @@ public class Controller implements Runnable {
             for (PowerUp o : model.getPickUps()){
                 if (model.getPlayer().overlaps(o.getSprite().getBoundingRectangle())){
                     model.getPlayer().setPowerUp(o);
-                    model.getPickUps().remove(o);
+                    removePickUpsList.add(o);
                 }
             }
 
             model.getPickUpsMutex().unlock();
+            
+            for(Entity e : removePickUpsList){
+            	model.removePickUp(e);
+            }
+            
 			//killing players
 			Iterator<Integer> iterator = model.getOtherPlayers().keySet()
 					.iterator();
