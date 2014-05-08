@@ -3,15 +3,18 @@ package gamecomponent.controllerparts;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Random;
 
 import entities.*;
 import gamecomponent.Model;
+import utilities.PowerUpRespawnGenerator;
 
 public class Controller implements Runnable {
 
 	Model model;
 	IControllerUtil utilobject;
-	
+
+    private final PowerUpRespawnGenerator purg;
 	private ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 	private ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 	private ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
@@ -29,6 +32,8 @@ public class Controller implements Runnable {
 	public Controller(Model m, IControllerUtil uo) {
 		model = m;
 		utilobject = uo;
+
+        purg = new PowerUpRespawnGenerator(model);
 		
 		utilobject.addModel(model);//ny
 	}
@@ -55,7 +60,7 @@ public class Controller implements Runnable {
 			
 			killProjectileList.clear();
 			eatProjectileList.clear();
-			killPlayerList.clear();
+			getKillPlayerList().clear();
 			
 			//check if player is obstructed by obstacle
 			for (Entity o : model.getMap().getObstacles())
@@ -149,33 +154,13 @@ public class Controller implements Runnable {
             }
 
             model.getPickUpsMutex().unlock();
-            
+
+            purg.generateSpawningTime();
+
+
             for(Entity e : removePickUpsList){
             	model.removePickUp(e);
             }
-            
-			//killing players
-			Iterator<Integer> iterator = model.getOtherPlayers().keySet()
-					.iterator();
-			while (iterator.hasNext()) {
-				int key = iterator.next();
-				if (model.getOtherPlayers().get(key).isDead()) {
-					model.getOtherPlayers().get(key).setVector(0, 0);
-					killPlayerList.add(model.getOtherPlayers().get(key));
-
-				} else
-					model.getOtherPlayers().get(key).move();
-			}
-			for (Entity e : killPlayerList) {
-				model.killPlayer(e);
-			}
-			
-			//kill self and respawn if dead
-			if(model.getPlayer().isDead()){
-				System.out.println("player is dead");
-				model.getStillEntitys().add(model.getPlayer());
-				model.createPlayer();
-			}
 
 			
 			//killing projectiles on deathlist
@@ -219,6 +204,15 @@ public class Controller implements Runnable {
 		}
 	}
 
+
+	public ArrayList<Entity> getKillPlayerList() {
+		return killPlayerList;
+	}
+
+	public void setKillPlayerList(ArrayList<Entity> killPlayerList) {
+		this.killPlayerList = killPlayerList;
+	}
+
     private void otherPlayerPicksPowerUp(PowerUp pu){
         Iterator <Integer> iterator = model.getOtherPlayers().keySet().iterator();
         while (iterator.hasNext()){
@@ -229,4 +223,5 @@ public class Controller implements Runnable {
             }
         }
     }
+
 }

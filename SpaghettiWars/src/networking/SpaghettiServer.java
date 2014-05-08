@@ -21,6 +21,7 @@ import utilities.Vector;
 import networking.Network.FatSender;
 import networking.Network.IDgiver;
 import networking.Network.ObstacleSender;
+import networking.Network.PlayerKiller;
 import networking.Network.PlayerSender;
 import networking.Network.ProjectileRemover;
 import networking.Network.ProjectileSender;
@@ -317,7 +318,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			checkClientPolling();
 
 			try {
-				Thread.sleep(50);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				System.out.println("Server got interuppted");
 			}
@@ -363,5 +364,16 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					projectileRemover);
 		
 	}
-
+	
+	@Override
+	public void killPlayer(Player p){
+		PlayerKiller playerKiller = new PlayerKiller();
+		playerKiller.ID = p.getID();
+		
+		Iterator<Integer> connectionIterator = clientsConnected.keySet()
+				.iterator();
+		while (connectionIterator.hasNext())
+			clientsConnected.get(connectionIterator.next()).sendUDP(
+					playerKiller);
+	}
 }
