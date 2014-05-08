@@ -60,7 +60,7 @@ public class Controller implements Runnable {
 			
 			killProjectileList.clear();
 			eatProjectileList.clear();
-			killPlayerList.clear();
+			getKillPlayerList().clear();
 			
 			//check if player is obstructed by obstacle
 			for (Entity o : model.getMap().getObstacles())
@@ -161,29 +161,6 @@ public class Controller implements Runnable {
             for(Entity e : removePickUpsList){
             	model.removePickUp(e);
             }
-            
-			//killing players
-			Iterator<Integer> iterator = model.getOtherPlayers().keySet()
-					.iterator();
-			while (iterator.hasNext()) {
-				int key = iterator.next();
-				if (model.getOtherPlayers().get(key).isDead()) {
-					model.getOtherPlayers().get(key).setVector(0, 0);
-					killPlayerList.add(model.getOtherPlayers().get(key));
-
-				} else
-					model.getOtherPlayers().get(key).move();
-			}
-			for (Entity e : killPlayerList) {
-				model.killPlayer(e);
-			}
-			
-			//kill self and respawn if dead
-			if(model.getPlayer().isDead()){
-				System.out.println("player is dead");
-				model.getStillEntitys().add(model.getPlayer());
-				model.createPlayer();
-			}
 
 			
 			//killing projectiles on deathlist
@@ -225,6 +202,15 @@ public class Controller implements Runnable {
 				p.gainWeight(collidingPizza.getDamage());
 			}
 		}
+	}
+
+
+	public ArrayList<Entity> getKillPlayerList() {
+		return killPlayerList;
+	}
+
+	public void setKillPlayerList(ArrayList<Entity> killPlayerList) {
+		this.killPlayerList = killPlayerList;
 	}
 
     private void otherPlayerPicksPowerUp(PowerUp pu){
