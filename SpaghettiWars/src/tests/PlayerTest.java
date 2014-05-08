@@ -2,6 +2,28 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+import java.util.*;
+
+import networking.SpaghettiClient;
+import networking.SpaghettiFace;
+import networking.SpaghettiServer;
+import sun.awt.Mutex;
+import utilities.TextureHandler;
+
+import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import entities.Energydrink;
+import entities.Entity;
+import entities.Player;
+import entities.PowerUp;
+import entities.Projectile;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,6 +38,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.Gdx;  
 
 import entities.Player;
+import gamecomponent.Main;
+import gamecomponent.Model;
+import gamecomponent.views.MainView;
 
 public class PlayerTest {
 
@@ -25,6 +50,7 @@ public class PlayerTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+
 	}
 
 	@Before
@@ -87,7 +113,6 @@ public class PlayerTest {
 		txt.loadTextures();
 		Sprite sprite = new Sprite(txt.getTextureByName("ful.png"));
 		Player player = new Player("Fat Bastard", 5, 5, sprite,3);
-		
 		player.setWeight(10);
 		assertTrue(player.getFatPoint() == 10);
 		fail("Not yet implemented");

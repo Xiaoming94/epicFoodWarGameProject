@@ -23,6 +23,7 @@ public class GameMap {
 		this.textureHandler = textureHandler;
 		simpleWall = new Sprite(textureHandler.getTextureByName("wall.png"));
 		createDiner(100,0);
+		createKitchen(100, 0);
 		
 		
 		//test furniture
@@ -105,6 +106,17 @@ public class GameMap {
 		addDecoration(new Wall(x+wallSprite.getHeight()/2+floor.getHeight()*2, y+wallSprite.getHeight()/2+floor.getHeight()+floorOffset, new Sprite(floor)));
 		addDecoration(new Wall(x+wallSprite.getHeight()/2+floor.getHeight()*2.5, y+wallSprite.getHeight()/2+floor.getHeight()+floorOffset, new Sprite(floor)));
 		
+		
+	}
+	
+	public void createKitchen(double x, double y){
+		Sprite wallSprite = new Sprite(simpleWall);
+		
+		//System.out.println("wall height : " + wallSprite.getHeight());
+		//System.out.println("wall width : " + wallSprite.getWidth());
+		
+		//left kitchen wall, short one
+		addObstacle(new Wall(x+wallSprite.getWidth()/2, y+wallSprite.getHeight()*2.5 + wallSprite.getWidth()/2 +200, new Sprite(wallSprite)));
 		
 	}
 }
