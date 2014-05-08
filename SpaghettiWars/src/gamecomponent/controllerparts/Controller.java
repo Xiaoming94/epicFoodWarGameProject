@@ -3,15 +3,18 @@ package gamecomponent.controllerparts;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Random;
 
 import entities.*;
 import gamecomponent.Model;
+import utilities.PowerUpRespawnGenerator;
 
 public class Controller implements Runnable {
 
 	Model model;
 	IControllerUtil utilobject;
-	
+
+    private final PowerUpRespawnGenerator purg;
 	private ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 	private ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 	private ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
@@ -29,6 +32,8 @@ public class Controller implements Runnable {
 	public Controller(Model m, IControllerUtil uo) {
 		model = m;
 		utilobject = uo;
+
+        purg = new PowerUpRespawnGenerator(model);
 		
 		utilobject.addModel(model);//ny
 	}
@@ -149,7 +154,10 @@ public class Controller implements Runnable {
             }
 
             model.getPickUpsMutex().unlock();
-            
+
+            purg.generateSpawningTime();
+
+
             for(Entity e : removePickUpsList){
             	model.removePickUp(e);
             }
@@ -229,4 +237,5 @@ public class Controller implements Runnable {
             }
         }
     }
+
 }
