@@ -28,19 +28,21 @@ import entities.Projectile;
 public class Model {
 
 	private boolean upKeyPressed,downKeyPressed,leftKeyPressed,rightKeyPressed;
-	private ArrayList<Entity> entities;
-	private ArrayList<Projectile> projectiles;
-	private ArrayList<Entity> stillEntities;
-	private Map<Integer, Player> otherPlayers;
+	private final ArrayList<Entity> entities;
+	private final ArrayList<Projectile> projectiles;
+	private final ArrayList<Entity> stillEntities;
+	private final Map<Integer, Player> otherPlayers;
+    private final List <PowerUp> pickUps;
 
 	private Player player;
 	private Texture actionBar, actionBarSelection, powerUpBar;
 
-	private Mutex entitiesMutex;
-	private Mutex stillEntitiesMutex;
+    private final Mutex pickUpsMutex;
+	private final Mutex entitiesMutex;
+	private final Mutex stillEntitiesMutex;
 	
-	private Mutex projectilesMutex;
-	private Mutex otherPlayersMutex;
+	private final Mutex projectilesMutex;
+	private final Mutex otherPlayersMutex;
 
 //	ArrayList<NameTexture> textures;
 	private TextureHandler textureHandler;
@@ -65,9 +67,11 @@ public class Model {
 		stillEntities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
 		otherPlayers = new HashMap<Integer, Player>();
+        pickUps = new ArrayList<PowerUp>();
 		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
-		
+		pickUpsMutex = new Mutex();
+
 		projectilesMutex = new Mutex();
 		otherPlayersMutex = new Mutex();
 
@@ -137,7 +141,14 @@ public class Model {
 	public Mutex getStillEntitiesMutex(){
 		return stillEntitiesMutex;
 	}
-	
+
+    public List<PowerUp> getPickUps(){
+        return pickUps;
+    }
+
+    public Mutex getPickUpsMutex(){
+        return pickUpsMutex;
+    }
 	
 	public Mutex getProjectilesMutex(){
 		return projectilesMutex;
@@ -152,7 +163,14 @@ public class Model {
 		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
 		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 3, this.getTextureHandler());
 		player.setPowerUp(testPowerUp);
+        createEnergyDrink();
 	}
+
+    public void createEnergyDrink(){
+        PowerUp pu = new Energydrink(10, 1200, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
+        pickUps.add(pu);
+
+    }
 	
 	//Author: Jimmy - wtf function, please help it with its life
 	public void killProjectile(Entity e){

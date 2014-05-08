@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import entities.Entity;
 import entities.Obstacle;
+import entities.PowerUp;
 import gamecomponent.Model;
 
 import org.lwjgl.opengl.GL11;
@@ -67,6 +68,11 @@ public class GameScreen implements IGameScreen{
 
             batch.draw(o.getSprite(), o.getSprite().getX(), o.getSprite().getY(), o.getSprite().getOriginX(), o.getSprite().getOriginY(), o.getSprite().getWidth(), o.getSprite().getHeight(), 1, 1, o.getSprite().getRotation());
 
+        model.getPickUpsMutex().lock();
+        for (PowerUp pu : model.getPickUps()){
+            batch.draw(pu.getSprite(), pu.getSprite().getX(), pu.getSprite().getY(), pu.getSprite().getOriginX(), pu.getSprite().getOriginY(), pu.getSprite().getWidth(), pu.getSprite().getHeight(), 1, 1, pu.getSprite().getRotation());
+        }
+        model.getPickUpsMutex().unlock();
         model.getEntitiesMutex().lock();
         for(Entity e : model.getProjectiles())
             batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
