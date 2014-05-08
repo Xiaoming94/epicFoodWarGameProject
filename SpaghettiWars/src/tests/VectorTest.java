@@ -30,21 +30,20 @@ public class VectorTest {
 
 	@Test
 	public void testVector() {
-		fail("Not yet implemented");
+		Vector vector = new Vector(7, -99);
+		assertTrue(vector.getDeltaX() == 7 && vector.getDeltaY() == -99);
 	}
 
 	@Test
 	public void testGetDeltaX() {
 		Vector v = new Vector(8, 8);
 		assertTrue(v.getDeltaX() == 8);
-		//fail("Not yet implemented");
 	}
 
 	@Test
 	public void testGetDeltaY() {
 		Vector v = new Vector(-1, -14);
 		assertTrue(v.getDeltaY() == -14);
-		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -52,7 +51,6 @@ public class VectorTest {
 		Vector v = new Vector(1,1);
 		v.setDeltaX(2);
 		assertTrue(v.getDeltaX() == 2);
-		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -60,7 +58,6 @@ public class VectorTest {
 		Vector v = new Vector(1,1);
 		v.setDeltaY(44);
 		assertTrue(v.getDeltaY() == 44);
-		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -68,14 +65,12 @@ public class VectorTest {
 		Vector v = new Vector(1,1);
 		v.setVector(-18,  0);
 		assertTrue(v.getDeltaX() == -18 && v.getDeltaY() == 0);
-		//fail("Not yet implemented");
 	}
 
 	@Test
 	public void testGetLength() {
 		Vector v = new Vector(2, 2);
 		assertTrue(v.getLength() < 2.83 && v.getLength() > 2.81);
-		//fail("Not yet implemented");
 	}
 
 	@Test
@@ -90,7 +85,6 @@ public class VectorTest {
 		Vector v2 = new Vector(-1, 0);
 		v2.setLengthTo(5);
 		assertTrue(v2.getLength() == 5 && v2.getDeltaX() == -5);
-		//fail("Not yet implemented");
 		
 		//if vector has only y-coordinate, new length should be set
 		//new y-coordinate should be plus or minus new length
@@ -112,12 +106,26 @@ public class VectorTest {
 
 	@Test
 	public void testSetVectorByDegree() {
-		fail("Not yet implemented");
+		Vector v = new Vector(0,0);
+		//set vector to length 16, 30 degrees
+		//y should be 16*sin(30)=8 and x should be 16*cos(30)=13.85641
+		v.setVectorByDegree(16, 30);
+		assertTrue(v.getDeltaY() > 7.99 && v.getDeltaY() < 8.01 && v.getDeltaX() > 13.85 && v.getDeltaY() < 13.86 );
+		
+		v.setVectorByDegree(Math.sqrt(2), 45);
+		assertTrue(v.getDeltaY() > 0.99 && v.getDeltaY() < 1.01 && v.getDeltaX() > 0.99 && v.getDeltaY() < 1.01 );
+	
 	}
 
 	@Test
 	public void testMultiplyLengthBy() {
-		fail("Not yet implemented");
+		Vector v = new Vector(1,1);
+		//set vector length to 3
+		v.setLengthTo(3);
+		assertTrue(v.getLength() < 3.01 && v.getLength() > 2.99);
+		//multiply it by 4, should make vector length 12
+		v.multiplyLengthBy(4);
+		assertTrue(v.getLength() < 12.01 && v.getLength() > 11.99);
 	}
 
 }
