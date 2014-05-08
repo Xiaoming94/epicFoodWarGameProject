@@ -235,7 +235,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					.getSprite().getRotation(), model.getPlayer().getSpeed());
 
 			try {
-				Thread.sleep(50);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				System.out.println("Server got interuppted");
 			}
