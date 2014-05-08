@@ -28,6 +28,7 @@ public class Player extends Entity {
 	
 	private int shootCooldown = 0;
 	
+	
 	public Player(String name, double x, double y, Sprite sprite, double speed){
 		super(x, y, sprite);
 		createPlayer(name, speed);

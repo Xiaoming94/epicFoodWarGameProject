@@ -159,6 +159,7 @@ public class Controller implements Runnable {
 			
 			//kill self and respawn if dead
 			if(model.getPlayer().isDead()){
+				System.out.println("player is dead");
 				model.getStillEntitys().add(model.getPlayer());
 				model.createPlayer();
 			}
