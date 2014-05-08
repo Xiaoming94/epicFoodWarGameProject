@@ -140,10 +140,12 @@ public class Controller implements Runnable {
             model.getPickUpsMutex().lock();
 
             for (PowerUp o : model.getPickUps()){
-                if (model.getPlayer().overlaps(o.getSprite().getBoundingRectangle())){
+                if (model.getPlayer().overlaps(o.getSprite().getBoundingRectangle())) {
                     model.getPlayer().setPowerUp(o);
                     removePickUpsList.add(o);
                 }
+
+                otherPlayerPicksPowerUp(o);
             }
 
             model.getPickUpsMutex().unlock();
@@ -194,6 +196,7 @@ public class Controller implements Runnable {
 		}
 	}
 
+
 	public ArrayList<Entity> getKillPlayerList() {
 		return killPlayerList;
 	}
@@ -201,4 +204,16 @@ public class Controller implements Runnable {
 	public void setKillPlayerList(ArrayList<Entity> killPlayerList) {
 		this.killPlayerList = killPlayerList;
 	}
+
+    private void otherPlayerPicksPowerUp(PowerUp pu){
+        Iterator <Integer> iterator = model.getOtherPlayers().keySet().iterator();
+        while (iterator.hasNext()){
+            int key = iterator.next();
+            if (model.getOtherPlayers().get(key).overlaps(pu.getSprite().getBoundingRectangle())){
+                model.getOtherPlayers().get(key).setPowerUp(pu);
+                removePickUpsList.add(pu);
+            }
+        }
+    }
+
 }
