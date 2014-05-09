@@ -104,11 +104,7 @@ public class Controller implements Runnable {
 								killProjectileList.add(e);
 							}
 						}
-					}
-					
-					utilobject.run();
-					
-					
+					}		
 				}
 				
 				
