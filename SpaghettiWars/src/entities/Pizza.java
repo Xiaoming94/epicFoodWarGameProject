@@ -40,6 +40,7 @@ public class Pizza extends Projectile{
         super.setRange(travelDistance);
 
         this.targetPos = targetPos;
+        this.setState(ProjectileState.FLYING);
 	}
 	
 	

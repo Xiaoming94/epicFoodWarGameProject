@@ -7,8 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public abstract class Entity {
 	
-	private double x;
-	private double y;
+	private Position position;
 	private Vector vector;
 	private Sprite sprite;
 	private double speedFactor = 2;
@@ -27,8 +26,7 @@ public abstract class Entity {
 	}	
 	
 	public Entity(double x, double y, Vector vector, Sprite sprite, int clientID, int objectID){
-		this.x = x;
-		this.y = y;
+		position = new Position(x,y);
 		this.sprite = sprite;
 		this.vector = vector;
 		
@@ -39,32 +37,40 @@ public abstract class Entity {
 	}
 	
 	public void move(){
-		x += vector.getDeltaX();
-		y += vector.getDeltaY();
+		position.setX(position.getX() + vector.getDeltaX());
+		position.setY(position.getY() + vector.getDeltaY());
 		
-		this.sprite.setX((float)x-this.sprite.getWidth()/2);
-		this.sprite.setY((float)y-this.sprite.getHeight()/2);
+		this.sprite.setX((float)position.getX()-this.sprite.getWidth()/2);
+		this.sprite.setY((float)position.getY()-this.sprite.getHeight()/2);
 	}
 	
 	
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
+	}
+
 	public void stop(){
 		vector = new Vector(0,0);
 	}
 	
 	public double getX(){
-		return x;
+		return position.getX();
 	}
 	
 	public double getY(){
-		return y;
+		return position.getY();
 	}
 	
 	public void setX(double x){
-		this.x = x;
+		this.position.setX(x);
 	}
 	
 	public void setY(double y){
-		this.y = y;
+		this.position.setY(y);
 	}
 	
 	public Vector getVector(){

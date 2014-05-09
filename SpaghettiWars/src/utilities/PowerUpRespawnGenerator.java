@@ -1,5 +1,6 @@
 package utilities;
 
+import entities.PowerUp;
 import gamecomponent.Model;
 
 import java.util.Random;
@@ -8,8 +9,8 @@ import java.util.Random;
  * Created by xiaoming on 08/05/14.
  */
 public class PowerUpRespawnGenerator {
-    private static final int INITIAL_COUNTDOWN = 100;
-    private static final int INITIAL_MODULO = 1000;
+    private static final int INITIAL_COUNTDOWN = 10;
+    private static final int INITIAL_MODULO = 100;
     private int modulo;
     private Model model;
 
@@ -24,11 +25,25 @@ public class PowerUpRespawnGenerator {
 
     public void generateSpawningTime(){
         if (isTime()) {
-            if (isValidSpawningNumber(spawningNumberGenerator.nextInt() + 1)) {
-                model.createEnergyDrink();
-                resetModulo();
-
-                System.out.println("Energy drink spawned");
+            if (isValidSpawningNumber(Math.abs(spawningNumberGenerator.nextInt()) + 1)) {
+            	Position pos;
+            	boolean found = false;
+            	resetModulo();
+            	if(model.getMap().getMaxPowerUps() >= model.getPickUps().size()){
+	            	while(true){
+	            		pos = model.getMap().getPowerUpSpawnLocations().get(Math.abs(spawningNumberGenerator.nextInt())%model.getMap().getPowerUpSpawnLocations().size());
+		            	for(PowerUp pu : model.getPickUps())
+		            		if(pu.getPosition().equals(pos)){
+		            			found = true;
+		            			break;
+		            		}
+		            	if(found == false){
+		            		model.createEnergyDrink(pos);
+		            		System.out.println("Energy drink spawned");
+		            		break;
+		            	}
+	            	}
+            	}
             }
             else{
                 countDownModulo();
@@ -62,7 +77,7 @@ public class PowerUpRespawnGenerator {
     }
 
     private boolean isTime() {
-            return countDown == 0;
+        return countDown < 1;
     }
 
 

@@ -4,11 +4,14 @@ import utilities.Vector;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import java.util.List;
+
 public abstract class Projectile extends Entity{
 	
 	private final int damage;
 	private double range;
 	private boolean dead;
+    private ProjectileState state;
 	
 	public Projectile(double x, double y, Vector vector, Sprite sprite, int damage, double range){
 		super(x, y, vector, sprite);
@@ -44,12 +47,21 @@ public abstract class Projectile extends Entity{
 		dead = true;
 	}
 	
-	public void update(){
-		this.range--;
-		
-		if(range < 1)
-			this.dead = true;
-		
-		this.move();
-	}
+	public void update() {
+        this.range--;
+
+        if (range < 1)
+            this.dead = true;
+
+        this.move();
+    }
+
+
+    public ProjectileState getState() {
+        return state;
+    }
+
+    public void setState(ProjectileState state) {
+        this.state = state;
+    }
 }
