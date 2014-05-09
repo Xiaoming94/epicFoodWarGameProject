@@ -29,8 +29,9 @@ public class PowerUpRespawnGenerator {
             	Position pos;
             	boolean found = false;
             	resetModulo();
-            	if(model.getMap().getMaxPowerUps() >= model.getPickUps().size()){
-	            	for(int i = 0 ; i < 100 ; i++){
+            	if(model.getMap().getMaxPowerUps() > model.getPickUps().size()){
+	            	while(true){
+	            		found = false;
 	            		pos = model.getMap().getPowerUpSpawnLocations().get(Math.abs(spawningNumberGenerator.nextInt())%model.getMap().getPowerUpSpawnLocations().size());
 		            	model.getPickUpsMutex().lock();
 	            		for(PowerUp pu : model.getPickUps())
