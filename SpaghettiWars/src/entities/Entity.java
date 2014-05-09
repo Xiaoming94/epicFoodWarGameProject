@@ -12,6 +12,7 @@ public abstract class Entity {
 	private Vector vector;
 	private Sprite sprite;
 	private double speedFactor = 2;
+    private Type type;
 	
 	private static int thisClientID;
 	private static int objectIDgenerator = 0;
@@ -115,4 +116,12 @@ public abstract class Entity {
 	public static int getThisClientID(){
 		return Entity.thisClientID;
 	}
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Type getType() {
+        return type;
+    }
 }

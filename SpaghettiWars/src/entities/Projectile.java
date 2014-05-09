@@ -49,7 +49,12 @@ public abstract class Projectile extends Entity{
 		
 		if(range < 1)
 			this.dead = true;
-		
+
 		this.move();
 	}
+
+    public void hitTarget(Entity target){
+
+    }
+
 }

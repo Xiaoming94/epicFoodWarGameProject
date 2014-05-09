@@ -8,6 +8,7 @@ import java.util.Random;
  * Created by xiaoming on 08/05/14.
  */
 public class PowerUpRespawnGenerator {
+
     private static final int INITIAL_COUNTDOWN = 100;
     private Model model;
 

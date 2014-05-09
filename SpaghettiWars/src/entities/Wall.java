@@ -9,6 +9,7 @@ public class Wall extends Obstacle {
 	public Wall(double x, double y, Sprite sprite){
 		
 		super(x, y,sprite, true);
+        this.setType(Type.WALL);
 	}
 	
 }
