@@ -54,10 +54,6 @@ public class GameMap {
 	public ArrayList<Obstacle> getObstacles(){
 		return obstacles;
 	}
-	
-	public ArrayList<Obstacle> getObstacles(){
-		return obstacles;
-	}
 
 	public ArrayList<Obstacle> getDecorations(){
 		return decorations;
