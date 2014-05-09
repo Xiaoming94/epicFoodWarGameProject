@@ -30,22 +30,13 @@ public class GameMap {
 		createKitchen(100, 0);
 		
 		
-		//test furniture
-<<<<<<< HEAD
-		Sprite greenThing = new Sprite(textureHandler.getTextureByName("greenfurniture.png"));
-		greenThing.setSize(200,100);
-		addObstacle(new Furniture(0, -700, greenThing));
 		
 		obstacleMutex = new Mutex();
 		decorationMutex = new Mutex();
-//		System.out.println(obstacles.get(obstacles.size()-1).getX());
-//		System.out.println(obstacles.get(obstacles.size()-1).getX() + obstacles.get(obstacles.size()-1).getSprite().getBoundingRectangle().getWidth());
-//		System.out.println(obstacles.get(obstacles.size()-1).getY());
-=======
+
 //		Sprite greenThing = new Sprite(textureHandler.getTextureByName("greenfurniture.png"));
 //		greenThing.setSize(200,100);
 //		addObstacle(new Furniture(0, -700, greenThing));
->>>>>>> aae44013a4d2bf75f933313541f2c4c84e9267d4
 	}
 	
 	public void addObstacle(Obstacle o){
@@ -83,14 +74,16 @@ public class GameMap {
 		addObstacle(new Wall(x4, y4, new Sprite(sprite)));
 	}
 	
-<<<<<<< HEAD
+
 	public Mutex getObstacleMutex(){
 		return obstacleMutex;
 	}
 	
 	public Mutex getDecorationMutex(){
 		return decorationMutex;
-=======
+	}
+	
+	
 	public void createDiner(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
 		
@@ -142,6 +135,5 @@ public class GameMap {
 		//left kitchen wall, short one
 		addObstacle(new Wall(x+wallSprite.getWidth()/2, y+wallSprite.getHeight()*2.5 + wallSprite.getWidth()/2 +200, new Sprite(wallSprite)));
 		
->>>>>>> aae44013a4d2bf75f933313541f2c4c84e9267d4
 	}
 }
