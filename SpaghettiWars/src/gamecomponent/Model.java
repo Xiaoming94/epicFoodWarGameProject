@@ -7,6 +7,7 @@ import networking.SpaghettiClient;
 import networking.SpaghettiFace;
 import networking.SpaghettiServer;
 import sun.awt.Mutex;
+import utilities.Position;
 import utilities.TextureHandler;
 
 import com.badlogic.gdx.Input.Buttons;
@@ -166,11 +167,10 @@ public class Model {
 		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
 		player = new Player("Sir Eatalot", x, y, new Sprite(textureHandler.getTextureByName("ful.png")), 3, this.getTextureHandler());
 		player.setPowerUp(testPowerUp);
-        createEnergyDrink();
 	}
 
-    public void createEnergyDrink(){
-        PowerUp pu = new Energydrink(10, 1200, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
+    public void createEnergyDrink(Position pos){
+        PowerUp pu = new Energydrink(pos.getX(), pos.getY(), new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
         pickUps.add(pu);
 
     }

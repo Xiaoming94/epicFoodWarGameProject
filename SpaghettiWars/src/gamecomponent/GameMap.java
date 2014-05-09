@@ -3,9 +3,11 @@ package gamecomponent;
 import java.util.ArrayList;
 
 import sun.awt.Mutex;
+import utilities.Position;
 import utilities.TextureHandler;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+
 
 
 import entities.Furniture;
@@ -17,8 +19,11 @@ public class GameMap {
 	
 	private TextureHandler textureHandler;
 
-	private ArrayList <Obstacle> obstacles = new ArrayList <Obstacle>();
-	private ArrayList <Obstacle> decorations = new ArrayList <Obstacle>();
+	private ArrayList<Obstacle> obstacles = new ArrayList <Obstacle>();
+	private ArrayList<Obstacle> decorations = new ArrayList <Obstacle>();
+	
+	private ArrayList<Position> powerUpSpawnLocations = new ArrayList<Position>();
+	private int maxPowerUps;
 	
 	private Mutex obstacleMutex;
 	private Mutex decorationMutex;
@@ -33,7 +38,7 @@ public class GameMap {
 		createDiner(100,0);
 		createKitchen(100, 0);
 		
-		
+		maxPowerUps = powerUpSpawnLocations.size()/3;
 		
 		obstacleMutex = new Mutex();
 		decorationMutex = new Mutex();
@@ -43,6 +48,10 @@ public class GameMap {
 //		addObstacle(new Furniture(0, -700, greenThing));
 	}
 	
+	public int getMaxPowerUps() {
+		return maxPowerUps;
+	}
+
 	public void addObstacle(Obstacle o){
 		obstacles.add(o);
 	}
@@ -138,10 +147,26 @@ public class GameMap {
 		addDecoration(new Wall(x+wallSprite.getHeight()/2+floor.getHeight()*2, y+wallSprite.getHeight()/2+floor.getHeight()+floorOffset, new Sprite(floor)));
 		addDecoration(new Wall(x+wallSprite.getHeight()/2+floor.getHeight()*2.5, y+wallSprite.getHeight()/2+floor.getHeight()+floorOffset, new Sprite(floor)));
 		
+		//spawn locations for powerUps
+		powerUpSpawnLocations.add(new Position(x+300, y+2000));
+		
+		//test
+		powerUpSpawnLocations.add(new Position(x+400, y+2000));
+		powerUpSpawnLocations.add(new Position(x+500, y+2000));
+		powerUpSpawnLocations.add(new Position(x+600, y+2000));
+		powerUpSpawnLocations.add(new Position(x+700, y+2000));
+		powerUpSpawnLocations.add(new Position(x+800, y+2000));
+		powerUpSpawnLocations.add(new Position(x+900, y+2000));
+		powerUpSpawnLocations.add(new Position(x+1000, y+2000));
+		powerUpSpawnLocations.add(new Position(x+1100, y+2000));
 		
 		
 	}
 	
+	public ArrayList<Position> getPowerUpSpawnLocations() {
+		return powerUpSpawnLocations;
+	}
+
 	public void createKitchen(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
 		
