@@ -48,7 +48,7 @@ public class PowerUpRespawnGenerator {
 
 
     private boolean isValidSpawningNumber(int number){
-        return number % 97 == 0;
+        return number % 31 == 0;
     }
 
 }

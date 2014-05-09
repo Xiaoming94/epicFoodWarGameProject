@@ -209,9 +209,9 @@ public class Controller implements Runnable {
 		return killPlayerList;
 	}
 
-	public void setKillPlayerList(ArrayList<Entity> killPlayerList) {
+	/*public void setKillPlayerList(ArrayList<Entity> killPlayerList) {
 		this.killPlayerList = killPlayerList;
-	}
+	}*/
 
     private void otherPlayerPicksPowerUp(PowerUp pu){
         Iterator <Integer> iterator = model.getOtherPlayers().keySet().iterator();
