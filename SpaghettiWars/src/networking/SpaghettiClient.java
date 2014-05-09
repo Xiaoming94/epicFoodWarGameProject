@@ -72,7 +72,8 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					model.setGameActive(true);
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
-
+					
+					model.getOtherPlayersMutex().lock();
 					if (playerMap.containsKey(playerSender.ID)) {
 						((Player) playerMap.get(playerSender.ID))
 								.setX(playerSender.xPos);
@@ -93,6 +94,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 										.getTextureByName("ful.png"))),
 								playerSender.speed));
 					}
+					model.getOtherPlayersMutex().unlock();
 				} else if (object instanceof ProjectileSender) {
 					ProjectileSender projectileSender = (ProjectileSender) object;
 
@@ -131,9 +133,13 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					RequestDisconnection request = (RequestDisconnection) object;
 					if (request.clientID == 0) {
 						stop();
+						model.getOtherPlayersMutex().lock();
 						playerMap.clear();
+						model.getOtherPlayersMutex().unlock();
 					} else {
+						model.getOtherPlayersMutex().lock();
 						playerMap.remove(request.playerID);
+						model.getOtherPlayersMutex().unlock();
 					}
 				}else if(object instanceof ProjectileRemover){
 					System.out.println("client receives eating message");
@@ -159,7 +165,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					
 					if(model.getPlayer().getID() == pk.ID){
 						model.getStillEntitys().add(model.getPlayer());
-						model.createPlayer();
+						model.createPlayer(model.playerSpawnX, model.playerSpawnY);
 					}
 					
 					else{

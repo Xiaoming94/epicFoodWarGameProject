@@ -2,6 +2,7 @@ package gamecomponent;
 
 import java.util.ArrayList;
 
+import sun.awt.Mutex;
 import utilities.TextureHandler;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -14,8 +15,11 @@ public class GameMap {
 	
 	private TextureHandler textureHandler;
 
-	ArrayList <Obstacle> obstacles = new ArrayList <Obstacle>();
-	ArrayList <Obstacle> decorations = new ArrayList <Obstacle>();
+	private ArrayList <Obstacle> obstacles = new ArrayList <Obstacle>();
+	private ArrayList <Obstacle> decorations = new ArrayList <Obstacle>();
+	
+	private Mutex obstacleMutex;
+	private Mutex decorationMutex;
 	
 	private Sprite simpleWall;
 	
@@ -26,7 +30,10 @@ public class GameMap {
 		createKitchen(100, 0);
 		
 		
-		//test furniture
+		
+		obstacleMutex = new Mutex();
+		decorationMutex = new Mutex();
+
 //		Sprite greenThing = new Sprite(textureHandler.getTextureByName("greenfurniture.png"));
 //		greenThing.setSize(200,100);
 //		addObstacle(new Furniture(0, -700, greenThing));
@@ -66,6 +73,16 @@ public class GameMap {
 		addObstacle(new Wall(x3, y3, new Sprite(sprite)));
 		addObstacle(new Wall(x4, y4, new Sprite(sprite)));
 	}
+	
+
+	public Mutex getObstacleMutex(){
+		return obstacleMutex;
+	}
+	
+	public Mutex getDecorationMutex(){
+		return decorationMutex;
+	}
+	
 	
 	public void createDiner(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);

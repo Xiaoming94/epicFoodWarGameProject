@@ -56,6 +56,9 @@ public class Model {
 
 	private GameMap map;
 	private boolean gameActive;
+	
+	public final int playerSpawnX = 1000;
+	public final int playerSpawnY = 1000;
 
     /**
      * The first Constructor of the Model Object
@@ -158,10 +161,10 @@ public class Model {
 		return otherPlayersMutex;
 	}
 
-	public void createPlayer(){
+	public void createPlayer(int x, int y){
 		//testing powerup energydrink
 		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
-		player = new Player("Sir Eatalot", 5, 5, new Sprite(textureHandler.getTextureByName("ful.png")), 3, this.getTextureHandler());
+		player = new Player("Sir Eatalot", x, y, new Sprite(textureHandler.getTextureByName("ful.png")), 3, this.getTextureHandler());
 		player.setPowerUp(testPowerUp);
         createEnergyDrink();
 	}

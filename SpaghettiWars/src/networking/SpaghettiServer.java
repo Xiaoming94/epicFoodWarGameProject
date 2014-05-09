@@ -107,6 +107,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 							playerSender.ID / 1000000,
 							(int) (System.currentTimeMillis() % Integer.MAX_VALUE));
 
+					model.getOtherPlayersMutex().lock();
 					if (playerMap.containsKey(playerSender.ID)) {
 						((Player) playerMap.get(playerSender.ID))
 								.setX(playerSender.xPos);
@@ -126,6 +127,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 										.getTextureByName("ful.png"))),
 								playerSender.speed, playerSender.ID/1000000, playerSender.ID%1000000));
 					}
+					model.getOtherPlayersMutex().unlock();
 				} else if (object instanceof ProjectileSender) {
 					ProjectileSender projectileSender = (ProjectileSender) object;
 
@@ -159,7 +161,9 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 				} else if (object instanceof RequestDisconnection) {
 					RequestDisconnection request = (RequestDisconnection) object;
 					forwardClientObjectTCP(request, request.playerID);
+					model.getOtherPlayersMutex().lock();
 					playerMap.remove(request.playerID);
+					model.getOtherPlayersMutex().unlock();
 					clientsConnected.remove(request.clientID);
 					polling.remove(request.clientID);
 				}
@@ -194,6 +198,8 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		while (connectionIterator.hasNext()) {
 
 			Integer connectionKey = connectionIterator.next();
+			
+			model.getOtherPlayersMutex().lock();
 			Iterator<Integer> playerIterator = playerMap.keySet().iterator();
 			while (playerIterator.hasNext()) {
 
@@ -223,6 +229,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 				}
 
 			}
+			model.getOtherPlayersMutex().unlock();
 			playerSender.xPos = model.getPlayer().getX();
 			playerSender.yPos = model.getPlayer().getY();
 			playerSender.speed = (int) model.getPlayer().getSpeed();
@@ -299,6 +306,8 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 	private void removeClient(int key) {
 		clientsConnected.remove(key);
 		polling.remove(key);
+		
+		model.getOtherPlayersMutex().lock();
 		Iterator<Integer> iterator = playerMap.keySet().iterator();
 		while (iterator.hasNext()) {
 			int playerKey = iterator.next();
@@ -306,6 +315,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 				playerMap.remove(playerKey);
 			}
 		}
+		model.getOtherPlayersMutex().unlock();
 	}
 
 	@Override

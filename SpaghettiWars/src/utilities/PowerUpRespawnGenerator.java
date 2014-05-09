@@ -38,7 +38,6 @@ public class PowerUpRespawnGenerator {
 
     private void countDown() {
         countDown--;
-        System.out.println(countDown);
     }
 
     private boolean isTime() {

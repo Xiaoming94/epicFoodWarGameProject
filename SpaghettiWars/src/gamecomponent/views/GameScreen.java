@@ -61,22 +61,28 @@ public class GameScreen implements IGameScreen{
         batch.setProjectionMatrix(camera.combined);
 
         batch.begin();
+        
+        model.getMap().getDecorationMutex().lock();
         for(Obstacle o : model.getMap().getDecorations())
             batch.draw(o.getSprite(), o.getSprite().getX(), o.getSprite().getY(), o.getSprite().getOriginX(), o.getSprite().getOriginY(), o.getSprite().getWidth(), o.getSprite().getHeight(), 1, 1, o.getSprite().getRotation());
-
+        model.getMap().getDecorationMutex().unlock();
+        
+        model.getMap().getObstacleMutex().lock();
         for(Obstacle o: model.getMap().getObstacles())
-
             batch.draw(o.getSprite(), o.getSprite().getX(), o.getSprite().getY(), o.getSprite().getOriginX(), o.getSprite().getOriginY(), o.getSprite().getWidth(), o.getSprite().getHeight(), 1, 1, o.getSprite().getRotation());
+        model.getMap().getObstacleMutex().unlock();
+        
 
         model.getPickUpsMutex().lock();
         for (PowerUp pu : model.getPickUps()){
             batch.draw(pu.getSprite(), pu.getSprite().getX(), pu.getSprite().getY(), pu.getSprite().getOriginX(), pu.getSprite().getOriginY(), pu.getSprite().getWidth(), pu.getSprite().getHeight(), 1, 1, pu.getSprite().getRotation());
         }
         model.getPickUpsMutex().unlock();
-        model.getEntitiesMutex().lock();
+        
+        model.getProjectilesMutex().lock();
         for(Entity e : model.getProjectiles())
             batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
-        model.getEntitiesMutex().unlock();
+        model.getProjectilesMutex().unlock();
 
         model.getStillEntitiesMutex().lock();
         for(Entity e : model.getStillEntitys()){
@@ -86,11 +92,13 @@ public class GameScreen implements IGameScreen{
         model.getStillEntitiesMutex().unlock();
 
 
+        model.getOtherPlayersMutex().lock();
         Iterator<Integer> iterator = model.getOtherPlayers().keySet().iterator();
         while(iterator.hasNext()){
             Integer key = iterator.next();
             batch.draw(model.getOtherPlayers().get(key).getSprite(), model.getOtherPlayers().get(key).getSprite().getX(), model.getOtherPlayers().get(key).getSprite().getY(), model.getOtherPlayers().get(key).getSprite().getOriginX(), model.getOtherPlayers().get(key).getSprite().getOriginY(), model.getOtherPlayers().get(key).getSprite().getWidth(), model.getOtherPlayers().get(key).getSprite().getHeight(), 1, 1, model.getOtherPlayers().get(key).getSprite().getRotation());
         }
+        model.getOtherPlayersMutex().unlock();
 
 
         batch.draw(model.getPlayer().getSprite(), model.getPlayer().getSprite().getX(), model.getPlayer().getSprite().getY(), model.getPlayer().getSprite().getOriginX(), model.getPlayer().getSprite().getOriginY(), model.getPlayer().getSprite().getWidth(), model.getPlayer().getSprite().getHeight(), 1, 1, model.getPlayer().getSprite().getRotation());
