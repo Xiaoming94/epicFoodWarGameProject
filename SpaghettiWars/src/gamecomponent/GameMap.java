@@ -35,7 +35,7 @@ public class GameMap {
 		createDiner(100,0);
 		createKitchen(100, 0);
 		createEntrence(100, -3300);
-		
+		createSmokeSpot(100,0);		
 		
 		
 		obstacleMutex = new Mutex();
@@ -177,7 +177,7 @@ public class GameMap {
 		addObstacle(new Wall(x+wallSprite.getHeight()/2, y + wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getHeight()*1.5, y+ wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getHeight()*2.5, y+ wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
-		addObstacle(new Wall(x+wallSprite.getHeight()*3.5, y+ wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()*3.5 - 100, y+ wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getHeight()*4.5 +200, y+ wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
 		
 		//south wall (the right one)
@@ -213,6 +213,7 @@ public class GameMap {
 		addDecoration(new Wall(x + floor.getWidth()*3.5,  y + wallSprite.getHeight()*3 + wallSprite.getWidth()*2 - floor.getHeight()/2 + 200 , new Sprite(floor)));
 	}
 	
+
 	public void createEntrence(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
 		
@@ -269,5 +270,26 @@ public class GameMap {
 		addDecoration(new Wall(x+floor.getWidth()*1.9+wallSprite.getWidth(), y+floor.getHeight()/2, new Sprite(floor)));
 		addDecoration(new Wall(x+floor.getWidth()*1.9+wallSprite.getWidth(), y+floor.getHeight()*1.5, new Sprite(floor)));
 		addDecoration(new Wall(x+floor.getWidth()*1.9+wallSprite.getWidth(), y+floor.getHeight()*2.5, new Sprite(floor)));
+	}
+	
+	
+	public void createSmokeSpot(double x, double y){
+		Sprite wallSprite = new Sprite(simpleWall);
+		//far east wall
+		addObstacle(new Wall(x+wallSprite.getHeight()*5 + 200, y+wallSprite.getHeight()*4 - wallSprite.getWidth(), new Sprite(wallSprite)));
+		//west wall
+		addObstacle(new Wall(x+ wallSprite.getHeight()*3 + 200, y + wallSprite.getHeight()*4 - wallSprite.getWidth(), new Sprite(wallSprite)));
+		
+		//verticle walls below
+		wallSprite.rotate(90);
+		//north wall (from right to left this time)
+		addObstacle(new Wall(x+wallSprite.getHeight()*4.5 +200, y + wallSprite.getHeight()*4 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()*3.5 +200, y + wallSprite.getHeight()*4 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
+		
+		//south wall (border to kitchen)
+		addObstacle(new Wall(x+wallSprite.getHeight()*4.5 +200 + wallSprite.getWidth()/2, y+ wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
+		//need small wall here to complete south wall
+		
+
 	}
 }

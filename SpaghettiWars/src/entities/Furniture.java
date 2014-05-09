@@ -6,4 +6,9 @@ public class Furniture extends Obstacle{
 	public Furniture(double x, double y, Sprite sprite){
 		super(x, y, sprite, false);
 	}
+
+	@Override
+	public boolean collides(Pizza p) {
+		return false;
+	}
 }
