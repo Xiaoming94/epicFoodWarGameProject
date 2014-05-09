@@ -296,6 +296,8 @@ public class GameMap {
 		addDecoration(new Wall(x+floor.getWidth()*1.9+wallSprite.getWidth(), y+floor.getHeight()/2, new Sprite(floor)));
 		addDecoration(new Wall(x+floor.getWidth()*1.9+wallSprite.getWidth(), y+floor.getHeight()*1.5, new Sprite(floor)));
 		addDecoration(new Wall(x+floor.getWidth()*1.9+wallSprite.getWidth(), y+floor.getHeight()*2.5, new Sprite(floor)));
+		
+		powerUpSpawnLocations.add(new Position(x+wallSprite.getWidth()*2, y+2500));
 	}
 	
 	

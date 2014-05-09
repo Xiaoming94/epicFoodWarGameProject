@@ -9,8 +9,8 @@ import java.util.Random;
  * Created by xiaoming on 08/05/14.
  */
 public class PowerUpRespawnGenerator {
-    private static final int INITIAL_COUNTDOWN = 10;
-    private static final int INITIAL_MODULO = 100;
+    private static final int INITIAL_COUNTDOWN = 100;
+    private static final int INITIAL_MODULO = 1000;
     private int modulo;
     private Model model;
 
@@ -30,13 +30,15 @@ public class PowerUpRespawnGenerator {
             	boolean found = false;
             	resetModulo();
             	if(model.getMap().getMaxPowerUps() >= model.getPickUps().size()){
-	            	while(true){
+	            	for(int i = 0 ; i < 100 ; i++){
 	            		pos = model.getMap().getPowerUpSpawnLocations().get(Math.abs(spawningNumberGenerator.nextInt())%model.getMap().getPowerUpSpawnLocations().size());
-		            	for(PowerUp pu : model.getPickUps())
+		            	model.getPickUpsMutex().lock();
+	            		for(PowerUp pu : model.getPickUps())
 		            		if(pu.getPosition().equals(pos)){
 		            			found = true;
 		            			break;
 		            		}
+	            		model.getPickUpsMutex().unlock();
 		            	if(found == false){
 		            		model.createEnergyDrink(pos);
 		            		System.out.println("Energy drink spawned");
