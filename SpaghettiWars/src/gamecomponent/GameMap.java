@@ -2,11 +2,12 @@ package gamecomponent;
 
 import java.util.ArrayList;
 
+import sun.awt.Mutex;
 import utilities.TextureHandler;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import entities.Furniture;
+//import entities.Furniture;
 import entities.Obstacle;
 import entities.Wall;
 
@@ -14,8 +15,11 @@ public class GameMap {
 	
 	private TextureHandler textureHandler;
 
-	ArrayList <Obstacle> obstacles = new ArrayList <Obstacle>();
-	ArrayList <Obstacle> decorations = new ArrayList <Obstacle>();
+	private ArrayList <Obstacle> obstacles = new ArrayList <Obstacle>();
+	private ArrayList <Obstacle> decorations = new ArrayList <Obstacle>();
+	
+	private Mutex obstacleMutex;
+	private Mutex decorationMutex;
 	
 	private Sprite simpleWall;
 	
@@ -23,9 +27,13 @@ public class GameMap {
 		this.textureHandler = textureHandler;
 		simpleWall = new Sprite(textureHandler.getTextureByName("wall.png"));
 		createDiner(100,0);
+		createKitchen(100, 0);
 		
 		
-		//test furniture
+		
+		obstacleMutex = new Mutex();
+		decorationMutex = new Mutex();
+
 //		Sprite greenThing = new Sprite(textureHandler.getTextureByName("greenfurniture.png"));
 //		greenThing.setSize(200,100);
 //		addObstacle(new Furniture(0, -700, greenThing));
@@ -66,6 +74,16 @@ public class GameMap {
 		addObstacle(new Wall(x4, y4, new Sprite(sprite)));
 	}
 	
+
+	public Mutex getObstacleMutex(){
+		return obstacleMutex;
+	}
+	
+	public Mutex getDecorationMutex(){
+		return decorationMutex;
+	}
+	
+	
 	public void createDiner(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
 		
@@ -105,6 +123,17 @@ public class GameMap {
 		addDecoration(new Wall(x+wallSprite.getHeight()/2+floor.getHeight()*2, y+wallSprite.getHeight()/2+floor.getHeight()+floorOffset, new Sprite(floor)));
 		addDecoration(new Wall(x+wallSprite.getHeight()/2+floor.getHeight()*2.5, y+wallSprite.getHeight()/2+floor.getHeight()+floorOffset, new Sprite(floor)));
 		
+		
+	}
+	
+	public void createKitchen(double x, double y){
+		Sprite wallSprite = new Sprite(simpleWall);
+		
+		//System.out.println("wall height : " + wallSprite.getHeight());
+		//System.out.println("wall width : " + wallSprite.getWidth());
+		
+		//left kitchen wall, short one
+		addObstacle(new Wall(x+wallSprite.getWidth()/2, y+wallSprite.getHeight()*2.5 + wallSprite.getWidth()/2 +200, new Sprite(wallSprite)));
 		
 	}
 }

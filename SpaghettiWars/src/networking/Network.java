@@ -11,6 +11,8 @@ import entities.Entity;
 
 public class Network {
 
+	
+
 	public static void register(EndPoint endPoint){
 		Kryo kryo = endPoint.getKryo();
 		kryo.register(RequestConnection.class);
@@ -23,6 +25,7 @@ public class Network {
 		kryo.register(IDgiver.class);
 		kryo.register(FatSender.class);
 		kryo.register(ProjectileRemover.class);
+		kryo.register(PlayerKiller.class);
 	}
 	
 	public static class SimpleMessage{
@@ -83,7 +86,11 @@ public class Network {
 		public int ID;
 	}
 	
-	public static class ProjectileRemover{
+	public static class ProjectileRemover {
 		public int projectileID;
+	}
+	
+	public static class PlayerKiller{
+		public int ID;
 	}
 }

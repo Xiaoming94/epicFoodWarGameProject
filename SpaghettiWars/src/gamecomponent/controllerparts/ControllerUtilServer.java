@@ -1,7 +1,9 @@
-package gamecomponent.controllerstuff;
+package gamecomponent.controllerparts;
 
 import java.util.Collection;
+import java.util.Iterator;
 
+import entities.Entity;
 import entities.Meatball;
 import entities.Player;
 import entities.Projectile;
@@ -44,6 +46,31 @@ public class ControllerUtilServer implements IControllerUtil {
 			}
 			//end of meatball detection
 		
+		}
+		
+		//killing players
+		Iterator<Integer> iterator = model.getOtherPlayers().keySet()
+				.iterator();
+		while (iterator.hasNext()) {
+			int key = iterator.next();
+			if (model.getOtherPlayers().get(key).isDead()) {
+				model.getOtherPlayers().get(key).setVector(0, 0);
+				parent.getKillPlayerList().add(model.getOtherPlayers().get(key));
+
+			} else
+				model.getOtherPlayers().get(key).move();
+		}
+		for (Entity e : parent.getKillPlayerList()) {
+			model.killPlayer(e);
+			model.getNetworkObject().killPlayer((Player)e);
+		}
+		
+		//kill self and respawn if dead
+		if(model.getPlayer().isDead()){
+			System.out.println("player is dead");
+			model.getStillEntitys().add(model.getPlayer());
+			model.getNetworkObject().killPlayer(model.getPlayer());
+			model.createPlayer();
 		}
 	}
 

@@ -3,7 +3,6 @@ package gamecomponent.views;
 import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -19,9 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import gamecomponent.Model;
-import gamecomponent.controllerstuff.Controller;
 import networking.NetworkUtils;
-import networking.SpaghettiFace;
 import utilities.IPInputDialog;
 
 /**

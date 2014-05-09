@@ -1,30 +1,24 @@
-package gamecomponent.controllerstuff;
+package gamecomponent.controllerparts;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Random;
 
-import entities.Pizza;
+import entities.*;
 import gamecomponent.Model;
-import gamecomponent.views.*;
-import utilities.GameInputHandler;
-import utilities.Position;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-
-import entities.Entity;
-import entities.Player;
-import entities.Projectile;
+import utilities.PowerUpRespawnGenerator;
 
 public class Controller implements Runnable {
 
 	Model model;
 	IControllerUtil utilobject;
-	
+
+    private final PowerUpRespawnGenerator purg;
 	private ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
 	private ArrayList<Entity> eatProjectileList = new ArrayList<Entity>();
 	private ArrayList<Entity> killPlayerList = new ArrayList<Entity>();
+	private ArrayList<Entity> removePickUpsList = new ArrayList<Entity>();
 	private ArrayList<Entity> playerObstructed = new ArrayList<Entity>();
 
 	public ArrayList<Entity> getKillProjectileList() {
@@ -38,6 +32,8 @@ public class Controller implements Runnable {
 	public Controller(Model m, IControllerUtil uo) {
 		model = m;
 		utilobject = uo;
+
+        purg = new PowerUpRespawnGenerator(model);
 		
 		utilobject.addModel(model);//ny
 	}
@@ -64,7 +60,7 @@ public class Controller implements Runnable {
 			
 			killProjectileList.clear();
 			eatProjectileList.clear();
-			killPlayerList.clear();
+			getKillPlayerList().clear();
 			
 			//check if player is obstructed by obstacle
 			for (Entity o : model.getMap().getObstacles())
@@ -82,9 +78,9 @@ public class Controller implements Runnable {
 
 			playerObstructed.clear();
 
+
+
 			model.getEntitiesMutex().lock();
-			
-			
 			
 			// for loop checks projectiles, and what they have hit
 			for (Projectile e : model.getProjectiles()) {
@@ -146,28 +142,25 @@ public class Controller implements Runnable {
 
 			model.getEntitiesMutex().unlock();
 
-			
-			//killing players
-			Iterator<Integer> iterator = model.getOtherPlayers().keySet()
-					.iterator();
-			while (iterator.hasNext()) {
-				int key = iterator.next();
-				if (model.getOtherPlayers().get(key).isDead()) {
-					model.getOtherPlayers().get(key).setVector(0, 0);
-					killPlayerList.add(model.getOtherPlayers().get(key));
+            model.getPickUpsMutex().lock();
 
-				} else
-					model.getOtherPlayers().get(key).move();
-			}
-			for (Entity e : killPlayerList) {
-				model.killPlayer(e);
-			}
-			
-			//kill self and respawn if dead
-			if(model.getPlayer().isDead()){
-				model.getStillEntitys().add(model.getPlayer());
-				model.createPlayer();
-			}
+            for (PowerUp o : model.getPickUps()){
+                if (model.getPlayer().overlaps(o.getSprite().getBoundingRectangle())) {
+                    model.getPlayer().setPowerUp(o);
+                    removePickUpsList.add(o);
+                }
+
+                otherPlayerPicksPowerUp(o);
+            }
+
+            model.getPickUpsMutex().unlock();
+
+            purg.generateSpawningTime();
+
+
+            for(Entity e : removePickUpsList){
+            	model.removePickUp(e);
+            }
 
 			
 			//killing projectiles on deathlist
@@ -191,6 +184,7 @@ public class Controller implements Runnable {
 				;
 			}
 		}
+
 	}
 
 	
@@ -209,4 +203,25 @@ public class Controller implements Runnable {
 			}
 		}
 	}
+
+
+	public ArrayList<Entity> getKillPlayerList() {
+		return killPlayerList;
+	}
+
+	public void setKillPlayerList(ArrayList<Entity> killPlayerList) {
+		this.killPlayerList = killPlayerList;
+	}
+
+    private void otherPlayerPicksPowerUp(PowerUp pu){
+        Iterator <Integer> iterator = model.getOtherPlayers().keySet().iterator();
+        while (iterator.hasNext()){
+            int key = iterator.next();
+            if (model.getOtherPlayers().get(key).overlaps(pu.getSprite().getBoundingRectangle())){
+                model.getOtherPlayers().get(key).setPowerUp(pu);
+                removePickUpsList.add(pu);
+            }
+        }
+    }
+
 }
