@@ -43,7 +43,7 @@ public class Controller implements Runnable {
 		
 		model.createMap();
 		model.createGUI();
-		model.createPlayer();
+		model.createPlayer(model.playerSpawnX, model.playerSpawnY);
 
 
 		
