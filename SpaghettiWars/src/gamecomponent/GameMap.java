@@ -225,9 +225,9 @@ public class GameMap {
 		addObstacle(new Wall(x+wallSprite.getHeight()*4.5 +200, y + wallSprite.getHeight()*4 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getHeight()*3.5 +200, y + wallSprite.getHeight()*4 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
 		
-		//south wall (border to kitchen)
-		addObstacle(new Wall(x+wallSprite.getHeight()*4.5 +200 + wallSprite.getWidth()/2, y+ wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
-		//need small wall here to complete south wall
+		//south wall (border to kitchen) should there even be one?
+		//addObstacle(new Wall(x+wallSprite.getHeight()*4.5 +200 + wallSprite.getWidth()/2, y+ wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
+		//might need small wall here to complete south wall
 		
 	}
 }
