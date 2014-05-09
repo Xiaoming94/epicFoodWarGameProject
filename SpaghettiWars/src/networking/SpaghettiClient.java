@@ -1,13 +1,14 @@
 package networking;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 
 import utilities.Position;
 import utilities.Vector;
 import networking.Network.FatSender;
 import networking.Network.IDgiver;
+import networking.Network.PlayerKiller;
 import networking.Network.PlayerSender;
 import networking.Network.ProjectileRemover;
 import networking.Network.ProjectileSender;
@@ -26,8 +27,8 @@ import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
 import gamecomponent.Model;
-import gamecomponent.controllerstuff.Controller;
-import gamecomponent.controllerstuff.ControllerUtilClient;
+import gamecomponent.controllerparts.Controller;
+import gamecomponent.controllerparts.ControllerUtilClient;
 
 public class SpaghettiClient implements Runnable, SpaghettiFace {
 	private Client client;
@@ -158,6 +159,29 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					if(found){
 						model.getProjectiles().remove(i);
 					}
+				}else if(object instanceof PlayerKiller){
+					System.out.println("playerkiller recieved");
+					PlayerKiller pk = (PlayerKiller) object;
+					
+					if(model.getPlayer().getID() == pk.ID){
+						model.getStillEntitys().add(model.getPlayer());
+						model.createPlayer();
+					}
+					
+					else{
+						int i = 0;
+						boolean found = false;
+						Iterator<Integer> playersIterator = model.getOtherPlayers().keySet().iterator();
+						while (playersIterator.hasNext())
+							if(model.getOtherPlayers().get(playersIterator.next()).getID() == pk.ID){
+								found = true;
+								break;
+							}
+						if(found){
+							model.getStillEntitys().add(model.getOtherPlayers().get(i));
+							model.getOtherPlayers().remove(i);
+						}
+					}
 				}
 			}
 		});
@@ -217,7 +241,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					.getSprite().getRotation(), model.getPlayer().getSpeed());
 
 			try {
-				Thread.sleep(50);
+				Thread.sleep(10);
 			} catch (InterruptedException e) {
 				System.out.println("Server got interuppted");
 			}
@@ -250,6 +274,12 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 
 	@Override
 	public void killProjectile(Projectile p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void killPlayer(Player p) {
 		// TODO Auto-generated method stub
 		
 	}

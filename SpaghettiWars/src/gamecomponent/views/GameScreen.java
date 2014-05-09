@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import entities.Entity;
 import entities.Obstacle;
+import entities.PowerUp;
 import gamecomponent.Model;
-import gamecomponent.controllerstuff.Controller;
 
 import org.lwjgl.opengl.GL11;
 
@@ -70,19 +70,29 @@ public class GameScreen implements IGameScreen{
         model.getMap().getObstacleMutex().lock();
         for(Obstacle o: model.getMap().getObstacles())
             batch.draw(o.getSprite(), o.getSprite().getX(), o.getSprite().getY(), o.getSprite().getOriginX(), o.getSprite().getOriginY(), o.getSprite().getWidth(), o.getSprite().getHeight(), 1, 1, o.getSprite().getRotation());
+<<<<<<< HEAD
         model.getMap().getObstacleMutex().unlock();
         
         
         model.getProjectilesMutex().lock();
+=======
+
+        model.getPickUpsMutex().lock();
+        for (PowerUp pu : model.getPickUps()){
+            batch.draw(pu.getSprite(), pu.getSprite().getX(), pu.getSprite().getY(), pu.getSprite().getOriginX(), pu.getSprite().getOriginY(), pu.getSprite().getWidth(), pu.getSprite().getHeight(), 1, 1, pu.getSprite().getRotation());
+        }
+        model.getPickUpsMutex().unlock();
+        model.getEntitiesMutex().lock();
+>>>>>>> aae44013a4d2bf75f933313541f2c4c84e9267d4
         for(Entity e : model.getProjectiles())
             batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
         model.getProjectilesMutex().unlock();
 
         model.getStillEntitiesMutex().lock();
-        for(Entity e : model.getStillEntitys())
-            //  batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
+        for(Entity e : model.getStillEntitys()){
             //changed this to make dead player still be fat
             batch.draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY(), e.getSprite().getOriginX(), e.getSprite().getOriginY(), e.getSprite().getWidth(), e.getSprite().getHeight(), 1, 1, e.getSprite().getRotation());
+        }
         model.getStillEntitiesMutex().unlock();
 
 

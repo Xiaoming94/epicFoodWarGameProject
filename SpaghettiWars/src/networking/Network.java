@@ -25,6 +25,7 @@ public class Network {
 		kryo.register(IDgiver.class);
 		kryo.register(FatSender.class);
 		kryo.register(ProjectileRemover.class);
+		kryo.register(PlayerKiller.class);
 	}
 	
 	public static class SimpleMessage{
@@ -87,5 +88,9 @@ public class Network {
 	
 	public static class ProjectileRemover {
 		public int projectileID;
+	}
+	
+	public static class PlayerKiller{
+		public int ID;
 	}
 }

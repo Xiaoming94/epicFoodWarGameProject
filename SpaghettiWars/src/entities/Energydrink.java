@@ -23,13 +23,13 @@ public class Energydrink extends PowerUp {
 		System.out.println("powerup activated");
 		if(player.getClass() == Player.class && !used){
 			used = true;
-			((Player)player).modifySpeed(2);
+			((Player)player).modifySpeed(5);
 			isActiveOn = (Player)player;
 		}
 	}
 	
 	public void stopEffects(Entity player){
-		((Player)player).modifySpeed(-2);
+		((Player)player).modifySpeed(-5);
 		((Player)player).removePowerUpEffect(this);
 	}
 	
