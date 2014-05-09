@@ -9,7 +9,9 @@ import java.util.Random;
  * Created by xiaoming on 08/05/14.
  */
 public class PowerUpRespawnGenerator {
-    private static final int INITIAL_COUNTDOWN = 100;
+    private static final int INITIAL_COUNTDOWN = 10;
+    private static final int INITIAL_MODULO = 100;
+    private int modulo;
     private Model model;
 
     private final Random spawningNumberGenerator = new Random();
@@ -18,6 +20,7 @@ public class PowerUpRespawnGenerator {
 
     public PowerUpRespawnGenerator(Model model) {
         this.model = model;
+        resetModulo();
     }
 
     public void generateSpawningTime(){
@@ -25,6 +28,7 @@ public class PowerUpRespawnGenerator {
             if (isValidSpawningNumber(Math.abs(spawningNumberGenerator.nextInt()) + 1)) {
             	Position pos;
             	boolean found = false;
+            	resetModulo();
             	if(model.getMap().getMaxPowerUps() >= model.getPickUps().size()){
 	            	while(true){
 	            		pos = model.getMap().getPowerUpSpawnLocations().get(Math.abs(spawningNumberGenerator.nextInt())%model.getMap().getPowerUpSpawnLocations().size());
@@ -41,6 +45,9 @@ public class PowerUpRespawnGenerator {
 	            	}
             	}
             }
+            else{
+                countDownModulo();
+            }
             resetCountDown();
         } else {
             countDown();
@@ -55,6 +62,20 @@ public class PowerUpRespawnGenerator {
         countDown--;
     }
 
+    private void resetModulo (){ modulo = INITIAL_MODULO; }
+
+    private void countDownModulo(){
+        if(modulo == 1){
+
+            resetModulo();
+
+        }else{
+
+            modulo--;
+
+        }
+    }
+
     private boolean isTime() {
         return countDown < 1;
     }
@@ -62,7 +83,7 @@ public class PowerUpRespawnGenerator {
 
 
     private boolean isValidSpawningNumber(int number){
-        return number % 97 == 0;
+        return number % modulo == 0;
     }
 
 }
