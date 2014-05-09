@@ -36,6 +36,7 @@ public class TextureHandler {
 		textures.add(new NameTexture("greenfurniture.png"));
 		textures.add(new NameTexture("extremelyuglydrink.png"));
 		textures.add(new NameTexture("powerupholder.png"));
+		textures.add(new NameTexture("smallWall.png"));
 		
 	}
 	

@@ -24,11 +24,13 @@ public class GameMap {
 	private Mutex decorationMutex;
 	
 	private Sprite simpleWall;
+	private Sprite smallSimpleWall;
 	private Sprite table;
 	
 	public GameMap(TextureHandler textureHandler){
 		this.textureHandler = textureHandler;
 		simpleWall = new Sprite(textureHandler.getTextureByName("wall.png"));
+		smallSimpleWall = new Sprite(textureHandler.getTextureByName("smallWall.png"));
 		table = new Sprite(textureHandler.getTextureByName("greenfurniture.png"));
 		createDiner(100,0);
 		createKitchen(100, 0);
@@ -224,8 +226,8 @@ public class GameMap {
 		//east
 		addObstacle(new Wall(x+wallSprite.getHeight()*3+600-wallSprite.getWidth()/2,y + 3300-wallSprite.getHeight()/2, new Sprite(wallSprite)));
 		
-		addObstacle(new Wall(x+wallSprite.getHeight()*2+600-wallSprite.getWidth(), y+wallSprite.getHeight()*1.5+300+wallSprite.getWidth() ,new Sprite(wallSprite)));
-		addObstacle(new Wall(x+wallSprite.getHeight()*2+600-wallSprite.getWidth(), y+wallSprite.getHeight()/2+wallSprite.getWidth(), new Sprite(wallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()*2+600-wallSprite.getWidth()*1.5, y+wallSprite.getHeight()*1.5+300+wallSprite.getWidth() ,new Sprite(wallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()*2+600-wallSprite.getWidth()*1.5, y+wallSprite.getHeight()/2+wallSprite.getWidth(), new Sprite(wallSprite)));
 		
 		wallSprite.rotate(90);
 		//north/middle/south wall
@@ -239,7 +241,33 @@ public class GameMap {
 		addObstacle(new Wall(x+wallSprite.getHeight()*2.5+600-wallSprite.getWidth(), y+3300-wallSprite.getHeight()+wallSprite.getWidth()/2, new Sprite(wallSprite)));
 		
 		//south
-		addObstacle(new Wall(x+wallSprite.getHeight()*2+600-wallSprite.getWidth(), y, new Sprite(wallSprite)));
+		Sprite smallWallSprite = new Sprite(smallSimpleWall);
+		smallWallSprite.rotate(90);
+		addObstacle(new Wall(x+wallSprite.getHeight()+smallWallSprite.getWidth()*2, y+smallWallSprite.getWidth()/2, new Sprite(smallWallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()+smallWallSprite.getWidth()*4, y+smallWallSprite.getWidth()/2, new Sprite(smallWallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()+smallWallSprite.getWidth()*5.5, y+smallWallSprite.getWidth()/2, new Sprite(smallWallSprite)));
 		
+		addObstacle(new Wall(x+wallSprite.getHeight()+smallWallSprite.getWidth()*10.5, y+smallWallSprite.getWidth()/2, new Sprite(smallWallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()+smallWallSprite.getWidth()*12, y+smallWallSprite.getWidth()/2, new Sprite(smallWallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()+smallWallSprite.getWidth()*14, y+smallWallSprite.getWidth()/2, new Sprite(smallWallSprite)));
+		
+	//floor
+		
+		Sprite floor = new Sprite(textureHandler.getTextureByName("uglyfloor.png"));
+		//top row of floor
+		addDecoration(new Wall(x+floor.getWidth()/2, y+3300-floor.getHeight()/2, new Sprite(floor)));
+		addDecoration(new Wall(x+floor.getWidth()*1.5, y+3300-floor.getHeight()/2, new Sprite(floor)));
+		addDecoration(new Wall(x+floor.getWidth()*2.5, y+3300-floor.getHeight()/2, new Sprite(floor)));
+		addDecoration(new Wall(x+floor.getWidth()*3, y+3300-floor.getHeight()/2, new Sprite(floor)));
+
+		//left side of south part
+		addDecoration(new Wall(x+floor.getWidth()*1.5+wallSprite.getWidth(), y+floor.getHeight()*2.5, new Sprite(floor)));
+		addDecoration(new Wall(x+floor.getWidth()*1.5+wallSprite.getWidth(), y+floor.getHeight()*1.5, new Sprite(floor)));
+		addDecoration(new Wall(x+floor.getWidth()*1.5+wallSprite.getWidth(), y+floor.getHeight()/2, new Sprite(floor)));
+
+		//right side of south part
+		addDecoration(new Wall(x+floor.getWidth()*1.9+wallSprite.getWidth(), y+floor.getHeight()/2, new Sprite(floor)));
+		addDecoration(new Wall(x+floor.getWidth()*1.9+wallSprite.getWidth(), y+floor.getHeight()*1.5, new Sprite(floor)));
+		addDecoration(new Wall(x+floor.getWidth()*1.9+wallSprite.getWidth(), y+floor.getHeight()*2.5, new Sprite(floor)));
 	}
 }
