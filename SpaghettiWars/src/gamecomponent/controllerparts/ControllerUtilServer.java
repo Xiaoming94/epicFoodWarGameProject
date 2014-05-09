@@ -70,7 +70,7 @@ public class ControllerUtilServer implements IControllerUtil {
 			System.out.println("player is dead");
 			model.getStillEntitys().add(model.getPlayer());
 			model.getNetworkObject().killPlayer(model.getPlayer());
-			model.createPlayer();
+			model.createPlayer(model.playerSpawnX, model.playerSpawnY);
 		}
 	}
 
