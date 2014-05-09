@@ -28,6 +28,7 @@ public class GameMap {
 		simpleWall = new Sprite(textureHandler.getTextureByName("wall.png"));
 		createDiner(100,0);
 		createKitchen(100, 0);
+		createEntrence(100, -3300);
 		
 		
 		
@@ -134,6 +135,38 @@ public class GameMap {
 		
 		//left kitchen wall, short one
 		addObstacle(new Wall(x+wallSprite.getWidth()/2, y+wallSprite.getHeight()*2.5 + wallSprite.getWidth()/2 +200, new Sprite(wallSprite)));
+		
+	}
+	
+	public void createEntrence(double x, double y){
+		Sprite wallSprite = new Sprite(simpleWall);
+		
+		//east/west walls
+		//west
+		addObstacle(new Wall(x+wallSprite.getWidth()/2,y+3300-wallSprite.getHeight()/2, new Sprite(wallSprite)));
+		
+		addObstacle(new Wall(x+wallSprite.getHeight()+wallSprite.getWidth()*1.5, y+wallSprite.getHeight()*1.5+300+wallSprite.getWidth(), new Sprite(wallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()+wallSprite.getWidth()*1.5, y+wallSprite.getHeight()/2+wallSprite.getWidth(), new Sprite(wallSprite)));
+		
+		//east
+		addObstacle(new Wall(x+wallSprite.getHeight()*3+600-wallSprite.getWidth()/2,y + 3300-wallSprite.getHeight()/2, new Sprite(wallSprite)));
+		
+		addObstacle(new Wall(x+wallSprite.getHeight()*2+600-wallSprite.getWidth(), y+wallSprite.getHeight()*1.5+300+wallSprite.getWidth() ,new Sprite(wallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()*2+600-wallSprite.getWidth(), y+wallSprite.getHeight()/2+wallSprite.getWidth(), new Sprite(wallSprite)));
+		
+		wallSprite.rotate(90);
+		//north/middle/south wall
+		//north
+		addObstacle(new Wall(x+wallSprite.getHeight()/2,y+3300+wallSprite.getWidth()/2, new Sprite(wallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()*1.5+300, y+3300+wallSprite.getWidth()/2, new Sprite(wallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()*2.5+600, y+3300+wallSprite.getWidth()/2, new Sprite(wallSprite)));
+		
+		//middle
+		addObstacle(new Wall(x+wallSprite.getHeight()/2+wallSprite.getWidth(),y+3300-wallSprite.getHeight()+wallSprite.getWidth()/2, new Sprite(wallSprite)));
+		addObstacle(new Wall(x+wallSprite.getHeight()*2.5+600-wallSprite.getWidth(), y+3300-wallSprite.getHeight()+wallSprite.getWidth()/2, new Sprite(wallSprite)));
+		
+		//south
+		addObstacle(new Wall(x+wallSprite.getHeight()*2+600-wallSprite.getWidth(), y, new Sprite(wallSprite)));
 		
 	}
 }
