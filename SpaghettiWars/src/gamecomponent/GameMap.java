@@ -308,17 +308,17 @@ public class GameMap {
 		//west wall
 		addObstacle(new Wall(x+ wallSprite.getHeight()*3 + 200, y + wallSprite.getHeight()*4 - wallSprite.getWidth(), new Sprite(wallSprite)));
 		
-		//verticle walls below
+		//vertical walls below
 		wallSprite.rotate(90);
 		//north wall (from right to left this time)
 		addObstacle(new Wall(x+wallSprite.getHeight()*4.5 +200, y + wallSprite.getHeight()*4 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getHeight()*3.5 +200, y + wallSprite.getHeight()*4 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
 		
-		powerUpSpawnLocations.add(new Position(x + wallSprite.getHeight()*5, y + wallSprite.getHeight()*4));
 		//south wall (border to kitchen) should there even be one?
 		//addObstacle(new Wall(x+wallSprite.getHeight()*4.5 +200 + wallSprite.getWidth()/2, y+ wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
 		//might need small wall here to complete south wall
 		
+		powerUpSpawnLocations.add(new Position(x + wallSprite.getHeight()*5, y + wallSprite.getHeight()*4));
 
 	}
 }
