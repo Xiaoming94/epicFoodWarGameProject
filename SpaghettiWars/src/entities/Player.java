@@ -124,6 +124,7 @@ public class Player extends Entity {
 	
 	public void modifySpeed(double k){
 		speedMod += k;
+		System.out.println(speedMod);
 	}
 	
 	@Override
