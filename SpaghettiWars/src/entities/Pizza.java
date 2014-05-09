@@ -27,9 +27,11 @@ public class Pizza extends Projectile{
 	private void createPizza(double x, double y, Position targetPos){
 		Position myPosition = new Position(x,y);
 
-        double maxRange = 300;
+        double maxRange = 350;
         double distanceToMouse = targetPos.distanceTo(myPosition);
         double travelDistance;
+        
+        this.setSpeed(10);
 
         if ( maxRange > distanceToMouse){
             travelDistance = distanceToMouse;

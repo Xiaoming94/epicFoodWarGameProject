@@ -45,15 +45,17 @@ public abstract class Projectile extends Entity{
 	
 	public void kill(){
 		dead = true;
+		this.stop();
 	}
 	
 	public void update() {
-        this.range--;
+        this.range -= getSpeed()/2; //why the fuck do we need to divide by 2?!
 
         if (range < 1)
-            this.dead = true;
-
-        this.move();
+            this.kill();
+        
+        if(!isDead())
+        	this.move();
     }
 
 
