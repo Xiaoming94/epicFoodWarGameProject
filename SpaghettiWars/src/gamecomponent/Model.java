@@ -360,7 +360,7 @@ public class Model {
 
 	public void mouseButtonPressed(double x, double y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
-			Projectile p = player.shoot((startWidth/width)*(x-this.width/2)+this.player.getX(), (startHeight/height)*(this.height/2-y)+this.player.getY());
+			Projectile p = player.shoot(new Position((startWidth/width)*(x-this.width/2)+this.player.getX(), (startHeight/height)*(this.height/2-y)+this.player.getY()));
 			if(p != null){
 				this.getEntitiesMutex().lock();
 				this.addProjectile(p);

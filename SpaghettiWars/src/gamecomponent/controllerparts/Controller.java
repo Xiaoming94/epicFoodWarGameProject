@@ -84,22 +84,17 @@ public class Controller implements Runnable {
 			
 			// for loop checks projectiles, and what they have hit
 			for (Projectile e : model.getProjectiles()) {
-
+				e.update();
 				//meatball
 				if (e instanceof entities.Meatball) {
 					for (Entity o : model.getMap().getObstacles()) {
 						//if projectile e has hit obstacle o, put it on deathlist
-						if (e.getSprite().getBoundingRectangle()
-								.overlaps(o.getSprite().getBoundingRectangle())) {
+						if (e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())) {
 							e.kill();
 							killProjectileList.add(e);
-					
-
-					
 						//if not, check if it's reached its maximum range, 
 						//if so, put it on deathlist
 						} else {
-							e.update();
 							if (e.isDead()) {
 								killProjectileList.add(e);
 							}
@@ -125,7 +120,6 @@ public class Controller implements Runnable {
 						} else {
 						//if target destination has been reached,
 						//the pizza is to be killed and explode
-							e.update();
 							if (e.isDead()) {
 								killProjectileList.add(e);
 								explodePizza((Pizza) e);
