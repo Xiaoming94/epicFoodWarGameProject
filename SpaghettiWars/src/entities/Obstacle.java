@@ -15,4 +15,5 @@ public abstract class Obstacle extends Entity {
 		return absoluteCollision;
 	}
 	
+	public abstract boolean collides(Pizza p);
 }

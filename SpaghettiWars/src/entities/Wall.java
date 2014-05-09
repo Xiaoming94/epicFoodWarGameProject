@@ -10,5 +10,12 @@ public class Wall extends Obstacle {
 		
 		super(x, y,sprite, true);
 	}
+
+	@Override
+	public boolean collides(Pizza p) {
+		return true;
+	}
+	
+	
 	
 }
