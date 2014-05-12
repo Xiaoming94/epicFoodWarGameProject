@@ -5,12 +5,14 @@ import utilities.Vector;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import java.util.List;
+import java.util.Map;
 
 public abstract class Projectile extends Entity{
 	
 	private final int damage;
 	private double range;
 	private boolean dead;
+
     private ProjectileState state = ProjectileState.FLYING;
 	
 	public Projectile(double x, double y, Vector vector, Sprite sprite, int damage, double range){
@@ -48,7 +50,7 @@ public abstract class Projectile extends Entity{
 		this.stop();
 	}
 	
-	public void update() {
+	protected boolean update() {
         this.range -= getSpeed()/2; //why the fuck do we need to divide by 2?!
 
         if (range < 1)
@@ -56,8 +58,11 @@ public abstract class Projectile extends Entity{
         
         if(!isDead())
         	this.move();
+        
+		return dead;
     }
 
+    public abstract void update(List<Obstacle> obstacles, Map<Integer, Player> playerlist, Player player);
 
     public ProjectileState getState() {
         return state;

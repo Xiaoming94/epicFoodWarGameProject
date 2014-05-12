@@ -5,6 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import utilities.Position;
 import utilities.Vector;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+
 public class Pizza extends Projectile{
 	
 	private Position targetPos;
@@ -53,4 +57,40 @@ public class Pizza extends Projectile{
 	public Position getTargetPosition(){
 		return targetPos;
 	}
+
+    @Override
+    public void update(List<Obstacle> obstacles, Map<Integer, Player> playerlist, Player player) {
+    	if(super.update()){
+    		this.explode(playerlist, player);
+    		this.setState(ProjectileState.STILL);
+    	}
+    	
+        for (Obstacle o : obstacles){
+            if (collidingWith(o)){
+                this.kill();
+                this.explode(playerlist, player);
+                this.setState(ProjectileState.STILL);
+            }
+        }
+    }
+
+    private void explode(Map<Integer, Player> playerlist, Player player) {
+    	if (player.overlaps(this)) {
+			player.gainWeight(this.getDamage());
+		}
+		
+		Collection<Player> otherPlayers = playerlist.values();
+		//check if other players have been hit by exploding pizza
+		for (Player p : otherPlayers) {
+			if (p.overlaps(this)) {
+				p.gainWeight(this.getDamage());
+			}
+		}
+		
+	}
+
+	private boolean collidingWith(Obstacle o) {
+        return this.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle()) && o.collides(this);
+    }
+
 }
