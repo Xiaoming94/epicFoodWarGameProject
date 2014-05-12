@@ -197,6 +197,9 @@ public class Player extends Entity {
 			this.setY(this.getY() + this.getVector().getDeltaY());
 			this.getSprite().setY((float)this.getY() - this.getSprite().getHeight()/2);
 		}
+		
+		if(shootCooldown > 0)
+			shootCooldown--;
 	}
 	
 
