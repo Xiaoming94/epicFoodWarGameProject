@@ -173,7 +173,7 @@ public class GameMap {
 
 	public void createKitchen(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
-		
+		Sprite tableSprite = new Sprite(table);
 		
 	//first off, vertical walls
 		
@@ -190,7 +190,29 @@ public class GameMap {
 		addObstacle(new Wall(x+wallSprite.getWidth()/2+wallSprite.getHeight()*3.5, y+wallSprite.getHeight()/2, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getWidth()/2+wallSprite.getHeight()*3.5, y+wallSprite.getHeight()*1.5+200, new Sprite(wallSprite)));
 		
-	//now some horisontal walls
+		
+		tableSprite.rotate(90);
+		//working desk
+		//south, west
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4, y + wallSprite.getHeight()/2, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4, y + wallSprite.getHeight()/2 + tableSprite.getWidth(), new Sprite(tableSprite)));
+		//south, east
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth(), new Sprite(tableSprite)));
+	
+		//north, west
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*2.5, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*3.5, new Sprite(tableSprite)));
+		
+		//middle, east
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*2.5, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*3.5, new Sprite(tableSprite)));
+		
+		//north, east
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*4.5, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*5.5, new Sprite(tableSprite)));
+		
+		//now some horisontal walls
 		wallSprite.rotate(90);
 		
 		//south wall (the same as diner north wall)
