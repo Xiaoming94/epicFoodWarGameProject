@@ -160,13 +160,10 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 						i++;
 		
 					}
-					System.out.println(found);
-					System.out.println(pr.projectileID);
 					if(found){
 						model.getProjectiles().remove(i);
 					}
 				}else if(object instanceof PlayerKiller){
-					System.out.println("playerkiller recieved");
 					PlayerKiller pk = (PlayerKiller) object;
 					
 					if(model.getPlayer().getID() == pk.ID){

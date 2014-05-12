@@ -287,8 +287,6 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		Iterator<Integer> iterator = clientsConnected.keySet().iterator();
 		while (iterator.hasNext()) {
 			int key = iterator.next();
-			System.out.println(" " + clientsConnected.size());
-			System.out.println("clientID: " + clientID + "  key: " + key);
 			if (clientID / 1000000 != key) {
 				System.out.println("inside");
 				clientsConnected.get(key).sendUDP(object);
@@ -315,6 +313,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			if (polling.get(key) < (int) (System.currentTimeMillis() % Integer.MAX_VALUE) - 5000) {
 				System.out.println("client " + key + " disconnected");
 				removeClient(key);
+				break;
 			}
 		}
 	}
