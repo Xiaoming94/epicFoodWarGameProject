@@ -49,6 +49,7 @@ public class PowerUpRespawnGenerator {
 							}
 						model.getPickUpsMutex().unlock();
 						if (found == false) {
+							//model.createDietPill(pos);
 							model.createEnergyDrink(pos);
 							System.out.println("Energy drink spawned");
 							break;

@@ -15,6 +15,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import entities.DietPill;
 import entities.Energydrink;
 import entities.Entity;
 import entities.Player;
@@ -172,6 +173,11 @@ public class Model extends Observable{
         PowerUp pu = new Energydrink(pos.getX(), pos.getY(), new Sprite(textureHandler.getTextureByName("extremelyuglydrink.png")));
         pickUps.add(pu);
 
+    }
+    
+    public void createDietPill(Position pos){
+    	PowerUp pu = new DietPill(pos.getX(), pos.getY(), new Sprite(textureHandler.getTextureByName("dietpill.png")));
+    	pickUps.add(pu);
     }
 	
 	//Author: Jimmy - wtf function, please help it with its life

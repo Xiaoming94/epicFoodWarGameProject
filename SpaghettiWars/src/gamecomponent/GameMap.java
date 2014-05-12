@@ -221,7 +221,7 @@ public class GameMap {
 		addObstacle(new Wall(x+wallSprite.getHeight()*2.5+200, y+wallSprite.getWidth()/2+wallSprite.getHeight()*2+200, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getHeight()*2.5+600, y+wallSprite.getWidth()/2+wallSprite.getHeight()*2+200, new Sprite(wallSprite)));
 		
-		//tables
+		//tables, west to east (left to right)
 		addObstacle(new Furniture(x + 1500, y+wallSprite.getHeight()*2.9, new Sprite(tableSprite)));
 		addObstacle(new Furniture(x + 1800, y + wallSprite.getHeight()*2.8, new Sprite(tableSprite)));
 		addObstacle(new Furniture(x + 2050, y + wallSprite.getHeight()*2.9, new Sprite(tableSprite)));
@@ -231,7 +231,8 @@ public class GameMap {
 		addObstacle(new Furniture(x + 3100, y + wallSprite.getHeight()*2.5, new Sprite(tableSprite)));
 		
 		//add a place where powerups may spawn
-		powerUpSpawnLocations.add(new Position(x+1750, y+4100));
+		powerUpSpawnLocations.add(new Position(x+1750, y+3100));
+		powerUpSpawnLocations.add(new Position(x + 1600, y + 3100));
 		
 		//north walls, from left to right
 		addObstacle(new Wall(x+wallSprite.getHeight()/2, y + wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));
