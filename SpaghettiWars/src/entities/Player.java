@@ -97,7 +97,7 @@ public class Player extends Entity {
 		this.updateVector();
 		
 		if(this.getFatPoint() > 99)
-			isDead = true;
+			kill();
 	}
 	
 	@Override
@@ -119,7 +119,8 @@ public class Player extends Entity {
 	}
 	
 	public void kill(){
-        this.setSprite(new Sprite(textureHandler.getTextureByName("FatDeadPlayerSprite.png")));
+        //look over this shit. Sprite doesn't show
+		//this.setSprite(new Sprite(textureHandler.getTextureByName("FatDeadPlayerSprite.png")));
 		isDead = true;
 	}
 	
