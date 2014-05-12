@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import utilities.Position;
 import utilities.Vector;
 
+import java.util.List;
+
 public class Pizza extends Projectile{
 	
 	private Position targetPos;
@@ -53,4 +55,19 @@ public class Pizza extends Projectile{
 	public Position getTargetPosition(){
 		return targetPos;
 	}
+
+    @Override
+    public void checkColliding(List<Obstacle> obstacles, List<Player> playerlist) {
+        for (Obstacle o : obstacles){
+            if (collidingWith(o)){
+                this.kill();
+                this.setState(ProjectileState.STILL);
+            }
+        }
+    }
+
+    private boolean collidingWith(Obstacle o) {
+        return this.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle()) && o.collides(this);
+    }
+
 }

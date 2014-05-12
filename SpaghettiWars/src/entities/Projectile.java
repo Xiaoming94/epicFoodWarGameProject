@@ -12,8 +12,8 @@ public abstract class Projectile extends Entity{
 	private double range;
 	private boolean dead;
     private ProjectileState state;
-	
-	public Projectile(double x, double y, Vector vector, Sprite sprite, int damage, double range){
+
+    public Projectile(double x, double y, Vector vector, Sprite sprite, int damage, double range){
 		super(x, y, vector, sprite);
 		this.damage = damage;
 		this.range = range;
@@ -58,6 +58,7 @@ public abstract class Projectile extends Entity{
         	this.move();
     }
 
+    public abstract void checkColliding(List<Obstacle> obstacles, List<Player> playerlist);
 
     public ProjectileState getState() {
         return state;

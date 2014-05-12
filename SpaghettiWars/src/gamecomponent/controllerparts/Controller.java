@@ -1,9 +1,6 @@
 package gamecomponent.controllerparts;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 import entities.*;
 import gamecomponent.Model;
@@ -86,7 +83,7 @@ public class Controller implements Runnable {
 			for (Projectile e : model.getProjectiles()) {
 				e.update();
 				//meatball
-				if (e instanceof entities.Meatball) {
+				/*if (e instanceof entities.Meatball) {
 					for (Entity o : model.getMap().getObstacles()) {
 						//if projectile e has hit obstacle o, put it on deathlist
 						if (e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())) {
@@ -127,7 +124,8 @@ public class Controller implements Runnable {
 							}
 						}
 					}
-				}
+				}*/
+                e.checkColliding(model.getMap().getObstacles(),getCompletePlayerlist());
 			}
 
 			model.getEntitiesMutex().unlock();
@@ -177,8 +175,8 @@ public class Controller implements Runnable {
 
 	}
 
-	
-	//method for making pizza victims fat
+
+    //method for making pizza victims fat
 	private void explodePizza(Pizza collidingPizza) {
 		//check if the player has hit himself with exploding pizza, if so make fat
 		if (model.getPlayer().overlaps(collidingPizza)) {
