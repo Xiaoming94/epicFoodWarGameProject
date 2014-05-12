@@ -124,7 +124,6 @@ public class Player extends Entity {
 	
 	public void modifySpeed(double k){
 		speedMod += k;
-		System.out.println(speedMod);
 	}
 	
 	@Override
@@ -198,6 +197,9 @@ public class Player extends Entity {
 			this.setY(this.getY() + this.getVector().getDeltaY());
 			this.getSprite().setY((float)this.getY() - this.getSprite().getHeight()/2);
 		}
+		
+		if(shootCooldown > 0)
+			shootCooldown--;
 	}
 	
 
@@ -211,14 +213,6 @@ public class Player extends Entity {
 			break;
 		}
 	}
-	
-	/*public void collectPowerUp(PowerUp powerUp){
-		if(this.powerUp == null){
-			this.powerUp = powerUp;
-		}else{
-			//somethingsomething...
-		}
-	}*/
 	
 	public void usePowerUp(){
 		if(powerUp != null){

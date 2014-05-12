@@ -173,7 +173,7 @@ public class GameMap {
 
 	public void createKitchen(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
-		
+		Sprite tableSprite = new Sprite(table);
 		
 	//first off, vertical walls
 		
@@ -190,7 +190,29 @@ public class GameMap {
 		addObstacle(new Wall(x+wallSprite.getWidth()/2+wallSprite.getHeight()*3.5, y+wallSprite.getHeight()/2, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getWidth()/2+wallSprite.getHeight()*3.5, y+wallSprite.getHeight()*1.5+200, new Sprite(wallSprite)));
 		
-	//now some horisontal walls
+		
+		tableSprite.rotate(90);
+		//working desk
+		//south, west
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4, y + wallSprite.getHeight()/2, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4, y + wallSprite.getHeight()/2 + tableSprite.getWidth(), new Sprite(tableSprite)));
+		//south, east
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth(), new Sprite(tableSprite)));
+	
+		//north, west
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*2.5, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*3.5, new Sprite(tableSprite)));
+		
+		//middle, east
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*2.5, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*3.5, new Sprite(tableSprite)));
+		
+		//north, east
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*4.5, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + wallSprite.getHeight()*4.7, y + wallSprite.getHeight()/2 + tableSprite.getWidth()*5.5, new Sprite(tableSprite)));
+		
+		//now some horisontal walls
 		wallSprite.rotate(90);
 		
 		//south wall (the same as diner north wall)
@@ -198,6 +220,18 @@ public class GameMap {
 		addObstacle(new Wall(x+wallSprite.getHeight()*1.5+200, y+wallSprite.getWidth()/2+wallSprite.getHeight()*2+200, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getHeight()*2.5+200, y+wallSprite.getWidth()/2+wallSprite.getHeight()*2+200, new Sprite(wallSprite)));
 		addObstacle(new Wall(x+wallSprite.getHeight()*2.5+600, y+wallSprite.getWidth()/2+wallSprite.getHeight()*2+200, new Sprite(wallSprite)));
+		
+		//tables
+		addObstacle(new Furniture(x + 1500, y+wallSprite.getHeight()*2.9, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + 1800, y + wallSprite.getHeight()*2.8, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + 2050, y + wallSprite.getHeight()*2.9, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + 2500, y + wallSprite.getHeight()*2.5, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + 2800, y + wallSprite.getHeight()*2.7, new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + 2800, y + wallSprite.getHeight()*2.7 + tableSprite.getWidth(), new Sprite(tableSprite)));
+		addObstacle(new Furniture(x + 3100, y + wallSprite.getHeight()*2.5, new Sprite(tableSprite)));
+		
+		//add a place where powerups may spawn
+		powerUpSpawnLocations.add(new Position(x+1750, y+4100));
 		
 		//north walls, from left to right
 		addObstacle(new Wall(x+wallSprite.getHeight()/2, y + wallSprite.getHeight()*3 + wallSprite.getWidth()*1.5 + 200, new Sprite(wallSprite)));

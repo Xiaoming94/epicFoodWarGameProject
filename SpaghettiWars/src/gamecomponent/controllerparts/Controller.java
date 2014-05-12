@@ -149,8 +149,9 @@ public class Controller implements Runnable {
             for(Entity e : removePickUpsList){
             	model.removePickUp(e);
             }
+            
+            this.utilobject.run();
 
-			
 			//killing projectiles on deathlist
 			model.getEntitiesMutex().lock();
 			for (Entity e : killProjectileList)
@@ -159,8 +160,6 @@ public class Controller implements Runnable {
 			//removing projectiles that have been eaten from projectile list
 			for (Entity e : eatProjectileList)
 				model.removeProjectile(e);
-			
-			this.utilobject.run();
 			
 
 			time = System.currentTimeMillis() - time;
