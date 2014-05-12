@@ -3,6 +3,7 @@ package networking;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Observable;
 
 import utilities.Position;
 import utilities.Vector;
@@ -26,6 +27,7 @@ import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
+import entities.ProjectileState;
 import gamecomponent.Model;
 import gamecomponent.controllerparts.Controller;
 import gamecomponent.controllerparts.ControllerUtilClient;
@@ -49,6 +51,8 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		Network.register(client);
 
 		model = mod;
+		
+		model.addObserver(this);
 
 		playerMap = otherPlayerMap;
 
@@ -282,5 +286,27 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 	public void killPlayer(Player p) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg) {
+		if(arg instanceof Projectile){
+			Projectile p = (Projectile) arg;
+			
+			if(p.getState() == ProjectileState.FLYING)
+				sendProjectile(p);
+		}
+		
+		if(arg instanceof Player){
+			Player player = (Player) arg;
+			killPlayer(player);
+		}
+		
+		if(arg instanceof String){
+			String s = (String) arg;
+			
+			if(s == "dissconnect")
+				this.disconnect();
+		}
 	}
 }

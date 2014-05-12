@@ -23,7 +23,7 @@ public class IPInputDialog implements Input.TextInputListener {
     public void input(String s) {
     	System.out.println("sending request");
         try {
-			m.setNetworkObject(NetworkUtils.createClient(s,m));
+			NetworkUtils.createClient(s,m);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

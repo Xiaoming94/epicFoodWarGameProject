@@ -5,6 +5,7 @@ import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
+import entities.ProjectileState;
 import gamecomponent.GameMap;
 import gamecomponent.Model;
 import gamecomponent.controllerparts.Controller;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Observable;
 
 import utilities.NameTexture;
 import utilities.Position;
@@ -54,6 +56,8 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		Network.register(server);
 
 		this.model = mod;
+		
+		model.addObserver(this);
 
 		Entity.setThisClientID(1);
 		ControllerUtilServer cus = new ControllerUtilServer();
@@ -346,7 +350,6 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -385,5 +388,30 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		while (connectionIterator.hasNext())
 			clientsConnected.get(connectionIterator.next()).sendUDP(
 					playerKiller);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(arg instanceof Projectile){
+			Projectile p = (Projectile) arg;
+			
+			if(p.getState() == ProjectileState.EATEN)
+				killProjectile(p);
+			
+			else if(p.getState() == ProjectileState.FLYING)
+				sendProjectile(p);
+		}
+		
+		if(arg instanceof Player){
+			Player player = (Player) arg;
+			killPlayer(player);
+		}
+		
+		if(arg instanceof String){
+			String s = (String) arg;
+			
+			if(s == "dissconnect")
+				this.disconnect();
+		}
 	}
 }

@@ -107,7 +107,7 @@ public class MenuScreen implements IGameScreen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
                 try {
-					model.setNetworkObject(NetworkUtils.createServer(model));
+					NetworkUtils.createServer(model);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -7,6 +7,7 @@ import entities.Entity;
 import entities.Meatball;
 import entities.Player;
 import entities.Projectile;
+import entities.ProjectileState;
 import gamecomponent.Model;
 
 public class ControllerUtilServer implements IControllerUtil {
@@ -25,16 +26,14 @@ public class ControllerUtilServer implements IControllerUtil {
 		
 		
 		for(Projectile p: model.getProjectiles()){
-		
-			//Collision detection for meatballs won't work if meatball
-			//hits the thrower
-			//what the fuck is going on with IDs?
+			
 			Collection<Player> opponents = model.getOtherPlayers().values();
 			for(Player opp: opponents){
 				if(p.getSprite().getBoundingRectangle().overlaps(opp.getSprite().getBoundingRectangle()) && p.getID()/1000000 != opp.getID()/1000000 && p instanceof Meatball){
 					p.kill();
 					
 					parent.getEatProjectileList().add(p);
+					p.setState(ProjectileState.EATEN);
 					opp.gainWeight(p.getDamage());
 				}
 			}
@@ -42,6 +41,7 @@ public class ControllerUtilServer implements IControllerUtil {
 				p.kill();
 				
 				parent.getEatProjectileList().add(p);
+				p.setState(ProjectileState.EATEN);
 				model.getPlayer().gainWeight(p.getDamage());
 			}
 			//end of meatball detection
@@ -62,14 +62,18 @@ public class ControllerUtilServer implements IControllerUtil {
 		}
 		for (Entity e : parent.getKillPlayerList()) {
 			model.killPlayer(e);
-			model.getNetworkObject().killPlayer((Player)e);
+			//model.getNetworkObject().killPlayer((Player)e);
+			parent.model.setChanged();
+			parent.model.notifyObservers((Player)e);
 		}
 		
 		//kill self and respawn if dead
 		if(model.getPlayer().isDead()){
 			System.out.println("player is dead");
 			model.getStillEntitys().add(model.getPlayer());
-			model.getNetworkObject().killPlayer(model.getPlayer());
+			//model.getNetworkObject().killPlayer(model.getPlayer());
+			parent.model.setChanged();
+			parent.model.notifyObservers(model.getPlayer());
 			model.createPlayer(model.playerSpawnX, model.playerSpawnY);
 		}
 	}

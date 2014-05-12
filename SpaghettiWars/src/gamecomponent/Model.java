@@ -26,7 +26,7 @@ import entities.Projectile;
  * @author Jimmy Eliasson Malmer
  * Model class holds the data which the View uses to paint the graphics of the game using LibGDX
  */
-public class Model {
+public class Model extends Observable{
 
 	private boolean upKeyPressed,downKeyPressed,leftKeyPressed,rightKeyPressed;
 	private final ArrayList<Entity> entities;
@@ -45,7 +45,6 @@ public class Model {
 	private final Mutex projectilesMutex;
 	private final Mutex otherPlayersMutex;
 
-//	ArrayList<NameTexture> textures;
 	private TextureHandler textureHandler;
 
 	private double width, height;
@@ -53,7 +52,7 @@ public class Model {
 
 	private int selectedWeapon = 0;
 	
-	private SpaghettiFace networkObject;
+	//private SpaghettiFace networkObject;
 
 	private GameMap map;
 	private boolean gameActive;
@@ -211,7 +210,9 @@ public class Model {
 		
 		
 		if(found){
-			this.networkObject.killProjectile(projectiles.get(i));
+			//this.networkObject.killProjectile(projectiles.get(i));
+			this.setChanged();
+			this.notifyObservers(projectiles.get(i));
 			getProjectilesMutex().lock(); //ny
 			projectiles.remove(i);
 			getProjectilesMutex().unlock(); //ny
@@ -366,7 +367,9 @@ public class Model {
 				this.addProjectile(p);
 				this.getEntitiesMutex().unlock();
 				
-				this.getNetworkObject().sendProjectile(p);
+				//this.getNetworkObject().sendProjectile(p);
+				this.setChanged();
+				this.notifyObservers(p);
 			}
 		}
 	}
@@ -419,13 +422,13 @@ public class Model {
 		getProjectilesMutex().unlock();//ny
 	}
 	
-	public SpaghettiFace getNetworkObject(){
-		return networkObject;
-	}
-	
-	public void setNetworkObject(SpaghettiFace networkObject){
-		this.networkObject = networkObject;
-	}
+//	public SpaghettiFace getNetworkObject(){
+//		return networkObject;
+//	}
+//	
+//	public void setNetworkObject(SpaghettiFace networkObject){
+//		this.networkObject = networkObject;
+//	}
 
 	public void setGameActive(boolean b) {
 		this.gameActive = b;
@@ -433,5 +436,10 @@ public class Model {
 	
 	public boolean isGameActive(){
 		return this.gameActive;
+	}
+	
+	@Override
+	public void setChanged(){
+		super.setChanged();
 	}
 }

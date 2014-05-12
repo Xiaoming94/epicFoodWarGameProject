@@ -73,7 +73,7 @@ public class MainView implements ApplicationListener{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		model.getNetworkObject().disconnect();
+		model.notifyObservers("dissconnect");
 
 	}
 
