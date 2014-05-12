@@ -73,7 +73,11 @@ public class Player extends Entity {
 	}
 	
 	public void looseWeight(int damage){
-		fatPoints -= damage;
+		if (damage > fatPoints){
+            fatPoints = 0;
+        }else {
+            fatPoints -= damage;
+        }
 		weightChanged();
 	}
 	
@@ -214,12 +218,15 @@ public class Player extends Entity {
 		}
 	}
 	
-	public void usePowerUp(){
+	public PowerUp usePowerUp(){
 		if(powerUp != null){
+			PowerUp temp = powerUp;
 			this.activePowerUps.add(powerUp);
 			powerUp.applyEffects(this); // or setActive() ? i have no idea what i'm doing...
 			this.powerUp = null;
+			return temp;
 		}
+		return null;
 	}
 	
 	public PowerUp getPowerUp(){

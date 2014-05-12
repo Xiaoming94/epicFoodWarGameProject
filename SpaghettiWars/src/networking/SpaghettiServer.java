@@ -329,6 +329,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			int playerKey = iterator.next();
 			if (key == playerKey / 1000000) {
 				playerMap.remove(playerKey);
+				break;
 			}
 		}
 		model.getOtherPlayersMutex().unlock();
@@ -412,14 +413,10 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			
 			else if(p.getState() == ProjectileState.FLYING)
 				sendProjectile(p);
-		}
-		
-		if(arg instanceof Player){
+		}else if(arg instanceof Player){
 			Player player = (Player) arg;
 			killPlayer(player);
-		}
-		
-		if(arg instanceof String){
+		}else if(arg instanceof String){
 			String s = (String) arg;
 			
 			if(s == "dissconnect")

@@ -13,9 +13,10 @@ public class DietPill extends PowerUp {
 	@Override
 	public void applyEffects(Entity player) {
 		if(player.getClass() == Player.class){
+
 			Player p= (Player)player;
 			if(p.getFatPoint() >= fatPointsLost)
-			p.looseWeight(fatPointsLost);
+				p.looseWeight(fatPointsLost);
 			p.removePowerUpEffect(this);
 		}
 	}
