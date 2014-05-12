@@ -119,6 +119,7 @@ public class Player extends Entity {
 	}
 	
 	public void kill(){
+        this.setSprite(new Sprite(textureHandler.getTextureByName("FatDeadPlayerSprite.png")));
 		isDead = true;
 	}
 	

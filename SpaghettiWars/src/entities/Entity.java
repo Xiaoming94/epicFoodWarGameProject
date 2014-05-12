@@ -92,6 +92,10 @@ public abstract class Entity {
 	public Sprite getSprite(){
 		return sprite;
 	}
+
+    public void setSprite(Sprite sprite){
+        this.sprite = sprite;
+    }
 	
 	public void setSpeed(double speed){
 		speedFactor = speed;
