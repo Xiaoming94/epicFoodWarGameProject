@@ -73,7 +73,11 @@ public class Player extends Entity {
 	}
 	
 	public void looseWeight(int damage){
-		fatPoints -= damage;
+		if (damage > fatPoints){
+            fatPoints = 0;
+        }else {
+            fatPoints -= damage;
+        }
 		weightChanged();
 	}
 	
