@@ -304,7 +304,8 @@ public class Model extends Observable{
 			selectedWeapon = keyCode-8;
 			break;
 		case Keys.SPACE:
-			player.usePowerUp();
+			this.setChanged();
+			this.notifyObservers(player.usePowerUp());
 			break;
 		case Keys.ESCAPE:
 			break;
