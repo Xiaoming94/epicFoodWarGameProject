@@ -81,51 +81,17 @@ public class Controller implements Runnable {
 			
 			// for loop checks projectiles, and what they have hit
 			for (Projectile e : model.getProjectiles()) {
-				e.update();
-				//meatball
-				/*if (e instanceof entities.Meatball) {
-					for (Entity o : model.getMap().getObstacles()) {
-						//if projectile e has hit obstacle o, put it on deathlist
-						if (e.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle())) {
-							e.kill();
-							killProjectileList.add(e);
-						//if not, check if it's reached its maximum range, 
-						//if so, put it on deathlist
-						} else {
-							if (e.isDead()) {
-								killProjectileList.add(e);
-							}
-						}
-					}		
-				}
-				
-				
-
-				//pizza
-				if (e instanceof entities.Pizza) {
-					for (Entity o : model.getMap().getObstacles()) {
-						//check if projectile e has hit an obstacle
-						if (e.getSprite().getBoundingRectangle()
-								.overlaps(o.getSprite().getBoundingRectangle())) {
-							//if e has hit a wall, put it on death list and explode it
-							if (o instanceof entities.Wall) {
-								e.kill();
-								killProjectileList.add(e);
-								explodePizza((Pizza) e);
-								break;
-							}
-						} else {
-						//if target destination has been reached,
-						//the pizza is to be killed and explode
-							if (e.isDead()) {
-								killProjectileList.add(e);
-								explodePizza((Pizza) e);
-								break;
-							}
-						}
-					}
-				}*/
-                e.checkColliding(model.getMap().getObstacles(),getCompletePlayerlist());
+				e.update(model.getMap().getObstacles(), model.getOtherPlayers(), model.getPlayer());
+                switch(e.getState()){
+                	case EATEN:
+                		this.eatProjectileList.add(e);
+                		break;
+                	case STILL:
+                		this.killProjectileList.add(e);
+                		break;
+                	case FLYING:
+                		break;
+                }
 			}
 
 			model.getEntitiesMutex().unlock();

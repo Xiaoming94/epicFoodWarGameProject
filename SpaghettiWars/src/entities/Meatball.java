@@ -5,7 +5,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import utilities.Vector;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class Meatball extends Projectile {
 	
@@ -21,17 +23,23 @@ public class Meatball extends Projectile {
 	}
 
     @Override
-    public void checkColliding(List<Obstacle> obstacles, List<Player> playerlist) {
+    public void update(List<Obstacle> obstacles, Map<Integer, Player> playerlist, Player player) {
+    	if(super.update())
+    		this.setState(ProjectileState.STILL);
+    	
         for (Obstacle o : obstacles){
             if (collidingWith(o)) {
                 this.kill();
                 this.setState(ProjectileState.STILL);
             }
         }
-        for (Player p : playerlist){
-            if (collidingWith(p)){
+        Iterator<Integer> iterator = playerlist.keySet().iterator();
+        Integer key;
+        while(iterator.hasNext()){
+        	key = iterator.next();
+            if (collidingWith(playerlist.get(key))){
                 this.kill();
-                p.gainWeight(this.getDamage());
+                playerlist.get(key).gainWeight(this.getDamage());
                 this.setState(ProjectileState.EATEN);
             }
         }
