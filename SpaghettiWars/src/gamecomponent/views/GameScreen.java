@@ -107,7 +107,7 @@ public class GameScreen implements IGameScreen{
         batch.draw(model.getPowerUpBar(), camera.position.x-camera.viewportWidth/2, camera.position.y-camera.viewportHeight/2);
         
         if(model.getPlayer().getPowerUp() != null)
-        	batch.draw(model.getPlayer().getPowerUp().getSprite(), camera.position.x-camera.viewportWidth/2 + 50, camera.position.y-camera.viewportHeight/2 + 20);
+        	batch.draw(model.getPlayer().getPowerUp().getSprite(), camera.position.x-camera.viewportWidth/2 + 50, camera.position.y-camera.viewportHeight/2 + 20, model.getPlayer().getPowerUp().getSprite().getOriginX(), model.getPlayer().getPowerUp().getSprite().getOriginY(), model.getPlayer().getPowerUp().getSprite().getWidth(), model.getPlayer().getPowerUp().getSprite().getHeight(), 2, 2, model.getPlayer().getPowerUp().getSprite().getRotation());
 
         batch.end();
 
