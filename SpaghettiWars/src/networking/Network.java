@@ -26,6 +26,7 @@ public class Network {
 		kryo.register(FatSender.class);
 		kryo.register(ProjectileRemover.class);
 		kryo.register(PlayerKiller.class);
+		kryo.register(DietPillSender.class);
 	}
 	
 	public static class SimpleMessage{
@@ -92,5 +93,9 @@ public class Network {
 	
 	public static class PlayerKiller{
 		public int ID;
+	}
+	
+	public static class DietPillSender{
+		public int playerID;
 	}
 }

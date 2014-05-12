@@ -3,7 +3,8 @@ package entities;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class DietPill extends PowerUp {
-	private int fatPointsLost = 40;
+	private static final int fatPointsLost = 40;
+
 	
 	public DietPill(double x, double y, Sprite sprite){
 		super(x,y,sprite);
@@ -12,7 +13,7 @@ public class DietPill extends PowerUp {
 	@Override
 	public void applyEffects(Entity player) {
 		if(player.getClass() == Player.class){
-			Player p = (Player)player;
+			Player p= (Player)player;
 			if(p.getFatPoint() >= fatPointsLost)
 			p.looseWeight(fatPointsLost);
 			p.removePowerUpEffect(this);
@@ -30,5 +31,10 @@ public class DietPill extends PowerUp {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public static int getFatPointsLost(){
+		return fatPointsLost;
+	}
+	
 
 }

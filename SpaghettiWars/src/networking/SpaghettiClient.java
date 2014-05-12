@@ -7,6 +7,7 @@ import java.util.Observable;
 
 import utilities.Position;
 import utilities.Vector;
+import networking.Network.DietPillSender;
 import networking.Network.FatSender;
 import networking.Network.IDgiver;
 import networking.Network.PlayerKiller;
@@ -22,6 +23,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
+import entities.DietPill;
 import entities.Entity;
 import entities.Meatball;
 import entities.Pizza;
@@ -295,18 +297,19 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 			
 			if(p.getState() == ProjectileState.FLYING)
 				sendProjectile(p);
-		}
-		
-		if(arg instanceof Player){
+		}else if(arg instanceof Player){
 			Player player = (Player) arg;
 			killPlayer(player);
-		}
-		
-		if(arg instanceof String){
+		}else if(arg instanceof String){
 			String s = (String) arg;
 			
 			if(s == "dissconnect")
 				this.disconnect();
+		}else if(arg instanceof DietPill){
+			DietPillSender dps = new DietPillSender();
+			dps.playerID = model.getPlayer().getID();
+			client.sendUDP(dps);
 		}
+		
 	}
 }

@@ -1,5 +1,6 @@
 package networking;
 
+import entities.DietPill;
 import entities.Entity;
 import entities.Meatball;
 import entities.Pizza;
@@ -12,6 +13,7 @@ import gamecomponent.controllerparts.Controller;
 import gamecomponent.controllerparts.ControllerUtilServer;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -20,6 +22,7 @@ import java.util.Observable;
 import utilities.NameTexture;
 import utilities.Position;
 import utilities.Vector;
+import networking.Network.DietPillSender;
 import networking.Network.FatSender;
 import networking.Network.IDgiver;
 import networking.Network.ObstacleSender;
@@ -170,8 +173,17 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					model.getOtherPlayersMutex().unlock();
 					clientsConnected.remove(request.clientID);
 					polling.remove(request.clientID);
+				} else if(object instanceof DietPillSender){
+					DietPillSender dps = (DietPillSender)object;
+					Collection<Player> players = model.getOtherPlayers().values();
+					for(Player p: players){
+						if(p.getID() == dps.playerID){
+							p.looseWeight(DietPill.getFatPointsLost());
+						}
+					}
 				}
 			}
+			
 		});
 	}
 
