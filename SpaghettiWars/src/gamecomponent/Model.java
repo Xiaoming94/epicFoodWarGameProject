@@ -449,4 +449,11 @@ public class Model extends Observable{
 	public void setChanged(){
 		super.setChanged();
 	}
+
+    public double getWidth(){
+        return width;
+    }
+    public double getHeight(){
+        return height;
+    }
 }

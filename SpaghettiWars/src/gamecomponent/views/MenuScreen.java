@@ -86,6 +86,7 @@ public class MenuScreen implements IGameScreen {
 
 
 
+
         //textButton.add
         stage.addActor(joinGameButton);
 

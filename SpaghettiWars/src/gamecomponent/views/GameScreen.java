@@ -133,4 +133,12 @@ public class GameScreen implements IGameScreen{
         model.setViewSize(width, height);
 
     }
+
+    /**
+     * Temporary method used for the Pause Screen.
+     * @return
+     */
+    public Model getModel(){
+        return this.model;
+    }
 }
