@@ -2,17 +2,14 @@ package gamecomponent.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
+//import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import gamecomponent.Model;
@@ -23,7 +20,7 @@ public class PauseScreen extends GameScreen implements IGameScreen{
 
     private Stage stage;
 
-    private Table table;
+    private Window table;
 
     private SpriteBatch batch;
 
@@ -43,7 +40,14 @@ public class PauseScreen extends GameScreen implements IGameScreen{
         stage = new Stage();
         skin = new Skin();
 
-        table = new Table(skin);
+        Window.WindowStyle ws = new Window.WindowStyle();
+        ws.titleFont = new BitmapFont();
+        //ws.background = skin.newDrawable("white", Color.BLACK);
+
+
+        skin.add("default",ws);
+
+        table = new Window("Pause",skin);
 
         Pixmap pixmap = new Pixmap(100,100, Pixmap.Format.RGB888);
         pixmap.setColor(Color.GREEN);
@@ -60,7 +64,6 @@ public class PauseScreen extends GameScreen implements IGameScreen{
         textButtonStyle.down = skin.newDrawable("white", Color.DARK_GRAY);
         textButtonStyle.checked = skin.newDrawable("white", Color.BLUE);
         textButtonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
-
         textButtonStyle.font = skin.getFont("default");
 
         skin.add("default", textButtonStyle);
@@ -79,9 +82,14 @@ public class PauseScreen extends GameScreen implements IGameScreen{
             }
         });
 
+
+
         table.add(continueGameButton).row();
         table.setPosition((float) getModel().getWidth() / 2, (float) getModel().getHeight() / 2);
-        table.setSize(1200, 1500);
+
+        stage.getViewport().setCamera(this.getCamera());
+
+        table.setSize(1000, 1200);
         stage.addActor(table);
 
 
@@ -110,6 +118,9 @@ public class PauseScreen extends GameScreen implements IGameScreen{
 
     @Override
     public void resize(int width, int height) {
+
+        stage.getViewport().update(width,height,true);
+        super.resize(width,height);
 
     }
 }
