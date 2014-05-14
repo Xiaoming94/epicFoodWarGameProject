@@ -308,6 +308,8 @@ public class Model extends Observable{
 			this.notifyObservers(player.usePowerUp());
 			break;
 		case Keys.ESCAPE:
+			this.setChanged();
+			this.notifyObservers(new Integer(keyCode));
 			break;
 		default:
 			return;

@@ -3,12 +3,17 @@
  */
 package gamecomponent.views;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+
 import gamecomponent.Model;
 
-public class MainView implements ApplicationListener{
+public class MainView implements ApplicationListener, Observer{
 	Model model;
 	LwjglApplication app;
 
@@ -23,6 +28,7 @@ public class MainView implements ApplicationListener{
 		model = m;
 		model.setStartViewSize(cfg.width, cfg.height);
 		model.setViewSize(cfg.width, cfg.height);
+		model.addObserver(this);
 	}
 
 	@Override
@@ -77,7 +83,11 @@ public class MainView implements ApplicationListener{
 
 	}
 
-    public void setScreen(IGameScreen screen){
+    public IGameScreen getScreen() {
+		return screen;
+	}
+
+	public void setScreen(IGameScreen screen){
         if (this.screen != null) {
             this.killCurrentScreen();
         }
@@ -92,4 +102,14 @@ public class MainView implements ApplicationListener{
     public void startGame() {
         this.setScreen(new GameScreen(model));
     }
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		if(arg1 instanceof Integer)
+			if((int)arg1 == Keys.ESCAPE){
+				this.setScreen(new PauseScreen(this, model));
+			}
+			
+		
+	}
 }

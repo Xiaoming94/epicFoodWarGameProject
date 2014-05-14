@@ -120,7 +120,11 @@ public class GameScreen implements IGameScreen{
 
     }
 
-    @Override
+    public OrthographicCamera getCamera() {
+		return camera;
+	}
+
+	@Override
     public void kill() {
 
         //Do something important

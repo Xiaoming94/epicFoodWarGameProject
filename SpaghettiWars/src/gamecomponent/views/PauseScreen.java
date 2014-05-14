@@ -14,13 +14,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+
 import gamecomponent.Model;
 
-public class PauseScreen implements IGameScreen{
+public class PauseScreen extends GameScreen implements IGameScreen{
 
-    private GameScreen currentGameScreen;
-
-    private MainView parent;
+	private MainView parent;
 
     private Stage stage;
 
@@ -32,13 +31,13 @@ public class PauseScreen implements IGameScreen{
 
     //private Model model;
 
-    public PauseScreen(GameScreen currentGameScreen,MainView parent){
-        this.currentGameScreen = currentGameScreen;
+    public PauseScreen(MainView parent, Model model){
+    	super(model);
         this.parent = parent;
         create();
     }
 
-    private void create() {
+	private void create() {
 
         batch = new SpriteBatch();
         stage = new Stage();
@@ -81,7 +80,7 @@ public class PauseScreen implements IGameScreen{
         });
 
         table.add(continueGameButton).row();
-        table.setPosition((float) currentGameScreen.getModel().getWidth() / 2, (float) currentGameScreen.getModel().getHeight() / 2);
+        table.setPosition((float) getModel().getWidth() / 2, (float) getModel().getHeight() / 2);
         table.setSize(1200, 1500);
         stage.addActor(table);
 
@@ -91,17 +90,17 @@ public class PauseScreen implements IGameScreen{
     @Override
     public void render() {
 
-        currentGameScreen.render();
-        Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        super.render();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
+        table.setPosition(getCamera().position.x, getCamera().position.y);
+        Table.drawDebug(stage);
 
     }
 
     @Override
     public void setToCorrectInputProcessor() {
-
+    	Gdx.input.setInputProcessor(stage);
     }
 
     @Override
