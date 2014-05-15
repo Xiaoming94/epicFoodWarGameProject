@@ -154,9 +154,9 @@ public class Model extends Observable {
 		return player;
 	}
 
-	public Mutex getEntitiesMutex() {
-		return entitiesMutex;
-	}
+//	public Mutex getEntitiesMutex() {
+//		return entitiesMutex;
+//	}
 
 	public Mutex getStillEntitiesMutex() {
 		return stillEntitiesMutex;
@@ -209,6 +209,7 @@ public class Model extends Observable {
 	public void killProjectile(Entity e) {
 		int i = 0;
 		boolean found = false;
+		projectilesMutex.lock();
 		for (Entity ent : projectiles) {
 			if (ent.equals(e)) {
 				found = true;
@@ -216,6 +217,7 @@ public class Model extends Observable {
 			}
 			i++;
 		}
+		projectilesMutex.unlock();
 
 		if (found) {
 			getProjectilesMutex().lock();// ny
@@ -230,6 +232,7 @@ public class Model extends Observable {
 	public void removeProjectile(Entity e) {
 		int i = 0;
 		boolean found = false;
+		this.projectilesMutex.lock();
 		for (Entity ent : projectiles) {
 			if (ent.equals(e)) {
 				found = true;
@@ -237,6 +240,7 @@ public class Model extends Observable {
 			}
 			i++;
 		}
+		this.projectilesMutex.unlock();
 
 		if (found) {
 			// this.networkObject.killProjectile(projectiles.get(i));
@@ -392,9 +396,7 @@ public class Model extends Observable {
 					(startHeight / height) * (this.height / 2 - y)
 							+ this.player.getY()), pizzaSlicer);
 			if (p != null) {
-				this.getEntitiesMutex().lock();
 				this.addProjectile(p);
-				this.getEntitiesMutex().unlock();
 
 				// this.getNetworkObject().sendProjectile(p);
 				this.setChanged();

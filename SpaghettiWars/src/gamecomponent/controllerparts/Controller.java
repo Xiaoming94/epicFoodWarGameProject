@@ -77,7 +77,7 @@ public class Controller implements Runnable {
 
 
 
-			model.getEntitiesMutex().lock();
+			model.getProjectilesMutex().lock();
 			
 			// for loop checks projectiles, and what they have hit
 			for (Projectile e : model.getProjectiles()) {
@@ -94,7 +94,7 @@ public class Controller implements Runnable {
                 }
 			}
 
-			model.getEntitiesMutex().unlock();
+			model.getProjectilesMutex().unlock();
 
 			model.addTempProjectiles();
 			
@@ -121,10 +121,8 @@ public class Controller implements Runnable {
             this.utilobject.run();
 
 			//killing projectiles on deathlist
-			model.getEntitiesMutex().lock();
 			for (Entity e : killProjectileList)
 				model.killProjectile(e);
-			model.getEntitiesMutex().unlock();
 			//removing projectiles that have been eaten from projectile list
 			for (Entity e : eatProjectileList)
 				model.removeProjectile(e);
