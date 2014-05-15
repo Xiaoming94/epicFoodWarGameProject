@@ -170,7 +170,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 										model.getTextureHandler().getTextureByName("PizzaSlice" + (projectileSender.projectileTypeNumber -2) + ".png")),
 								projectileSender.ID / 1000000,
 								projectileSender.ID % 1000000, projectileSender.projectileTypeNumber);
-						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber -2));
+						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber-3));
 					}
 					model.getProjectilesMutex().unlock();
 					model.addProjectile(p);

@@ -105,6 +105,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				} else if (object instanceof ProjectileSender) {
 					ProjectileSender projectileSender = (ProjectileSender) object;
 
+					
 					Projectile p = null;
 					if (projectileSender.projectileTypeNumber == 2) {
 						p = new Pizza(projectileSender.xPos,
@@ -138,7 +139,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 										model.getTextureHandler().getTextureByName("PizzaSlice" + (projectileSender.projectileTypeNumber -2) + ".png")),
 								projectileSender.ID / 1000000,
 								projectileSender.ID % 1000000, projectileSender.projectileTypeNumber);
-						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber -2));
+						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber-3));
 					}
 					model.addProjectile(p);
 				} else if (object instanceof FatSender) {
