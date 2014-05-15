@@ -2,13 +2,24 @@ package utilities;
 
 import java.util.ArrayList;
 
+//singleton
 public class TextureHandler {
 
 	private ArrayList<NameTexture> textures;
+	private static TextureHandler textureHandler;
 
-	public TextureHandler() {
+	private TextureHandler() {
 		textures = new ArrayList<NameTexture>();
 
+	}
+	
+	public static TextureHandler getTextureHandler(){
+		if(textureHandler == null){
+			textureHandler = new TextureHandler();
+			//textureHandler.loadTextures();
+		}
+		
+		return textureHandler;
 	}
 
 	public void setTextureList(ArrayList<NameTexture> l) {
@@ -38,6 +49,7 @@ public class TextureHandler {
 		textures.add(new NameTexture("smallWall.png"));
 		textures.add(new NameTexture("dietpill.png"));
 		textures.add(new NameTexture("FatDeadPlayerSprite.png"));
+		textures.add(new NameTexture("escwindow.png"));
 		for (int i = 1; i < 9; i++) {
 			textures.add(new NameTexture("PizzaSlice" + i + ".png"));
 		}

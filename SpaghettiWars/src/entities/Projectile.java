@@ -61,6 +61,10 @@ public abstract class Projectile extends Entity{
         
 		return dead;
     }
+	
+	protected void movePlayerOutOfWalls(Player player, List<Obstacle> obstacles){
+		player.moveOutOfWalls(player, obstacles);
+	}
 
     public abstract void update(List<Obstacle> obstacles, Map<Integer, Player> playerlist, Player player);
 
