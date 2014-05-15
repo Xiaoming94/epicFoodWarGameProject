@@ -111,7 +111,7 @@ public class Controller implements Runnable {
 
             model.getPickUpsMutex().unlock();
 
-            purg.generateSpawningTime();
+           // purg.generateSpawningTime();
 
 
             for(Entity e : removePickUpsList){
@@ -177,6 +177,11 @@ public class Controller implements Runnable {
                 removePickUpsList.add(pu);
             }
         }
+    }
+    
+    //ny
+    public PowerUpRespawnGenerator getPowerUpRespawnGenerator(){
+    	return purg;
     }
 
 }

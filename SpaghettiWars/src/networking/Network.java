@@ -1,6 +1,8 @@
 package networking;
 
 
+import java.util.List;
+
 import utilities.Vector;
 
 import com.esotericsoftware.kryo.Kryo;
@@ -8,6 +10,7 @@ import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Server;
 
 import entities.Entity;
+import entities.PowerUp;
 
 public class Network {
 
@@ -27,6 +30,7 @@ public class Network {
 		kryo.register(ProjectileRemover.class);
 		kryo.register(PlayerKiller.class);
 		kryo.register(DietPillSender.class);
+		kryo.register(PowerUpSender.class); //NY
 	}
 	
 	public static class SimpleMessage{
@@ -97,5 +101,12 @@ public class Network {
 	
 	public static class DietPillSender{
 		public int playerID;
+	}
+	
+	//ny
+	public static class PowerUpSender{
+		public double x;
+		public double y;
+		public int powerupTypeNumber;
 	}
 }

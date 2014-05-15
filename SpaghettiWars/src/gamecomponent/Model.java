@@ -195,13 +195,16 @@ public class Model extends Observable {
 		PowerUp pu = new Energydrink(pos.getX(), pos.getY(), new Sprite(
 				textureHandler.getTextureByName("extremelyuglydrink.png")));
 		pickUps.add(pu);
-
+		setChanged();//ny
+		notifyObservers(pu);//ny
 	}
 
 	public void createDietPill(Position pos) {
 		PowerUp pu = new DietPill(pos.getX(), pos.getY(), new Sprite(
 				textureHandler.getTextureByName("dietpill.png")));
 		pickUps.add(pu);
+		setChanged();
+		notifyObservers(pu);
 	}
 
 	// Author: Jimmy - wtf function, please help it with its life
@@ -488,4 +491,5 @@ public class Model extends Observable {
 	public double getHeight() {
 		return height;
 	}
+	
 }

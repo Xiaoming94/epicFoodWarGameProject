@@ -76,6 +76,8 @@ public class ControllerUtilServer implements IControllerUtil {
 			parent.model.notifyObservers(model.getPlayer());
 			model.createPlayer(model.playerSpawnX, model.playerSpawnY);
 		}
+		
+		parent.getPowerUpRespawnGenerator().generateSpawningTime(); //ny
 	}
 
 	public void addModel(Model m){

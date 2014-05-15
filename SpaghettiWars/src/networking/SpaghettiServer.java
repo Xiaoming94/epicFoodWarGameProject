@@ -1,11 +1,13 @@
 package networking;
 
 import entities.DietPill;
+import entities.Energydrink;
 import entities.Entity;
 import entities.Meatball;
 import entities.Pizza;
 import entities.PizzaSlice;
 import entities.Player;
+import entities.PowerUp;
 import entities.Projectile;
 import entities.ProjectileState;
 import gamecomponent.GameMap;
@@ -29,6 +31,7 @@ import networking.Network.IDgiver;
 import networking.Network.ObstacleSender;
 import networking.Network.PlayerKiller;
 import networking.Network.PlayerSender;
+import networking.Network.PowerUpSender;
 import networking.Network.ProjectileRemover;
 import networking.Network.ProjectileSender;
 import networking.Network.RequestConnection;
@@ -102,6 +105,21 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					connection.sendUDP(msg);
 					msg.text = "Server: message received, response sent by UDP(attempt 2/2)";
 					connection.sendUDP(msg);
+					
+					for(int i = 0; i < model.getPickUps().size(); i++){
+						PowerUpSender pus = new PowerUpSender();
+						pus.x = model.getPickUps().get(i).getX();
+						pus.y = model.getPickUps().get(i).getY();
+						pus.powerupTypeNumber = -1;
+						if(model.getPickUps().get(i) instanceof Energydrink){
+							pus.powerupTypeNumber = 1;
+						}else if(model.getPickUps().get(i) instanceof DietPill){
+							pus.powerupTypeNumber = 2;
+						}
+						
+						
+						connection.sendUDP(pus);
+					}
 
 				} else if (object instanceof ObstacleSender) {
 
@@ -413,6 +431,24 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			clientsConnected.get(connectionIterator.next()).sendUDP(
 					playerKiller);
 	}
+	
+	public void sendPowerUp(PowerUp pu){
+		PowerUpSender pus = new PowerUpSender();
+		pus.x = pu.getX();
+		pus.y = pu.getY();
+
+		if(pu instanceof Energydrink){
+			pus.powerupTypeNumber = 1;
+		}else if(pu instanceof DietPill){
+			pus.powerupTypeNumber = 2;
+		}
+		
+		Iterator<Integer> connectionIterator = clientsConnected.keySet()
+				.iterator();
+		while (connectionIterator.hasNext()){
+			clientsConnected.get(connectionIterator.next()).sendUDP(pus);
+		}
+	}
 
 	@Override
 	public void update(Observable o, Object arg) {
@@ -432,6 +468,11 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			
 			if(s == "dissconnect")
 				this.disconnect();
+		}
+		
+		else if(arg instanceof PowerUp){
+			sendPowerUp((PowerUp)arg);
+			System.out.println("powerup sent");
 		}
 	}
 }

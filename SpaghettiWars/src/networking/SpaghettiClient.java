@@ -1,7 +1,9 @@
 package networking;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
@@ -12,6 +14,8 @@ import networking.Network.FatSender;
 import networking.Network.IDgiver;
 import networking.Network.PlayerKiller;
 import networking.Network.PlayerSender;
+import networking.Network.PowerUpSender;
+//import networking.Network.PowerUpSender;
 import networking.Network.ProjectileRemover;
 import networking.Network.ProjectileSender;
 import networking.Network.RequestConnection;
@@ -24,10 +28,12 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
 import entities.DietPill;
+import entities.Energydrink;
 import entities.Entity;
 import entities.Meatball;
 import entities.Pizza;
 import entities.Player;
+import entities.PowerUp;
 import entities.Projectile;
 import entities.ProjectileState;
 import entities.PizzaSlice;
@@ -201,7 +207,21 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 							model.getOtherPlayers().remove(i);
 						}
 					}
+				} else if(object instanceof PowerUpSender){
+					PowerUpSender pus = (PowerUpSender)object;
+					if(pus.powerupTypeNumber == 1){
+						
+						PowerUp pu = new Energydrink(pus.x, pus.y, new Sprite(
+								model.getTextureHandler().getTextureByName("extremelyuglydrink.png")));
+						model.getPickUps().add(pu);
+					}else if(pus.powerupTypeNumber == 2){
+						PowerUp pu = new DietPill(pus.x, pus.y, new Sprite(
+								model.getTextureHandler().getTextureByName("dietpill.png")));
+						model.getPickUps().add(pu);
+					}
+				
 				}
+
 			}
 		});
 
