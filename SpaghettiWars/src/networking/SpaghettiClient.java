@@ -164,6 +164,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					int i = 0;
 					boolean found = false;
 					ProjectileRemover pr = (ProjectileRemover) object;
+					model.getProjectilesMutex().lock();
 					for (Projectile p : model.getProjectiles()) {
 						if (p.getID() == pr.projectileID) {
 							found = true;
@@ -175,6 +176,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					if (found) {
 						model.getProjectiles().remove(i);
 					}
+					model.getProjectilesMutex().unlock();
 				} else if (object instanceof PlayerKiller) {
 					PlayerKiller pk = (PlayerKiller) object;
 

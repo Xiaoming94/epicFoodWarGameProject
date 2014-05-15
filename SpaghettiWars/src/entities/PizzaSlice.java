@@ -37,7 +37,7 @@ public class PizzaSlice extends Projectile{
 			Map<Integer, Player> playerlist, Player player) {
 		
 		if(super.update()){
-			setState(ProjectileState.STILL);
+			//setState(ProjectileState.STILL);
 		}
 		
 		for (Obstacle o : obstacles){
@@ -47,16 +47,16 @@ public class PizzaSlice extends Projectile{
             }
         }
 		
-		Iterator<Integer> iterator = playerlist.keySet().iterator();
-        Integer key;
-        while(iterator.hasNext()){
-        	key = iterator.next();
-            if (collidingWith(playerlist.get(key))){
-                this.kill();
-                playerlist.get(key).gainWeight(this.getDamage());
-                this.setState(ProjectileState.EATEN);
-            }
-        }
+//		Iterator<Integer> iterator = playerlist.keySet().iterator();
+//        Integer key;
+//        while(iterator.hasNext()){
+//        	key = iterator.next();
+//            if (collidingWith(playerlist.get(key))){
+//                this.kill();
+//                playerlist.get(key).gainWeight(this.getDamage());
+//                this.setState(ProjectileState.EATEN);
+//            }
+//        }
 	}
 	
 	private boolean collidingWith(Player p){
