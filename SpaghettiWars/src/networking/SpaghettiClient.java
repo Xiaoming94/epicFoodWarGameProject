@@ -113,7 +113,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								new Position(projectileSender.targetPosX,
 										projectileSender.targetPosY),
 								projectileSender.ID / 1000000,
-								projectileSender.ID % 1000000);
+								projectileSender.ID % 1000000, model.getPizzaSlicer());
 						p.setVector(new Position(projectileSender.targetPosX,
 								projectileSender.targetPosY));
 					} else {

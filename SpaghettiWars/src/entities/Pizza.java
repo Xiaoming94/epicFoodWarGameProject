@@ -2,6 +2,7 @@ package entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
+import utilities.PizzaSlicer;
 import utilities.Position;
 import utilities.Vector;
 
@@ -12,25 +13,27 @@ import java.util.Map;
 public class Pizza extends Projectile{
 	
 	private Position targetPos;
-
+	private PizzaSlicer pizzaSlicer;
+	
     private final double explosionRadius = 50;
 	
     
-	public Pizza(double x, double y, Vector v, Sprite sprite, Position targetPos){
+	public Pizza(double x, double y, Vector v, Sprite sprite, Position targetPos, PizzaSlicer pizzaSlicer){
 
         super(x, y, v, sprite, 5, targetPos.distanceTo(new Position(x,y)));
-        createPizza(x,y,targetPos);
+        createPizza(x,y,targetPos, pizzaSlicer);
 
     }
 	
-	public Pizza(double x, double y, Vector v, Sprite sprite, Position targetPos, int clientID, int objectID){
+	public Pizza(double x, double y, Vector v, Sprite sprite, Position targetPos, int clientID, int objectID, PizzaSlicer pizzaSlicer){
 		super(x,y,v,sprite, 5, targetPos.distanceTo(new Position(x,y)), clientID, objectID);
-		createPizza(x,y,targetPos);
+		createPizza(x,y,targetPos, pizzaSlicer);
 	}	
 	
-	private void createPizza(double x, double y, Position targetPos){
+	private void createPizza(double x, double y, Position targetPos, PizzaSlicer pizzaSlicer){
 		Position myPosition = new Position(x,y);
-
+		this.pizzaSlicer = pizzaSlicer;
+		
         double maxRange = 350;
         double distanceToMouse = targetPos.distanceTo(myPosition);
         double travelDistance;
@@ -62,7 +65,8 @@ public class Pizza extends Projectile{
     public void update(List<Obstacle> obstacles, Map<Integer, Player> playerlist, Player player) {
     	if(super.update()){
     		this.explode(playerlist, player);
-    		this.setState(ProjectileState.STILL);
+    		this.setState(ProjectileState.EATEN);
+    		pizzaSlicer.spawnPizzaSlices(this.getPosition());
     	}
     	
         for (Obstacle o : obstacles){
@@ -92,5 +96,6 @@ public class Pizza extends Projectile{
 	private boolean collidingWith(Obstacle o) {
         return this.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle()) && o.collides(this);
     }
+
 
 }

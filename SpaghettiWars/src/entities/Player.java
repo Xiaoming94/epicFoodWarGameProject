@@ -3,6 +3,8 @@ package entities;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Circle;
+
+import utilities.PizzaSlicer;
 import utilities.Position;
 import utilities.TextureHandler;
 import utilities.Vector;
@@ -141,11 +143,11 @@ public class Player extends Entity {
 		return (fatPoints + 100) / 100;
 	}
 	
-	public Projectile shoot(Position pos){
+	public Projectile shoot(Position pos, PizzaSlicer pizzaSlicer){
 
 		if(shootCooldown < 1){
 			if(selectedWeapon == "pizza"){
-				Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")), pos);
+				Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")), pos, pizzaSlicer);
 				p.setVector(pos);
 				shootCooldown = 50;
 				return p;

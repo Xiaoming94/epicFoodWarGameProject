@@ -7,6 +7,7 @@ import networking.SpaghettiClient;
 import networking.SpaghettiFace;
 import networking.SpaghettiServer;
 import sun.awt.Mutex;
+import utilities.PizzaSlicer;
 import utilities.Position;
 import utilities.TextureHandler;
 
@@ -35,6 +36,7 @@ public class Model extends Observable{
 	private final ArrayList<Entity> stillEntities;
 	private final Map<Integer, Player> otherPlayers;
     private final List<PowerUp> pickUps;
+    private final ArrayList<Projectile> temporaryProjectiles;
 
 	private Player player;
 	private Texture actionBar, actionBarSelection, powerUpBar;
@@ -45,6 +47,8 @@ public class Model extends Observable{
 	
 	private final Mutex projectilesMutex;
 	private final Mutex otherPlayersMutex;
+	
+	private final Mutex temporaryProjectilesMutex;
 
 	private TextureHandler textureHandler;
 
@@ -52,6 +56,8 @@ public class Model extends Observable{
 	private double startWidth, startHeight;
 
 	private int selectedWeapon = 0;
+	
+	private PizzaSlicer pizzaSlicer;
 	
 	//private SpaghettiFace networkObject;
 
@@ -72,16 +78,20 @@ public class Model extends Observable{
 		projectiles = new ArrayList<Projectile>();
 		otherPlayers = new HashMap<Integer, Player>();
         pickUps = new ArrayList<PowerUp>();
+        temporaryProjectiles = new ArrayList<Projectile>();
 		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
 		pickUpsMutex = new Mutex();
 
 		projectilesMutex = new Mutex();
 		otherPlayersMutex = new Mutex();
+		
+		temporaryProjectilesMutex = new Mutex();
 
 //		textures = new ArrayList<NameTexture>();
 		textureHandler = new TextureHandler();
-
+		
+		pizzaSlicer = new PizzaSlicer(this);
 	}
 	
 	//kind of temporary implementation
@@ -160,6 +170,10 @@ public class Model extends Observable{
 	
 	public Mutex getOtherPlayersMutex(){
 		return otherPlayersMutex;
+	}
+	
+	public PizzaSlicer getPizzaSlicer(){
+		return pizzaSlicer;
 	}
 
 	public void createPlayer(int x, int y){
@@ -370,7 +384,7 @@ public class Model extends Observable{
 
 	public void mouseButtonPressed(double x, double y, int mouseButton){
 		if (mouseButton == Buttons.LEFT){
-			Projectile p = player.shoot(new Position((startWidth/width)*(x-this.width/2)+this.player.getX(), (startHeight/height)*(this.height/2-y)+this.player.getY()));
+			Projectile p = player.shoot(new Position((startWidth/width)*(x-this.width/2)+this.player.getX(), (startHeight/height)*(this.height/2-y)+this.player.getY()), pizzaSlicer);
 			if(p != null){
 				this.getEntitiesMutex().lock();
 				this.addProjectile(p);
@@ -431,13 +445,20 @@ public class Model extends Observable{
 		getProjectilesMutex().unlock();//ny
 	}
 	
-//	public SpaghettiFace getNetworkObject(){
-//		return networkObject;
-//	}
-//	
-//	public void setNetworkObject(SpaghettiFace networkObject){
-//		this.networkObject = networkObject;
-//	}
+	public void addTempProjectiles(){
+		for(Projectile p : temporaryProjectiles){
+			addProjectile(p);
+			setChanged();
+			notifyObservers(p);
+		}
+		temporaryProjectiles.clear();
+	}
+	
+	public void addTempProjectile(Projectile p){
+		temporaryProjectilesMutex.lock();
+		temporaryProjectiles.add(p);
+		temporaryProjectilesMutex.unlock();
+	}
 
 	public void setGameActive(boolean b) {
 		this.gameActive = b;
