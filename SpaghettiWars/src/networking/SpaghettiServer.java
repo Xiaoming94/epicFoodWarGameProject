@@ -172,8 +172,8 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 								projectileSender.ID % 1000000, projectileSender.projectileTypeNumber);
 						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber -2));
 					}
-					model.addProjectile(p);
 					model.getProjectilesMutex().unlock();
+					model.addProjectile(p);
 					forwardClientObjectUDP(object, p.getID());
 				} else if (object instanceof RequestDisconnection) {
 					RequestDisconnection request = (RequestDisconnection) object;
