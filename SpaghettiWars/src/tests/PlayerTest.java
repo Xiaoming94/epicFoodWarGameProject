@@ -11,6 +11,7 @@ import networking.SpaghettiServer;
 import sun.awt.Mutex;
 import utilities.TextureHandler;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
@@ -42,7 +43,7 @@ import gamecomponent.Main;
 import gamecomponent.Model;
 import gamecomponent.views.MainView;
 
-public class PlayerTest {
+public class PlayerTest{
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

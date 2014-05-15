@@ -24,7 +24,6 @@ public class TextureHandler {
 	}
 	
 	public void loadTextures(){
-		
 		textures.add(new NameTexture("ful.png"));
 		textures.add(new NameTexture("dummylogo.png"));
 		textures.add(new NameTexture("Kottbulle.png"));
