@@ -17,7 +17,7 @@ public class PizzaSlicer {
 	
 	public void spawnPizzaSlices(Position pos){
 		for(int i = 0; i < 8; i++){
-			Projectile p = new PizzaSlice(pos.getX(), pos.getY(), new Vector(0,0), new Sprite(m.getTextureHandler().getTextureByName("PizzaSlice" + (i+1) + ".png")));
+			Projectile p = new PizzaSlice(pos.getX(), pos.getY(), new Vector(0,0), new Sprite(m.getTextureHandler().getTextureByName("PizzaSlice" + (i+1) + ".png")), i+1);
 			
 			p.getVector().setVectorByDegree(p.getSpeed(), 68-45*i);
 			m.addTempProjectile(p);

@@ -30,6 +30,7 @@ import entities.Pizza;
 import entities.Player;
 import entities.Projectile;
 import entities.ProjectileState;
+import entities.PizzaSlice;
 import gamecomponent.Model;
 import gamecomponent.controllerparts.Controller;
 import gamecomponent.controllerparts.ControllerUtilClient;
@@ -53,7 +54,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		Network.register(client);
 
 		model = mod;
-		
+
 		model.addObserver(this);
 
 		playerMap = otherPlayerMap;
@@ -78,7 +79,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					model.setGameActive(true);
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
-					
+
 					model.getOtherPlayersMutex().lock();
 					if (playerMap.containsKey(playerSender.ID)) {
 						((Player) playerMap.get(playerSender.ID))
@@ -104,7 +105,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				} else if (object instanceof ProjectileSender) {
 					ProjectileSender projectileSender = (ProjectileSender) object;
 
-					Projectile p;
+					Projectile p = null;
 					if (projectileSender.projectileTypeNumber == 2) {
 						p = new Pizza(projectileSender.xPos,
 								projectileSender.yPos, new Vector(0, 0),
@@ -113,10 +114,11 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								new Position(projectileSender.targetPosX,
 										projectileSender.targetPosY),
 								projectileSender.ID / 1000000,
-								projectileSender.ID % 1000000, model.getPizzaSlicer());
+								projectileSender.ID % 1000000, model
+										.getPizzaSlicer());
 						p.setVector(new Position(projectileSender.targetPosX,
 								projectileSender.targetPosY));
-					} else {
+					} else if (projectileSender.projectileTypeNumber == 1) {
 						p = new Meatball(projectileSender.xPos,
 								projectileSender.yPos, new Vector(
 										projectileSender.vectorDX,
@@ -128,6 +130,15 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								projectileSender.ID % 1000000);
 						// p.setVector(new Position(projectileSender.vectorDX,
 						// projectileSender.vectorDY));
+					} else if(projectileSender.projectileTypeNumber > 2 && projectileSender.projectileTypeNumber < 11){// 3-10 should be pizzaslices, fix dat shit yo
+						p = new PizzaSlice(projectileSender.xPos,
+								projectileSender.yPos, new Vector(
+										projectileSender.vectorDX,
+										projectileSender.vectorDY), new Sprite(
+										model.getTextureHandler().getTextureByName("PizzaSlice" + (projectileSender.projectileTypeNumber -2) + ".png")),
+								projectileSender.ID / 1000000,
+								projectileSender.ID % 1000000, projectileSender.projectileTypeNumber);
+						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber -2));
 					}
 					model.addProjectile(p);
 				} else if (object instanceof FatSender) {
@@ -147,41 +158,45 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 						playerMap.remove(request.playerID);
 						model.getOtherPlayersMutex().unlock();
 					}
-				}else if(object instanceof ProjectileRemover){
+				} else if (object instanceof ProjectileRemover) {
 					System.out.println("client receives eating message");
 					int i = 0;
 					boolean found = false;
 					ProjectileRemover pr = (ProjectileRemover) object;
-					for(Projectile p: model.getProjectiles()){
-						if(p.getID() == pr.projectileID){
+					for (Projectile p : model.getProjectiles()) {
+						if (p.getID() == pr.projectileID) {
 							found = true;
 							break;
 						}
 						i++;
-		
+
 					}
-					if(found){
+					if (found) {
 						model.getProjectiles().remove(i);
 					}
-				}else if(object instanceof PlayerKiller){
+				} else if (object instanceof PlayerKiller) {
 					PlayerKiller pk = (PlayerKiller) object;
-					
-					if(model.getPlayer().getID() == pk.ID){
+
+					if (model.getPlayer().getID() == pk.ID) {
 						model.getStillEntitys().add(model.getPlayer());
-						model.createPlayer(model.playerSpawnX, model.playerSpawnY);
+						model.createPlayer(model.playerSpawnX,
+								model.playerSpawnY);
 					}
-					
-					else{
+
+					else {
 						int i = 0;
 						boolean found = false;
-						Iterator<Integer> playersIterator = model.getOtherPlayers().keySet().iterator();
+						Iterator<Integer> playersIterator = model
+								.getOtherPlayers().keySet().iterator();
 						while (playersIterator.hasNext())
-							if(model.getOtherPlayers().get(playersIterator.next()).getID() == pk.ID){
+							if (model.getOtherPlayers()
+									.get(playersIterator.next()).getID() == pk.ID) {
 								found = true;
 								break;
 							}
-						if(found){
-							model.getStillEntitys().add(model.getOtherPlayers().get(i));
+						if (found) {
+							model.getStillEntitys().add(
+									model.getOtherPlayers().get(i));
 							model.getOtherPlayers().remove(i);
 						}
 					}
@@ -224,8 +239,10 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					.getX();
 			projectileSender.targetPosY = ((Pizza) p).getTargetPosition()
 					.getY();
-		} else {
+		} else if(p instanceof Meatball){
 			projectileSender.projectileTypeNumber = 1;
+		}else if(p instanceof PizzaSlice){
+			projectileSender.projectileTypeNumber = ((PizzaSlice) p).getTypeNumber();
 		}
 		client.sendUDP(projectileSender);
 	}
@@ -278,35 +295,35 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 	@Override
 	public void killProjectile(Projectile p) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void killPlayer(Player p) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg) {
-		if(arg instanceof Projectile){
+		if (arg instanceof Projectile) {
 			Projectile p = (Projectile) arg;
-			
-			if(p.getState() == ProjectileState.FLYING)
+
+			if (p.getState() == ProjectileState.FLYING)
 				sendProjectile(p);
-		}else if(arg instanceof Player){
+		} else if (arg instanceof Player) {
 			Player player = (Player) arg;
 			killPlayer(player);
-		}else if(arg instanceof String){
+		} else if (arg instanceof String) {
 			String s = (String) arg;
-			
-			if(s == "dissconnect")
+
+			if (s == "dissconnect")
 				this.disconnect();
-		}else if(arg instanceof DietPill){
+		} else if (arg instanceof DietPill) {
 			DietPillSender dps = new DietPillSender();
 			dps.playerID = model.getPlayer().getID();
 			client.sendUDP(dps);
 		}
-		
+
 	}
 }
