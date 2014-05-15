@@ -13,6 +13,7 @@ import utilities.TextureHandler;
 
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -91,7 +92,7 @@ public class Model extends Observable {
 		temporaryProjectilesMutex = new Mutex();
 
 		// textures = new ArrayList<NameTexture>();
-		textureHandler = new TextureHandler();
+		textureHandler = TextureHandler.getTextureHandler();
 
 		pizzaSlicer = new PizzaSlicer(this);
 	}
