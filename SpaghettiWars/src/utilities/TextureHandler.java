@@ -3,27 +3,27 @@ package utilities;
 import java.util.ArrayList;
 
 public class TextureHandler {
-	
+
 	private ArrayList<NameTexture> textures;
-	
-	public TextureHandler(){
+
+	public TextureHandler() {
 		textures = new ArrayList<NameTexture>();
-		
-		
+
 	}
-	
-	public void setTextureList(ArrayList<NameTexture> l){
+
+	public void setTextureList(ArrayList<NameTexture> l) {
 		textures = l;
 	}
-	
-	public NameTexture getTextureByName(String name){
-		for(NameTexture e : textures)
-			if(e.getName().equals(name))
+
+	public NameTexture getTextureByName(String name) {
+		for (NameTexture e : textures)
+			if (e.getName().equals(name))
 				return e;
 		return null;
 	}
-	
-	public void loadTextures(){
+
+
+	public void loadTextures() {
 		textures.add(new NameTexture("ful.png"));
 		textures.add(new NameTexture("dummylogo.png"));
 		textures.add(new NameTexture("Kottbulle.png"));
@@ -37,10 +37,11 @@ public class TextureHandler {
 		textures.add(new NameTexture("powerupholder.png"));
 		textures.add(new NameTexture("smallWall.png"));
 		textures.add(new NameTexture("dietpill.png"));
-        textures.add(new NameTexture("FatDeadPlayerSprite.png"));
-		
+		textures.add(new NameTexture("FatDeadPlayerSprite.png"));
+		for (int i = 1; i < 9; i++) {
+			textures.add(new NameTexture("PizzaSlice" + i + ".png"));
+		}
+
 	}
-	
-	
 
 }

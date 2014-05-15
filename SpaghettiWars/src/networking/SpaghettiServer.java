@@ -4,6 +4,7 @@ import entities.DietPill;
 import entities.Entity;
 import entities.Meatball;
 import entities.Pizza;
+import entities.PizzaSlice;
 import entities.Player;
 import entities.Projectile;
 import entities.ProjectileState;
@@ -138,7 +139,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 				} else if (object instanceof ProjectileSender) {
 					ProjectileSender projectileSender = (ProjectileSender) object;
 
-					Projectile p;
+					Projectile p = null;
 					model.getProjectilesMutex().lock();
 					if (projectileSender.projectileTypeNumber == 2) {
 						p = new Pizza(projectileSender.xPos,
@@ -148,10 +149,10 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 								new Position(projectileSender.targetPosX,
 										projectileSender.targetPosY),
 								projectileSender.ID / 1000000,
-								projectileSender.ID % 100000);
+								projectileSender.ID % 100000, model.getPizzaSlicer());
 						p.setVector(new Position(projectileSender.targetPosX,
 								projectileSender.targetPosY));
-					} else {
+					} else if(projectileSender.projectileTypeNumber == 1){
 						p = new Meatball(projectileSender.xPos,
 								projectileSender.yPos, new Vector(
 										projectileSender.vectorDX,
@@ -161,6 +162,15 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 														"Kottbulle.png")),
 								projectileSender.ID / 1000000,
 								projectileSender.ID % 100000);
+					} else if(projectileSender.projectileTypeNumber > 2 && projectileSender.projectileTypeNumber < 11){// 3-10 should be pizzaslices, fix dat shit yo
+						p = new PizzaSlice(projectileSender.xPos,
+								projectileSender.yPos, new Vector(
+										projectileSender.vectorDX,
+										projectileSender.vectorDY), new Sprite(
+										model.getTextureHandler().getTextureByName("PizzaSlice" + (projectileSender.projectileTypeNumber -2) + ".png")),
+								projectileSender.ID / 1000000,
+								projectileSender.ID % 1000000, projectileSender.projectileTypeNumber);
+						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber-3));
 					}
 					model.getProjectilesMutex().unlock();
 					model.addProjectile(p);
@@ -272,8 +282,10 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					.getX();
 			projectileSender.targetPosY = ((Pizza) p).getTargetPosition()
 					.getY();
-		} else {
+		} else if(p instanceof Meatball){
 			projectileSender.projectileTypeNumber = 1;
+		}else if(p instanceof PizzaSlice){
+			projectileSender.projectileTypeNumber = ((PizzaSlice) p).getTypeNumber();
 		}
 		Iterator<Integer> connectionIterator = clientsConnected.keySet()
 				.iterator();

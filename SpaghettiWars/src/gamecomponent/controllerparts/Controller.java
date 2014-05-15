@@ -96,6 +96,8 @@ public class Controller implements Runnable {
 
 			model.getEntitiesMutex().unlock();
 
+			model.addTempProjectiles();
+			
             model.getPickUpsMutex().lock();
 
             for (PowerUp o : model.getPickUps()){

@@ -106,7 +106,7 @@ public class MainView implements ApplicationListener, Observer{
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		if(arg1 instanceof Integer)
-			if((int)arg1 == Keys.ESCAPE){
+			if((Integer)arg1 == Keys.ESCAPE){
 				this.setScreen(new PauseScreen(this, model));
 			}
 			
