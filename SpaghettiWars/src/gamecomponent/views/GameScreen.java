@@ -113,7 +113,11 @@ public class GameScreen implements IGameScreen{
 
     }
 
-    @Override
+    public SpriteBatch getBatch() {
+		return batch;
+	}
+
+	@Override
     public void setToCorrectInputProcessor() {
 
         Gdx.input.setInputProcessor(gih);

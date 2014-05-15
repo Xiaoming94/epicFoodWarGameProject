@@ -16,8 +16,12 @@ import gamecomponent.Model;
 public class MainView implements ApplicationListener, Observer{
 	Model model;
 	LwjglApplication app;
+	
+	private GameScreen gameScreen;
+	private PauseScreen pauseScreen;
 
     private IGameScreen screen;
+    
 	public MainView(Model m){
 		
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
@@ -36,6 +40,9 @@ public class MainView implements ApplicationListener, Observer{
         createMenuScreen();
 		
 		model.getTextureHandler().loadTextures();
+		
+		pauseScreen = new PauseScreen(this, model);
+		gameScreen = new GameScreen(model);
 
 		//sleep to wait for player to be created by controller
 		try{
@@ -43,8 +50,6 @@ public class MainView implements ApplicationListener, Observer{
 		}catch(InterruptedException e){
 		    System.out.println("got interrupted!");
 		}
-		
-		//System.out.println("ENTERS CREATE IN VIEW");
 	}
 
     private void createMenuScreen() {
@@ -100,14 +105,14 @@ public class MainView implements ApplicationListener, Observer{
     }
 
     public void startGame() {
-        this.setScreen(new GameScreen(model));
+    	this.setScreen(gameScreen);
     }
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		if(arg1 instanceof Integer)
 			if((Integer)arg1 == Keys.ESCAPE){
-				this.setScreen(new PauseScreen(this, model));
+				this.setScreen(pauseScreen);
 			}
 			
 		

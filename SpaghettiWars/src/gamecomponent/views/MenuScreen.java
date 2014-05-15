@@ -28,7 +28,6 @@ public class MenuScreen implements IGameScreen {
 
     private Skin skin;
     private Stage stage;
-    private SpriteBatch batch;
 
     private MainView parent;
 
@@ -47,8 +46,6 @@ public class MenuScreen implements IGameScreen {
     }
 
     private void create() {
-
-        batch = new SpriteBatch();
         stage = new Stage();
 
         skin = new Skin();
@@ -72,8 +69,6 @@ public class MenuScreen implements IGameScreen {
         textButtonStyle.font = skin.getFont("default");
 
         skin.add("default", textButtonStyle);
-
-        Button button;
 
         Button.ButtonStyle buttonStyle = new Button.ButtonStyle();
         buttonStyle.up = skin.newDrawable("white", Color.DARK_GRAY);

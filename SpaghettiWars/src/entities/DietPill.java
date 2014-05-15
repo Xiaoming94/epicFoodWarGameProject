@@ -17,6 +17,8 @@ public class DietPill extends PowerUp {
 			Player p= (Player)player;
 			if(p.getFatPoint() >= fatPointsLost)
 				p.looseWeight(fatPointsLost);
+			else
+				p.setWeight(0);
 			p.removePowerUpEffect(this);
 		}
 	}

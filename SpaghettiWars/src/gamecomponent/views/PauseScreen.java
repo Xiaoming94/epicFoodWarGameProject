@@ -1,11 +1,14 @@
 package gamecomponent.views;
 
+import utilities.TextureHandler;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 //import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,11 +23,11 @@ public class PauseScreen extends GameScreen implements IGameScreen{
 
     private Stage stage;
 
-    private Window table;
-
-    private SpriteBatch batch;
-
     private Skin skin;
+    
+    private Sprite windowSprite;
+    
+    TextButton continueGameButton;
 
     //private Model model;
 
@@ -39,6 +42,8 @@ public class PauseScreen extends GameScreen implements IGameScreen{
         batch = new SpriteBatch();
         stage = new Stage();
         skin = new Skin();
+        
+        windowSprite = new Sprite(TextureHandler.getTextureHandler().getTextureByName("escwindow.png"));
 
         Window.WindowStyle ws = new Window.WindowStyle();
         ws.titleFont = new BitmapFont();
@@ -46,8 +51,6 @@ public class PauseScreen extends GameScreen implements IGameScreen{
 
 
         skin.add("default",ws);
-
-        table = new Window("Pause",skin);
 
         Pixmap pixmap = new Pixmap(100,100, Pixmap.Format.RGB888);
         pixmap.setColor(Color.GREEN);
@@ -74,7 +77,7 @@ public class PauseScreen extends GameScreen implements IGameScreen{
         buttonStyle.checked = skin.newDrawable("white", Color.BLUE);
         buttonStyle.over = skin.newDrawable("white", Color.LIGHT_GRAY);
 
-        TextButton continueGameButton = new TextButton("Continue",textButtonStyle);
+        continueGameButton = new TextButton("Continue",textButtonStyle);
         continueGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -84,13 +87,7 @@ public class PauseScreen extends GameScreen implements IGameScreen{
 
 
 
-        table.add(continueGameButton).row();
-        table.setPosition((float) getModel().getWidth() / 2, (float) getModel().getHeight() / 2);
-
-        stage.getViewport().setCamera(this.getCamera());
-
-        table.setSize(1000, 1200);
-        stage.addActor(table);
+        stage.addActor(continueGameButton);
 
 
     }
@@ -99,10 +96,14 @@ public class PauseScreen extends GameScreen implements IGameScreen{
     public void render() {
 
         super.render();
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+        
+        super.getBatch().begin();
+        super.getBatch().draw(windowSprite, getCamera().position.x-windowSprite.getWidth()/2, getCamera().position.y-windowSprite.getHeight()/2);
+        super.getBatch().end();
+        
+        this.continueGameButton.setPosition((float)super.getModel().getWidth()/2, (float)super.getModel().getHeight()/2);
+        
         stage.draw();
-        table.setPosition(getCamera().position.x, getCamera().position.y);
-        Table.drawDebug(stage);
 
     }
 
