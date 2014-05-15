@@ -44,6 +44,11 @@ public abstract class Entity {
 		this.sprite.setY((float)position.getY()-this.sprite.getHeight()/2);
 	}
 	
+	public void updateSpritePos(){
+		this.sprite.setX((float)position.getX()-this.sprite.getWidth()/2);
+		this.sprite.setY((float)position.getY()-this.sprite.getHeight()/2);
+	}
+	
 	
 	public Position getPosition() {
 		return position;

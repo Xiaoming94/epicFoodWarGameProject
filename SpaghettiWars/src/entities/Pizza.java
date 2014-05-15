@@ -64,7 +64,7 @@ public class Pizza extends Projectile{
     @Override
     public void update(List<Obstacle> obstacles, Map<Integer, Player> playerlist, Player player) {
     	if(super.update()){
-    		this.explode(playerlist, player);
+    		this.explode(obstacles, playerlist, player);
     		this.setState(ProjectileState.EATEN);
     		pizzaSlicer.spawnPizzaSlices(this.getPosition());
     	}
@@ -72,15 +72,16 @@ public class Pizza extends Projectile{
         for (Obstacle o : obstacles){
             if (collidingWith(o)){
                 this.kill();
-                this.explode(playerlist, player);
+                this.explode(obstacles, playerlist, player);
                 this.setState(ProjectileState.STILL);
             }
         }
     }
 
-    private void explode(Map<Integer, Player> playerlist, Player player) {
+    private void explode(List<Obstacle> obstacles, Map<Integer, Player> playerlist, Player player) {
     	if (player.overlaps(this)) {
 			player.gainWeight(this.getDamage());
+			player.moveOutOfWalls(player, obstacles);
 		}
 		
 		Collection<Player> otherPlayers = playerlist.values();
@@ -88,6 +89,7 @@ public class Pizza extends Projectile{
 		for (Player p : otherPlayers) {
 			if (p.overlaps(this)) {
 				p.gainWeight(this.getDamage());
+				p.moveOutOfWalls(player, obstacles);
 			}
 		}
 		
