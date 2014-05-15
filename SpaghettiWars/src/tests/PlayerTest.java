@@ -11,8 +11,10 @@ import networking.SpaghettiServer;
 import sun.awt.Mutex;
 import utilities.TextureHandler;
 
+import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -42,7 +44,7 @@ import gamecomponent.Main;
 import gamecomponent.Model;
 import gamecomponent.views.MainView;
 
-public class PlayerTest {
+public class PlayerTest{
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -108,10 +110,10 @@ public class PlayerTest {
 
 	@Test
 	public void testSetWeight() {
-		//this doesn't work because i can't load textures
-		TextureHandler txt = new TextureHandler();
-		txt.loadTextures();
-		Sprite sprite = new Sprite(txt.getTextureByName("ful.png"));
+		
+		byte derp[] = {};
+		Texture t = new Texture(new Pixmap(derp, 0, 0));
+		Sprite sprite = new Sprite(t);
 		Player player = new Player("Fat Bastard", 5, 5, sprite,3);
 		player.setWeight(10);
 		assertTrue(player.getFatPoint() == 10);
