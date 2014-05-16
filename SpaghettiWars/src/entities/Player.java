@@ -332,8 +332,11 @@ public class Player extends Entity {
 				}
 
 		
-			if(!left && !right && !bottom && !top)
-				break;
+//			if(!left && !right && !bottom && !top){ //original
+			if(!left && !right && !bottom && !top && !topLeft && !topRight && !bottomLeft && !bottomRight){
+				System.out.println("break");
+				break; //original
+			}
 			
 			System.out.println("Before vector modification:");
 			System.out.println("x: " + player.getPosition().getX());
@@ -341,49 +344,50 @@ public class Player extends Entity {
 			System.out.println("After vector modification:");
 			System.out.println("x: " + player.getPosition().getX());
 			System.out.println("y: " + player.getPosition().getY());
-			
-			
-			//IN corner move
-//			if(left && top){
-//				player.getPosition().setX(player.getPosition().getX()+1);
-//				player.getPosition().setY(player.getPosition().getY()-1);
-//			}
-//			if(left && bottom){
-//				player.getPosition().setX(player.getPosition().getX()+1);
-//				player.getPosition().setY(player.getPosition().getY()+1);
-//			}
-//			if(right && top){
-//				player.getPosition().setX(player.getPosition().getX()-1);
-//				player.getPosition().setY(player.getPosition().getY()-1);
-//			}
-//			if(right && bottom){
-//				player.getPosition().setX(player.getPosition().getX()-1);
-//				player.getPosition().setY(player.getPosition().getY()+1);
-//			}
-			
-//			//corner edge move
-//			if(bottomLeft && !left && !bottom){
-//				player.getPosition().setX(player.getPosition().getX()+1);
-//				player.getPosition().setY(player.getPosition().getY()+1);
-//			}
-		
-
-
-			
+					
 			//original solution
-			if(left && !right)
-				player.getPosition().setX(player.getPosition().getX()+1);
-			else if(!left && right)
-				player.getPosition().setX(player.getPosition().getX()-1);	
-			if(top && !bottom)
-				player.getPosition().setY(player.getPosition().getY()-1);
-			else if(!top && bottom)
-				player.getPosition().setY(player.getPosition().getY()+1);
+//			if(left && !right)
+//				player.getPosition().setX(player.getPosition().getX()+1);
+//			else if(!left && right)
+//				player.getPosition().setX(player.getPosition().getX()-1);	
+//			if(top && !bottom)
+//				player.getPosition().setY(player.getPosition().getY()-1);
+//			else if(!top && bottom)
+//				player.getPosition().setY(player.getPosition().getY()+1);
 			
-
+			
+			if(left || right || top || bottom){
+				if(left && !right)
+					player.getPosition().setX(player.getPosition().getX()+1);
+				else if(!left && right)
+					player.getPosition().setX(player.getPosition().getX()-1);	
+				if(top && !bottom)
+					player.getPosition().setY(player.getPosition().getY()-1);
+				else if(!top && bottom)
+					player.getPosition().setY(player.getPosition().getY()+1);
+			}else{
+				if(bottomLeft && !topRight){
+					player.getPosition().setX(player.getPosition().getX() + 1);
+					player.getPosition().setY(player.getPosition().getY() + 1);
+				}else if(topRight && !bottomLeft){
+					player.getPosition().setX(player.getPosition().getX() - 1);
+					player.getPosition().setY(player.getPosition().getY() - 1);
+				}else if(bottomRight && !topLeft){
+					player.getPosition().setX(player.getPosition().getX() - 1);
+					player.getPosition().setY(player.getPosition().getY() + 1);
+				}else if(topLeft && !bottomRight){
+					player.getPosition().setX(player.getPosition().getX() + 1);
+					player.getPosition().setY(player.getPosition().getY() - 1);
+				}
+			}
+			System.out.println("topLeft: " + topLeft);
+			System.out.println("topRight: " + topRight);
+			System.out.println("bottomRight: " + bottomRight);
+			System.out.println("bottomLeft: " + bottomLeft);
 			
 			player.updateSpritePos();
 			System.out.println("" + top + bottom + left + right);
+			
 			
 			System.out.println("After vector modification:");
 			System.out.println("x: " + player.getPosition().getX());
