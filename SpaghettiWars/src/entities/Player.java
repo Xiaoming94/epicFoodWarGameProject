@@ -272,11 +272,6 @@ public class Player extends Entity {
 //						top = true;
 //				}
 			
-
-			//alterative solution checking middle points works fine for
-			//when the player stands in a corner, but doesn't work
-			//when the player stands at a corner edge, for example by a table
-			//fixing needed
 			
 			//presumes sprite pos in middle
 			//coordinates for sides
@@ -334,17 +329,21 @@ public class Player extends Entity {
 		
 //			if(!left && !right && !bottom && !top){ //original
 			if(!left && !right && !bottom && !top && !topLeft && !topRight && !bottomLeft && !bottomRight){
-				System.out.println("break");
+				//System.out.println("break");
 				break; //original
 			}
 			
-			System.out.println("Before vector modification:");
-			System.out.println("x: " + player.getPosition().getX());
-			System.out.println("y: " + player.getPosition().getY());
-			System.out.println("After vector modification:");
-			System.out.println("x: " + player.getPosition().getX());
-			System.out.println("y: " + player.getPosition().getY());
+			//debug
+//			System.out.println("Before vector modification:");
+//			System.out.println("x: " + player.getPosition().getX());
+//			System.out.println("y: " + player.getPosition().getY());
+//			System.out.println("After vector modification:");
+//			System.out.println("x: " + player.getPosition().getX());
+//			System.out.println("y: " + player.getPosition().getY());
 					
+			
+			
+			
 			//original solution
 //			if(left && !right)
 //				player.getPosition().setX(player.getPosition().getX()+1);
@@ -380,18 +379,20 @@ public class Player extends Entity {
 					player.getPosition().setY(player.getPosition().getY() - 1);
 				}
 			}
-			System.out.println("topLeft: " + topLeft);
-			System.out.println("topRight: " + topRight);
-			System.out.println("bottomRight: " + bottomRight);
-			System.out.println("bottomLeft: " + bottomLeft);
+			
+//			//debug
+//			System.out.println("topLeft: " + topLeft);
+//			System.out.println("topRight: " + topRight);
+//			System.out.println("bottomRight: " + bottomRight);
+//			System.out.println("bottomLeft: " + bottomLeft);
 			
 			player.updateSpritePos();
-			System.out.println("" + top + bottom + left + right);
+			//System.out.println("" + top + bottom + left + right);
 			
-			
-			System.out.println("After vector modification:");
-			System.out.println("x: " + player.getPosition().getX());
-			System.out.println("y: " + player.getPosition().getY());
+//			//debug
+//			System.out.println("After vector modification:");
+//			System.out.println("x: " + player.getPosition().getX());
+//			System.out.println("y: " + player.getPosition().getY());
 		}
 		
 	}
