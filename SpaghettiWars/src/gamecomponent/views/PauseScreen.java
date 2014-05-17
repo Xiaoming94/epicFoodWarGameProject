@@ -57,7 +57,6 @@ public class PauseScreen extends GameScreen implements IGameScreen{
         Pixmap pixmap = new Pixmap(100,100, Pixmap.Format.RGB888);
         pixmap.setColor(Color.GREEN);
         pixmap.fill();
-        stage.getViewport().update((int)super.getModel().getWidth(),(int)super.getModel().getHeight(),true);
 
         skin.add("white", new Texture(pixmap));
 
@@ -83,11 +82,12 @@ public class PauseScreen extends GameScreen implements IGameScreen{
         //Creating Continue game button
 
         continueGameButton = new TextButton("Continue",textButtonStyle);
-        continueGameButton.setPosition(150,200);
+        //continueGameButton.setPosition(150,200);
         continueGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 parent.startGame();
+                System.out.println("StartGame");
             }
         });
 
@@ -97,11 +97,12 @@ public class PauseScreen extends GameScreen implements IGameScreen{
 
         //Creating Disconnect game button
 
-        disconnectGameButton = new TextButton("Disconnect", textButtonStyle);
+       disconnectGameButton = new TextButton("Disconnect", textButtonStyle);
         disconnectGameButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 //Disconnect Game
+                System.out.println ("Game Disconnected");
             }
         });
 
@@ -119,10 +120,12 @@ public class PauseScreen extends GameScreen implements IGameScreen{
         super.getBatch().draw(windowSprite, getCamera().position.x - windowSprite.getWidth() / 2, getCamera().position.y - windowSprite.getHeight() / 2);
         super.getBatch().end();
         
-        this.continueGameButton.setPosition((float)super.getModel().getWidth()/2, (float)super.getModel().getHeight()/2);
-        this.disconnectGameButton.setPosition((float)(super.getModel().getWidth()/2) + 20, (float)(super.getModel().getHeight()/2)+20);
+        this.continueGameButton.setPosition(stage.getViewport().getViewportWidth()/2,stage.getViewport().getViewportHeight()/2);
+        this.disconnectGameButton.setPosition(stage.getViewport().getViewportWidth()/2 + 40,stage.getViewport().getViewportHeight()/2 + 40);
 
         stage.draw();
+
+        Table.drawDebug(stage);
 
     }
 
