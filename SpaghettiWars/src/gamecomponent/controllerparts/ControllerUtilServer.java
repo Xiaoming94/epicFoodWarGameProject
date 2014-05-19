@@ -82,7 +82,9 @@ public class ControllerUtilServer implements IControllerUtil {
 
 		// kill self and respawn if dead
 		if (model.getPlayer().isDead()) {
+			model.getStillEntitiesMutex().lock();
 			model.getStillEntitys().add(model.getPlayer());
+			model.getStillEntitiesMutex().unlock();
 			parent.model.setChanged();
 			parent.model.notifyObservers(model.getPlayer());
 			model.createPlayer(model.playerSpawnX, model.playerSpawnY);

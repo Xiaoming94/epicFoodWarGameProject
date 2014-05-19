@@ -84,7 +84,6 @@ public class GameScreen implements IGameScreen{
 
         parent.getModel().getStillEntitiesMutex().lock();
         for(Entity e : parent.getModel().getStillEntitys()){
-            //changed this to make dead player still be fat
             getBatch().draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY(), e.getSprite().getOriginX(), e.getSprite().getOriginY(), e.getSprite().getWidth(), e.getSprite().getHeight(), 1, 1, e.getSprite().getRotation());
         }
         parent.getModel().getStillEntitiesMutex().unlock();
