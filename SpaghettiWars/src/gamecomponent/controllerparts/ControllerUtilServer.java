@@ -83,15 +83,13 @@ public class ControllerUtilServer implements IControllerUtil {
 
 		// kill self and respawn if dead
 		if (model.getPlayer().isDead()) {
-			System.out.println("player is dead");
 			model.getStillEntitys().add(model.getPlayer());
-			// model.getNetworkObject().killPlayer(model.getPlayer());
 			parent.model.setChanged();
 			parent.model.notifyObservers(model.getPlayer());
 			model.createPlayer(model.playerSpawnX, model.playerSpawnY);
 		}
 		
-		parent.getPowerUpRespawnGenerator().generateSpawningTime(); //ny
+		parent.getPowerUpRespawnGenerator().generateSpawningTime();
 	}
 
 	public void addModel(Model m) {

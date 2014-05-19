@@ -148,12 +148,12 @@ public class Player extends Entity {
 			if(selectedWeapon == "pizza"){
 				Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")), pos, pizzaSlicer);
 				p.setVector(pos);
-				shootCooldown = 50;
+				shootCooldown = p.getCooldown();
 				return p;
 			}else{
 				Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
 				mb.setVector(pos);
-				shootCooldown = 25;
+				shootCooldown = mb.getCooldown();
 				return mb;
 			}
 		}
@@ -260,23 +260,23 @@ public class Player extends Entity {
 			//presumes sprite pos in middle
 			//coordinates for sides
 			float topX = (float)(player.getX());
-			float topY = (float)(player.getY() + player.getSprite().getHeight()/2);
-			float rightX = (float)(player.getX() + player.getSprite().getWidth());
+			float topY = (float)(player.getY() + player.getSprite().getHeight()/2 + 1);
+			float rightX = (float)(player.getX() + player.getSprite().getWidth() + 1);
 			float rightY = (float)(player.getY());
 			float bottomX = (float)(player.getX());
-			float bottomY = (float) (player.getY() - player.getSprite().getHeight()/2);
-			float leftX = (float)(player.getX() - player.getSprite().getWidth()/2);
+			float bottomY = (float) (player.getY() - player.getSprite().getHeight()/2 - 1);
+			float leftX = (float)(player.getX() - player.getSprite().getWidth()/2 - 1);
 			float leftY = (float) (player.getY());
 			
 			//coordinates for corners
-			float topLeftCornerX = (float)(player.getX() - player.getSprite().getWidth()/2);
-			float topLeftCornerY = (float)(player.getY() + player.getSprite().getHeight()/2);
-			float topRightCornerX = (float)(player.getX() + player.getSprite().getWidth()/2);
-			float topRightCornerY = (float)(player.getY() + player.getSprite().getHeight()/2);
-			float bottomRightCornerX = (float)(player.getX() + player.getSprite().getWidth()/2);
-			float bottomRightCornerY = (float)(player.getY() - player.getSprite().getHeight()/2);
-			float bottomLeftCornerX = (float)(player.getX() - player.getSprite().getWidth()/2);
-			float bottomLeftCornerY = (float)(player.getY() - player.getSprite().getHeight()/2);
+			float topLeftCornerX = (float)(player.getX() - player.getSprite().getWidth()/2 - 1);
+			float topLeftCornerY = (float)(player.getY() + player.getSprite().getHeight()/2 + 1);
+			float topRightCornerX = (float)(player.getX() + player.getSprite().getWidth()/2 + 1);
+			float topRightCornerY = (float)(player.getY() + player.getSprite().getHeight()/2 + 1);
+			float bottomRightCornerX = (float)(player.getX() + player.getSprite().getWidth()/2 + 1);
+			float bottomRightCornerY = (float)(player.getY() - player.getSprite().getHeight()/2 - 1);
+			float bottomLeftCornerX = (float)(player.getX() - player.getSprite().getWidth()/2 - 1);
+			float bottomLeftCornerY = (float)(player.getY() - player.getSprite().getHeight()/2 - 1);
 			
 			for (Entity o : obstacles)
 				if (player.stationaryOverlaps(o.getSprite().getBoundingRectangle())) {

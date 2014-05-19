@@ -50,6 +50,7 @@ public class PizzaSlice extends Projectile{
 		if(collidingWith(player)){
 			this.kill();
 			player.gainWeight(this.getDamage());
+			player.moveOutOfWalls(player, obstacles);
 			this.setState(ProjectileState.EATEN);
 		}
 		
