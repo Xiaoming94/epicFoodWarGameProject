@@ -19,7 +19,7 @@ public class MainView implements ApplicationListener, Observer{
 	
 	private GameScreen gameScreen;
 	private PauseScreen pauseScreen;
-
+	
     private IGameScreen screen;
     
 	public MainView(Model m){
@@ -53,7 +53,7 @@ public class MainView implements ApplicationListener, Observer{
 	}
 
     private void createMenuScreen() {
-        this.screen = new MenuScreen(model, this);
+        this.screen = new MenuScreen(model,this);
         screen.setToCorrectInputProcessor();
     }
 
@@ -114,7 +114,13 @@ public class MainView implements ApplicationListener, Observer{
 			if((Integer)arg1 == Keys.ESCAPE){
 				this.setScreen(pauseScreen);
 			}
-			
-		
+	}
+	
+	public void disconnect(){
+		setScreen(menuScreen);
+	}
+	
+	protected Model getModel(){
+		return model;
 	}
 }

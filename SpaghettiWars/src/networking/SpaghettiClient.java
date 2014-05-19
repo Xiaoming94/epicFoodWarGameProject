@@ -340,7 +340,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		} else if (arg instanceof String) {
 			String s = (String) arg;
 
-			if (s == "dissconnect")
+			if (s == "disconnect")
 				this.disconnect();
 		} else if (arg instanceof DietPill) {
 			DietPillSender dps = new DietPillSender();

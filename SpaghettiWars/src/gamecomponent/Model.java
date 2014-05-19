@@ -495,4 +495,9 @@ public class Model extends Observable {
 		return height;
 	}
 	
+	public void disconnect(){
+		setChanged();
+		notifyObservers("disconnect");
+	}
+	
 }
