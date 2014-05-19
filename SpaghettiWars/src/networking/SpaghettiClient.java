@@ -188,7 +188,9 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 
 					if (model.getPlayer().getID() == pk.ID) {
 						model.getPlayer().kill();
+						model.getStillEntitiesMutex().lock();
 						model.getStillEntitys().add(model.getPlayer());
+						model.getStillEntitiesMutex().unlock();
 						model.createPlayer(model.playerSpawnX,
 								model.playerSpawnY);
 					}
