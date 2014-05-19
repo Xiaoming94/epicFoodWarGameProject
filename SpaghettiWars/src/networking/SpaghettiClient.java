@@ -186,6 +186,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					PlayerKiller pk = (PlayerKiller) object;
 
 					if (model.getPlayer().getID() == pk.ID) {
+						model.getPlayer().kill();
 						model.getStillEntitys().add(model.getPlayer());
 						model.createPlayer(model.playerSpawnX,
 								model.playerSpawnY);
@@ -199,6 +200,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 						while (playersIterator.hasNext())
 							if (model.getOtherPlayers()
 									.get(playersIterator.next()).getID() == pk.ID) {
+								model.getOtherPlayers().get(i).kill();
 								found = true;
 								break;
 							}
