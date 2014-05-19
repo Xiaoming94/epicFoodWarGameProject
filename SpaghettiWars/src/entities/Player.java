@@ -57,7 +57,6 @@ public class Player extends Entity {
 		speedMod = 0;
 		fatPoints = 0;
 		isDead = false;
-		System.out.println("creating player");
 	}
 	
 	public String getName(){
