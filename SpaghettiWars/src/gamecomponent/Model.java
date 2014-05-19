@@ -55,6 +55,8 @@ public class Model extends Observable {
 	private int selectedWeapon = 0;
 
 	private PizzaSlicer pizzaSlicer;
+	
+	private boolean isControllerRunning;
 
 	// private SpaghettiFace networkObject;
 
@@ -69,7 +71,6 @@ public class Model extends Observable {
 	 * initiates the components of the Model
 	 */
 	public Model() {
-
 		entities = new ArrayList<Entity>();
 		stillEntities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
@@ -83,6 +84,8 @@ public class Model extends Observable {
 		otherPlayersMutex = new Mutex();
 
 		temporaryProjectilesMutex = new Mutex();
+		
+		isControllerRunning = true;
 
 		// textures = new ArrayList<NameTexture>();
 		textureHandler = TextureHandler.getTextureHandler();
@@ -493,6 +496,14 @@ public class Model extends Observable {
 	public void disconnect(){
 		setChanged();
 		notifyObservers("disconnect");
+	}
+	
+	public void setControllerRunning(boolean isRunning){
+		isControllerRunning = isRunning;
+	}
+	
+	public boolean isControllerRunning(){
+		return isControllerRunning;
 	}
 	
 }

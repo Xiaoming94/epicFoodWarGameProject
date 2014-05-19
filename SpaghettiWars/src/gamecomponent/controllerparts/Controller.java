@@ -8,8 +8,8 @@ import utilities.PowerUpRespawnGenerator;
 
 public class Controller implements Runnable {
 
-	Model model;
-	IControllerUtil utilobject;
+	protected Model model;
+	protected IControllerUtil utilobject;
 
     private final PowerUpRespawnGenerator purg;
 	private ArrayList<Entity> killProjectileList = new ArrayList<Entity>();
@@ -29,6 +29,7 @@ public class Controller implements Runnable {
 	public Controller(Model m, IControllerUtil uo) {
 		model = m;
 		utilobject = uo;
+		
 
         purg = new PowerUpRespawnGenerator(model);
 		
@@ -45,7 +46,7 @@ public class Controller implements Runnable {
 
 		
 		long time;
-		while (true) {
+		while (model.isControllerRunning()) {
 
 			// measure starttime for loop
 			time = System.currentTimeMillis();
