@@ -145,13 +145,22 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 								playerSender.vectorDX, playerSender.vectorDY);
 						((Player) playerMap.get(playerSender.ID))
 								.setRotation(playerSender.rotation);
-					} else {
-						// playerMap.add()
-						playerMap.put(playerSender.ID, new Player("sir derp",
-								playerSender.xPos, playerSender.yPos,
-								(new Sprite(model.getTextureHandler()
-										.getTextureByName("ful.png"))),
-								playerSender.speed, playerSender.ID/1000000, playerSender.ID%1000000));
+					} else{
+						boolean isDead = false;
+						
+						model.getStillEntitiesMutex().lock();
+						for(Entity e : model.getStillEntitys())
+							if(e.getID() == playerSender.ID)
+								isDead = true;
+						model.getStillEntitiesMutex().unlock();
+						
+						if(!isDead){
+							playerMap.put(playerSender.ID, new Player("sir derp",
+									playerSender.xPos, playerSender.yPos,
+									(new Sprite(model.getTextureHandler()
+											.getTextureByName("ful.png"))),
+									playerSender.speed, playerSender.ID/1000000, playerSender.ID%1000000));
+						}
 					}
 					model.getOtherPlayersMutex().unlock();
 				} else if (object instanceof ProjectileSender) {
