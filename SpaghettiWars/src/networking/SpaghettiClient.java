@@ -182,6 +182,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 						model.getProjectiles().remove(i);
 					}
 					model.getProjectilesMutex().unlock();
+					
 				} else if (object instanceof PlayerKiller) {
 					PlayerKiller pk = (PlayerKiller) object;
 
@@ -195,6 +196,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					else {
 						int i = 0;
 						boolean found = false;
+						model.getOtherPlayersMutex().lock();
 						Iterator<Integer> playersIterator = model
 								.getOtherPlayers().keySet().iterator();
 						while (playersIterator.hasNext())
@@ -204,10 +206,15 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								found = true;
 								break;
 							}
+						model.getOtherPlayersMutex().unlock();
 						if (found) {
-							model.getStillEntitys().add(
-									model.getOtherPlayers().get(i));
+							model.getStillEntitiesMutex().lock();
+							model.getStillEntitys().add(model.getOtherPlayers().get(i));
+							model.getStillEntitiesMutex().unlock();
+							
+							model.getOtherPlayersMutex().lock();
 							model.getOtherPlayers().remove(i);
+							model.getOtherPlayersMutex().unlock();
 						}
 					}
 				} else if(object instanceof PowerUpSender){
