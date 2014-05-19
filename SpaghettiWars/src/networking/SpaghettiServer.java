@@ -466,7 +466,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		}else if(arg instanceof String){
 			String s = (String) arg;
 			
-			if(s == "dissconnect")
+			if(s == "disconnect")
 				this.disconnect();
 		}
 		

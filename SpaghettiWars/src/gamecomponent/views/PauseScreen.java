@@ -104,7 +104,9 @@ public class PauseScreen extends GameScreen implements IGameScreen{
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 //Disconnect Game
-                System.out.println ("Game Disconnected");
+            	parent.getModel().disconnect();
+            	parent.disconnect();
+            	System.out.println ("Game Disconnected");
             }
         });
         

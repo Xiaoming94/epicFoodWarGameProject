@@ -41,6 +41,7 @@ public class PizzaSlice extends Projectile{
             if (collidingWith(o)) {
                 this.kill();
                 this.setState(ProjectileState.STILL);
+                System.out.println("slice collided with object");
             }
         }
 	}
