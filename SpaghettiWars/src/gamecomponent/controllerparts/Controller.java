@@ -41,8 +41,6 @@ public class Controller implements Runnable {
 		model.createMap();
 		model.createGUI();
 		model.createPlayer(model.playerSpawnX, model.playerSpawnY);
-
-
 		
 		long time;
 		while (true) {
@@ -50,9 +48,6 @@ public class Controller implements Runnable {
 			// measure starttime for loop
 			time = System.currentTimeMillis();
 
-			
-			
-			//handle player movement 
 			playerObstructed.clear();
 			
 			killProjectileList.clear();
@@ -159,7 +154,6 @@ public class Controller implements Runnable {
         }
     }
     
-    //ny
     public PowerUpRespawnGenerator getPowerUpRespawnGenerator(){
     	return purg;
     }

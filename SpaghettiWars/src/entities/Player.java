@@ -148,12 +148,12 @@ public class Player extends Entity {
 			if(selectedWeapon == "pizza"){
 				Pizza p = new Pizza(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("pizza.png")), pos, pizzaSlicer);
 				p.setVector(pos);
-				shootCooldown = 50;
+				shootCooldown = p.getCooldown();
 				return p;
 			}else{
 				Meatball mb = new Meatball(this.getX(), this.getY(), new Vector(0,0), new Sprite(textureHandler.getTextureByName("Kottbulle.png")));
 				mb.setVector(pos);
-				shootCooldown = 25;
+				shootCooldown = mb.getCooldown();
 				return mb;
 			}
 		}

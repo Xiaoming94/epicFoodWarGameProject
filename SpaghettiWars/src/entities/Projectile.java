@@ -12,8 +12,9 @@ public abstract class Projectile extends Entity{
 	private final int damage;
 	private double range;
 	private boolean dead;
+	private int cooldown;
 
-    private ProjectileState state = ProjectileState.FLYING;
+	private ProjectileState state = ProjectileState.FLYING;
 	
 	public Projectile(double x, double y, Vector vector, Sprite sprite, int damage, double range){
 		super(x, y, vector, sprite);
@@ -74,5 +75,13 @@ public abstract class Projectile extends Entity{
 
     public void setState(ProjectileState state) {
         this.state = state;
+    }
+    
+    public int getCooldown() {
+		return cooldown;
+	}
+    
+    public void setCooldown(int cd) {
+    	cooldown = cd;
     }
 }

@@ -50,6 +50,7 @@ public class Pizza extends Projectile{
 
         this.targetPos = targetPos;
         this.setState(ProjectileState.FLYING);
+        this.setCooldown(200);
 	}
 	
 	
