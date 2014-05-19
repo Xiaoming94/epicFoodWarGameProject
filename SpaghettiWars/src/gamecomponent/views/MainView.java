@@ -51,7 +51,9 @@ public class MainView implements ApplicationListener, Observer{
 	}
 
     private void createMenuScreen() {
-        menuScreen = new MenuScreen(model,this);
+    	if(this.menuScreen == null)
+    		menuScreen = new MenuScreen(model,this);
+    	
         this.screen = menuScreen;
         screen.setToCorrectInputProcessor();
     }
@@ -92,21 +94,14 @@ public class MainView implements ApplicationListener, Observer{
 	}
 
 	public void setScreen(IGameScreen screen){
-        if (this.screen != null) {
-            this.killCurrentScreen();
-        }
         this.screen = screen;
         this.screen.setToCorrectInputProcessor();
     }
 
-    private void killCurrentScreen() {
-        this.screen.kill();
-    }
-
     public void startGame() {
     	if(pauseScreen == null || gameScreen == null){
-	    	pauseScreen = new PauseScreen(this, model);
-	    	this.setScreen(gameScreen = new GameScreen(model));
+	    	pauseScreen = new PauseScreen(this);
+	    	this.setScreen(gameScreen = new GameScreen(this));
     	}
     	else
     		this.setScreen(gameScreen);
@@ -121,9 +116,6 @@ public class MainView implements ApplicationListener, Observer{
 	}
 	
 	public void disconnect(){
-		if(this.screen != null){
-			killCurrentScreen();
-		}
 		this.createMenuScreen();
 	}
 	

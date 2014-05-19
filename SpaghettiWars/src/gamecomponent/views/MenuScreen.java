@@ -30,15 +30,12 @@ public class MenuScreen implements IGameScreen {
 
     private MainView parent;
 
-    private Model model;
-    
     TextButton joinGameButton;
 
     public MenuScreen(){
         this(null,null);
     }
     public MenuScreen(Model model, MainView parent){
-        this.model = model;
         this.parent = parent;
 
         create();
@@ -88,7 +85,7 @@ public class MenuScreen implements IGameScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
             	
-                Gdx.input.getTextInput(new IPInputDialog(model),"Input Host IP","Localhost");
+                Gdx.input.getTextInput(new IPInputDialog(parent.getModel()),"Input Host IP","Localhost");
             }
         });
 
@@ -102,7 +99,7 @@ public class MenuScreen implements IGameScreen {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
                 try {
-					NetworkUtils.createServer(model);
+					NetworkUtils.createServer(parent.getModel());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -131,7 +128,7 @@ public class MenuScreen implements IGameScreen {
     @Override
     public void render() {
     	
-    	if(model.isGameActive())
+    	if(parent.getModel().isGameActive())
     		parent.startGame();
 
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1);
@@ -158,7 +155,7 @@ public class MenuScreen implements IGameScreen {
     @Override
     public void resize(int width, int height) {
     	this.stage.getViewport().update(width, height, true);
-        model.setViewSize(width, height);
+        parent.getModel().setViewSize(width, height);
 
     }
 }

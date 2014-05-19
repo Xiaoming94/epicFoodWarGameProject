@@ -33,17 +33,14 @@ public class PauseScreen extends GameScreen implements IGameScreen{
     
     TextButton exitButton;
 
-    //private Model model;
-
-    public PauseScreen(MainView parent, Model model){
-    	super(model);
+    public PauseScreen(MainView parent){
+    	super(parent);
         this.parent = parent;
         create();
     }
 
 	private void create() {
 
-        batch = new SpriteBatch();
         stage = new Stage();
         skin = new Skin();
         
