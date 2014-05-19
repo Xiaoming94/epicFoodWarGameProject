@@ -30,6 +30,8 @@ public class PauseScreen extends GameScreen implements IGameScreen{
     TextButton continueGameButton;
 
     TextButton disconnectGameButton;
+    
+    TextButton exitButton;
 
     //private Model model;
 
@@ -105,8 +107,24 @@ public class PauseScreen extends GameScreen implements IGameScreen{
                 System.out.println ("Game Disconnected");
             }
         });
-
+        
         stage.addActor(disconnectGameButton);
+        
+      //Creating Disconnect game button
+
+        exitButton = new TextButton("Exit", textButtonStyle);
+         exitButton.addListener(new ChangeListener() {
+             @Override
+             public void changed(ChangeEvent event, Actor actor) {
+                 System.exit(1);
+             }
+         });
+
+         stage.addActor(exitButton);
+        
+        this.continueGameButton.setPosition(stage.getViewport().getViewportWidth()/2 - 58,stage.getViewport().getViewportHeight()/2 + 70);
+        this.disconnectGameButton.setPosition(stage.getViewport().getViewportWidth()/2 - 70,stage.getViewport().getViewportHeight()/2 - 60);
+        this.exitButton.setPosition(stage.getViewport().getViewportWidth()/2 - 52,stage.getViewport().getViewportHeight()/2 - 190);
 
 
     }
@@ -119,9 +137,6 @@ public class PauseScreen extends GameScreen implements IGameScreen{
         super.getBatch().begin();
         super.getBatch().draw(windowSprite, getCamera().position.x - windowSprite.getWidth() / 2, getCamera().position.y - windowSprite.getHeight() / 2);
         super.getBatch().end();
-        
-        this.continueGameButton.setPosition(stage.getViewport().getViewportWidth()/2,stage.getViewport().getViewportHeight()/2);
-        this.disconnectGameButton.setPosition(stage.getViewport().getViewportWidth()/2 + 40,stage.getViewport().getViewportHeight()/2 + 40);
 
         stage.draw();
 
