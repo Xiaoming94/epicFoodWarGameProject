@@ -67,6 +67,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		model.addObserver(this);
 
 		Entity.setThisClientID(1);
+		model.setControllerRunning(true);
 		ControllerUtilServer cus = new ControllerUtilServer();
 		Controller con = new Controller(model, cus);
 		cus.setParent(con);

@@ -77,6 +77,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				} else if (object instanceof IDgiver) {
 					IDgiver idgiver = (IDgiver) object;
 					Entity.setThisClientID(idgiver.ID);
+					model.setControllerRunning(true);
 					Thread ct = new Thread(new Controller(model,
 							new ControllerUtilClient()));
 					ct.start();

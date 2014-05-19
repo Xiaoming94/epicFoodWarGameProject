@@ -29,7 +29,6 @@ public class Model extends Observable {
 
 	private boolean upKeyPressed, downKeyPressed, leftKeyPressed,
 			rightKeyPressed;
-	private final ArrayList<Entity> entities;
 	private final ArrayList<Projectile> projectiles;
 	private final ArrayList<Entity> stillEntities;
 	private final Map<Integer, Player> otherPlayers;
@@ -71,7 +70,6 @@ public class Model extends Observable {
 	 * initiates the components of the Model
 	 */
 	public Model() {
-		entities = new ArrayList<Entity>();
 		stillEntities = new ArrayList<Entity>();
 		projectiles = new ArrayList<Projectile>();
 		otherPlayers = new HashMap<Integer, Player>();
@@ -134,16 +132,8 @@ public class Model extends Observable {
 		return otherPlayers;
 	}
 
-	public ArrayList<Entity> getEntitys() {
-		return entities;
-	}
-
 	public ArrayList<Entity> getStillEntitys() {
 		return stillEntities;
-	}
-
-	public void addEntity(Entity e) {
-		entities.add(e);
 	}
 
 	public Player getPlayer() {
@@ -179,7 +169,6 @@ public class Model extends Observable {
 	}
 
 	public void createPlayer(int x, int y) {
-		// testing powerup energydrink
 		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(
 				textureHandler.getTextureByName("extremelyuglydrink.png")));
 		player = new Player("Sir Eatalot", x, y, new Sprite(
@@ -504,6 +493,15 @@ public class Model extends Observable {
 	
 	public boolean isControllerRunning(){
 		return isControllerRunning;
+	}
+
+	public void reset() {
+		projectiles.clear();
+		stillEntities.clear();
+		otherPlayers.clear();
+		pickUps.clear();
+		temporaryProjectiles.clear();
+		map = new GameMap(textureHandler);
 	}
 	
 }

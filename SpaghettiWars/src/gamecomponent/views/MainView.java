@@ -103,8 +103,11 @@ public class MainView implements ApplicationListener, Observer{
 	    	pauseScreen = new PauseScreen(this);
 	    	this.setScreen(gameScreen = new GameScreen(this));
     	}
-    	else
+    	else{
     		this.setScreen(gameScreen);
+    	}
+    	
+    	model.reset();
     }
 
 	@Override
