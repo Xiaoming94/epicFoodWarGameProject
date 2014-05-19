@@ -169,6 +169,7 @@ public class Model extends Observable {
 	}
 
 	public void createPlayer(int x, int y) {
+
 		PowerUp testPowerUp = new Energydrink(5, 5, new Sprite(
 				textureHandler.getTextureByName("extremelyuglydrink.png")));
 		player = new Player("Sir Eatalot", x, y, new Sprite(

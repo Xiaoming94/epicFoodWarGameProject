@@ -349,6 +349,7 @@ public class Player extends Entity {
 		
 	}
 	
+	@Override
 	public Sprite getSprite(){
 		if(!isDead){
 			return super.getSprite();

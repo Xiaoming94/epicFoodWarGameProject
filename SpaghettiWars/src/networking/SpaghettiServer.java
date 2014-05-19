@@ -419,7 +419,6 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		server.close();
 	}
 
-	@Override
 	public void killProjectile(Projectile p) {
 		ProjectileRemover projectileRemover = new ProjectileRemover();
 		projectileRemover.projectileID = p.getID();
@@ -431,7 +430,6 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		
 	}
 	
-	@Override
 	public void killPlayer(Player p){
 		PlayerKiller playerKiller = new PlayerKiller();
 		playerKiller.ID = p.getID();

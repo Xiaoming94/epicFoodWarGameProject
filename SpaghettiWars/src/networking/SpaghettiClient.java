@@ -1,6 +1,7 @@
 package networking;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Observable;
@@ -104,7 +105,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								playerSender.xPos, playerSender.yPos,
 								(new Sprite(model.getTextureHandler()
 										.getTextureByName("ful.png"))),
-								playerSender.speed));
+								playerSender.speed, playerSender.ID/1000000, playerSender.ID%1000000));
 					}
 					model.getOtherPlayersMutex().unlock();
 				} else if (object instanceof ProjectileSender) {
@@ -195,26 +196,29 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 
 					else {
 						int i = 0;
-						boolean found = false;
+						Player found = null;
 						model.getOtherPlayersMutex().lock();
-						Iterator<Integer> playersIterator = model
-								.getOtherPlayers().keySet().iterator();
-						while (playersIterator.hasNext())
-							if (model.getOtherPlayers()
-									.get(playersIterator.next()).getID() == pk.ID) {
-								model.getOtherPlayers().get(i).kill();
-								found = true;
+						Collection<Player> players = model.getOtherPlayers().values();
+						for (Player p : players){
+							System.out.println("Player ID: " + p.getID());
+							System.out.println("PlayerKiller ID: " + pk.ID);
+							if (p.getID() == pk.ID) {
+								p.kill();
+								found = p;
 								break;
 							}
+							i++;
+						}
 						model.getOtherPlayersMutex().unlock();
-						if (found) {
-							model.getStillEntitiesMutex().lock();
-							model.getStillEntitys().add(model.getOtherPlayers().get(i));
-							model.getStillEntitiesMutex().unlock();
-							
+						
+						if (found != null) {
 							model.getOtherPlayersMutex().lock();
 							model.getOtherPlayers().remove(i);
 							model.getOtherPlayersMutex().unlock();
+							
+							model.getStillEntitiesMutex().lock();
+							model.getStillEntitys().add(found);
+							model.getStillEntitiesMutex().unlock();
 						}
 					}
 				} else if(object instanceof PowerUpSender){
@@ -238,7 +242,6 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -310,7 +313,6 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		try {
 			thread.join();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -325,27 +327,12 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 	}
 
 	@Override
-	public void killProjectile(Projectile p) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void killPlayer(Player p) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void update(Observable arg0, Object arg) {
 		if (arg instanceof Projectile) {
 			Projectile p = (Projectile) arg;
 
 			if (p.getState() == ProjectileState.FLYING)
 				sendProjectile(p);
-		} else if (arg instanceof Player) {
-			Player player = (Player) arg;
-			killPlayer(player);
 		} else if (arg instanceof String) {
 			String s = (String) arg;
 

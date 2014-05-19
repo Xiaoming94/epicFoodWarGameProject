@@ -76,7 +76,6 @@ public class ControllerUtilServer implements IControllerUtil {
 		}
 		for (Entity e : parent.getKillPlayerList()) {
 			model.killPlayer(e);
-			// model.getNetworkObject().killPlayer((Player)e);
 			parent.model.setChanged();
 			parent.model.notifyObservers((Player) e);
 		}
