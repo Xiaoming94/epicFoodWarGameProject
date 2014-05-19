@@ -229,17 +229,13 @@ public class Model extends Observable {
 			}
 			i++;
 		}
-		this.projectilesMutex.unlock();
 
 		if (found) {
-			// this.networkObject.killProjectile(projectiles.get(i));
 			this.setChanged();
 			this.notifyObservers(projectiles.get(i));
-			getProjectilesMutex().lock(); // ny
 			projectiles.remove(i);
-			getProjectilesMutex().unlock(); // ny
 		}
-
+		this.projectilesMutex.unlock();
 	}
 
 	public void killPlayer(Entity e) {
