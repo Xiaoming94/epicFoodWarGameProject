@@ -4,6 +4,7 @@ import gamecomponent.Model;
 
 public class ControllerUtilClient implements IControllerUtil {
 
+	@SuppressWarnings("unused") 
 	private Model model = null;//ny
 	
 	

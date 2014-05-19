@@ -140,24 +140,6 @@ public class Controller implements Runnable {
 
 	}
 
-
-    //method for making pizza victims fat
-	private void explodePizza(Pizza collidingPizza) {
-		//check if the player has hit himself with exploding pizza, if so make fat
-		if (model.getPlayer().overlaps(collidingPizza)) {
-			model.getPlayer().gainWeight(collidingPizza.getDamage());
-		}
-		
-		Collection<Player> otherPlayers = model.getOtherPlayers().values();
-		//check if other players have been hit by exploding pizza
-		for (Player p : otherPlayers) {
-			if (p.overlaps(collidingPizza)) {
-				p.gainWeight(collidingPizza.getDamage());
-			}
-		}
-	}
-
-
 	public ArrayList<Entity> getKillPlayerList() {
 		return killPlayerList;
 	}

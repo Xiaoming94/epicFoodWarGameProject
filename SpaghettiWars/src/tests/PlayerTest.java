@@ -1,48 +1,17 @@
 package tests;
 
 import static org.junit.Assert.*;
-
-import java.io.IOException;
-import java.util.*;
-
-import networking.SpaghettiClient;
-import networking.SpaghettiFace;
-import networking.SpaghettiServer;
-import sun.awt.Mutex;
-import utilities.TextureHandler;
-
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import entities.Energydrink;
-import entities.Entity;
 import entities.Player;
-import entities.PowerUp;
-import entities.Projectile;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import utilities.TextureHandler;
-
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.Gdx;  
-
-import entities.Player;
-import gamecomponent.Main;
-import gamecomponent.Model;
-import gamecomponent.views.MainView;
 
 public class PlayerTest{
 

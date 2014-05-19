@@ -1,11 +1,7 @@
 package utilities;
 
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
-
 import gamecomponent.Model;
-import gamecomponent.views.MainView;
-import gamecomponent.views.PauseScreen;
 
 public class GameInputHandler implements InputProcessor {
 	

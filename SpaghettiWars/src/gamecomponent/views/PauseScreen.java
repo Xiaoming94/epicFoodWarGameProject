@@ -116,7 +116,7 @@ public class PauseScreen extends GameScreen implements IGameScreen{
          exitButton.addListener(new ChangeListener() {
              @Override
              public void changed(ChangeEvent event, Actor actor) {
-                 System.exit(1);
+                 System.exit(0);
              }
          });
 

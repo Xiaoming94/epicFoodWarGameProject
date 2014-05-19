@@ -1,11 +1,7 @@
 package gamecomponent;
 
-import java.io.IOException;
 import java.util.*;
 
-import networking.SpaghettiClient;
-import networking.SpaghettiFace;
-import networking.SpaghettiServer;
 import sun.awt.Mutex;
 import utilities.PizzaSlicer;
 import utilities.Position;
@@ -13,7 +9,6 @@ import utilities.TextureHandler;
 
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -45,7 +40,6 @@ public class Model extends Observable {
 	private Texture actionBar, actionBarSelection, powerUpBar;
 
 	private final Mutex pickUpsMutex;
-	private final Mutex entitiesMutex;
 	private final Mutex stillEntitiesMutex;
 
 	private final Mutex projectilesMutex;
@@ -82,7 +76,6 @@ public class Model extends Observable {
 		otherPlayers = new HashMap<Integer, Player>();
 		pickUps = new ArrayList<PowerUp>();
 		temporaryProjectiles = new ArrayList<Projectile>();
-		entitiesMutex = new Mutex();
 		stillEntitiesMutex = new Mutex();
 		pickUpsMutex = new Mutex();
 

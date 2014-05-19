@@ -1,6 +1,5 @@
 package entities;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -36,9 +35,7 @@ public class PizzaSlice extends Projectile{
 	public void update(List<Obstacle> obstacles,
 			Map<Integer, Player> playerlist, Player player) {
 		
-		if(super.update()){
-			//setState(ProjectileState.STILL);
-		}
+		super.update();
 		
 		for (Obstacle o : obstacles){
             if (collidingWith(o)) {
@@ -46,21 +43,6 @@ public class PizzaSlice extends Projectile{
                 this.setState(ProjectileState.STILL);
             }
         }
-		
-//		Iterator<Integer> iterator = playerlist.keySet().iterator();
-//        Integer key;
-//        while(iterator.hasNext()){
-//        	key = iterator.next();
-//            if (collidingWith(playerlist.get(key))){
-//                this.kill();
-//                playerlist.get(key).gainWeight(this.getDamage());
-//                this.setState(ProjectileState.EATEN);
-//            }
-//        }
-	}
-	
-	private boolean collidingWith(Player p){
-		return p.overlaps(this);
 	}
 	
 	private boolean collidingWith(Obstacle o){

@@ -1,16 +1,9 @@
 package networking;
 
-
-import java.util.List;
-
-import utilities.Vector;
-
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
-import com.esotericsoftware.kryonet.Server;
 
 import entities.Entity;
-import entities.PowerUp;
 
 public class Network {
 

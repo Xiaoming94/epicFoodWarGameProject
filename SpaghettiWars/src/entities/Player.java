@@ -3,8 +3,6 @@ package entities;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.math.Circle;
-
 import utilities.PizzaSlicer;
 import utilities.Position;
 import utilities.TextureHandler;
