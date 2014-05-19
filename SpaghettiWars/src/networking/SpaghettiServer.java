@@ -328,7 +328,6 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		while (iterator.hasNext()) {
 			int key = iterator.next();
 			if (clientID / 1000000 != key) {
-				System.out.println("inside");
 				clientsConnected.get(key).sendUDP(object);
 			}
 		}

@@ -166,7 +166,6 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 						model.getOtherPlayersMutex().unlock();
 					}
 				} else if (object instanceof ProjectileRemover) {
-					System.out.println("client receives eating message");
 					int i = 0;
 					boolean found = false;
 					ProjectileRemover pr = (ProjectileRemover) object;
