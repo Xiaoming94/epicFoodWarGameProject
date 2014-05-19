@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -35,18 +36,38 @@ public class PizzaSlice extends Projectile{
 	public void update(List<Obstacle> obstacles,
 			Map<Integer, Player> playerlist, Player player) {
 		
-		super.update();
+		if(super.update()){
+			//setState(ProjectileState.STILL);
+		}
 		
 		for (Obstacle o : obstacles){
             if (collidingWith(o)) {
                 this.kill();
                 this.setState(ProjectileState.STILL);
-                System.out.println("slice collided with object");
+            }
+        }
+		
+		if(collidingWith(player)){
+			this.kill();
+			player.gainWeight(this.getDamage());
+			this.setState(ProjectileState.EATEN);
+		}
+		
+		Iterator<Integer> iterator = playerlist.keySet().iterator();
+        Integer key;
+        while(iterator.hasNext()){
+        	key = iterator.next();
+            if (collidingWith(playerlist.get(key))){
+                this.kill();
+                playerlist.get(key).gainWeight(this.getDamage());
+                this.setState(ProjectileState.EATEN);
             }
         }
 	}
 	
-	private boolean collidingWith(Obstacle o){
+
+	
+	private boolean collidingWith(Entity o){
 		return this.getSprite().getBoundingRectangle().overlaps(o.getSprite().getBoundingRectangle());
 	}
 }

@@ -41,7 +41,6 @@ public class ControllerUtilServer implements IControllerUtil {
 						opp.gainWeight(p.getDamage());
 					}else if(p instanceof PizzaSlice){
 						p.kill();
-						
 						parent.getEatProjectileList().add(p);
 						p.setState(ProjectileState.EATEN);
 						opp.gainWeight(p.getDamage());
