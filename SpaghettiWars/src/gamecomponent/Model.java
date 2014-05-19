@@ -140,10 +140,6 @@ public class Model extends Observable {
 		return player;
 	}
 
-//	public Mutex getEntitiesMutex() {
-//		return entitiesMutex;
-//	}
-
 	public Mutex getStillEntitiesMutex() {
 		return stillEntitiesMutex;
 	}
