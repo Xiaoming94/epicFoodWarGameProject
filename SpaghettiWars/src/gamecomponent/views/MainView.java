@@ -40,9 +40,6 @@ public class MainView implements ApplicationListener, Observer{
         createMenuScreen();
 		
 		model.getTextureHandler().loadTextures();
-		
-		pauseScreen = new PauseScreen(this, model);
-		gameScreen = new GameScreen(model);
 
 		//sleep to wait for player to be created by controller
 		try{
@@ -105,7 +102,12 @@ public class MainView implements ApplicationListener, Observer{
     }
 
     public void startGame() {
-    	this.setScreen(gameScreen);
+    	if(pauseScreen == null || gameScreen == null){
+	    	pauseScreen = new PauseScreen(this, model);
+	    	this.setScreen(gameScreen = new GameScreen(model));
+    	}
+    	else
+    		this.setScreen(gameScreen);
     }
 
 	@Override

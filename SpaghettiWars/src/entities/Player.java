@@ -251,26 +251,12 @@ public class Player extends Entity {
 	public void moveOutOfWalls(Player player, List<Obstacle> obstacles) {
 		boolean top, bottom, left, right;
 		
-		boolean topLeft, topRight, bottomRight, bottomLeft;//ny
+		boolean topLeft, topRight, bottomRight, bottomLeft;
 		
 		while(true){
 			top = bottom = left = right = false;
 			
-			topLeft = topRight = bottomRight = bottomLeft = false; //ny
-			
-			//original solutions, works at corner edges, not in corners
-			//check if player is obstructed by obstacle
-//			for (Entity o : obstacles)
-//				if (player.stationaryOverlaps(o.getSprite().getBoundingRectangle())) {
-//					if(player.getPosition().getX() > o.getPosition().getX() && player.getSprite().getWidth()/2 + o.getSprite().getWidth()/2 > player.getSprite().getX() - o.getSprite().getX())
-//						left = true;
-//					if(player.getPosition().getX() < o.getPosition().getX() && player.getSprite().getWidth()/2 + o.getSprite().getWidth()/2 > o.getSprite().getX() - player.getSprite().getX())
-//						right = true;
-//					if(player.getPosition().getY() > o.getPosition().getY() && player.getSprite().getWidth()/2 + o.getSprite().getHeight()/2 > player.getSprite().getY() - o.getSprite().getY())
-//						bottom = true;
-//					if(player.getPosition().getY() < o.getPosition().getY() && player.getSprite().getWidth()/2 + o.getSprite().getHeight()/2 > o.getSprite().getY() - player.getSprite().getY())
-//						top = true;
-//				}
+			topLeft = topRight = bottomRight = bottomLeft = false; 
 			
 			
 			//presumes sprite pos in middle
@@ -326,34 +312,9 @@ public class Player extends Entity {
 					}
 				}
 
-		
-//			if(!left && !right && !bottom && !top){ //original
 			if(!left && !right && !bottom && !top && !topLeft && !topRight && !bottomLeft && !bottomRight){
-				//System.out.println("break");
-				break; //original
+				break;
 			}
-			
-			//debug
-//			System.out.println("Before vector modification:");
-//			System.out.println("x: " + player.getPosition().getX());
-//			System.out.println("y: " + player.getPosition().getY());
-//			System.out.println("After vector modification:");
-//			System.out.println("x: " + player.getPosition().getX());
-//			System.out.println("y: " + player.getPosition().getY());
-					
-			
-			
-			
-			//original solution
-//			if(left && !right)
-//				player.getPosition().setX(player.getPosition().getX()+1);
-//			else if(!left && right)
-//				player.getPosition().setX(player.getPosition().getX()-1);	
-//			if(top && !bottom)
-//				player.getPosition().setY(player.getPosition().getY()-1);
-//			else if(!top && bottom)
-//				player.getPosition().setY(player.getPosition().getY()+1);
-			
 			
 			if(left || right || top || bottom){
 				if(left && !right)
@@ -380,19 +341,8 @@ public class Player extends Entity {
 				}
 			}
 			
-//			//debug
-//			System.out.println("topLeft: " + topLeft);
-//			System.out.println("topRight: " + topRight);
-//			System.out.println("bottomRight: " + bottomRight);
-//			System.out.println("bottomLeft: " + bottomLeft);
-			
 			player.updateSpritePos();
-			//System.out.println("" + top + bottom + left + right);
 			
-//			//debug
-//			System.out.println("After vector modification:");
-//			System.out.println("x: " + player.getPosition().getX());
-//			System.out.println("y: " + player.getPosition().getY());
 		}
 		
 	}
