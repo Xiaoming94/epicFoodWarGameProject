@@ -453,12 +453,14 @@ public class Model extends Observable {
 	}
 
 	public void addTempProjectiles() {
+		temporaryProjectilesMutex.lock();
 		for (Projectile p : temporaryProjectiles) {
 			addProjectile(p);
 			setChanged();
 			notifyObservers(p);
 		}
 		temporaryProjectiles.clear();
+		temporaryProjectilesMutex.unlock();
 	}
 
 	public void addTempProjectile(Projectile p) {

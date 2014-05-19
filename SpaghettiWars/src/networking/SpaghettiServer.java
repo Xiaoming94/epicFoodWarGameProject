@@ -415,6 +415,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 			request.clientID = 0;
 			clientsConnected.get(connectionKey).sendTCP(request);
 		}
+		server.close();
 	}
 
 	@Override
