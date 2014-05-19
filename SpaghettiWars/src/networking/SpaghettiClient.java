@@ -311,6 +311,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 		request.playerID = model.getPlayer().getID();
 		request.clientID = Entity.getThisClientID();
 		client.sendTCP(request);
+		client.close();
 	}
 
 	@Override
