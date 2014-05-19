@@ -24,6 +24,7 @@ public class Player extends Entity {
 	private String selectedWeapon = "meatball";
 	private float spriteHeight, spriteWidth;
 	private ArrayList<PowerUp> activePowerUps, activePowerUpsTrashBin;
+	private Sprite deadSprite;
 	
 	private double speedMod;
 	
@@ -51,6 +52,8 @@ public class Player extends Entity {
 		
 		activePowerUps = new ArrayList<PowerUp>();
 		activePowerUpsTrashBin = new ArrayList<PowerUp>();
+		
+		deadSprite = new Sprite(TextureHandler.getTextureHandler().getTextureByName("FatDeadPlayerSprite.png"));
 		
 		spriteWidth = this.getSprite().getWidth();
 		spriteHeight = this.getSprite().getHeight();
@@ -122,6 +125,8 @@ public class Player extends Entity {
 	public void kill(){
         //look over this shit. Sprite doesn't show
 		//this.setSprite(new Sprite(textureHandler.getTextureByName("FatDeadPlayerSprite.png")));
+		deadSprite.setPosition((float)this.getX()-deadSprite.getWidth()/2, (float)this.getY()-deadSprite.getHeight()/2);
+		deadSprite.setRotation(super.getSprite().getRotation());
 		isDead = true;
 	}
 	
@@ -343,5 +348,13 @@ public class Player extends Entity {
 			
 		}
 		
+	}
+	
+	public Sprite getSprite(){
+		if(!isDead){
+			return super.getSprite();
+		}else{
+			return deadSprite;
+		}
 	}
 }
