@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-public class PauseScreen extends GameScreen implements IGameScreen{
+public class PauseScreen extends GameScreen{
 
 	private MainView parent;
 
@@ -41,7 +41,7 @@ public class PauseScreen extends GameScreen implements IGameScreen{
         stage = new Stage();
         skin = new Skin();
         
-        windowSprite = new Sprite(TextureHandler.getTextureHandler().getTextureByName("escwindow.png"));
+        windowSprite = new Sprite(TextureHandler.getInstance().getTextureByName("escwindow.png"));
 
         Window.WindowStyle ws = new Window.WindowStyle();
         ws.titleFont = new BitmapFont();

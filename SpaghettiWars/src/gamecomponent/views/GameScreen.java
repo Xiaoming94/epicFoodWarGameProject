@@ -11,7 +11,7 @@ import entities.PowerUp;
 import org.lwjgl.opengl.GL11;
 
 import utilities.GameInputHandler;
-import utilities.Mutexes;
+import utilities.MutexHandler;
 
 import java.util.Iterator;
 
@@ -72,31 +72,31 @@ public class GameScreen implements IGameScreen{
         parent.getModel().getMap().getObstacleMutex().unlock();
         
 
-        Mutexes.getMutexes().getPickUpsMutex().lock();
+        MutexHandler.getInstance().getPickUpsMutex().lock();
         for (PowerUp pu : parent.getModel().getPickUps()){
             getBatch().draw(pu.getSprite(), pu.getSprite().getX(), pu.getSprite().getY(), pu.getSprite().getOriginX(), pu.getSprite().getOriginY(), pu.getSprite().getWidth(), pu.getSprite().getHeight(), 1, 1, pu.getSprite().getRotation());
         }
-        Mutexes.getMutexes().getPickUpsMutex().unlock();
+        MutexHandler.getInstance().getPickUpsMutex().unlock();
         
-        Mutexes.getMutexes().getProjectilesMutex().lock();
+        MutexHandler.getInstance().getProjectilesMutex().lock();
         for(Entity e : parent.getModel().getProjectiles())
             getBatch().draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY());
-        Mutexes.getMutexes().getProjectilesMutex().unlock();
+        MutexHandler.getInstance().getProjectilesMutex().unlock();
 
-        Mutexes.getMutexes().getStillEntitiesMutex().lock();
+        MutexHandler.getInstance().getStillEntitiesMutex().lock();
         for(Entity e : parent.getModel().getStillEntitys()){
             getBatch().draw(e.getSprite(), e.getSprite().getX(), e.getSprite().getY(), e.getSprite().getOriginX(), e.getSprite().getOriginY(), e.getSprite().getWidth(), e.getSprite().getHeight(), 1, 1, e.getSprite().getRotation());
         }
-        Mutexes.getMutexes().getStillEntitiesMutex().unlock();
+        MutexHandler.getInstance().getStillEntitiesMutex().unlock();
 
 
-        Mutexes.getMutexes().getOtherPlayersMutex().lock();
+        MutexHandler.getInstance().getOtherPlayersMutex().lock();
         Iterator<Integer> iterator = parent.getModel().getOtherPlayers().keySet().iterator();
         while(iterator.hasNext()){
             Integer key = iterator.next();
             getBatch().draw(parent.getModel().getOtherPlayers().get(key).getSprite(), parent.getModel().getOtherPlayers().get(key).getSprite().getX(), parent.getModel().getOtherPlayers().get(key).getSprite().getY(), parent.getModel().getOtherPlayers().get(key).getSprite().getOriginX(), parent.getModel().getOtherPlayers().get(key).getSprite().getOriginY(), parent.getModel().getOtherPlayers().get(key).getSprite().getWidth(), parent.getModel().getOtherPlayers().get(key).getSprite().getHeight(), 1, 1, parent.getModel().getOtherPlayers().get(key).getSprite().getRotation());
         }
-        Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+        MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 
 
         getBatch().draw(parent.getModel().getPlayer().getSprite(), parent.getModel().getPlayer().getSprite().getX(), parent.getModel().getPlayer().getSprite().getY(), parent.getModel().getPlayer().getSprite().getOriginX(), parent.getModel().getPlayer().getSprite().getOriginY(), parent.getModel().getPlayer().getSprite().getWidth(), parent.getModel().getPlayer().getSprite().getHeight(), 1, 1, parent.getModel().getPlayer().getSprite().getRotation());

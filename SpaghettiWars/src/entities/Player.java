@@ -53,7 +53,7 @@ public class Player extends Entity {
 		activePowerUps = new ArrayList<PowerUp>();
 		activePowerUpsTrashBin = new ArrayList<PowerUp>();
 		
-		deadSprite = new Sprite(TextureHandler.getTextureHandler().getTextureByName("FatDeadPlayerSprite.png"));
+		deadSprite = new Sprite(TextureHandler.getInstance().getTextureByName("FatDeadPlayerSprite.png"));
 		
 		spriteWidth = this.getSprite().getWidth();
 		spriteHeight = this.getSprite().getHeight();
@@ -127,6 +127,7 @@ public class Player extends Entity {
 		deadSprite.setPosition((float)this.getX()-deadSprite.getWidth()/2, (float)this.getY()-deadSprite.getHeight()/2);
 		deadSprite.setRotation(super.getSprite().getRotation());
 		isDead = true;
+		deadSprite.setScale(1);
 	}
 	
 	public boolean isDead(){

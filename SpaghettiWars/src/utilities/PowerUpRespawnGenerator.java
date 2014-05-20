@@ -41,13 +41,13 @@ public class PowerUpRespawnGenerator {
 										% model.getMap()
 												.getPowerUpSpawnLocations()
 												.size());
-						Mutexes.getMutexes().getPickUpsMutex().lock();
+						MutexHandler.getInstance().getPickUpsMutex().lock();
 						for (PowerUp pu : model.getPickUps())
 							if (pu.getPosition().equals(pos)) {
 								found = true;
 								break;
 							}
-						Mutexes.getMutexes().getPickUpsMutex().unlock();
+						MutexHandler.getInstance().getPickUpsMutex().unlock();
 						if (found == false) {
 							int randomNbr = 0;
 							randomNbr = (Math.abs(spawningNumberGenerator.nextInt())) % 2;

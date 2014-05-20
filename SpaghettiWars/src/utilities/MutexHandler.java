@@ -2,9 +2,9 @@ package utilities;
 
 import sun.awt.Mutex;
 
-public class Mutexes {
+public class MutexHandler {
 	
-	private static Mutexes mutexes;
+	private static MutexHandler mutexes;
 	
 	private final Mutex pickUpsMutex;
 	private final Mutex stillEntitiesMutex;
@@ -15,7 +15,7 @@ public class Mutexes {
 	private final Mutex temporaryProjectilesMutex;
 
 	
-	private Mutexes(){
+	private MutexHandler(){
 		stillEntitiesMutex = new Mutex();
 		pickUpsMutex = new Mutex();
 
@@ -26,9 +26,9 @@ public class Mutexes {
 
 	}
 	
-	public static Mutexes getMutexes(){
+	public static MutexHandler getInstance(){
 		if(mutexes == null){
-			mutexes = new Mutexes();
+			mutexes = new MutexHandler();
 		}
 		return mutexes;
 	}

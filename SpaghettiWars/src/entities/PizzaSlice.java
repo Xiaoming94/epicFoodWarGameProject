@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import utilities.Mutexes;
+import utilities.MutexHandler;
 import utilities.Vector;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -51,11 +51,10 @@ public class PizzaSlice extends Projectile{
 		if(collidingWith(player)){
 			this.kill();
 			player.gainWeight(this.getDamage());
-			player.moveOutOfWalls(player, obstacles);
 			this.setState(ProjectileState.EATEN);
 		}
 
-		Mutexes.getMutexes().getOtherPlayersMutex().lock();
+		MutexHandler.getInstance().getOtherPlayersMutex().lock();
 		Iterator<Integer> iterator = playerlist.keySet().iterator();
         Integer key;
         while(iterator.hasNext()){
@@ -66,7 +65,7 @@ public class PizzaSlice extends Projectile{
                 this.setState(ProjectileState.EATEN);
             }
         }
-        Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+        MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 	}
 	
 
