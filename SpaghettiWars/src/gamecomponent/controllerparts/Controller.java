@@ -4,7 +4,7 @@ import java.util.*;
 
 import entities.*;
 import gamecomponent.Model;
-import utilities.Mutexes;
+import utilities.MutexHandler;
 import utilities.PowerUpRespawnGenerator;
 
 public class Controller implements Runnable {
@@ -76,7 +76,7 @@ public class Controller implements Runnable {
 
 
 
-			Mutexes.getMutexes().getProjectilesMutex().lock();
+			MutexHandler.getInstance().getProjectilesMutex().lock();
 			
 			// for loop checks projectiles, and what they have hit
 			for (Projectile e : model.getProjectiles()) {
@@ -93,11 +93,11 @@ public class Controller implements Runnable {
                 }
 			}
 
-			Mutexes.getMutexes().getProjectilesMutex().unlock();
+			MutexHandler.getInstance().getProjectilesMutex().unlock();
 
 			model.addTempProjectiles();
 			
-			Mutexes.getMutexes().getPickUpsMutex().lock();
+			MutexHandler.getInstance().getPickUpsMutex().lock();
 
             for (PowerUp o : model.getPickUps()){
                 if (model.getPlayer().overlaps(o.getSprite().getBoundingRectangle())) {
@@ -108,7 +108,7 @@ public class Controller implements Runnable {
                 otherPlayerPicksPowerUp(o);
             }
 
-            Mutexes.getMutexes().getPickUpsMutex().unlock();
+            MutexHandler.getInstance().getPickUpsMutex().unlock();
 
            // purg.generateSpawningTime();
 

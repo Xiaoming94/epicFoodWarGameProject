@@ -53,7 +53,7 @@ public class Player extends Entity {
 		activePowerUps = new ArrayList<PowerUp>();
 		activePowerUpsTrashBin = new ArrayList<PowerUp>();
 		
-		deadSprite = new Sprite(TextureHandler.getTextureHandler().getTextureByName("FatDeadPlayerSprite.png"));
+		deadSprite = new Sprite(TextureHandler.getInstance().getTextureByName("FatDeadPlayerSprite.png"));
 		
 		spriteWidth = this.getSprite().getWidth();
 		spriteHeight = this.getSprite().getHeight();

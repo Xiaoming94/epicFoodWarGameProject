@@ -13,10 +13,9 @@ public class TextureHandler {
 
 	}
 	
-	public static TextureHandler getTextureHandler(){
+	public static TextureHandler getInstance(){
 		if(textureHandler == null){
 			textureHandler = new TextureHandler();
-			//textureHandler.loadTextures();
 		}
 		
 		return textureHandler;

@@ -22,7 +22,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Observable;
 
-import utilities.Mutexes;
+import utilities.MutexHandler;
 import utilities.NameTexture;
 import utilities.Position;
 import utilities.Vector;
@@ -135,7 +135,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 							playerSender.ID / 1000000,
 							(int) (System.currentTimeMillis() % Integer.MAX_VALUE));
 
-					Mutexes.getMutexes().getOtherPlayersMutex().lock();
+					MutexHandler.getInstance().getOtherPlayersMutex().lock();
 					if (playerMap.containsKey(playerSender.ID)) {
 						((Player) playerMap.get(playerSender.ID))
 								.setX(playerSender.xPos);
@@ -150,11 +150,11 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					} else{
 						boolean isDead = false;
 						
-						Mutexes.getMutexes().getStillEntitiesMutex().lock();
+						MutexHandler.getInstance().getStillEntitiesMutex().lock();
 						for(Entity e : model.getStillEntitys())
 							if(e.getID() == playerSender.ID)
 								isDead = true;
-						Mutexes.getMutexes().getStillEntitiesMutex().unlock();
+						MutexHandler.getInstance().getStillEntitiesMutex().unlock();
 						
 						if(!isDead){
 							playerMap.put(playerSender.ID, new Player("sir derp",
@@ -164,12 +164,12 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 									playerSender.speed, playerSender.ID/1000000, playerSender.ID%1000000));
 						}
 					}
-					Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+					MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 				} else if (object instanceof ProjectileSender) {
 					ProjectileSender projectileSender = (ProjectileSender) object;
 
 					Projectile p = null;
-					Mutexes.getMutexes().getProjectilesMutex().lock();
+					MutexHandler.getInstance().getProjectilesMutex().lock();
 					if (projectileSender.projectileTypeNumber == 2) {
 						p = new Pizza(projectileSender.xPos,
 								projectileSender.yPos, new Vector(0, 0),
@@ -201,15 +201,15 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 								projectileSender.ID % 1000000, projectileSender.projectileTypeNumber);
 						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber-3));
 					}
-					Mutexes.getMutexes().getProjectilesMutex().unlock();
+					MutexHandler.getInstance().getProjectilesMutex().unlock();
 					model.addProjectile(p);
 					forwardClientObjectUDP(object, p.getID());
 				} else if (object instanceof RequestDisconnection) {
 					RequestDisconnection request = (RequestDisconnection) object;
 					forwardClientObjectTCP(request, request.playerID);
-					Mutexes.getMutexes().getOtherPlayersMutex().lock();
+					MutexHandler.getInstance().getOtherPlayersMutex().lock();
 					playerMap.remove(request.playerID);
-					Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+					MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 					clientsConnected.remove(request.clientID);
 					polling.remove(request.clientID);
 				} else if(object instanceof DietPillSender){
@@ -254,7 +254,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 
 			Integer connectionKey = connectionIterator.next();
 			
-			Mutexes.getMutexes().getOtherPlayersMutex().lock();
+			MutexHandler.getInstance().getOtherPlayersMutex().lock();
 			Iterator<Integer> playerIterator = playerMap.keySet().iterator();
 			while (playerIterator.hasNext()) {
 
@@ -284,7 +284,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 				}
 
 			}
-			Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+			MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 			playerSender.xPos = model.getPlayer().getX();
 			playerSender.yPos = model.getPlayer().getY();
 			playerSender.speed = (int) model.getPlayer().getSpeed();
@@ -362,7 +362,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 		clientsConnected.remove(key);
 		polling.remove(key);
 		
-		Mutexes.getMutexes().getOtherPlayersMutex().lock();
+		MutexHandler.getInstance().getOtherPlayersMutex().lock();
 		Iterator<Integer> iterator = playerMap.keySet().iterator();
 		while (iterator.hasNext()) {
 			int playerKey = iterator.next();
@@ -371,7 +371,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 				break;
 			}
 		}
-		Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+		MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 	}
 
 	@Override

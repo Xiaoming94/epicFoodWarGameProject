@@ -41,7 +41,7 @@ public class PauseScreen extends GameScreen{
         stage = new Stage();
         skin = new Skin();
         
-        windowSprite = new Sprite(TextureHandler.getTextureHandler().getTextureByName("escwindow.png"));
+        windowSprite = new Sprite(TextureHandler.getInstance().getTextureByName("escwindow.png"));
 
         Window.WindowStyle ws = new Window.WindowStyle();
         ws.titleFont = new BitmapFont();

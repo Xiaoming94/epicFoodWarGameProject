@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Observable;
 
-import utilities.Mutexes;
+import utilities.MutexHandler;
 import utilities.Position;
 import utilities.Vector;
 import networking.Network.DietPillSender;
@@ -87,7 +87,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 				} else if (object instanceof PlayerSender) {
 					PlayerSender playerSender = (PlayerSender) object;
 
-					Mutexes.getMutexes().getOtherPlayersMutex().lock();
+					MutexHandler.getInstance().getOtherPlayersMutex().lock();
 					if (playerMap.containsKey(playerSender.ID)) {
 						((Player) playerMap.get(playerSender.ID))
 								.setX(playerSender.xPos);
@@ -108,7 +108,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 										.getTextureByName("ful.png"))),
 								playerSender.speed, playerSender.ID/1000000, playerSender.ID%1000000));
 					}
-					Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+					MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 				} else if (object instanceof ProjectileSender) {
 					ProjectileSender projectileSender = (ProjectileSender) object;
 
@@ -158,19 +158,19 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					RequestDisconnection request = (RequestDisconnection) object;
 					if (request.clientID == 0) {
 						stop();
-						Mutexes.getMutexes().getOtherPlayersMutex().lock();
+						MutexHandler.getInstance().getOtherPlayersMutex().lock();
 						playerMap.clear();
-						Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+						MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 					} else {
-						Mutexes.getMutexes().getOtherPlayersMutex().lock();
+						MutexHandler.getInstance().getOtherPlayersMutex().lock();
 						playerMap.remove(request.playerID);
-						Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+						MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 					}
 				} else if (object instanceof ProjectileRemover) {
 					int i = 0;
 					boolean found = false;
 					ProjectileRemover pr = (ProjectileRemover) object;
-					Mutexes.getMutexes().getProjectilesMutex().lock();
+					MutexHandler.getInstance().getProjectilesMutex().lock();
 					for (Projectile p : model.getProjectiles()) {
 						if (p.getID() == pr.projectileID) {
 							found = true;
@@ -182,16 +182,16 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					if (found) {
 						model.getProjectiles().remove(i);
 					}
-					Mutexes.getMutexes().getProjectilesMutex().unlock();
+					MutexHandler.getInstance().getProjectilesMutex().unlock();
 					
 				} else if (object instanceof PlayerKiller) {
 					PlayerKiller pk = (PlayerKiller) object;
 
 					if (model.getPlayer().getID() == pk.ID) {
 						model.getPlayer().kill();
-						Mutexes.getMutexes().getStillEntitiesMutex().lock();
+						MutexHandler.getInstance().getStillEntitiesMutex().lock();
 						model.getStillEntitys().add(model.getPlayer());
-						Mutexes.getMutexes().getStillEntitiesMutex().unlock();
+						MutexHandler.getInstance().getStillEntitiesMutex().unlock();
 						model.createPlayer(model.playerSpawnX,
 								model.playerSpawnY);
 					}
@@ -199,7 +199,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					else {
 						int i = 0;
 						Player found = null;
-						Mutexes.getMutexes().getOtherPlayersMutex().lock();
+						MutexHandler.getInstance().getOtherPlayersMutex().lock();
 						Collection<Player> players = model.getOtherPlayers().values();
 						for (Player p : players){
 							System.out.println("Player ID: " + p.getID());
@@ -211,16 +211,16 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 							}
 							i++;
 						}
-						Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+						MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 						
 						if (found != null) {
-							Mutexes.getMutexes().getOtherPlayersMutex().lock();
+							MutexHandler.getInstance().getOtherPlayersMutex().lock();
 							model.getOtherPlayers().remove(i);
-							Mutexes.getMutexes().getOtherPlayersMutex().unlock();
+							MutexHandler.getInstance().getOtherPlayersMutex().unlock();
 							
-							Mutexes.getMutexes().getStillEntitiesMutex().lock();
+							MutexHandler.getInstance().getStillEntitiesMutex().lock();
 							model.getStillEntitys().add(found);
-							Mutexes.getMutexes().getStillEntitiesMutex().unlock();
+							MutexHandler.getInstance().getStillEntitiesMutex().unlock();
 						}
 					}
 				} else if(object instanceof PowerUpSender){
