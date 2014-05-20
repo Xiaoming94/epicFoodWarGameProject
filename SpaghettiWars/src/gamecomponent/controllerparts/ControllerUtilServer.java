@@ -3,6 +3,7 @@ package gamecomponent.controllerparts;
 import java.util.Collection;
 import java.util.Iterator;
 
+import utilities.Mutexes;
 import entities.Entity;
 import entities.Meatball;
 import entities.PizzaSlice;
@@ -24,7 +25,7 @@ public class ControllerUtilServer implements IControllerUtil {
 	// public void run(){
 	public void run() {
 
-		model.getProjectilesMutex().lock();
+		Mutexes.getMutexes().getProjectilesMutex().lock();
 		for (Projectile p : model.getProjectiles()) {
 
 			Collection<Player> opponents = model.getOtherPlayers().values();
@@ -59,8 +60,9 @@ public class ControllerUtilServer implements IControllerUtil {
 			// end of meatball detection
 
 		}
-		model.getProjectilesMutex().unlock();
 
+		Mutexes.getMutexes().getProjectilesMutex().unlock();
+		
 		// killing players
 		Iterator<Integer> iterator = model.getOtherPlayers().keySet()
 				.iterator();
@@ -82,9 +84,9 @@ public class ControllerUtilServer implements IControllerUtil {
 
 		// kill self and respawn if dead
 		if (model.getPlayer().isDead()) {
-			model.getStillEntitiesMutex().lock();
+			Mutexes.getMutexes().getStillEntitiesMutex().lock();
 			model.getStillEntitys().add(model.getPlayer());
-			model.getStillEntitiesMutex().unlock();
+			Mutexes.getMutexes().getStillEntitiesMutex().unlock();
 			parent.model.setChanged();
 			parent.model.notifyObservers(model.getPlayer());
 			model.createPlayer(model.playerSpawnX, model.playerSpawnY);
