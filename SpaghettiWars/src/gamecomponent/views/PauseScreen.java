@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-public class PauseScreen extends GameScreen implements IGameScreen{
+public class PauseScreen extends GameScreen{
 
 	private MainView parent;
 

@@ -82,7 +82,6 @@ public class Pizza extends Projectile{
     private void explode(List<Obstacle> obstacles, Map<Integer, Player> playerlist, Player player) {
     	if (player.overlaps(this)) {
 			player.gainWeight(this.getDamage());
-			player.moveOutOfWalls(player, obstacles);
 		}
 		
 		Collection<Player> otherPlayers = playerlist.values();

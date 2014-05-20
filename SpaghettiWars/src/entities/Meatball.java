@@ -41,7 +41,6 @@ public class Meatball extends Projectile {
             if (collidingWith(playerlist.get(key))){
                 this.kill();
                 playerlist.get(key).gainWeight(this.getDamage());
-                playerlist.get(key).moveOutOfWalls(player, obstacles);
                 this.setState(ProjectileState.EATEN);
             }
         }

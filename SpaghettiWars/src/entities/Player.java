@@ -127,6 +127,7 @@ public class Player extends Entity {
 		deadSprite.setPosition((float)this.getX()-deadSprite.getWidth()/2, (float)this.getY()-deadSprite.getHeight()/2);
 		deadSprite.setRotation(super.getSprite().getRotation());
 		isDead = true;
+		deadSprite.setScale(1);
 	}
 	
 	public boolean isDead(){
