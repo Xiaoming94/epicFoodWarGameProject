@@ -3,6 +3,7 @@ package gamecomponent;
 import java.util.*;
 
 import sun.awt.Mutex;
+import utilities.Mutexes;
 import utilities.PizzaSlicer;
 import utilities.Position;
 import utilities.TextureHandler;
@@ -38,14 +39,6 @@ public class Model extends Observable {
 	private Player player;
 	private Texture actionBar, actionBarSelection, powerUpBar;
 
-	private final Mutex pickUpsMutex;
-	private final Mutex stillEntitiesMutex;
-
-	private final Mutex projectilesMutex;
-	private final Mutex otherPlayersMutex;
-
-	private final Mutex temporaryProjectilesMutex;
-
 	private TextureHandler textureHandler;
 
 	private double width, height;
@@ -75,13 +68,6 @@ public class Model extends Observable {
 		otherPlayers = new HashMap<Integer, Player>();
 		pickUps = new ArrayList<PowerUp>();
 		temporaryProjectiles = new ArrayList<Projectile>();
-		stillEntitiesMutex = new Mutex();
-		pickUpsMutex = new Mutex();
-
-		projectilesMutex = new Mutex();
-		otherPlayersMutex = new Mutex();
-
-		temporaryProjectilesMutex = new Mutex();
 		
 		isControllerRunning = true;
 
@@ -140,24 +126,8 @@ public class Model extends Observable {
 		return player;
 	}
 
-	public Mutex getStillEntitiesMutex() {
-		return stillEntitiesMutex;
-	}
-
 	public List<PowerUp> getPickUps() {
 		return pickUps;
-	}
-
-	public Mutex getPickUpsMutex() {
-		return pickUpsMutex;
-	}
-
-	public Mutex getProjectilesMutex() {
-		return projectilesMutex;
-	}
-
-	public Mutex getOtherPlayersMutex() {
-		return otherPlayersMutex;
 	}
 
 	public PizzaSlicer getPizzaSlicer() {
@@ -194,7 +164,7 @@ public class Model extends Observable {
 	public void killProjectile(Entity e) {
 		int i = 0;
 		boolean found = false;
-		projectilesMutex.lock();
+		Mutexes.getMutexes().getProjectilesMutex().lock();
 		for (Entity ent : projectiles) {
 			if (ent.equals(e)) {
 				found = true;
@@ -202,22 +172,22 @@ public class Model extends Observable {
 			}
 			i++;
 		}
-		projectilesMutex.unlock();
+		Mutexes.getMutexes().getProjectilesMutex().unlock();
 
 		if (found) {
-			getProjectilesMutex().lock();// ny
+			Mutexes.getMutexes().getProjectilesMutex().lock();// ny
 			projectiles.remove(i);
-			getProjectilesMutex().unlock();// ny
-			getStillEntitiesMutex().lock();
+			Mutexes.getMutexes().getProjectilesMutex().unlock();// ny
+			Mutexes.getMutexes().getStillEntitiesMutex().lock();
 			stillEntities.add(e);
-			getStillEntitiesMutex().unlock();
+			Mutexes.getMutexes().getStillEntitiesMutex().unlock();
 		}
 	}
 
 	public void removeProjectile(Entity e) {
 		int i = 0;
 		boolean found = false;
-		this.projectilesMutex.lock();
+		Mutexes.getMutexes().getProjectilesMutex().lock();
 		for (Entity ent : projectiles) {
 			if (ent.equals(e)) {
 				found = true;
@@ -231,7 +201,7 @@ public class Model extends Observable {
 			this.notifyObservers(projectiles.get(i));
 			projectiles.remove(i);
 		}
-		this.projectilesMutex.unlock();
+		Mutexes.getMutexes().getProjectilesMutex().unlock();
 	}
 
 	public void killPlayer(Entity e) {
@@ -249,13 +219,13 @@ public class Model extends Observable {
 		}
 
 		if (found) {
-			getOtherPlayersMutex().lock();
+			Mutexes.getMutexes().getOtherPlayersMutex().lock();
 			otherPlayers.remove(toBeRemoved);
-			getOtherPlayersMutex().unlock();
+			Mutexes.getMutexes().getOtherPlayersMutex().unlock();
 
-			getStillEntitiesMutex().lock();
+			Mutexes.getMutexes().getStillEntitiesMutex().lock();
 			stillEntities.add(e);
-			getStillEntitiesMutex().unlock();
+			Mutexes.getMutexes().getStillEntitiesMutex().unlock();
 		}
 	}
 
@@ -269,11 +239,11 @@ public class Model extends Observable {
 			}
 			i++;
 		}
-
+		
 		if (found) {
-			getPickUpsMutex().lock();
+			Mutexes.getMutexes().getPickUpsMutex().lock();
 			pickUps.remove(i);
-			getPickUpsMutex().unlock();// ny
+			Mutexes.getMutexes().getPickUpsMutex().unlock();// ny
 		}
 	}
 
@@ -431,27 +401,27 @@ public class Model extends Observable {
 
 	public void addProjectile(Projectile p) {
 		if (p != null) {
-			getProjectilesMutex().lock();// ny
+			Mutexes.getMutexes().getProjectilesMutex().lock();// ny
 			this.projectiles.add(p);
-			getProjectilesMutex().unlock();// ny
+			Mutexes.getMutexes().getProjectilesMutex().unlock();// ny
 		}
 	}
 
 	public void addTempProjectiles() {
-		temporaryProjectilesMutex.lock();
+		Mutexes.getMutexes().getTemporaryProjectilesMutex().lock();
 		for (Projectile p : temporaryProjectiles) {
 			addProjectile(p);
 			setChanged();
 			notifyObservers(p);
 		}
 		temporaryProjectiles.clear();
-		temporaryProjectilesMutex.unlock();
+		Mutexes.getMutexes().getTemporaryProjectilesMutex().unlock();
 	}
 
 	public void addTempProjectile(Projectile p) {
-		temporaryProjectilesMutex.lock();
+		Mutexes.getMutexes().getTemporaryProjectilesMutex().lock();
 		temporaryProjectiles.add(p);
-		temporaryProjectilesMutex.unlock();
+		Mutexes.getMutexes().getTemporaryProjectilesMutex().unlock();
 	}
 
 	public void setGameActive(boolean b) {
