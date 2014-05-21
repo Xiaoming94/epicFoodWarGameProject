@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.5" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="false">  
+  <package id="1" language="java" name="utilities" project="SpaghettiWars" file="/SpaghettiWars/src/utilities" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="138" y="373"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="2" language="java" name="networking" project="SpaghettiWars" file="/SpaghettiWars/src/networking" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="62" y="212"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="3" language="java" name="gamecomponent.views" project="SpaghettiWars" 
+    file="/SpaghettiWars/src/gamecomponent/views" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="448" y="53"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="4" language="java" name="gamecomponent.controllerparts" project="SpaghettiWars" 
+    file="/SpaghettiWars/src/gamecomponent/controllerparts" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="493" y="203"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="5" language="java" name="gamecomponent" project="SpaghettiWars" file="/SpaghettiWars/src/gamecomponent" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="120" y="26"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <package id="6" language="java" name="entities" project="SpaghettiWars" file="/SpaghettiWars/src/entities" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="473" y="371"/>    
+    <display autosize="true" stereotype="false" accessors="true"/>  
+  </package>  
+  <dependency id="7">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="8">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="11">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="12">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="17">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="false" package="true" initial-value="false" signature="false" 
+    accessors="true" visibility="false">    
+    <attributes public="false" package="false" protected="false" private="false" static="false"/>    
+    <operations public="false" package="false" protected="false" private="false" static="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
