@@ -113,7 +113,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					connection.sendUDP(msg);
 					msg.text = "Server: message received, response sent by UDP(attempt 2/2)";
 					connection.sendUDP(msg);
-					
+					MutexHandler.getInstance().getPickUpsMutex().lock();
 					for(int i = 0; i < model.getPickUps().size(); i++){
 						PowerUpSender pus = new PowerUpSender();
 						pus.x = model.getPickUps().get(i).getX();
@@ -128,6 +128,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 						
 						connection.sendUDP(pus);
 					}
+					MutexHandler.getInstance().getPickUpsMutex().unlock();
 
 				} else if (object instanceof ObstacleSender) {
 

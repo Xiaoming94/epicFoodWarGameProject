@@ -233,6 +233,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					}
 				} else if(object instanceof PowerUpSender){
 					PowerUpSender pus = (PowerUpSender)object;
+					MutexHandler.getInstance().getPickUpsMutex().lock();
 					if(pus.powerupTypeNumber == 1){
 						
 						PowerUp pu = new Energydrink(pus.x, pus.y, new Sprite(
@@ -243,6 +244,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								TextureHandler.getInstance().getTextureByName("dietpill.png")));
 						model.getPickUps().add(pu);
 					}
+					MutexHandler.getInstance().getPickUpsMutex().unlock();
 				
 				}
 
