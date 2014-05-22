@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.Assert.*;
+
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -13,7 +14,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import utilities.TextureHandler;
+
 public class PlayerTest{
+	
+	
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -83,6 +88,7 @@ public class PlayerTest{
 		byte derp[] = {};
 		Texture t = new Texture(new Pixmap(derp, 0, 0));
 		Sprite sprite = new Sprite(t);
+		
 		Player player = new Player("Fat Bastard", 5, 5, sprite,3);
 		player.setWeight(10);
 		assertTrue(player.getFatPoint() == 10);
