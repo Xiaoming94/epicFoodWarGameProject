@@ -3,8 +3,9 @@
  */
 
 
-package gamecomponent;
+package Main;
 
+import gamecomponent.Model;
 import gamecomponent.views.MainView;
 
 public class Main{
