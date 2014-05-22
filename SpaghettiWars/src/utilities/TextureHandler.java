@@ -1,5 +1,7 @@
 //Author: Jimmy
 
+//A class for handling textures.
+
 package utilities;
 
 import java.util.ArrayList;

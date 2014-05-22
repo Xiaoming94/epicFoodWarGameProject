@@ -1,6 +1,8 @@
 //Author: Henry
 //Modified by Joakim
 
+//A class that represents the MenuScreen.
+
 package gamecomponent.views;
 
 import java.io.IOException;

@@ -1,5 +1,7 @@
 //Author: Joakim
 
+//A Singleton class for handling mutexes.
+
 package utilities;
 
 import sun.awt.Mutex;

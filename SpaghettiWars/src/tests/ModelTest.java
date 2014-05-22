@@ -1,5 +1,7 @@
 //Author: Jimmy
 
+//A JUnit class for testing the Model class.
+
 package tests;
 
 import static org.junit.Assert.*;

@@ -2,6 +2,7 @@
 //Modified heavily by Jimmy
 //Minor modifications by Henry & Joakim
 
+//A class to represent a player in the game.
 package entities;
 
 import java.util.ArrayList;

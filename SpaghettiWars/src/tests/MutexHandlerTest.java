@@ -1,5 +1,7 @@
 //Author: Jimmy
 
+//A JUnit class for testing the MutexHandler class.
+
 package tests;
 
 import static org.junit.Assert.*;

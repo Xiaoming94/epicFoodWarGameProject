@@ -1,5 +1,7 @@
 //Author: Henry
 
+//A class for handling input in the game.
+
 package utilities;
 
 import com.badlogic.gdx.InputProcessor;

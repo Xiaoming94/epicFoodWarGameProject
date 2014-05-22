@@ -1,6 +1,8 @@
 //Author: Jimmy
 //Methods for creating rooms created by jimmy, Louise and Joakim
 
+//A class to represent the map in the game.
+
 package gamecomponent;
 
 import java.util.ArrayList;

@@ -1,6 +1,8 @@
 /*
  * author: Louise
- * 
+
+//A class to represent an Energydrink powerup in the game
+ 
  * modified: Jimmy 8/4 - 14
  */
 

@@ -1,5 +1,7 @@
 //Author: Louise & Jimmy
 
+//A class to represent a Furniture obstacle in the game.
+
 package entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

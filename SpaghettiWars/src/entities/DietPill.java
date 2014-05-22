@@ -1,5 +1,7 @@
 // Author: Louise
 
+//A class to represent a dietpill powerup in the game
+
 package entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

@@ -1,5 +1,7 @@
 //Author: Henry
 
+//A class to represent the state of a projectile.
+
 package entities;
 
 /**

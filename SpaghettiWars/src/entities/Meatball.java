@@ -1,5 +1,7 @@
 //Author: Jimmy
 
+//A class to represent a meatball in the game
+
 package entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

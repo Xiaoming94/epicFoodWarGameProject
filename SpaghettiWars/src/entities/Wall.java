@@ -1,5 +1,7 @@
 //Author: Louise & jimmy
 
+//A class to represent a Wall obstacle.
+
 package entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

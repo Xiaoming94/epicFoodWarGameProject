@@ -1,5 +1,7 @@
 //Author: Jimmy
 
+//A class for holding a texture.
+
 package utilities;
 
 import com.badlogic.gdx.graphics.Texture;

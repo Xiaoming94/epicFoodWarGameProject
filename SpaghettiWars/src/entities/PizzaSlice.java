@@ -1,5 +1,8 @@
 //Author: Joakim
 
+//A class to represent a pizzaslice projectile in the game.
+
+
 package entities;
 
 import java.util.Iterator;

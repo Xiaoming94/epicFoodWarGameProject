@@ -2,6 +2,8 @@
 //Modified heavily by Jimmy
 //Modified slightly by Louise
 
+//A class which handles the network communication when the application acts as a host.
+
 package networking;
 
 import entities.DietPill;
@@ -231,16 +233,16 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 	}
 
 	// not in use, or ever tested
-	public void sendMap(GameMap map) {
-		for (int i = 0; i < map.getObstacles().size(); i++) {
-			ObstacleSender obs = new ObstacleSender();
-			obs.yPos = map.getObstacles().get(i).getY();
-			obs.xPos = map.getObstacles().get(i).getX();
-			obs.spriteName = ((NameTexture) map.getObstacles().get(i)
-					.getSprite().getTexture()).getName();
-			obs.rotation = map.getObstacles().get(i).getSprite().getRotation();
-		}
-	}
+//	public void sendMap(GameMap map) {
+//		for (int i = 0; i < map.getObstacles().size(); i++) {
+//			ObstacleSender obs = new ObstacleSender();
+//			obs.yPos = map.getObstacles().get(i).getY();
+//			obs.xPos = map.getObstacles().get(i).getX();
+//			obs.spriteName = ((NameTexture) map.getObstacles().get(i)
+//					.getSprite().getTexture()).getName();
+//			obs.rotation = map.getObstacles().get(i).getSprite().getRotation();
+//		}
+//	}
 
 	public void messageAllClients(String msg) {
 		SimpleMessage text = new SimpleMessage();

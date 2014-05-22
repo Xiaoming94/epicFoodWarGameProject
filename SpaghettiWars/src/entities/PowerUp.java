@@ -1,5 +1,7 @@
 //Author: Louise
 
+//A class to represent all mutual functionality of the PowerUp entities.
+
 package entities;
 
 import utilities.Vector;

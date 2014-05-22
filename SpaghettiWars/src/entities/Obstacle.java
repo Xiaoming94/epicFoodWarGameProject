@@ -1,5 +1,6 @@
 //Author: Louise & jimmy
 
+//A class to represent all mutual functionality of the obstacle entities
 package entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

@@ -1,5 +1,7 @@
 //Author: Joakim
 
+//A class that spawns pizzaslices.
+
 package utilities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
