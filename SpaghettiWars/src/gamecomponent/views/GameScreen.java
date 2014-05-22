@@ -45,7 +45,6 @@ public class GameScreen implements IGameScreen{
         gih = new GameInputHandler(parent.getModel());
 
         batch = new SpriteBatch();
-        TextureHandler.getInstance().loadTextures();
     }
 
     @Override

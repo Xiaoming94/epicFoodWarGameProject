@@ -125,8 +125,6 @@ public class PauseScreen extends GameScreen{
         this.continueGameButton.setPosition(stage.getViewport().getViewportWidth()/2 - 58,stage.getViewport().getViewportHeight()/2 + 70);
         this.disconnectGameButton.setPosition(stage.getViewport().getViewportWidth()/2 - 70,stage.getViewport().getViewportHeight()/2 - 60);
         this.exitButton.setPosition(stage.getViewport().getViewportWidth()/2 - 52,stage.getViewport().getViewportHeight()/2 - 190);
-
-
     }
 
     @Override
@@ -142,6 +140,7 @@ public class PauseScreen extends GameScreen{
 
         Table.drawDebug(stage);
 
+        resize((int)parent.model.getWidth(), (int)parent.model.getHeight());
     }
 
     @Override

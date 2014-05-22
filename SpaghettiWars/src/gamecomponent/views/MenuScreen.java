@@ -125,7 +125,6 @@ public class MenuScreen implements IGameScreen {
 			}
         	
         });
-
     }
 
     @Override
@@ -139,6 +138,8 @@ public class MenuScreen implements IGameScreen {
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         Table.drawDebug(stage);
+        
+        resize((int)parent.model.getWidth(), (int)parent.model.getHeight());
 
     }
 
