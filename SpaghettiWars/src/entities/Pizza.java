@@ -1,3 +1,6 @@
+//Author: Louise
+//Modified heavily by Jimmy, Henry & Joakim
+
 package entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

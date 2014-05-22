@@ -1,3 +1,5 @@
+// Author: Louise
+
 package entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

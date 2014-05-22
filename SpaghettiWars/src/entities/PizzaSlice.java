@@ -1,3 +1,5 @@
+//Author: Joakim
+
 package entities;
 
 import java.util.Iterator;

@@ -1,3 +1,6 @@
+//Author: Jimmy
+//Methods for creating rooms created by jimmy, Louise and Joakim
+
 package gamecomponent;
 
 import java.util.ArrayList;
@@ -72,6 +75,7 @@ public class GameMap {
 		return decorations;
 	}
 	
+	//Author: Louise
 	public void createNewRoom(double x, double y){
 		//Sprite sprite = new Sprite(textureHandler.getTextureByName("wall.png"));
 		Sprite sprite = new Sprite(simpleWall);
@@ -100,7 +104,7 @@ public class GameMap {
 		return decorationMutex;
 	}
 	
-	
+	//Author: Jimmy
 	public void createDiner(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
 		Sprite tableSprite = new Sprite(table);
@@ -171,6 +175,7 @@ public class GameMap {
 		return powerUpSpawnLocations;
 	}
 
+	//Author: Louise
 	public void createKitchen(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
 		Sprite tableSprite = new Sprite(table);
@@ -274,7 +279,7 @@ public class GameMap {
 		addDecoration(new Wall(x + floor.getWidth()*3.5,  y + wallSprite.getHeight()*3 + wallSprite.getWidth()*2 - floor.getHeight()/2 + 200 , new Sprite(floor)));
 	}
 	
-
+	//Author: Joakim
 	public void createEntrence(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
 		
@@ -335,7 +340,7 @@ public class GameMap {
 		powerUpSpawnLocations.add(new Position(x+wallSprite.getWidth()*2, y+2500));
 	}
 	
-	
+	//Author: Louise
 	public void createSmokeSpot(double x, double y){
 		Sprite wallSprite = new Sprite(simpleWall);
 		//far east wall

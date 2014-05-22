@@ -1,3 +1,6 @@
+//Author: Jimmy
+//Heavy modification by Joakim, Henry & Louise
+
 package gamecomponent;
 
 import java.util.*;
@@ -140,7 +143,7 @@ public class Model extends Observable {
 				textureHandler.getTextureByName("extremelyuglydrink.png")));
 		player = new Player("Sir Eatalot", x, y, new Sprite(
 				textureHandler.getTextureByName("ful.png")), 3,
-				this.getTextureHandler());
+				TextureHandler.getInstance());
 		player.setPowerUp(testPowerUp);
 	}
 
@@ -364,10 +367,6 @@ public class Model extends Observable {
 	public void setViewSize(int width, int height) {
 		this.width = width;
 		this.height = height;
-	}
-
-	public TextureHandler getTextureHandler() {
-		return textureHandler;
 	}
 
 	public void createMap() {

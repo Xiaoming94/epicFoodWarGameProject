@@ -1,3 +1,7 @@
+//Author: Louise
+//Modified heavily by Jimmy
+//Minor modifications by Henry & Joakim
+
 package entities;
 
 import java.util.ArrayList;
@@ -122,8 +126,6 @@ public class Player extends Entity {
 	}
 	
 	public void kill(){
-        //look over this shit. Sprite doesn't show
-		//this.setSprite(new Sprite(textureHandler.getTextureByName("FatDeadPlayerSprite.png")));
 		deadSprite.setPosition((float)this.getX()-deadSprite.getWidth()/2, (float)this.getY()-deadSprite.getHeight()/2);
 		deadSprite.setRotation(super.getSprite().getRotation());
 		isDead = true;

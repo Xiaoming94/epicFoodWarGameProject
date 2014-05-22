@@ -1,3 +1,7 @@
+//Author: Joakim
+//Modified heavily by Jimmy
+//Modified slightly by Louise
+
 package networking;
 
 import java.io.IOException;
@@ -5,9 +9,11 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Observer;
 
 import utilities.MutexHandler;
 import utilities.Position;
+import utilities.TextureHandler;
 import utilities.Vector;
 import networking.Network.DietPillSender;
 import networking.Network.FatSender;
@@ -104,7 +110,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					} else {
 						playerMap.put(playerSender.ID, new Player("Sir Derp",
 								playerSender.xPos, playerSender.yPos,
-								(new Sprite(model.getTextureHandler()
+								(new Sprite(TextureHandler.getInstance()
 										.getTextureByName("ful.png"))),
 								playerSender.speed, playerSender.ID/1000000, playerSender.ID%1000000));
 					}
@@ -117,7 +123,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					if (projectileSender.projectileTypeNumber == 2) {
 						p = new Pizza(projectileSender.xPos,
 								projectileSender.yPos, new Vector(0, 0),
-								new Sprite(model.getTextureHandler()
+								new Sprite(TextureHandler.getInstance()
 										.getTextureByName("pizza.png")),
 								new Position(projectileSender.targetPosX,
 										projectileSender.targetPosY),
@@ -131,7 +137,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								projectileSender.yPos, new Vector(
 										projectileSender.vectorDX,
 										projectileSender.vectorDY), new Sprite(
-										model.getTextureHandler()
+										TextureHandler.getInstance()
 												.getTextureByName(
 														"Kottbulle.png")),
 								projectileSender.ID / 1000000,
@@ -143,7 +149,7 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 								projectileSender.yPos, new Vector(
 										projectileSender.vectorDX,
 										projectileSender.vectorDY), new Sprite(
-										model.getTextureHandler().getTextureByName("PizzaSlice" + (projectileSender.projectileTypeNumber -2) + ".png")),
+										TextureHandler.getInstance().getTextureByName("PizzaSlice" + (projectileSender.projectileTypeNumber -2) + ".png")),
 								projectileSender.ID / 1000000,
 								projectileSender.ID % 1000000, projectileSender.projectileTypeNumber);
 						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber-3));
@@ -228,11 +234,11 @@ public class SpaghettiClient implements Runnable, SpaghettiFace {
 					if(pus.powerupTypeNumber == 1){
 						
 						PowerUp pu = new Energydrink(pus.x, pus.y, new Sprite(
-								model.getTextureHandler().getTextureByName("extremelyuglydrink.png")));
+								TextureHandler.getInstance().getTextureByName("extremelyuglydrink.png")));
 						model.getPickUps().add(pu);
 					}else if(pus.powerupTypeNumber == 2){
 						PowerUp pu = new DietPill(pus.x, pus.y, new Sprite(
-								model.getTextureHandler().getTextureByName("dietpill.png")));
+								TextureHandler.getInstance().getTextureByName("dietpill.png")));
 						model.getPickUps().add(pu);
 					}
 				

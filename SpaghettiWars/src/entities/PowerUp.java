@@ -1,3 +1,5 @@
+//Author: Louise
+
 package entities;
 
 import utilities.Vector;
@@ -18,5 +20,5 @@ public abstract class PowerUp extends Entity{
 	
 	public abstract void stopEffects(Entity player);
 
-	public abstract void update(); //new
+	public abstract void update();
 }

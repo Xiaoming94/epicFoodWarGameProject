@@ -1,3 +1,5 @@
+//Author: Henry
+
 package networking;
 
 import gamecomponent.Model;

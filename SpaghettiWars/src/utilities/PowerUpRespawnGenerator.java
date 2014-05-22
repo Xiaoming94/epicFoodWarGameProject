@@ -1,3 +1,6 @@
+//Author: Henry
+//Modified heavily by Jimmy
+
 package utilities;
 
 import entities.PowerUp;

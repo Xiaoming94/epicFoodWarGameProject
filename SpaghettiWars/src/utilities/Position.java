@@ -1,3 +1,5 @@
+//Author: Louise
+
 package utilities;
 
 public class Position {
@@ -26,7 +28,6 @@ public class Position {
 		this.y = y;
 	}
 	
-	//may or may not need this thing for something...
 	public double distanceTo(Position pos){
 		return Math.sqrt(Math.pow(this.x - pos.getX(), 2) + Math.pow(this.y - pos.getY(), 2));
 	}

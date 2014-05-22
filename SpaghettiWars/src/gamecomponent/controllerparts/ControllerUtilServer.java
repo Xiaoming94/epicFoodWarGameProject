@@ -1,3 +1,6 @@
+//Author: Jimmy
+//Modified by Louise
+
 package gamecomponent.controllerparts;
 
 import java.util.Collection;
