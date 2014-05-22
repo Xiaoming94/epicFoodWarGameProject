@@ -1,6 +1,8 @@
 //Author: Jimmy
 //Modified by Joakim
 
+//A class that represents the PauseScreen.
+
 package gamecomponent.views;
 
 import utilities.TextureHandler;

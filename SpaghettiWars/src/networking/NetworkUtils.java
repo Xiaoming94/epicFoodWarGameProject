@@ -1,5 +1,7 @@
 //Author: Henry
 
+//A factory for creating spaghetticlient and spaghettiserver.
+
 package networking;
 
 import gamecomponent.Model;

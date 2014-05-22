@@ -1,6 +1,8 @@
 //Author: Jimmy
 //Mutexes fixed by Joakim
 
+//A class that represents the GameScreen
+
 package gamecomponent.views;
 
 import com.badlogic.gdx.Gdx;

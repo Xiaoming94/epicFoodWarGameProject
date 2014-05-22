@@ -1,6 +1,8 @@
 //Author: Jimmy
 //Heavy modification by Joakim, Henry & Louise
 
+//A class to represent a model of the game.
+
 package gamecomponent;
 
 import java.util.*;

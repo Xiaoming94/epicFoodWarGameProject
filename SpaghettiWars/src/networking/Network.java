@@ -1,6 +1,8 @@
 //Author: Joakim
 //Modified by Jimmy & Louise
 
+//A class that contains classes which can be sent over network.
+
 package networking;
 
 import com.esotericsoftware.kryo.Kryo;

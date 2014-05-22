@@ -1,6 +1,8 @@
 //Author: Henry
 //Modified heavily by Jimmy
 
+//A class for generating powerup respawn places.
+
 package utilities;
 
 import entities.PowerUp;

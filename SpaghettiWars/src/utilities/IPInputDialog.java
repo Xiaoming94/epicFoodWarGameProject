@@ -1,5 +1,7 @@
 //Author: Henry
 
+//A class that recieves and uses the IP when a person tries to join game.
+
 package utilities;
 
 import java.io.IOException;

@@ -2,6 +2,9 @@
  *		Author: Jimmy Eliason Malmer
  *		Modified heavily by Henry
  */
+
+//A class that renders the current screen.
+
 package gamecomponent.views;
 
 import java.util.Observable;

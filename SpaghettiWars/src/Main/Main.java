@@ -2,6 +2,7 @@
  * Author: Jimmy Eliasson malmer
  */
 
+//Class containing the main method.
 
 package Main;
 

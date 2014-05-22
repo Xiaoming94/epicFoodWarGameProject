@@ -1,5 +1,7 @@
 //Author: Louise
 
+//A JUnit class for testing the Player class.
+
 package tests;
 
 import static org.junit.Assert.*;

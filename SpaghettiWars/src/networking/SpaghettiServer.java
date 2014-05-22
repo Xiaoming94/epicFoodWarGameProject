@@ -2,6 +2,8 @@
 //Modified heavily by Jimmy
 //Modified slightly by Louise
 
+//A class which handles the network communication when the application acts as a host.
+
 package networking;
 
 import entities.DietPill;

@@ -1,6 +1,8 @@
 //Author: Jimmy
 //Modified by Henry, Louise & Joakim
 
+//This class is the controller of the game, it updates the game.
+
 package gamecomponent.controllerparts;
 
 import java.util.*;

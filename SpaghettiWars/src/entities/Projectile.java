@@ -1,6 +1,8 @@
 //Author: Louise
 //Heavy modifications by Jimmy
 
+//A class to represent all mutual functionality of the Projectile entities.
+
 package entities;
 
 import utilities.Vector;

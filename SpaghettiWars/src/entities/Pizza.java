@@ -1,6 +1,7 @@
 //Author: Louise
 //Modified heavily by Jimmy, Henry & Joakim
 
+//A class to represent a pizza projectile in the game.
 package entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;

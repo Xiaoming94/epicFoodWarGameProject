@@ -1,5 +1,7 @@
 //Author: Louise
 
+//A class that represents a position in the game.
+
 package utilities;
 
 public class Position {

@@ -1,6 +1,8 @@
 //Author: Louise
 //Modified heavily by Jimmy & Joakim
 
+//A class wich represent the mutual functionality of all entities
+
 package entities;
 
 import utilities.Position;
