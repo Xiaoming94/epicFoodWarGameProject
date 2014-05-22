@@ -1,3 +1,6 @@
+//Author: Louise
+//Modified heavily by Jimmy & Joakim
+
 package entities;
 
 import utilities.Position;

@@ -1,3 +1,5 @@
+//Author: Joakim
+
 package utilities;
 
 import sun.awt.Mutex;

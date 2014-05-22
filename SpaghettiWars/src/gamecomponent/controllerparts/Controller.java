@@ -1,3 +1,6 @@
+//Author: Jimmy
+//Modified by Henry, Louise & Joakim
+
 package gamecomponent.controllerparts;
 
 import java.util.*;

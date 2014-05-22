@@ -1,3 +1,6 @@
+//Author: Jimmy
+//Mutexes fixed by Joakim
+
 package gamecomponent.views;
 
 import com.badlogic.gdx.Gdx;
@@ -12,12 +15,10 @@ import org.lwjgl.opengl.GL11;
 
 import utilities.GameInputHandler;
 import utilities.MutexHandler;
+import utilities.TextureHandler;
 
 import java.util.Iterator;
 
-/**
- * Created by xiaoming on 28/04/14.
- */
 public class GameScreen implements IGameScreen{
 
 	private MainView parent;
@@ -36,7 +37,6 @@ public class GameScreen implements IGameScreen{
     	try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         camera = new OrthographicCamera();
@@ -45,7 +45,7 @@ public class GameScreen implements IGameScreen{
         gih = new GameInputHandler(parent.getModel());
 
         batch = new SpriteBatch();
-        parent.getModel().getTextureHandler().loadTextures();
+        TextureHandler.getInstance().loadTextures();
     }
 
     @Override

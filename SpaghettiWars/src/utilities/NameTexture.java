@@ -1,3 +1,5 @@
+//Author: Jimmy
+
 package utilities;
 
 import com.badlogic.gdx.graphics.Texture;

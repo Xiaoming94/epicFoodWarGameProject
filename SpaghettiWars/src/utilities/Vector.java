@@ -1,3 +1,6 @@
+//Author: Louise
+//Minor modification by Jimmy
+
 package utilities;
 
 public class Vector {
@@ -37,7 +40,6 @@ public class Vector {
 		return Math.sqrt(dx*dx + dy*dy);
 	}
 
-//logic should be somewhere else...? what when both are zero?
 	public void setLengthTo(double length){
 		if(dx != 0 || dy != 0){
 			if(dx == 0){

@@ -1,3 +1,5 @@
+//Author: Joakim
+
 package networking;
 
 import java.util.Observer;

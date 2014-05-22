@@ -1,3 +1,6 @@
+//Author: Joakim
+//Modified by Jimmy & Louise
+
 package networking;
 
 import com.esotericsoftware.kryo.Kryo;

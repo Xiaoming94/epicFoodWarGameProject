@@ -1,3 +1,6 @@
+//Author: Henry
+//Modified by Joakim
+
 package gamecomponent.views;
 
 import java.io.IOException;

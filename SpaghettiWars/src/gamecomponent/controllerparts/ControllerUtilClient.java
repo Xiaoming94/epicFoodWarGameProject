@@ -1,3 +1,5 @@
+//Author: Jimmy
+
 package gamecomponent.controllerparts;
 
 import gamecomponent.Model;
@@ -10,7 +12,6 @@ public class ControllerUtilClient implements IControllerUtil {
 	
 	
 	@Override
-	//public void run(){
 	public void run() {
 		
 	}

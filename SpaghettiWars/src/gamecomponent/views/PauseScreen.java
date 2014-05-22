@@ -1,3 +1,6 @@
+//Author: Jimmy
+//Modified by Joakim
+
 package gamecomponent.views;
 
 import utilities.TextureHandler;

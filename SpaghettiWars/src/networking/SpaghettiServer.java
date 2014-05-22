@@ -1,3 +1,7 @@
+//Author: Joakim
+//Modified heavily by Jimmy
+//Modified slightly by Louise
+
 package networking;
 
 import entities.DietPill;
@@ -25,6 +29,7 @@ import java.util.Observable;
 import utilities.MutexHandler;
 import utilities.NameTexture;
 import utilities.Position;
+import utilities.TextureHandler;
 import utilities.Vector;
 import networking.Network.DietPillSender;
 import networking.Network.FatSender;
@@ -55,7 +60,6 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 	private boolean running = false;
 	private Thread thread;
 
-	// TODO FIX MUTEX
 	public SpaghettiServer(int TCPPort, int UDPPort, Model mod,
 			Map<Integer, Player> otherPlayerMap) throws IOException {
 
@@ -159,7 +163,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 						if(!isDead){
 							playerMap.put(playerSender.ID, new Player("sir derp",
 									playerSender.xPos, playerSender.yPos,
-									(new Sprite(model.getTextureHandler()
+									(new Sprite(TextureHandler.getInstance()
 											.getTextureByName("ful.png"))),
 									playerSender.speed, playerSender.ID/1000000, playerSender.ID%1000000));
 						}
@@ -173,7 +177,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 					if (projectileSender.projectileTypeNumber == 2) {
 						p = new Pizza(projectileSender.xPos,
 								projectileSender.yPos, new Vector(0, 0),
-								new Sprite(model.getTextureHandler()
+								new Sprite(TextureHandler.getInstance()
 										.getTextureByName("pizza.png")),
 								new Position(projectileSender.targetPosX,
 										projectileSender.targetPosY),
@@ -186,7 +190,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 								projectileSender.yPos, new Vector(
 										projectileSender.vectorDX,
 										projectileSender.vectorDY), new Sprite(
-										model.getTextureHandler()
+										TextureHandler.getInstance()
 												.getTextureByName(
 														"Kottbulle.png")),
 								projectileSender.ID / 1000000,
@@ -196,7 +200,7 @@ public class SpaghettiServer implements Runnable, SpaghettiFace {
 								projectileSender.yPos, new Vector(
 										projectileSender.vectorDX,
 										projectileSender.vectorDY), new Sprite(
-										model.getTextureHandler().getTextureByName("PizzaSlice" + (projectileSender.projectileTypeNumber -2) + ".png")),
+										TextureHandler.getInstance().getTextureByName("PizzaSlice" + (projectileSender.projectileTypeNumber -2) + ".png")),
 								projectileSender.ID / 1000000,
 								projectileSender.ID % 1000000, projectileSender.projectileTypeNumber);
 						p.getVector().setVectorByDegree(p.getSpeed(), 68-45*(projectileSender.projectileTypeNumber-3));

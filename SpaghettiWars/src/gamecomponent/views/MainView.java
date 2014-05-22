@@ -1,10 +1,13 @@
 /*
  *		Author: Jimmy Eliason Malmer
+ *		Modified heavily by Henry
  */
 package gamecomponent.views;
 
 import java.util.Observable;
 import java.util.Observer;
+
+import utilities.TextureHandler;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Input.Keys;
@@ -40,7 +43,7 @@ public class MainView implements ApplicationListener, Observer{
 	public void create() {
         createMenuScreen();
 		
-		model.getTextureHandler().loadTextures();
+		TextureHandler.getInstance().loadTextures();
 
 		//sleep to wait for player to be created by controller
 		try{
@@ -72,19 +75,16 @@ public class MainView implements ApplicationListener, Observer{
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub	
 		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
 		model.notifyObservers("dissconnect");
 
 	}

@@ -1,3 +1,6 @@
+//Author: Louise
+//Heavy modifications by Jimmy
+
 package entities;
 
 import utilities.Vector;
