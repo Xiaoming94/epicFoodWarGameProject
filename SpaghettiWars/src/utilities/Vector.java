@@ -1,6 +1,8 @@
 //Author: Louise
 //Minor modification by Jimmy
 
+//A class which represents a vector.
+
 package utilities;
 
 public class Vector {

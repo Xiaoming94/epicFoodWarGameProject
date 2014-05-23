@@ -1,5 +1,7 @@
 //Author: Jimmy
 
+//A class that does things that only need to be done to the client.
+
 package gamecomponent.controllerparts;
 
 import gamecomponent.Model;

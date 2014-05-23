@@ -1,6 +1,6 @@
 //Author: Jimmy
 
-//A class to represent a meatball in the game
+//A class to represent a meatball projectile in the game.
 
 package entities;
 

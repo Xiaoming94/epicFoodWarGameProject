@@ -1,7 +1,7 @@
 //Author: Jimmy
 //Heavy modification by Joakim, Henry & Louise
 
-//A class to represent a model of the game.
+//A class to represent a model of the game, contains information about the game.
 
 package gamecomponent;
 
