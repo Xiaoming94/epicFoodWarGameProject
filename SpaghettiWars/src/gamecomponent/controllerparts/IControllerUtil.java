@@ -1,5 +1,7 @@
 //Author: Jimmy
 
+//An interface for ControllerUtilServer and ControllerUtilClient.
+
 package gamecomponent.controllerparts;
 
 import gamecomponent.Model;

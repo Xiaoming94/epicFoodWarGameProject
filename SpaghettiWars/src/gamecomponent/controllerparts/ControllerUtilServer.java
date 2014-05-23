@@ -1,6 +1,8 @@
 //Author: Jimmy
 //Modified by Louise
 
+//A class that does things that only need to be done to the host.
+
 package gamecomponent.controllerparts;
 
 import java.util.Collection;
